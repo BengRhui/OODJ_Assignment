@@ -1,4 +1,7 @@
-Hi everyone! This is the place for us to code our Java assignment!
+# OODJ ASSIGNMENT
+
+Hi everyone! This is the place for us to code our Java assignment.
+Be responsible and complete your tasks on time. 👍🏻
 
 ---------------------------------------------------------------------
 THINGS TO TAKE NOTE: STORING FILES
@@ -21,6 +24,6 @@ To update your changes, follow the steps here:
    
 2. Go to GitHub website and create a pull request
    
-3. Add BengRhui or cmchan04 as a reviewer
+3. Add `BengRhui` or `cmchan04` as a reviewer
    
 4. And you're done! We'll update you if there's anything to change.
