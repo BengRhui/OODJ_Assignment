@@ -1,3 +1,6 @@
+# Compiled class file
+*.class
 
-out
-.idea
+# Files in /out and /.idea
+/out
+/.idea
