@@ -4,3 +4,5 @@
 # Files in /out and /.idea
 /out
 /.idea
+/nbproject/private/
+/build/
