@@ -4,6 +4,13 @@ Hi everyone! This is the place for us to code our Java assignment.
 Be responsible and complete your tasks on time. 👍🏻
 
 ---------------------------------------------------------------------
+THINGS TO TAKE NOTE: RUNNING PROJECT ON NETBEANS
+---------------------------------------------------------------------
+1. Clone this repository to your local machine
+   
+2. Go to NetBeans -> Open Project -> You should be able to select this project
+
+---------------------------------------------------------------------
 THINGS TO TAKE NOTE: STORING FILES
 ---------------------------------------------------------------------
 1. All codes are stored under /src:
