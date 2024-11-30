@@ -1,7 +1,5 @@
-package src;
-
-import src.backend.BackendTest;
-import src.frontend.FrontendTest;
+import backend.BackendTest;
+import frontend.FrontendTest;
 
 public class Main {
     public static void main(String[] args) {
