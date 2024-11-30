@@ -1,4 +1,4 @@
-package src.frontend;
+package frontend;
 
 public class FrontendTest {
     public FrontendTest() {
