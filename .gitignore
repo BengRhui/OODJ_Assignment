@@ -4,3 +4,6 @@
 # Files in /out and /.idea
 /out
 /.idea
+/src/frontend/frontend/nbproject/private/
+/src/frontend/frontend_jh/nbproject/private/
+/src/frontend/ejh_frontend/nbproject/private/
