@@ -1,11 +1,11 @@
-package backend;
+package Backend;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class BackendTest {
-    public BackendTest() {
+public class Backend {
+    public Backend() {
         System.out.println("Backend can run!");
         readFile();
     }
@@ -14,7 +14,7 @@ public class BackendTest {
         try {
             System.out.println("---------------------");
             System.out.println("File content:");
-            File test_file = new File("text_file/test_file.txt");
+            File test_file = new File("src/main/resources/text_file/test_file.txt");
             Scanner read_object = new Scanner(test_file);
             while (read_object.hasNext()) {
                 System.out.println(read_object.nextLine());
