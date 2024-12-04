@@ -1,7 +1,7 @@
-package Main;
+package main;
 
-import Backend.Backend;
-import Frontend.Frontend;
+import backend.Backend;
+import frontend.Frontend;
 
 public class Testing {
 
