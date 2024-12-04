@@ -5,4 +5,7 @@
 /out
 /.idea
 /build/
+/nbproject/
 .DS_Store
+*.xml
+*.properties
