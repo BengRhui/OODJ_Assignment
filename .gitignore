@@ -6,7 +6,7 @@
 *.iml
 
 # Directories to ignore
-out/
+target/
 .idea/
 build/
 lib/
