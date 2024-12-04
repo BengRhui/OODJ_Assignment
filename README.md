@@ -13,13 +13,14 @@ THINGS TO TAKE NOTE: RUNNING PROJECT ON NETBEANS
 ---------------------------------------------------------------------
 THINGS TO TAKE NOTE: STORING FILES
 ---------------------------------------------------------------------
-1. All codes are stored under /src:
-   a. Codes for GUI are stored in /frontend
-   b. Codes for others (ex: users) are stored in /backend
+1. All codes are stored under `/src/main/java`:
+   a. Codes for GUI are stored in `/Frontend`
+   b. Codes for others (ex: users) are stored in `/Backend`
+   c. The Main class is stored under `/Main`
    
-2. All pictures are stored under /asset
+3. All pictures are stored under `/src/main/resources/asset`
    
-3. All text files are stored in /text_file
+4. All text files are stored in `/src/main/resources/text_file`
 
 ---------------------------------------------------------------------
 THINGS TO TAKE NOTE: CONTRIBUTING TO THE PROJECT
@@ -34,3 +35,20 @@ To update your changes, follow the steps here:
 3. Add `BengRhui` or `cmchan04` as a reviewer
    
 4. And you're done! We'll update you if there's anything to change.
+
+---------------------------------------------------------------------
+THINGS TO TAKE NOTE: RUNNING TEST CASES
+---------------------------------------------------------------------
+To run individual test cases,
+
+1. Navigate to the corresponding classes (under `/test/java`)
+   
+2. Run the class (For Netbeans, right click and select "Test File")
+
+To run all test cases at one shot,
+
+- For Netbeans, right click the project and select "Test"
+- For IntelliJ IDEA, show Maven tool window (at the right hand side)
+  and double click on "Test" under `Lifecycle`.
+
+Adjustments **MUST** be made shall there be any failures.
