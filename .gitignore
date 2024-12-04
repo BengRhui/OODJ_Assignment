@@ -1,5 +1,7 @@
-# Compiled class file
+# Compiled project files
 *.class
+*.xml
+*.properties
 
 # Files in /out and /.idea
 /out
@@ -7,5 +9,3 @@
 /build/
 /nbproject/
 .DS_Store
-*.xml
-*.properties
