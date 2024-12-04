@@ -6,11 +6,13 @@
 *.iml
 
 # Directories to ignore
-/out/
-/.idea/
-/build/
-/lib/
-/nbproject/
+/out
+/.idea
+/build
+/lib
+/nbproject
 
 # Files to ignore
+/build/
+/nbproject/
 .DS_Store
