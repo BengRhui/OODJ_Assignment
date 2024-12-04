@@ -6,5 +6,3 @@
 /.idea
 /build/
 .DS_Store
-*.xml
-*.properties
