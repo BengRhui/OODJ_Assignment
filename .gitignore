@@ -2,10 +2,15 @@
 *.class
 *.xml
 *.properties
+*.mf
+*.iml
 
-# Files in /out and /.idea
+# Directories to ignore
 /out
 /.idea
-/build/
-/nbproject/
+/build
+/lib
+/nbproject
+
+# Files to ignore
 .DS_Store
