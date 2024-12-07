@@ -1,7 +1,7 @@
 package frontend;
 
-public class FrontendTest {
-    public FrontendTest() {
+public class Frontend {
+    public Frontend() {
         System.out.println("Frontend can run!");
     }
 }
