@@ -22,13 +22,18 @@ THINGS TO TAKE NOTE: STORING FILES
    
 4. All text files are stored in `/src/main/resources/text_file`
 
+**IMPORTANT**:
+Please follow the conventionals when naming your classes, methods and variables:
+- Classes: Use PascalCase (eg: `myNewClass`)
+- Methods and variables: Use camelCase (eg: `myNewMethod`)
+
 ---------------------------------------------------------------------
 THINGS TO TAKE NOTE: CONTRIBUTING TO THE PROJECT
 ---------------------------------------------------------------------
 To update your changes, follow the steps here:
 
 1. Create a branch and update your commits under the branch
-   (Do come out with a good name that represents what you have done)
+   (Do come out with a good name that clearly depicts what you have done)
    
 2. Go to GitHub website and create a pull request
    
