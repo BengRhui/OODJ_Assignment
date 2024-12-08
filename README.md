@@ -8,14 +8,21 @@ THINGS TO TAKE NOTE: RUNNING PROJECT ON NETBEANS
 ---------------------------------------------------------------------
 1. Clone this repository to your local machine
    
-2. Go to NetBeans -> Open Project -> You should be able to select this project
+2. **FOR NETBEANS USER**\
+   Go to NetBeans -> Open Project -> Select this project
+
+3. **FOR INTELLIJ IDEA USERS**\
+   Go to IntelliJ IDEA -> Open -> Select this project
+   
+4. The `Main` class is located under `\src\main\java\main\Main.java`.\
+   Navigate to the `Main.java` file and run it (or click on Run Project for Netbeans).
 
 ---------------------------------------------------------------------
 THINGS TO TAKE NOTE: STORING FILES
 ---------------------------------------------------------------------
-1. All codes are stored under `/src/main/java`:
-   a. Codes for GUI are stored in `/Frontend`
-   b. Codes for others (ex: users) are stored in `/Backend`
+1. All codes are stored under `/src/main/java`:\
+   a. Codes for GUI are stored in `/Frontend`\
+   b. Codes for others (ex: users) are stored in `/Backend`\
    c. The Main class is stored under `/Main`
    
 3. All pictures are stored under `/src/main/resources/asset`
