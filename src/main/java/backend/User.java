@@ -2,20 +2,48 @@ package backend;
 
 import java.util.ArrayList;
 
+/**
+ *  Class {@code User} is used as a parent class consisting of the general attributes for other
+ *  user-related subclasses.
+ *
+ * @author limbengrhui
+ */
 public class User {
 
+    /**
+     * The attributes for {@code User} class. <br>
+     * An overall list that contains all instances of the {@code User} class is also included.
+     */
     private String userID;
     private String email;
     private String password;
+    private String name;
 
     private static final ArrayList<User> userList = new ArrayList<>();
 
-    public User(String userID, String email, String password) {
+    /**
+     * Constructor for {@code User} class.
+     *
+     * @param userID The ID for user.
+     * @param email The email for user that is used to login to the system.
+     * @param password The password for user that is used to login to the system.
+     * @param name The real-world name for user.
+     */
+    public User(String userID, String email, String password, String name) {
         this.userID = userID;
         this.email = email;
         this.password = password;
+        this.name = name;
     }
 
+    /**
+     * Getters and setters method for {@code User} class.<br>
+     * The attributes involved include:<br>
+     * - {@code userID}<br>
+     * - {@code email}<br>
+     * - {@code password}<br>
+     * - {@code name}<br>
+     */
     public String getUserID() {
         return userID;
     }
@@ -40,14 +68,34 @@ public class User {
         this.password = password;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * A method to add instances of the {@code User} class into the {@code userList} array.
+     * @param user The {@code User} object to be added into the ArrayList
+     */
     public static void addUser(User user) {
         userList.add(user);
     }
 
+    /**
+     * A method to return the list containing all {@code User} objects.
+     * @return An ArrayList containing all instances of {@code User} objects.
+     */
     public static ArrayList<User> getUserList() {
         return userList;
     }
 
+    /**
+     * Prints the information associated with a {@code User} object.
+     * @return A string representation of {@code User} object.
+     */
     @Override
     public String toString() {
         return "User ID:" + userID + "\n" +
