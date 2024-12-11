@@ -14,10 +14,10 @@ public class User {
      * The attributes for {@code User} class. <br>
      * An overall list that contains all instances of the {@code User} class is also included.
      */
-    private String userID;
-    private String email;
-    private String password;
-    private String name;
+    protected String userID;
+    protected String email;
+    protected String password;
+    protected String name;
 
     private static final ArrayList<User> userList = new ArrayList<>();
 
