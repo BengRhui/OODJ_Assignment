@@ -6,7 +6,7 @@ import java.util.ArrayList;
  *  Class {@code User} is used as a parent class consisting of the general attributes for other
  *  user-related subclasses.
  *
- * @author limbengrhui
+ * @author Beng Rhui (TP068495)
  */
 public class User {
 
