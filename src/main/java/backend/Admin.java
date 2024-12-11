@@ -16,7 +16,10 @@ public class Admin extends User {
 
     /**
      * Constructor for the {@code Admin} class.
-     * @param user An instance of the {@code User} class whose user type is Admin
+     * @param userID The ID of the admin
+     * @param email The email of the admin that is used to log into the system
+     * @param password The password used to login to the system
+     * @param name The real-world name of the admin
      */
     public Admin(String userID, String email, String password, String name) {
         super(userID, email, password, name);
