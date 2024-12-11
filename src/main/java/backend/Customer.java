@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Class {@code Customer} represents the customers of the food stall who uses the system.
+ * @author Beng Rhui (TP068495)
  */
 public class Customer extends User{
 
