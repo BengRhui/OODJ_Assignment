@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 /**
  * Class {@code Stall} is used to represent the different types of stalls in the food court.
+ * @author Beng Rhui (TP068495)
  */
 public class Stall {
 
