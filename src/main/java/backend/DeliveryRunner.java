@@ -45,7 +45,7 @@ public class DeliveryRunner extends User {
      * A method to return a list containing all delivery runners.
      * @return An ArrayList containing all instances of {@code DeliveryRunner} objects
      */
-    public ArrayList<DeliveryRunner> getDeliveryRunnerList() {
+    public static ArrayList<DeliveryRunner> getDeliveryRunnerList() {
         return deliveryRunnerList;
     }
 
