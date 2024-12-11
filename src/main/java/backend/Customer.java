@@ -13,7 +13,7 @@ public class Customer extends User{
      */
     private String contactNumber;
     private Address address;
-    private double creditAmount;
+    private double eWalletAmount;
     private String deliveryNote;
 
     private final static ArrayList<Customer> customerList = new ArrayList<>();
@@ -26,15 +26,15 @@ public class Customer extends User{
      * @param name The real-world name of customer
      * @param contactNumber The phone number used to contact the customer
      * @param address The delivery address of the customer
-     * @param creditAmount The balance of e-wallet of customer
+     * @param eWalletAmount The balance of e-wallet of customer
      * @param deliveryNote The notes that a customer wishes to tell runner during delivery
      */
     public Customer(String userID, String email, String password, String name, String contactNumber,
-                    Address address, double creditAmount, String deliveryNote) {
+                    Address address, double eWalletAmount, String deliveryNote) {
         super(userID, email, password, name);
         this.contactNumber = contactNumber;
         this.address = address;
-        this.creditAmount = creditAmount;
+        this.eWalletAmount = eWalletAmount;
         this.deliveryNote = deliveryNote;
         addToCustomerList(this);
     }
@@ -59,11 +59,11 @@ public class Customer extends User{
     }
 
     public double getCreditAmount() {
-        return creditAmount;
+        return eWalletAmount;
     }
 
     public void setCreditAmount(double creditAmount) {
-        this.creditAmount = creditAmount;
+        this.eWalletAmount = creditAmount;
     }
 
     public String getDeliveryNote() {
@@ -88,5 +88,22 @@ public class Customer extends User{
      */
     public static void addToCustomerList(Customer customer) {
         customerList.add(customer);
+    }
+
+    /**
+     * A method to print out the information of {@code Customer} instances.
+     * @return String representation of {@code Customer} object
+     */
+    @Override
+    public String toString() {
+        return "Customer ID: " + super.userID + "\n" +
+                "Customer Email: " + super.email + "\n" +
+                "Customer Password: " + super.password + "\n" +
+                "Customer Name: " + super.name + "\n" +
+                "Customer Contact No: " + contactNumber + "\n" +
+                "Customer Address: " + "\n" +
+                address.toString() + "\n" +
+                "Customer E-Wallet Amount: " + eWalletAmount + "\n" +
+                "Customer Delivery Note: " + deliveryNote;
     }
 }
