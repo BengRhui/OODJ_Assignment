@@ -1,8 +1,10 @@
 package backend;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class {@code Order} represents the order placed by the customer via the system.
@@ -27,7 +29,7 @@ public class Order {
     private String orderStatus;
     private HashMap<String, Integer> orderItem;
 
-    private static ArrayList<Order> orderList = new ArrayList<>();
+    private final static ArrayList<Order> orderList = new ArrayList<>();
 
     public final String[] DINING_TYPES = {"Dine in", "Takeaway", "Delivery"};
     public final String[] ORDER_STATUS = {"Waiting for Vendor and Delivery", "Waiting for Vendor", "Waiting for Delivery"};
@@ -168,5 +170,44 @@ public class Order {
      */
     public static void addToOrderList(Order order) {
         orderList.add(order);
+    }
+
+    /*
+        private String orderID;
+    private Customer orderingCustomer;
+    private Stall orderedStall;
+    private DeliveryRunner runnerInCharge;
+    private String diningType;
+    private String deliveryNote;
+    private double orderPrice;
+    private LocalDateTime orderedDate;
+    private double tipsForRunner;
+    private String orderStatus;
+    private HashMap<String, Integer> orderItem;
+     */
+
+    @Override
+    public String toString() {
+
+        StringBuilder itemString = new StringBuilder();
+        for (HashMap.Entry<String, Integer> entry: orderItem.entrySet()) {
+            String currentItem = "- " + entry.getKey() + " x " + entry.getValue() + "\n";
+            itemString.append(currentItem);
+        }
+
+        return "Order ID: " + orderID + "\n" +
+                "Ordering Customer: " + "\n" +
+                orderingCustomer.toString() + "\n" +
+                "Ordered Stall: " + "\n" +
+                orderedStall.toString() + "\n" +
+                "Runner in Charge: " + "\n" +
+                runnerInCharge.toString() + "\n" +
+                "Dining Type: " + diningType + "\n" +
+                "Delivery Note: " + deliveryNote + "\n" +
+                "Order Price: " + orderPrice + "\n" +
+                "Ordered Date: " + Utility.printTime(orderedDate) + "\n" +
+                "Tips for Runner: " + tipsForRunner + "\n" +
+                "Order Status: " + orderStatus + "\n" +
+                "Order Items: " + itemString;
     }
 }
