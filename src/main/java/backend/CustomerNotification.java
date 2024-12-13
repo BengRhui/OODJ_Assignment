@@ -12,7 +12,6 @@ public class CustomerNotification implements Notification{
     /**
      * Attributes for {@code CustomerNotification} class.<br>
      * An overall list containing all {@code CustomerNotification} objects is included.<br>
-     * A public list which contains the read status is also included.
      */
     private String notificationID;
     private Customer customer;
