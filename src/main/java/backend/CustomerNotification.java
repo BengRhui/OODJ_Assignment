@@ -3,6 +3,10 @@ package backend;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Class {@code CustomerNotification} represents the notification that customers will receive in the system.
+ * @author Beng Rhui (TP068495)
+ */
 public class CustomerNotification implements Notification{
 
     /**
