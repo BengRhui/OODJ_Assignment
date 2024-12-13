@@ -1,8 +1,6 @@
 package backend;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -57,10 +55,78 @@ public class TextIO {
         } catch (IOException e) {
 
             // Print out the file name that is not available and exit the system immediately
-            System.out.println(fileName + " file is not found.");
+            System.out.println("Error: " + fileName + " file is not found.");
             System.exit(0);
         }
 
         return null;
+    }
+
+    /**
+     * A method to write contents into text files.
+     * @param fileName The name of the text file to be written to
+     * @param fileContents The contents to be written
+     * @param spacingSize The empty spaces reserved to make text file tidy
+     * @throws IllegalArgumentException Exception is thrown if the two array size (content and space) does not match
+     */
+    public static void writeFile(String fileName, ArrayList<String[]> fileContents, int[] spacingSize) {
+
+        // The path to the text file is specified
+        String filePath = PARENT_PATH_TO_FILE + fileName.strip().toLowerCase();
+
+        try {
+
+            // Check if the size of both arrays are the same (if not there'll be a problem with the following code)
+            if (fileContents.getFirst().length != spacingSize.length) {
+                throw new IllegalArgumentException();
+            }
+
+            // Creating objects to write files
+            FileWriter file = new FileWriter(filePath);
+            BufferedWriter writer = new BufferedWriter(file);
+
+            // A local variable to store the line to be written
+            StringBuilder inputLine = new StringBuilder();
+
+            // Loop through each information in the array
+            for (String[] line: fileContents) {
+                for (int i = 0; i < line.length; i++) {
+
+                    // Specify the format and format the string into the intended format
+                    String format = "%-" + spacingSize[i] + "s";
+                    String formattedLine = String.format(format, line[i]);
+
+                    // Add the information to StringBuilder, if not the last one, then add ";" as separator
+                    inputLine.append(formattedLine);
+                    if (i == line.length - 1) {
+                        break;
+                    }
+                    inputLine.append("; ");
+                }
+
+                // Insert the line into the text file and go to the next line
+                writer.write(inputLine.toString());
+                writer.newLine();
+
+                // Reset StringBuilder
+                inputLine.setLength(0);
+            }
+
+            // Close file after operation
+            writer.close();
+
+        } catch (IOException ex) {
+
+            // Print error and exit system if there's error with file operations
+            System.out.println("Error while writing " + fileName);
+            System.exit(0);
+
+        } catch (IllegalArgumentException ex) {
+
+            // Print error for different array sizes
+            System.out.println("Error: The size of content array does not match with the size of spacing array.");
+            System.exit(0);
+        }
+
     }
 }
