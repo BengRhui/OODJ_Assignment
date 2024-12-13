@@ -4,19 +4,10 @@ package backend;
  * Class {@code Address} is used to represent addresses of:<br>
  * - Customer's delivery address<br>
  * - Address of food court
+ *
  * @author Beng Rhui (TP068495)
  */
 public class Address {
-
-    /**
-     * Attributes involved in address (Malaysian ones). <br>
-     * A list containing all states in Malaysia is also provided.
-     */
-    private String addressLine1;
-    private String addressLine2;
-    private String postcode;
-    private String city;
-    private String state;
 
     public final String[] STATE_OPTIONS = {
             "Perlis",
@@ -36,14 +27,24 @@ public class Address {
             "WP Putrajaya",
             "WP Labuan"
     };
+    /**
+     * Attributes involved in address (Malaysian ones). <br>
+     * A list containing all states in Malaysia is also provided.
+     */
+    private String addressLine1;
+    private String addressLine2;
+    private String postcode;
+    private String city;
+    private String state;
 
     /**
      * Constructor used to create an instance of {@code Address}
+     *
      * @param addressLine1 The first line of address, typically house / unit number and street name
      * @param addressLine2 The second line of address, typically name of residential area
-     * @param postcode A 5-digit identifier to represent the area of residence
-     * @param city The city of the residence
-     * @param state The state of the residence
+     * @param postcode     A 5-digit identifier to represent the area of residence
+     * @param city         The city of the residence
+     * @param state        The state of the residence
      */
     public Address(String addressLine1, String addressLine2, String postcode, String city, String state) {
         this.addressLine1 = addressLine1;
@@ -98,6 +99,7 @@ public class Address {
 
     /**
      * A method to print out the full address
+     *
      * @return A string representation of an {@code Address} object
      */
     @Override

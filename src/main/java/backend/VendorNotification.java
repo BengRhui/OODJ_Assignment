@@ -5,10 +5,12 @@ import java.util.ArrayList;
 
 /**
  * Class {@code VendorNotification} represents the notifications for vendors.
+ *
  * @author Beng Rhui (TP068495)
  */
 public class VendorNotification implements Notification {
 
+    private final static ArrayList<Notification> vendorNotificationList = new ArrayList<>();
     /**
      * Attributes for {@code VendorNotification} objects.
      * An overall list that records all vendor notifications is also included.
@@ -20,15 +22,14 @@ public class VendorNotification implements Notification {
     private String notificationTitle;
     private String notificationDetails;
 
-    private final static ArrayList<Notification> vendorNotificationList = new ArrayList<>();
-
     /**
      * Constructor to instantiate {@code VendorNotification} objects.
-     * @param notificationID The ID of the notification
-     * @param stall The stall associated to the notification
-     * @param notificationTime The time the notification is created
-     * @param readStatus Status that records if the vendor has read the message or not
-     * @param notificationTitle The title of the notification
+     *
+     * @param notificationID      The ID of the notification
+     * @param stall               The stall associated to the notification
+     * @param notificationTime    The time the notification is created
+     * @param readStatus          Status that records if the vendor has read the message or not
+     * @param notificationTitle   The title of the notification
      * @param notificationDetails The description of the notification
      */
     public VendorNotification(String notificationID, Stall stall, LocalDateTime notificationTime,
@@ -40,6 +41,24 @@ public class VendorNotification implements Notification {
         this.notificationTitle = notificationTitle;
         this.notificationDetails = notificationDetails;
         addToList(this);
+    }
+
+    /**
+     * A method to return a list consisting of all vendor notifications.
+     *
+     * @return An ArrayList containing all instances of {@code VendorNotification}
+     */
+    public static ArrayList<Notification> getVendorNotificationList() {
+        return vendorNotificationList;
+    }
+
+    /**
+     * A method to add vendor notifications into an overall list.
+     *
+     * @param notification The {@code VendorNotification} object to be added to list
+     */
+    public static void addToList(VendorNotification notification) {
+        vendorNotificationList.add(notification);
     }
 
     /**
@@ -94,23 +113,8 @@ public class VendorNotification implements Notification {
     }
 
     /**
-     * A method to return a list consisting of all vendor notifications.
-     * @return An ArrayList containing all instances of {@code VendorNotification}
-     */
-    public static ArrayList<Notification> getVendorNotificationList() {
-        return vendorNotificationList;
-    }
-
-    /**
-     * A method to add vendor notifications into an overall list.
-     * @param notification The {@code VendorNotification} object to be added to list
-     */
-    public static void addToList(VendorNotification notification) {
-        vendorNotificationList.add(notification);
-    }
-
-    /**
      * A method to return the message portion of the vendor notification.
+     *
      * @return String representation of the message part of {@code VendorNotification} object
      */
     @Override
@@ -129,6 +133,7 @@ public class VendorNotification implements Notification {
 
     /**
      * A method to print out the full information of vendor notifications.
+     *
      * @return String representation of the {@code VendorNotification} object
      */
     @Override

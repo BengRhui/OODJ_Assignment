@@ -5,10 +5,12 @@ import java.util.ArrayList;
 
 /**
  * Class {@code CustomerNotification} represents the notification that customers will receive in the system.
+ *
  * @author Beng Rhui (TP068495)
  */
-public class CustomerNotification implements Notification{
+public class CustomerNotification implements Notification {
 
+    private final static ArrayList<Notification> customerNotificationList = new ArrayList<>();
     /**
      * Attributes for {@code CustomerNotification} class.<br>
      * An overall list containing all {@code CustomerNotification} objects is included.<br>
@@ -20,16 +22,14 @@ public class CustomerNotification implements Notification{
     private String notificationTitle;
     private String notificationDetails;
 
-    private final static ArrayList<Notification> customerNotificationList = new ArrayList<>();
-
     /**
      * Constructor to instantiate {@code CustomerNotification} objects.
      *
      * @param notificationID      The ID of the notification
-     * @param customer              The customer associated with the notification
-     * @param notificationTime The time when the notification is created
-     * @param readStatus Status to record if customer has read the notification
-     * @param notificationTitle The title of the notification
+     * @param customer            The customer associated with the notification
+     * @param notificationTime    The time when the notification is created
+     * @param readStatus          Status to record if customer has read the notification
+     * @param notificationTitle   The title of the notification
      * @param notificationDetails The description of the notification
      */
     public CustomerNotification(String notificationID, Customer customer, LocalDateTime notificationTime,
@@ -41,6 +41,24 @@ public class CustomerNotification implements Notification{
         this.notificationTitle = notificationTitle;
         this.notificationDetails = notificationDetails;
         addToList(this);
+    }
+
+    /**
+     * A method to retrieve the list containing all customer notifications.
+     *
+     * @return An ArrayList consisting of all {@code CustomerNotification} instances
+     */
+    public static ArrayList<Notification> getCustomerNotificationList() {
+        return customerNotificationList;
+    }
+
+    /**
+     * A method to add customer notifications into an overall list.
+     *
+     * @param notification The {@code CustomerNotification} object to be added to list
+     */
+    public static void addToList(CustomerNotification notification) {
+        customerNotificationList.add(notification);
     }
 
     /**
@@ -95,23 +113,8 @@ public class CustomerNotification implements Notification{
     }
 
     /**
-     * A method to retrieve the list containing all customer notifications.
-     * @return An ArrayList consisting of all {@code CustomerNotification} instances
-     */
-    public static ArrayList<Notification> getCustomerNotificationList() {
-        return customerNotificationList;
-    }
-
-    /**
-     * A method to add customer notifications into an overall list.
-     * @param notification The {@code CustomerNotification} object to be added to list
-     */
-    public static void addToList(CustomerNotification notification) {
-        customerNotificationList.add(notification);
-    }
-
-    /**
      * A method to print out the full information for customer notifications.
+     *
      * @return String representation of the {@code CustomerNotification} object
      */
     @Override
@@ -124,8 +127,10 @@ public class CustomerNotification implements Notification{
                 "Notification Title: " + notificationTitle + "\n" +
                 "Notification Details: " + notificationDetails;
     }
+
     /**
      * A method to retrieve the message portion of customer notifications.
+     *
      * @return The message details of customer notification
      */
     @Override

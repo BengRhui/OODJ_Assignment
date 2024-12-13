@@ -1,17 +1,19 @@
 package backend;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Class {@code Order} represents the order placed by the customer via the system.
+ *
  * @author Beng Rhui (TP068495)
  */
 public class Order {
 
+    private final static ArrayList<Order> orderList = new ArrayList<>();
+    public final String[] DINING_TYPES = {"Dine in", "Takeaway", "Delivery"};
+    public final String[] ORDER_STATUS = {"Waiting for Vendor and Delivery", "Waiting for Vendor", "Waiting for Delivery"};
     /**
      * Attributes for the {@code Order} object.<br>
      * A list that collects all orders is included.<br>
@@ -29,24 +31,20 @@ public class Order {
     private String orderStatus;
     private HashMap<String, Integer> orderItem;
 
-    private final static ArrayList<Order> orderList = new ArrayList<>();
-
-    public final String[] DINING_TYPES = {"Dine in", "Takeaway", "Delivery"};
-    public final String[] ORDER_STATUS = {"Waiting for Vendor and Delivery", "Waiting for Vendor", "Waiting for Delivery"};
-
     /**
      * Constructor to instantiate {@code Order} objects.
-     * @param orderID The ID of the order
+     *
+     * @param orderID          The ID of the order
      * @param orderingCustomer The customer who places the order
-     * @param orderedStall The stall where the customer places the order
-     * @param runnerInCharge The delivery runner delivering the food (if available)
-     * @param diningType The dining type preferred by user
-     * @param deliveryNote The delivery note that user wishes to inform runner
-     * @param orderPrice The total payment of the order
-     * @param orderedDate The date where the order is made
-     * @param tipsForRunner The delivery tips that customer gives to runner
-     * @param orderStatus The current status of order
-     * @param orderItem The list of items ordered by customer
+     * @param orderedStall     The stall where the customer places the order
+     * @param runnerInCharge   The delivery runner delivering the food (if available)
+     * @param diningType       The dining type preferred by user
+     * @param deliveryNote     The delivery note that user wishes to inform runner
+     * @param orderPrice       The total payment of the order
+     * @param orderedDate      The date where the order is made
+     * @param tipsForRunner    The delivery tips that customer gives to runner
+     * @param orderStatus      The current status of order
+     * @param orderItem        The list of items ordered by customer
      */
     public Order(String orderID, Customer orderingCustomer, Stall orderedStall, DeliveryRunner runnerInCharge,
                  String diningType, String deliveryNote, double orderPrice, LocalDateTime orderedDate,
@@ -63,6 +61,24 @@ public class Order {
         this.orderStatus = orderStatus;
         this.orderItem = orderItem;
         addToOrderList(this);
+    }
+
+    /**
+     * A method to return a list consisting of {@code Order} objects.
+     *
+     * @return An ArrayList containing all {@code Order} objects
+     */
+    public static ArrayList<Order> getOrderList() {
+        return orderList;
+    }
+
+    /**
+     * A method to add {@code Order} objects into the overall list.
+     *
+     * @param order The {@code Order} object to be added into list.
+     */
+    public static void addToOrderList(Order order) {
+        orderList.add(order);
     }
 
     /**
@@ -156,41 +172,11 @@ public class Order {
         this.orderItem = orderItem;
     }
 
-    /**
-     * A method to return a list consisting of {@code Order} objects.
-     * @return An ArrayList containing all {@code Order} objects
-     */
-    public static ArrayList<Order> getOrderList() {
-        return orderList;
-    }
-
-    /**
-     * A method to add {@code Order} objects into the overall list.
-     * @param order The {@code Order} object to be added into list.
-     */
-    public static void addToOrderList(Order order) {
-        orderList.add(order);
-    }
-
-    /*
-        private String orderID;
-    private Customer orderingCustomer;
-    private Stall orderedStall;
-    private DeliveryRunner runnerInCharge;
-    private String diningType;
-    private String deliveryNote;
-    private double orderPrice;
-    private LocalDateTime orderedDate;
-    private double tipsForRunner;
-    private String orderStatus;
-    private HashMap<String, Integer> orderItem;
-     */
-
     @Override
     public String toString() {
 
         StringBuilder itemString = new StringBuilder();
-        for (HashMap.Entry<String, Integer> entry: orderItem.entrySet()) {
+        for (HashMap.Entry<String, Integer> entry : orderItem.entrySet()) {
             String currentItem = "- " + entry.getKey() + " x " + entry.getValue() + "\n";
             itemString.append(currentItem);
         }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 public class Feedback {
 
+    private final static ArrayList<Feedback> feedbackList = new ArrayList<Feedback>();
     /**
      * Attributes for {@code Feedback} objects.<br>
      * A list containing all {@code Feedback} objects is also included.
@@ -19,16 +20,15 @@ public class Feedback {
     private String feedbackDetails;
     private String replyFromManager;
 
-    private final static ArrayList<Feedback> feedbackList = new ArrayList<Feedback>();
-
     /**
      * Constructor to instantiate {@code Feedback} objects.
-     * @param feedbackID The ID of feedback
-     * @param feedbackCategory The categories of feedback, i.e. system, vendor and delivery runner
-     * @param orderAssociated The Order item associated with the feedback
-     * @param ratings The ratings provided by the customer in the feedback
-     * @param feedbackTitle The title of the feedback
-     * @param feedbackDetails The description of the feedback
+     *
+     * @param feedbackID          The ID of feedback
+     * @param feedbackCategory    The categories of feedback, i.e. system, vendor and delivery runner
+     * @param orderAssociated     The Order item associated with the feedback
+     * @param ratings             The ratings provided by the customer in the feedback
+     * @param feedbackTitle       The title of the feedback
+     * @param feedbackDetails     The description of the feedback
      * @param responseFromManager The reply that the manager provides to the customer
      */
     public Feedback(String feedbackID, String feedbackCategory, Order orderAssociated, double ratings, String feedbackTitle, String feedbackDetails, String responseFromManager) {
@@ -43,7 +43,16 @@ public class Feedback {
     }
 
     /**
-     * Getters and setters for {@code Feedback} clsss.
+     * A method to retrieve the list that contains all instances of {@code Feedback}.
+     *
+     * @return An ArrayList containing all {@code Feedback} objects
+     */
+    public static ArrayList<Feedback> getFeedbackList() {
+        return feedbackList;
+    }
+
+    /**
+     * Getters and setters for {@code Feedback} class.
      */
     public String getFeedbackID() {
         return feedbackID;
@@ -102,15 +111,8 @@ public class Feedback {
     }
 
     /**
-     * A method to retrieve the list that contains all instances of {@code Feedback}.
-     * @return An ArrayList containing all {@code Feedback} objects
-     */
-    public static ArrayList<Feedback> getFeedbackList() {
-        return feedbackList;
-    }
-
-    /**
      * A method to add {@code Feedback} objects to the overall list.
+     *
      * @param feedback The {@code Feedback} object to be added to list
      */
     public void addToFeedbackList(Feedback feedback) {
@@ -119,13 +121,14 @@ public class Feedback {
 
     /**
      * A method to print out information for {@code Feedback} objects.
+     *
      * @return String representation of the {@code Feedback} objects
      */
     @Override
     public String toString() {
         return "Feedback ID: " + feedbackID + "\n" +
                 "Feedback Category: " + feedbackCategory + "\n" +
-                "Order Associated: "  + "\n" +
+                "Order Associated: " + "\n" +
                 orderAssociated + "\n" +
                 "Ratings: " + ratings + "\n" +
                 "Feedback Title: " + feedbackTitle + "\n" +

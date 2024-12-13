@@ -12,6 +12,7 @@ public enum NotificationStatus {
 
     /**
      * A method to print out the status of notification
+     *
      * @return String representation of the notification status
      */
     public String toString() {

@@ -5,10 +5,12 @@ import java.util.ArrayList;
 
 /**
  * Class {@code DeliveryRunnerNotification} represents the notifications that will be received by the delivery runners.
+ *
  * @author Beng Rhui (TP068495)
  */
 public class DeliveryRunnerNotification implements Notification {
 
+    private final static ArrayList<Notification> deliveryRunnerNotificationList = new ArrayList<>();
     /**
      * Attributes for the {@code DeliveryRunnerNotification} objects.<br>
      * A list containing all notifications for delivery runners is included.
@@ -20,15 +22,14 @@ public class DeliveryRunnerNotification implements Notification {
     private String notificationTitle;
     private String notificationDetails;
 
-    private final static ArrayList<Notification> deliveryRunnerNotificationList = new ArrayList<>();
-
     /**
      * Constructor to instantiate the {@code DeliveryRunnerNotification} object.
-     * @param notificationID The ID of the notification
-     * @param runner The delivery runner associated with the notification
-     * @param notificationTime The time when the notification is created
-     * @param readStatus The status that records if the runner has read the notifications or not
-     * @param notificationTitle The title of the notification
+     *
+     * @param notificationID      The ID of the notification
+     * @param runner              The delivery runner associated with the notification
+     * @param notificationTime    The time when the notification is created
+     * @param readStatus          The status that records if the runner has read the notifications or not
+     * @param notificationTitle   The title of the notification
      * @param notificationDetails The description of the notification
      */
     public DeliveryRunnerNotification(String notificationID, DeliveryRunner runner,
@@ -41,6 +42,24 @@ public class DeliveryRunnerNotification implements Notification {
         this.notificationTitle = notificationTitle;
         this.notificationDetails = notificationDetails;
         addToList(this);
+    }
+
+    /**
+     * A method to return the list that contains all notifications for delivery runner.
+     *
+     * @return An ArrayList consisting of all {@code DeliveryRunnerNotification} instances.
+     */
+    public static ArrayList<Notification> getDeliveryRunnerNotificationList() {
+        return deliveryRunnerNotificationList;
+    }
+
+    /**
+     * A method to add the notifications for delivery runner into an overall list.
+     *
+     * @param notification The {@code DeliveryRunnerNotification} object to be added to list
+     */
+    public static void addToList(DeliveryRunnerNotification notification) {
+        deliveryRunnerNotificationList.add(notification);
     }
 
     /**
@@ -95,23 +114,8 @@ public class DeliveryRunnerNotification implements Notification {
     }
 
     /**
-     * A method to return the list that contains all notifications for delivery runner.
-     * @return An ArrayList consisting of all {@code DeliveryRunnerNotification} instances.
-     */
-    public static ArrayList<Notification> getDeliveryRunnerNotificationList() {
-        return deliveryRunnerNotificationList;
-    }
-
-    /**
-     * A method to add the notifications for delivery runner into an overall list.
-     * @param notification The {@code DeliveryRunnerNotification} object to be added to list
-     */
-    public static void addToList(DeliveryRunnerNotification notification) {
-        deliveryRunnerNotificationList.add(notification);
-    }
-
-    /**
      * A method to print out the full information of the {@code DeliveryRunnerNotification} object.
+     *
      * @return String representation of the {@code DeliveryRunnerNotification} object
      */
     @Override
@@ -127,6 +131,7 @@ public class DeliveryRunnerNotification implements Notification {
 
     /**
      * A method to retrieve the message portion of the {@code DeliveryRunnerNotification} object
+     *
      * @return The message part of the notifications for delivery runner
      */
     @Override
