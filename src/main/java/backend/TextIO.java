@@ -10,4 +10,9 @@ import java.util.ArrayList;
  */
 public class TextIO {
 
+    /**
+     * The PARENT_PATH_TO_FILE variable contains the file path to the folder containing the text files
+     */
+    private final static String PARENT_PATH_TO_FILE = "src/main/resources/text_file/";
+
 }
