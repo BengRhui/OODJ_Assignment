@@ -4,14 +4,14 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Class {@code TextIO} contains all the methods to retrieve and write the contents of text files.
+ * Abstract class {@code FileIO} contains the general methods to retrieve and write the contents of text files.
  */
-public class TextIO {
+public abstract class FileIO {
 
     /**
      * The PARENT_PATH_TO_FILE variable contains the file path to the folder containing the text files
      */
-    private final static String PARENT_PATH_TO_FILE = "src/main/resources/text_file/";
+    protected final static String PARENT_PATH_TO_FILE = "src/main/resources/text_file/";
 
     /**
      * A method to read text files from directory
@@ -20,7 +20,7 @@ public class TextIO {
      * @return An ArrayList containing the contents of the text file.<br>
      * System exits automatically if the text file is not found.
      */
-    public static ArrayList<String[]> readFile(String fileName) {
+    protected static ArrayList<String[]> getListFromFile(String fileName) {
 
         // Obtain the path to the file
         String filePath = PARENT_PATH_TO_FILE + fileName.strip().toLowerCase();
@@ -64,12 +64,13 @@ public class TextIO {
 
     /**
      * A method to write contents into text files.
-     * @param fileName The name of the text file to be written to
+     *
+     * @param fileName     The name of the text file to be written to
      * @param fileContents The contents to be written
-     * @param spacingSize The empty spaces reserved to make text file tidy
+     * @param spacingSize  The empty spaces reserved to make text file tidy
      * @throws IllegalArgumentException Exception is thrown if the two array size (content and space) does not match
      */
-    public static void writeFile(String fileName, ArrayList<String[]> fileContents, int[] spacingSize) {
+    protected static void writeListToFile(String fileName, ArrayList<String[]> fileContents, int[] spacingSize) {
 
         // The path to the text file is specified
         String filePath = PARENT_PATH_TO_FILE + fileName.strip().toLowerCase();
@@ -89,7 +90,7 @@ public class TextIO {
             StringBuilder inputLine = new StringBuilder();
 
             // Loop through each information in the array
-            for (String[] line: fileContents) {
+            for (String[] line : fileContents) {
                 for (int i = 0; i < line.length; i++) {
 
                     // Specify the format and format the string into the intended format
@@ -129,4 +130,11 @@ public class TextIO {
         }
 
     }
+
+    /**
+     * Abstract methods to be modified in different IO classes
+     */
+    public abstract void readFile();
+
+    public abstract void writeFile();
 }
