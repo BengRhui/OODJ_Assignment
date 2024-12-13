@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  * Class {@code Admin} represents users with the Admin role in the system.<br>
  * This class is inherited from the {@code User} class with the following attributes from the class:
+ *
  * @author Beng Rhui (TP068495)
  */
 public class Admin extends User {
@@ -16,10 +17,11 @@ public class Admin extends User {
 
     /**
      * Constructor for the {@code Admin} class.
-     * @param userID The ID of the admin
-     * @param email The email of the admin that is used to log into the system
-     * @param password The password used to login to the system
-     * @param name The real-world name of the admin
+     *
+     * @param userID   The ID of the admin
+     * @param email    The email of the admin that is used to log into the system
+     * @param password The password used to log into the system
+     * @param name     The real-world name of the admin
      */
     public Admin(String userID, String email, String password, String name) {
         super(userID, email, password, name);
@@ -28,6 +30,7 @@ public class Admin extends User {
 
     /**
      * A method to return a list containing all objects from the {@code Admin} class.
+     *
      * @return ArrayList with all {@code Admin} instances
      */
     public static ArrayList<Admin> getAdminList() {
@@ -43,6 +46,7 @@ public class Admin extends User {
 
     /**
      * A method to print out information about the {@code Admin} object.
+     *
      * @return A string representation of the {@code Admin} object
      */
     @Override
