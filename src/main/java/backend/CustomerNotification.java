@@ -13,7 +13,7 @@ public class CustomerNotification implements Notification {
     private final static ArrayList<Notification> customerNotificationList = new ArrayList<>();
     /**
      * Attributes for {@code CustomerNotification} class.<br>
-     * An overall list containing all {@code CustomerNotification} objects is included.<br>
+     * An overall list containing all {@code CustomerNotification} objects is included.
      */
     private String notificationID;
     private Customer customer;

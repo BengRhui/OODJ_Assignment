@@ -12,7 +12,7 @@ public class VendorNotification implements Notification {
 
     private final static ArrayList<Notification> vendorNotificationList = new ArrayList<>();
     /**
-     * Attributes for {@code VendorNotification} objects.
+     * Attributes for {@code VendorNotification} objects.<br>
      * An overall list that records all vendor notifications is also included.
      */
     private String notificationID;
