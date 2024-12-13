@@ -39,6 +39,7 @@ public class VendorNotification implements Notification {
         this.readStatus = readStatus;
         this.notificationTitle = notificationTitle;
         this.notificationDetails = notificationDetails;
+        addToList(this);
     }
 
     /**
@@ -90,6 +91,22 @@ public class VendorNotification implements Notification {
 
     public void setNotificationDetails(String notificationDetails) {
         this.notificationDetails = notificationDetails;
+    }
+
+    /**
+     * A method to return a list consisting of all vendor notifications.
+     * @return An ArrayList containing all instances of {@code VendorNotification}
+     */
+    public static ArrayList<Notification> getVendorNotificationList() {
+        return vendorNotificationList;
+    }
+
+    /**
+     * A method to add vendor notifications into an overall list.
+     * @param notification The {@code VendorNotification} object to be added to list
+     */
+    public static void addToList(VendorNotification notification) {
+        vendorNotificationList.add(notification);
     }
 
     /**
