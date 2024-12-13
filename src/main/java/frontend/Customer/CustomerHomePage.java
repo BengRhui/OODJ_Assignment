@@ -27,6 +27,12 @@ public class CustomerHomePage extends javax.swing.JFrame {
     private void initComponents() {
 
         top_panel = new javax.swing.JPanel();
+        welcome_text = new javax.swing.JLabel();
+        home_page = new javax.swing.JLabel();
+        issue_and_support = new javax.swing.JLabel();
+        order_history = new javax.swing.JLabel();
+        e_wallet = new javax.swing.JLabel();
+        logo_light = new javax.swing.JLabel();
         customer_background = new javax.swing.JLabel();
         bottom_panel = new javax.swing.JPanel();
         current_orders_text = new javax.swing.JLabel();
@@ -37,30 +43,87 @@ public class CustomerHomePage extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1400, 800));
         setSize(new java.awt.Dimension(1400, 800));
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         top_panel.setBackground(new java.awt.Color(102, 102, 102));
+        top_panel.setLayout(null);
 
-        customer_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/customer_background.png"))); // NOI18N
+        welcome_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        welcome_text.setForeground(new java.awt.Color(255, 255, 255));
+        welcome_text.setText("Welcome, ");
+        welcome_text.setAlignmentY(0.0F);
+        welcome_text.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        welcome_text.setIconTextGap(0);
+        welcome_text.setMaximumSize(new java.awt.Dimension(130, 30));
+        welcome_text.setMinimumSize(new java.awt.Dimension(130, 30));
+        welcome_text.setName(""); // NOI18N
+        welcome_text.setPreferredSize(new java.awt.Dimension(130, 30));
+        top_panel.add(welcome_text);
+        welcome_text.setBounds(70, 140, 130, 30);
+
+        home_page.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        home_page.setForeground(new java.awt.Color(255, 255, 255));
+        home_page.setText("Home Page");
+        home_page.setAlignmentY(0.0F);
+        home_page.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        home_page.setIconTextGap(0);
+        home_page.setMaximumSize(new java.awt.Dimension(130, 30));
+        home_page.setMinimumSize(new java.awt.Dimension(130, 30));
+        home_page.setName(""); // NOI18N
+        home_page.setPreferredSize(new java.awt.Dimension(130, 30));
+        top_panel.add(home_page);
+        home_page.setBounds(230, 60, 130, 30);
+
+        issue_and_support.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        issue_and_support.setForeground(new java.awt.Color(255, 255, 255));
+        issue_and_support.setText("Issue and Support");
+        issue_and_support.setAlignmentY(0.0F);
+        issue_and_support.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        issue_and_support.setIconTextGap(0);
+        issue_and_support.setMaximumSize(new java.awt.Dimension(130, 30));
+        issue_and_support.setMinimumSize(new java.awt.Dimension(130, 30));
+        issue_and_support.setName(""); // NOI18N
+        issue_and_support.setPreferredSize(new java.awt.Dimension(130, 30));
+        top_panel.add(issue_and_support);
+        issue_and_support.setBounds(770, 60, 210, 30);
+
+        order_history.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        order_history.setForeground(new java.awt.Color(255, 255, 255));
+        order_history.setText("Order History");
+        order_history.setAlignmentY(0.0F);
+        order_history.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        order_history.setIconTextGap(0);
+        order_history.setMaximumSize(new java.awt.Dimension(130, 30));
+        order_history.setMinimumSize(new java.awt.Dimension(130, 30));
+        order_history.setName(""); // NOI18N
+        order_history.setPreferredSize(new java.awt.Dimension(130, 30));
+        top_panel.add(order_history);
+        order_history.setBounds(420, 60, 150, 30);
+
+        e_wallet.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        e_wallet.setForeground(new java.awt.Color(255, 255, 255));
+        e_wallet.setText("E-Wallet");
+        e_wallet.setAlignmentY(0.0F);
+        e_wallet.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        e_wallet.setIconTextGap(0);
+        e_wallet.setMaximumSize(new java.awt.Dimension(130, 30));
+        e_wallet.setMinimumSize(new java.awt.Dimension(130, 30));
+        e_wallet.setName(""); // NOI18N
+        e_wallet.setPreferredSize(new java.awt.Dimension(130, 30));
+        top_panel.add(e_wallet);
+        e_wallet.setBounds(620, 60, 150, 30);
+
+        logo_light.setBackground(new java.awt.Color(255, 255, 255));
+        logo_light.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logo_light.png"))); // NOI18N
+        top_panel.add(logo_light);
+        logo_light.setBounds(-10, 0, 250, 150);
+
+        customer_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/darked_customer_background.jpg"))); // NOI18N
         customer_background.setText("jLabel1");
+        top_panel.add(customer_background);
+        customer_background.setBounds(0, 0, 1540, 690);
 
-        javax.swing.GroupLayout top_panelLayout = new javax.swing.GroupLayout(top_panel);
-        top_panel.setLayout(top_panelLayout);
-        top_panelLayout.setHorizontalGroup(
-            top_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(top_panelLayout.createSequentialGroup()
-                .addComponent(customer_background)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        top_panelLayout.setVerticalGroup(
-            top_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(top_panelLayout.createSequentialGroup()
-                .addComponent(customer_background)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(top_panel);
-        top_panel.setBounds(0, 0, 1452, 200);
+        getContentPane().add(top_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1452, 200));
 
         bottom_panel.setBackground(new java.awt.Color(255, 251, 233));
         bottom_panel.setAlignmentX(0.0F);
@@ -81,32 +144,31 @@ public class CustomerHomePage extends javax.swing.JFrame {
         bottom_panelLayout.setHorizontalGroup(
             bottom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bottom_panelLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(30, 30, 30)
                 .addGroup(bottom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(current_orders_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(current_orders_text))
-                .addGap(42, 42, 42)
+                .addGap(30, 30, 30)
                 .addGroup(bottom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(categories_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 648, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(categories_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(current_orders_text1))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         bottom_panelLayout.setVerticalGroup(
             bottom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bottom_panelLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
+                .addGap(19, 19, 19)
                 .addGroup(bottom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(current_orders_text)
                     .addComponent(current_orders_text1))
-                .addGap(25, 25, 25)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(bottom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(current_orders_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(categories_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(categories_panel, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0))
         );
 
-        getContentPane().add(bottom_panel);
-        bottom_panel.setBounds(0, 200, 1400, 600);
+        getContentPane().add(bottom_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -153,6 +215,12 @@ public class CustomerHomePage extends javax.swing.JFrame {
     private javax.swing.JLabel current_orders_text;
     private javax.swing.JLabel current_orders_text1;
     private javax.swing.JLabel customer_background;
+    private javax.swing.JLabel e_wallet;
+    private javax.swing.JLabel home_page;
+    private javax.swing.JLabel issue_and_support;
+    private javax.swing.JLabel logo_light;
+    private javax.swing.JLabel order_history;
     public javax.swing.JPanel top_panel;
+    private javax.swing.JLabel welcome_text;
     // End of variables declaration//GEN-END:variables
 }
