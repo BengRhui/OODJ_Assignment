@@ -22,7 +22,7 @@ public class TextIO {
      * @return An ArrayList containing the contents of the text file.<br>
      * System exits automatically if the text file is not found.
      */
-    public static ArrayList<String> readFile(String fileName) {
+    public static ArrayList<String[]> readFile(String fileName) {
 
         // Obtain the path to the file
         String filePath = PARENT_PATH_TO_FILE + fileName.strip().toLowerCase();
@@ -34,12 +34,20 @@ public class TextIO {
             BufferedReader reader = new BufferedReader(file);
 
             // Create local variables: array (store all lines) and string (store individual line during loop)
-            ArrayList<String> fileContents = new ArrayList<>();
+            ArrayList<String[]> fileContents = new ArrayList<>();
             String line;
 
-            // Loop through each line in the text file and add them to the array
+            // Loop through each line in the text file
             while ((line = reader.readLine()) != null) {
-                fileContents.add(line);
+
+                // Split each information and remove the trailing blank spaces
+                String[] elementSeparated = line.split(";");
+                for (int i = 0; i < elementSeparated.length; i++) {
+                    elementSeparated[i] = elementSeparated[i].strip();
+                }
+
+                // Add the processed information into array
+                fileContents.add(elementSeparated);
             }
 
             // Close the file and return the array
