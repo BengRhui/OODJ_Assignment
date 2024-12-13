@@ -17,6 +17,7 @@ public class Utility {
      * @return Time in String format with style of "dd/MM/yyyy HH:mm:ss"
      */
     public static String printTime(LocalDateTime time) {
+    public static String generateString(LocalDateTime time) {
 
         // Indicates the format of the time
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");

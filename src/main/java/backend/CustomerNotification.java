@@ -122,7 +122,7 @@ public class CustomerNotification implements Notification {
         return "Notification ID: " + notificationID + "\n" +
                 "Customer Involved: " + "\n" +
                 customer.toString() + "\n" +
-                "Notification Time: " + Utility.printTime(notificationTime) + "\n" +
+                "Notification Time: " + Utility.generateString(notificationTime) + "\n" +
                 "Notification Status: " + readStatus.toString() + "\n" +
                 "Notification Title: " + notificationTitle + "\n" +
                 "Notification Details: " + notificationDetails;

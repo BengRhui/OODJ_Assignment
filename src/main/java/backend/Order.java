@@ -191,7 +191,7 @@ public class Order {
                 "Dining Type: " + diningType + "\n" +
                 "Delivery Note: " + deliveryNote + "\n" +
                 "Order Price: " + orderPrice + "\n" +
-                "Ordered Date: " + Utility.printTime(orderedDate) + "\n" +
+                "Ordered Date: " + Utility.generateString(orderedDate) + "\n" +
                 "Tips for Runner: " + tipsForRunner + "\n" +
                 "Order Status: " + orderStatus + "\n" +
                 "Order Items: " + itemString;
