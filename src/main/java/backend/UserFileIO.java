@@ -17,10 +17,11 @@ public abstract class UserFileIO extends FileIO {
 
     /**
      * A method to write the login credentials file.
-     *
-     * @param array An overall array consisting of all users
      */
-    public static void writeCredentialsFile(ArrayList<User> array) {
+    public static void writeCredentialsFile() {
+
+        // Get the list of all users in the system
+        ArrayList<User> array = User.getUserList();
 
         // Create a local variable to store the formatted information
         ArrayList<String[]> information = new ArrayList<>();
