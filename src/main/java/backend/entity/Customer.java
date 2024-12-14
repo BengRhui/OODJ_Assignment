@@ -1,4 +1,4 @@
-package backend;
+package backend.entity;
 
 import java.util.ArrayList;
 

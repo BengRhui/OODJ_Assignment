@@ -1,4 +1,4 @@
-package backend;
+package backend.entity;
 
 /**
  * Class {@code Address} is used to represent addresses of:<br>

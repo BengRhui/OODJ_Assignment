@@ -1,4 +1,6 @@
-package backend;
+package backend.entity;
+
+import backend.utility.Utility;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

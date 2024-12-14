@@ -1,4 +1,7 @@
-package backend;
+package backend.file_io;
+
+import backend.entity.Customer;
+import backend.entity.Address;
 
 import java.util.ArrayList;
 
