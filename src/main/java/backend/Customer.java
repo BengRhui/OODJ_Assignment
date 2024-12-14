@@ -77,12 +77,12 @@ public class Customer extends User {
         this.address = address;
     }
 
-    public double getCreditAmount() {
+    public double getEWalletAmount() {
         return eWalletAmount;
     }
 
-    public void setCreditAmount(double creditAmount) {
-        this.eWalletAmount = creditAmount;
+    public void setEWalletAmount(double eWalletAmount) {
+        this.eWalletAmount = eWalletAmount;
     }
 
     public String getDeliveryNote() {
