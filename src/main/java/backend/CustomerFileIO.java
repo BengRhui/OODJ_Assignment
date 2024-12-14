@@ -40,9 +40,6 @@ public class CustomerFileIO extends UserFileIO {
      */
     public static Customer createCustomerObject(String[] individualRecords) {
 
-        // Get information from credentials file
-        ArrayList<String[]> credentialsInformation = getListFromFile(CREDENTIALS_FILE_NAME);
-
         // Extract customer information from input string array
         String userID = individualRecords[0];
         String name = individualRecords[1];

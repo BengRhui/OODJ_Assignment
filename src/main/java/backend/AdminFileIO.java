@@ -42,9 +42,6 @@ public class AdminFileIO extends UserFileIO {
      */
     private static Admin createAdminObject(String[] individualStringRecord) {
 
-        // Retrieve data from login credentials file
-        ArrayList<String[]> loginCredentialsList = getListFromFile(CREDENTIALS_FILE_NAME);
-
         // Set ID and name from the string array
         String userID = individualStringRecord[0];
         String name = individualStringRecord[1];
