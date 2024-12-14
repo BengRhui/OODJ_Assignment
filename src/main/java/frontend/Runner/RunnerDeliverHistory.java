@@ -27,14 +27,16 @@ public class RunnerDeliverHistory extends javax.swing.JFrame {
     private void initComponents() {
 
         top_panel = new javax.swing.JPanel();
-        home_page = new javax.swing.JButton();
-        delivery_history = new javax.swing.JButton();
         logo_light = new javax.swing.JLabel();
+        home_page = new javax.swing.JLabel();
+        delivery_history = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
-        back1 = new javax.swing.JLabel();
+        notification = new javax.swing.JLabel();
+        rating_icon = new javax.swing.JLabel();
+        runner_background = new javax.swing.JLabel();
         bottom_panel = new javax.swing.JPanel();
         revenue_text = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        graph_panel = new javax.swing.JPanel();
         daily_button = new javax.swing.JButton();
         monthly_button = new javax.swing.JButton();
         quarterly_button = new javax.swing.JButton();
@@ -52,22 +54,7 @@ public class RunnerDeliverHistory extends javax.swing.JFrame {
 
         top_panel.setBackground(new java.awt.Color(102, 102, 102));
         top_panel.setPreferredSize(new java.awt.Dimension(1400, 140));
-
-        home_page.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        home_page.setText("Home Page");
-        home_page.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                home_pageActionPerformed(evt);
-            }
-        });
-
-        delivery_history.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        delivery_history.setText("Delivery History");
-        delivery_history.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                delivery_historyActionPerformed(evt);
-            }
-        });
+        top_panel.setLayout(null);
 
         logo_light.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logo_light.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logo_light.png"))); // NOI18N
@@ -80,6 +67,20 @@ public class RunnerDeliverHistory extends javax.swing.JFrame {
                 logo_lightComponentResized(evt);
             }
         });
+        top_panel.add(logo_light);
+        logo_light.setBounds(10, 0, 210, 130);
+
+        home_page.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        home_page.setForeground(new java.awt.Color(255, 255, 255));
+        home_page.setText("Home Page");
+        top_panel.add(home_page);
+        home_page.setBounds(240, 50, 126, 28);
+
+        delivery_history.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        delivery_history.setForeground(new java.awt.Color(255, 255, 255));
+        delivery_history.setText("Delivery History");
+        top_panel.add(delivery_history);
+        delivery_history.setBounds(440, 50, 190, 28);
 
         back.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logout_icon.png"))); // NOI18N
@@ -92,71 +93,83 @@ public class RunnerDeliverHistory extends javax.swing.JFrame {
                 backComponentResized(evt);
             }
         });
+        top_panel.add(back);
+        back.setBounds(1309, 39, 60, 60);
 
-        back1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        back1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/notification_icon.png"))); // NOI18N
-        back1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        back1.setMaximumSize(new java.awt.Dimension(120, 120));
-        back1.setMinimumSize(new java.awt.Dimension(120, 120));
-        back1.setPreferredSize(new java.awt.Dimension(80, 80));
-        back1.addComponentListener(new java.awt.event.ComponentAdapter() {
+        notification.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        notification.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/notification_icon.png"))); // NOI18N
+        notification.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        notification.setMaximumSize(new java.awt.Dimension(120, 120));
+        notification.setMinimumSize(new java.awt.Dimension(120, 120));
+        notification.setPreferredSize(new java.awt.Dimension(80, 80));
+        notification.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
-                back1ComponentResized(evt);
+                notificationComponentResized(evt);
             }
         });
+        top_panel.add(notification);
+        notification.setBounds(1230, 30, 60, 60);
 
-        javax.swing.GroupLayout top_panelLayout = new javax.swing.GroupLayout(top_panel);
-        top_panel.setLayout(top_panelLayout);
-        top_panelLayout.setHorizontalGroup(
-            top_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(top_panelLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(logo_light, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(home_page, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(delivery_history, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 639, Short.MAX_VALUE)
-                .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-        top_panelLayout.setVerticalGroup(
-            top_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(top_panelLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(top_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(home_page, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(delivery_history, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(logo_light, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
-        );
+        rating_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        rating_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/rating_icon.png"))); // NOI18N
+        rating_icon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        rating_icon.setMaximumSize(new java.awt.Dimension(120, 120));
+        rating_icon.setMinimumSize(new java.awt.Dimension(120, 120));
+        rating_icon.setPreferredSize(new java.awt.Dimension(80, 80));
+        rating_icon.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                rating_iconComponentResized(evt);
+            }
+        });
+        top_panel.add(rating_icon);
+        rating_icon.setBounds(1150, 30, 60, 70);
+
+        runner_background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        runner_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/darken_runner_background.png"))); // NOI18N
+        runner_background.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        runner_background.setMaximumSize(new java.awt.Dimension(120, 120));
+        runner_background.setMinimumSize(new java.awt.Dimension(120, 120));
+        runner_background.setPreferredSize(new java.awt.Dimension(80, 80));
+        runner_background.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                runner_backgroundComponentResized(evt);
+            }
+        });
+        top_panel.add(runner_background);
+        runner_background.setBounds(0, 0, 1400, 700);
 
         getContentPane().add(top_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        bottom_panel.setBackground(new java.awt.Color(204, 204, 204));
+        bottom_panel.setBackground(new java.awt.Color(255, 251, 233));
         bottom_panel.setPreferredSize(new java.awt.Dimension(1400, 640));
+        bottom_panel.setLayout(null);
 
-        revenue_text.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        revenue_text.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        revenue_text.setForeground(new java.awt.Color(0, 0, 0));
         revenue_text.setText("Revenue");
+        bottom_panel.add(revenue_text);
+        revenue_text.setBounds(60, 30, 240, 56);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout graph_panelLayout = new javax.swing.GroupLayout(graph_panel);
+        graph_panel.setLayout(graph_panelLayout);
+        graph_panelLayout.setHorizontalGroup(
+            graph_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 650, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        graph_panelLayout.setVerticalGroup(
+            graph_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 450, Short.MAX_VALUE)
         );
 
+        bottom_panel.add(graph_panel);
+        graph_panel.setBounds(60, 93, 650, 450);
+
+        daily_button.setBackground(new java.awt.Color(255, 255, 255));
         daily_button.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        daily_button.setForeground(new java.awt.Color(0, 0, 0));
         daily_button.setText("Daily");
         daily_button.setAlignmentY(0.0F);
+        daily_button.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         daily_button.setIconTextGap(0);
         daily_button.setMargin(new java.awt.Insets(0, 0, 0, 0));
         daily_button.addActionListener(new java.awt.event.ActionListener() {
@@ -164,10 +177,15 @@ public class RunnerDeliverHistory extends javax.swing.JFrame {
                 daily_buttonActionPerformed(evt);
             }
         });
+        bottom_panel.add(daily_button);
+        daily_button.setBounds(750, 30, 150, 45);
 
+        monthly_button.setBackground(new java.awt.Color(255, 255, 255));
         monthly_button.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        monthly_button.setForeground(new java.awt.Color(0, 0, 0));
         monthly_button.setText("Monthly");
         monthly_button.setAlignmentY(0.0F);
+        monthly_button.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         monthly_button.setIconTextGap(0);
         monthly_button.setMargin(new java.awt.Insets(0, 0, 0, 0));
         monthly_button.addActionListener(new java.awt.event.ActionListener() {
@@ -175,10 +193,15 @@ public class RunnerDeliverHistory extends javax.swing.JFrame {
                 monthly_buttonActionPerformed(evt);
             }
         });
+        bottom_panel.add(monthly_button);
+        monthly_button.setBounds(900, 30, 150, 45);
 
+        quarterly_button.setBackground(new java.awt.Color(255, 255, 255));
         quarterly_button.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        quarterly_button.setForeground(new java.awt.Color(0, 0, 0));
         quarterly_button.setText("Quarterly");
         quarterly_button.setAlignmentY(0.0F);
+        quarterly_button.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         quarterly_button.setIconTextGap(0);
         quarterly_button.setMargin(new java.awt.Insets(0, 0, 0, 0));
         quarterly_button.addActionListener(new java.awt.event.ActionListener() {
@@ -186,10 +209,15 @@ public class RunnerDeliverHistory extends javax.swing.JFrame {
                 quarterly_buttonActionPerformed(evt);
             }
         });
+        bottom_panel.add(quarterly_button);
+        quarterly_button.setBounds(1050, 30, 150, 45);
 
+        yearly_button.setBackground(new java.awt.Color(255, 255, 255));
         yearly_button.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        yearly_button.setForeground(new java.awt.Color(0, 0, 0));
         yearly_button.setText("Yearly");
         yearly_button.setAlignmentY(0.0F);
+        yearly_button.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         yearly_button.setIconTextGap(0);
         yearly_button.setMargin(new java.awt.Insets(0, 0, 0, 0));
         yearly_button.addActionListener(new java.awt.event.ActionListener() {
@@ -197,119 +225,66 @@ public class RunnerDeliverHistory extends javax.swing.JFrame {
                 yearly_buttonActionPerformed(evt);
             }
         });
+        bottom_panel.add(yearly_button);
+        yearly_button.setBounds(1200, 30, 150, 45);
 
-        total_delivery_text.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        total_delivery_text.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
+        total_delivery_text.setForeground(new java.awt.Color(0, 0, 0));
         total_delivery_text.setText("Total Delivery");
+        bottom_panel.add(total_delivery_text);
+        total_delivery_text.setBounds(750, 120, 214, 42);
 
-        total_earnings_text.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        total_earnings_text.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
+        total_earnings_text.setForeground(new java.awt.Color(0, 0, 0));
         total_earnings_text.setText("Total Earnings");
+        bottom_panel.add(total_earnings_text);
+        total_earnings_text.setBounds(1060, 120, 227, 42);
 
-        total_delivery_value.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        total_delivery_value.setBackground(new java.awt.Color(255, 251, 233));
+        total_delivery_value.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        total_delivery_value.setForeground(new java.awt.Color(0, 0, 0));
         total_delivery_value.setText("123,123");
+        total_delivery_value.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         total_delivery_value.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 total_delivery_valueActionPerformed(evt);
             }
         });
+        bottom_panel.add(total_delivery_value);
+        total_delivery_value.setBounds(750, 160, 280, 75);
 
-        total_earnings_value.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        total_earnings_value.setBackground(new java.awt.Color(255, 251, 233));
+        total_earnings_value.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        total_earnings_value.setForeground(new java.awt.Color(0, 0, 0));
         total_earnings_value.setText("RM 123,123");
+        total_earnings_value.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         total_earnings_value.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 total_earnings_valueActionPerformed(evt);
             }
         });
+        bottom_panel.add(total_earnings_value);
+        total_earnings_value.setBounds(1060, 160, 280, 75);
 
-        recent_delivery_text.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        recent_delivery_text.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
+        recent_delivery_text.setForeground(new java.awt.Color(0, 0, 0));
         recent_delivery_text.setText("Recent Delivery");
+        bottom_panel.add(recent_delivery_text);
+        recent_delivery_text.setBounds(750, 240, 249, 42);
 
-        javax.swing.GroupLayout bottom_panelLayout = new javax.swing.GroupLayout(bottom_panel);
-        bottom_panel.setLayout(bottom_panelLayout);
-        bottom_panelLayout.setHorizontalGroup(
-            bottom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bottom_panelLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addGroup(bottom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(revenue_text))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addGroup(bottom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(bottom_panelLayout.createSequentialGroup()
-                        .addComponent(daily_button, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(monthly_button, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(quarterly_button, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(yearly_button, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(bottom_panelLayout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(bottom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(bottom_panelLayout.createSequentialGroup()
-                                .addGroup(bottom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(total_delivery_value, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(total_delivery_text))
-                                .addGap(58, 58, 58)
-                                .addGroup(bottom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(total_earnings_value, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(total_earnings_text)))
-                            .addComponent(recent_delivery_text)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38))
-        );
-        bottom_panelLayout.setVerticalGroup(
-            bottom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bottom_panelLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(revenue_text)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(118, 118, 118))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bottom_panelLayout.createSequentialGroup()
-                .addGroup(bottom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(daily_button, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(monthly_button, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(quarterly_button, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(yearly_button, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
-                .addGroup(bottom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(total_delivery_text)
-                    .addComponent(total_earnings_text))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(bottom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(total_delivery_value, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(total_earnings_value, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(recent_delivery_text)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
-        );
+        jScrollPane1.setBackground(new java.awt.Color(255, 251, 233));
+        jScrollPane1.setForeground(new java.awt.Color(255, 251, 233));
+        bottom_panel.add(jScrollPane1);
+        jScrollPane1.setBounds(750, 290, 590, 330);
 
         getContentPane().add(bottom_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, -1, 660));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void backComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_backComponentResized
-        // TODO add your handling code here:
-    }//GEN-LAST:event_backComponentResized
-
-    private void delivery_historyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delivery_historyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_delivery_historyActionPerformed
-
-    private void home_pageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_pageActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_home_pageActionPerformed
-
     private void logo_lightComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_logo_lightComponentResized
         // TODO add your handling code here:
     }//GEN-LAST:event_logo_lightComponentResized
-
-    private void back1ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_back1ComponentResized
-        // TODO add your handling code here:
-    }//GEN-LAST:event_back1ComponentResized
 
     private void daily_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daily_buttonActionPerformed
         // TODO add your handling code here:
@@ -334,6 +309,22 @@ public class RunnerDeliverHistory extends javax.swing.JFrame {
     private void total_earnings_valueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_total_earnings_valueActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_total_earnings_valueActionPerformed
+
+    private void runner_backgroundComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_runner_backgroundComponentResized
+        // TODO add your handling code here:
+    }//GEN-LAST:event_runner_backgroundComponentResized
+
+    private void backComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_backComponentResized
+        // TODO add your handling code here:
+    }//GEN-LAST:event_backComponentResized
+
+    private void notificationComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_notificationComponentResized
+        // TODO add your handling code here:
+    }//GEN-LAST:event_notificationComponentResized
+
+    private void rating_iconComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_rating_iconComponentResized
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rating_iconComponentResized
 
     /**
      * @param args the command line arguments
@@ -373,18 +364,20 @@ public class RunnerDeliverHistory extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel back;
-    private javax.swing.JLabel back1;
     private javax.swing.JPanel bottom_panel;
     private javax.swing.JButton daily_button;
-    private javax.swing.JButton delivery_history;
-    private javax.swing.JButton home_page;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel delivery_history;
+    private javax.swing.JPanel graph_panel;
+    private javax.swing.JLabel home_page;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel logo_light;
     private javax.swing.JButton monthly_button;
+    private javax.swing.JLabel notification;
     private javax.swing.JButton quarterly_button;
+    private javax.swing.JLabel rating_icon;
     private javax.swing.JLabel recent_delivery_text;
     private javax.swing.JLabel revenue_text;
+    private javax.swing.JLabel runner_background;
     private javax.swing.JPanel top_panel;
     private javax.swing.JLabel total_delivery_text;
     private javax.swing.JTextField total_delivery_value;

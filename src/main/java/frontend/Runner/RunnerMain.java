@@ -13,6 +13,7 @@ public class RunnerMain extends javax.swing.JFrame {
     /**
      * Creates new form RunnerMain
      */
+
     public RunnerMain() {
         initComponents();
     }
@@ -27,14 +28,23 @@ public class RunnerMain extends javax.swing.JFrame {
     private void initComponents() {
 
         top_panel = new javax.swing.JPanel();
-        home_page = new javax.swing.JButton();
-        delivery_history = new javax.swing.JButton();
         logo_light = new javax.swing.JLabel();
+        delivery_history = new javax.swing.JLabel();
+        home_page = new javax.swing.JLabel();
+        rating_icon = new javax.swing.JLabel();
+        notification = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
-        back1 = new javax.swing.JLabel();
+        runner_background = new javax.swing.JLabel();
         bottom_panel = new javax.swing.JPanel();
         current_task_text = new javax.swing.JLabel();
+        current_task = new javax.swing.JPanel();
+        order_icon = new javax.swing.JLabel();
+        person_icon = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
+        food_text = new javax.swing.JLabel();
+        address_text = new javax.swing.JLabel();
+        delivery_note = new javax.swing.JLabel();
+        food_icon = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1400, 800));
@@ -42,34 +52,53 @@ public class RunnerMain extends javax.swing.JFrame {
 
         top_panel.setBackground(new java.awt.Color(102, 102, 102));
         top_panel.setPreferredSize(new java.awt.Dimension(1400, 140));
+        top_panel.setLayout(null);
 
-        home_page.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        home_page.setText("Home Page");
-        home_page.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                home_pageActionPerformed(evt);
-            }
-        });
-
-        delivery_history.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        delivery_history.setText("Delivery History");
-        delivery_history.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                delivery_historyActionPerformed(evt);
-            }
-        });
-
+        logo_light.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         logo_light.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logo_light.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logo_light.png"))); // NOI18N
-        logo_light.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        logo_light.setMaximumSize(new java.awt.Dimension(120, 120));
-        logo_light.setMinimumSize(new java.awt.Dimension(120, 120));
-        logo_light.setPreferredSize(new java.awt.Dimension(100, 100));
-        logo_light.addComponentListener(new java.awt.event.ComponentAdapter() {
+        top_panel.add(logo_light);
+        logo_light.setBounds(10, 0, 210, 130);
+
+        delivery_history.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        delivery_history.setForeground(new java.awt.Color(255, 255, 255));
+        delivery_history.setText("Delivery History");
+        top_panel.add(delivery_history);
+        delivery_history.setBounds(440, 50, 170, 28);
+
+        home_page.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        home_page.setForeground(new java.awt.Color(255, 255, 255));
+        home_page.setText("Home Page");
+        top_panel.add(home_page);
+        home_page.setBounds(240, 50, 130, 28);
+
+        rating_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        rating_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/rating_icon.png"))); // NOI18N
+        rating_icon.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        rating_icon.setMaximumSize(new java.awt.Dimension(120, 120));
+        rating_icon.setMinimumSize(new java.awt.Dimension(120, 120));
+        rating_icon.setPreferredSize(new java.awt.Dimension(80, 80));
+        rating_icon.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
-                logo_lightComponentResized(evt);
+                rating_iconComponentResized(evt);
             }
         });
+        top_panel.add(rating_icon);
+        rating_icon.setBounds(1150, 30, 60, 70);
+
+        notification.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        notification.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/notification_icon.png"))); // NOI18N
+        notification.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        notification.setMaximumSize(new java.awt.Dimension(120, 120));
+        notification.setMinimumSize(new java.awt.Dimension(120, 120));
+        notification.setPreferredSize(new java.awt.Dimension(80, 80));
+        notification.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                notificationComponentResized(evt);
+            }
+        });
+        top_panel.add(notification);
+        notification.setBounds(1230, 30, 60, 60);
 
         back.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logout_icon.png"))); // NOI18N
@@ -82,108 +111,136 @@ public class RunnerMain extends javax.swing.JFrame {
                 backComponentResized(evt);
             }
         });
+        top_panel.add(back);
+        back.setBounds(1309, 39, 60, 60);
 
-        back1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        back1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/notification_icon.png"))); // NOI18N
-        back1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        back1.setMaximumSize(new java.awt.Dimension(120, 120));
-        back1.setMinimumSize(new java.awt.Dimension(120, 120));
-        back1.setPreferredSize(new java.awt.Dimension(80, 80));
-        back1.addComponentListener(new java.awt.event.ComponentAdapter() {
+        runner_background.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        runner_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/darken_runner_background.png"))); // NOI18N
+        runner_background.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        runner_background.setMaximumSize(new java.awt.Dimension(120, 120));
+        runner_background.setMinimumSize(new java.awt.Dimension(120, 120));
+        runner_background.setPreferredSize(new java.awt.Dimension(80, 80));
+        runner_background.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
-                back1ComponentResized(evt);
+                runner_backgroundComponentResized(evt);
             }
         });
-
-        javax.swing.GroupLayout top_panelLayout = new javax.swing.GroupLayout(top_panel);
-        top_panel.setLayout(top_panelLayout);
-        top_panelLayout.setHorizontalGroup(
-            top_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(top_panelLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(logo_light, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(home_page, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(delivery_history, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 639, Short.MAX_VALUE)
-                .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
-        );
-        top_panelLayout.setVerticalGroup(
-            top_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(top_panelLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(top_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(home_page, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(delivery_history, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(logo_light, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
-        );
+        top_panel.add(runner_background);
+        runner_background.setBounds(0, 0, 1400, 700);
 
         getContentPane().add(top_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        bottom_panel.setBackground(new java.awt.Color(204, 204, 204));
+        bottom_panel.setBackground(new java.awt.Color(255, 251, 233));
         bottom_panel.setPreferredSize(new java.awt.Dimension(1400, 640));
+        bottom_panel.setLayout(null);
 
-        current_task_text.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        current_task_text.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        current_task_text.setForeground(new java.awt.Color(0, 0, 0));
         current_task_text.setText("Current Task");
+        bottom_panel.add(current_task_text);
+        current_task_text.setBounds(60, 45, 298, 56);
 
+        current_task.setBackground(new java.awt.Color(255, 251, 233));
+
+        order_icon.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        order_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        order_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/order_icon.png"))); // NOI18N
+
+        person_icon.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        person_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        person_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/person_icon.png"))); // NOI18N
+
+        jComboBox2.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jComboBox2.setForeground(new java.awt.Color(0, 0, 0));
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preparing", "Done", "Out of Delivery" }));
         jComboBox2.setPreferredSize(new java.awt.Dimension(300, 60));
 
-        javax.swing.GroupLayout bottom_panelLayout = new javax.swing.GroupLayout(bottom_panel);
-        bottom_panel.setLayout(bottom_panelLayout);
-        bottom_panelLayout.setHorizontalGroup(
-            bottom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bottom_panelLayout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(current_task_text)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bottom_panelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(135, 135, 135))
+        food_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        food_text.setForeground(new java.awt.Color(0, 0, 0));
+        food_text.setText("Food");
+
+        address_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        address_text.setForeground(new java.awt.Color(0, 0, 0));
+        address_text.setText("Address");
+
+        delivery_note.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        delivery_note.setForeground(new java.awt.Color(0, 0, 0));
+        delivery_note.setText("Delivery Note");
+
+        food_icon.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        food_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        food_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/food_icon.png"))); // NOI18N
+
+        javax.swing.GroupLayout current_taskLayout = new javax.swing.GroupLayout(current_task);
+        current_task.setLayout(current_taskLayout);
+        current_taskLayout.setHorizontalGroup(
+            current_taskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(current_taskLayout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addGroup(current_taskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(current_taskLayout.createSequentialGroup()
+                        .addComponent(food_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(food_text)
+                        .addGap(352, 352, 352)
+                        .addComponent(person_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addGroup(current_taskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(delivery_note)
+                            .addComponent(address_text))
+                        .addContainerGap(479, Short.MAX_VALUE))
+                    .addGroup(current_taskLayout.createSequentialGroup()
+                        .addComponent(order_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(84, 84, 84))))
         );
-        bottom_panelLayout.setVerticalGroup(
-            bottom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bottom_panelLayout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(current_task_text)
-                .addGap(80, 80, 80)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(411, Short.MAX_VALUE))
+        current_taskLayout.setVerticalGroup(
+            current_taskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(current_taskLayout.createSequentialGroup()
+                .addGroup(current_taskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(current_taskLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(order_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(current_taskLayout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(55, 55, 55)
+                .addGroup(current_taskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(person_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(food_text)
+                    .addComponent(food_icon))
+                .addGap(23, 23, 23)
+                .addComponent(address_text)
+                .addGap(79, 79, 79)
+                .addComponent(delivery_note)
+                .addContainerGap(70, Short.MAX_VALUE))
         );
+
+        bottom_panel.add(current_task);
+        current_task.setBounds(50, 120, 1300, 500);
 
         getContentPane().add(bottom_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, -1, 660));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void notificationComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_notificationComponentResized
+        // TODO add your handling code here:
+    }//GEN-LAST:event_notificationComponentResized
+
+    private void runner_backgroundComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_runner_backgroundComponentResized
+        // TODO add your handling code here:
+    }//GEN-LAST:event_runner_backgroundComponentResized
+
     private void backComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_backComponentResized
         // TODO add your handling code here:
     }//GEN-LAST:event_backComponentResized
 
-    private void delivery_historyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delivery_historyActionPerformed
+    private void rating_iconComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_rating_iconComponentResized
         // TODO add your handling code here:
-    }//GEN-LAST:event_delivery_historyActionPerformed
-
-    private void home_pageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_pageActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_home_pageActionPerformed
-
-    private void logo_lightComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_logo_lightComponentResized
-        // TODO add your handling code here:
-    }//GEN-LAST:event_logo_lightComponentResized
-
-    private void back1ComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_back1ComponentResized
-        // TODO add your handling code here:
-    }//GEN-LAST:event_back1ComponentResized
+    }//GEN-LAST:event_rating_iconComponentResized
 
     /**
      * @param args the command line arguments
@@ -221,14 +278,23 @@ public class RunnerMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel address_text;
     private javax.swing.JLabel back;
-    private javax.swing.JLabel back1;
     private javax.swing.JPanel bottom_panel;
+    private javax.swing.JPanel current_task;
     private javax.swing.JLabel current_task_text;
-    private javax.swing.JButton delivery_history;
-    private javax.swing.JButton home_page;
+    private javax.swing.JLabel delivery_history;
+    private javax.swing.JLabel delivery_note;
+    private javax.swing.JLabel food_icon;
+    private javax.swing.JLabel food_text;
+    private javax.swing.JLabel home_page;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel logo_light;
+    private javax.swing.JLabel notification;
+    private javax.swing.JLabel order_icon;
+    private javax.swing.JLabel person_icon;
+    private javax.swing.JLabel rating_icon;
+    private javax.swing.JLabel runner_background;
     private javax.swing.JPanel top_panel;
     // End of variables declaration//GEN-END:variables
 }
