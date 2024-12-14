@@ -13,6 +13,7 @@ public class TopUpCredit extends javax.swing.JPanel {
     public TopUpCredit() {
         initComponents();
         textFormatter();
+        initLayout();
     }
 
     private void textFormatter() {
@@ -21,12 +22,16 @@ public class TopUpCredit extends javax.swing.JPanel {
         byContactNo.setText("<html>Search by<br>Contact No.</html>");
     }
 
+    private void initLayout(){
+        bgLayer.setBackground(new java.awt.Color(255, 251, 233, 180));
+    }
+
     public void setAdminFrame(AdminFrame adminFrame) {
         this.adminFrame = adminFrame;
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Page Layout Structure">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         bgLayer = new javax.swing.JPanel();
@@ -37,6 +42,7 @@ public class TopUpCredit extends javax.swing.JPanel {
         byName = new javax.swing.JLabel();
         searchByName = new javax.swing.JTextField();
         byContactNo = new javax.swing.JLabel();
+        searchIcon = new javax.swing.JLabel();
         searchByContact = new javax.swing.JTextField();
         background = new javax.swing.JLabel();
 
@@ -50,7 +56,7 @@ public class TopUpCredit extends javax.swing.JPanel {
         bgLayer.add(customerCredit);
         customerCredit.setBounds(80, 50, 390, 70);
 
-        logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logout_icon.png"))); // NOI18N
+        logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logout_icon_1.png"))); // NOI18N
         logout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 logoutMouseClicked(evt);
@@ -107,6 +113,10 @@ public class TopUpCredit extends javax.swing.JPanel {
         bgLayer.add(byContactNo);
         byContactNo.setBounds(800, 160, 120, 60);
 
+        searchIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/search_icon.png"))); // NOI18N
+        bgLayer.add(searchIcon);
+        searchIcon.setBounds(1240, 160, 60, 60);
+
         searchByContact.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         searchByContact.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         bgLayer.add(searchByContact);
@@ -157,6 +167,7 @@ public class TopUpCredit extends javax.swing.JPanel {
     private javax.swing.JLabel logout;
     private javax.swing.JTextField searchByContact;
     private javax.swing.JTextField searchByName;
+    private javax.swing.JLabel searchIcon;
     private javax.swing.JScrollPane userListScroll;
     // End of variables declaration//GEN-END:variables
 }

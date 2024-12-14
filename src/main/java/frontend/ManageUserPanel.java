@@ -12,40 +12,45 @@ public class ManageUserPanel extends javax.swing.JPanel {
 
     public ManageUserPanel() {
         initComponents();
+        initLayout();
     }
 
     public void setAdminFrame(AdminFrame adminFrame) {
         this.adminFrame = adminFrame;
     }
 
+    private void initLayout(){
+        bgLayer.setBackground(new java.awt.Color(255, 251, 233, 180));
+    }
+
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Page Layout Structure">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         bgLayer = new javax.swing.JPanel();
-        userList = new javax.swing.JLabel();
+        userListLabel = new javax.swing.JLabel();
         filter = new javax.swing.JLabel();
         logout = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
         registerUser = new javax.swing.JButton();
-        userListScroll = new javax.swing.JScrollPane();
+        userListHolder = new javax.swing.JScrollPane();
         background = new javax.swing.JLabel();
 
         setLayout(null);
 
-        bgLayer.setBackground(new java.awt.Color(255, 251, 233, 180));
+        bgLayer.setBackground(new java.awt.Color(255, 251, 233));
         bgLayer.setLayout(null);
 
-        userList.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        userList.setText("User List");
-        bgLayer.add(userList);
-        userList.setBounds(80, 50, 220, 70);
+        userListLabel.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        userListLabel.setText("User List");
+        bgLayer.add(userListLabel);
+        userListLabel.setBounds(80, 50, 220, 70);
 
         filter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/filter_icon_1.png"))); // NOI18N
         bgLayer.add(filter);
         filter.setBounds(1090, 50, 110, 70);
 
-        logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logout_icon.png"))); // NOI18N
+        logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logout_icon_1.png"))); // NOI18N
         logout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 logoutMouseClicked(evt);
@@ -58,7 +63,7 @@ public class ManageUserPanel extends javax.swing.JPanel {
             }
         });
         bgLayer.add(logout);
-        logout.setBounds(1230, 60, 70, 60);
+        logout.setBounds(1230, 50, 70, 70);
 
         backButton.setBackground(new java.awt.Color(227, 202, 165));
         backButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -103,10 +108,10 @@ public class ManageUserPanel extends javax.swing.JPanel {
         bgLayer.add(registerUser);
         registerUser.setBounds(1070, 710, 230, 60);
 
-        userListScroll.setBackground(new java.awt.Color(255, 255, 255));
-        userListScroll.setForeground(new java.awt.Color(255, 255, 255));
-        bgLayer.add(userListScroll);
-        userListScroll.setBounds(90, 140, 1210, 540);
+        userListHolder.setBackground(new java.awt.Color(255, 255, 255));
+        userListHolder.setForeground(new java.awt.Color(255, 255, 255));
+        bgLayer.add(userListHolder);
+        userListHolder.setBounds(90, 140, 1210, 540);
 
         add(bgLayer);
         bgLayer.setBounds(0, 0, 1400, 800);
@@ -146,9 +151,9 @@ public class ManageUserPanel extends javax.swing.JPanel {
 //        if (filterType.contains("C")){
 //            CustomerDetailForm form = new CustomerDetailForm();
 //        }else if (filterType.contains("V")){
-            VendorDetailForm form = new VendorDetailForm();
+//            VendorDetailForm form = new VendorDetailForm();
 //        }else if (filterType.contains("R")){
-//            RunnerDetailForm form = new RunnerDetailForm();
+            RunnerDetailForm form = new RunnerDetailForm();
 //        }
 //        
         form.setVisible(true);
@@ -174,7 +179,7 @@ public class ManageUserPanel extends javax.swing.JPanel {
     private javax.swing.JLabel filter;
     private javax.swing.JLabel logout;
     private javax.swing.JButton registerUser;
-    private javax.swing.JLabel userList;
-    private javax.swing.JScrollPane userListScroll;
+    private javax.swing.JScrollPane userListHolder;
+    private javax.swing.JLabel userListLabel;
     // End of variables declaration//GEN-END:variables
 }

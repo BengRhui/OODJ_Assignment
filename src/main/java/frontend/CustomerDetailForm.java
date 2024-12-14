@@ -11,6 +11,7 @@ public class CustomerDetailForm extends javax.swing.JFrame {
     public CustomerDetailForm() {
         initComponents();
         textFormatter();
+        initContent();
     }
     private void textFormatter() {
         //this function is to set the text and format of the JLabel
@@ -24,8 +25,12 @@ public class CustomerDetailForm extends javax.swing.JFrame {
                 """);
     }
 
+    private void initContent() {
+        //initialize content of selected user
+    }
+
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Page Layout Structure">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         customerDetailsHolder = new javax.swing.JPanel();
@@ -34,7 +39,6 @@ public class CustomerDetailForm extends javax.swing.JFrame {
         customerIdLabel = new javax.swing.JLabel();
         customerNameLabel = new javax.swing.JLabel();
         emailLabel = new javax.swing.JLabel();
-        customerId = new javax.swing.JLabel();
         email = new javax.swing.JTextField();
         customerName = new javax.swing.JTextField();
         contactNoLabel = new javax.swing.JLabel();
@@ -52,6 +56,7 @@ public class CustomerDetailForm extends javax.swing.JFrame {
         confirmButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         note = new javax.swing.JLabel();
+        customerId = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -82,9 +87,6 @@ public class CustomerDetailForm extends javax.swing.JFrame {
 
         emailLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         emailLabel.setText("Email");
-
-        customerId.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        customerId.setText("C001");
 
         email.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         email.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
@@ -179,6 +181,11 @@ public class CustomerDetailForm extends javax.swing.JFrame {
         note.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         note.setText("jLabel1");
 
+        customerId.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        customerId.setText("C001");
+        customerId.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        customerId.setEnabled(false);
+
         javax.swing.GroupLayout customerDetailsHolderLayout = new javax.swing.GroupLayout(customerDetailsHolder);
         customerDetailsHolder.setLayout(customerDetailsHolderLayout);
         customerDetailsHolderLayout.setHorizontalGroup(
@@ -186,25 +193,8 @@ public class CustomerDetailForm extends javax.swing.JFrame {
             .addGroup(customerDetailsHolderLayout.createSequentialGroup()
                 .addGroup(customerDetailsHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(customerDetailsHolderLayout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(customerDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(800, 800, 800)
-                        .addComponent(closeButton))
-                    .addGroup(customerDetailsHolderLayout.createSequentialGroup()
                         .addGap(80, 80, 80)
                         .addGroup(customerDetailsHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(customerDetailsHolderLayout.createSequentialGroup()
-                                .addComponent(customerIdLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(80, 80, 80)
-                                .addComponent(customerNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(350, 350, 350)
-                                .addComponent(emailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(customerDetailsHolderLayout.createSequentialGroup()
-                                .addComponent(customerId, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(80, 80, 80)
-                                .addComponent(customerName, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(customerDetailsHolderLayout.createSequentialGroup()
                                 .addComponent(contactNoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(540, 540, 540)
@@ -235,7 +225,26 @@ public class CustomerDetailForm extends javax.swing.JFrame {
                                     .addGroup(customerDetailsHolderLayout.createSequentialGroup()
                                         .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(confirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                        .addComponent(confirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(customerDetailsHolderLayout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addGroup(customerDetailsHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(customerDetailsHolderLayout.createSequentialGroup()
+                                .addComponent(customerIdLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(79, 79, 79)
+                                .addComponent(customerNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(350, 350, 350)
+                                .addComponent(emailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(customerDetailsHolderLayout.createSequentialGroup()
+                                .addComponent(customerId, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(customerName, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(customerDetailsHolderLayout.createSequentialGroup()
+                                .addComponent(customerDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(789, 789, 789)
+                                .addComponent(closeButton)))))
                 .addGap(40, 40, 40))
         );
         customerDetailsHolderLayout.setVerticalGroup(
@@ -247,12 +256,14 @@ public class CustomerDetailForm extends javax.swing.JFrame {
                     .addComponent(closeButton))
                 .addGap(50, 50, 50)
                 .addGroup(customerDetailsHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(customerIdLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(customerNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(customerDetailsHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(customerNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(customerIdLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(emailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(customerDetailsHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(customerId, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(customerName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(customerDetailsHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(customerName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(customerId, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(customerDetailsHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,7 +357,7 @@ public class CustomerDetailForm extends javax.swing.JFrame {
     private javax.swing.JTextField contactNumber;
     private javax.swing.JLabel customerDetails;
     private javax.swing.JPanel customerDetailsHolder;
-    private javax.swing.JLabel customerId;
+    private javax.swing.JTextField customerId;
     private javax.swing.JLabel customerIdLabel;
     private javax.swing.JTextField customerName;
     private javax.swing.JLabel customerNameLabel;

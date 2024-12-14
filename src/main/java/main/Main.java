@@ -1,16 +1,14 @@
 package main;
 
 import backend.Backend;
-import frontend.Frontend;
+import frontend.AdminFrame;
 
 
 public class Main {
 
     public static void main(String[] args) {
 
-        // This code is used to see if the frontend backend package can run
-        System.out.println("Testing:");
-        new Frontend();
-        new Backend();
+        // This code is test the output of AdminFrame
+        new AdminFrame().setVisible(true);
     }
 }

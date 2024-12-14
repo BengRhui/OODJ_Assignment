@@ -12,6 +12,7 @@ public class VendorDetailForm extends javax.swing.JFrame {
     public VendorDetailForm() {
         initComponents();
         textFormatter();
+        initContent();
     }
     private void textFormatter() {
         //this function is to set the text and format of the JLabel
@@ -24,9 +25,13 @@ public class VendorDetailForm extends javax.swing.JFrame {
                 </html>
                 """);
     }
+
+    private void initContent() {
+        //Initialize content of selected user
+    }
     
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Page Layout Structure">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         vendorDetailsHolder = new javax.swing.JPanel();
@@ -48,7 +53,7 @@ public class VendorDetailForm extends javax.swing.JFrame {
         storeName = new javax.swing.JTextField();
         confirmButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
-        vendorId = new javax.swing.JLabel();
+        vendorId = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -151,8 +156,10 @@ public class VendorDetailForm extends javax.swing.JFrame {
             }
         });
 
-        vendorId.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        vendorId.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         vendorId.setText("V001");
+        vendorId.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        vendorId.setEnabled(false);
 
         javax.swing.GroupLayout vendorDetailsHolderLayout = new javax.swing.GroupLayout(vendorDetailsHolder);
         vendorDetailsHolder.setLayout(vendorDetailsHolderLayout);
@@ -164,22 +171,17 @@ public class VendorDetailForm extends javax.swing.JFrame {
                     .addGroup(vendorDetailsHolderLayout.createSequentialGroup()
                         .addGroup(vendorDetailsHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(vendorDetailsHolderLayout.createSequentialGroup()
-                                .addGroup(vendorDetailsHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(vendorDetailsHolderLayout.createSequentialGroup()
-                                        .addComponent(vendorIdLabel)
-                                        .addGap(228, 228, 228))
-                                    .addComponent(vendorId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(vendorDetailsHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(vendorDetailsHolderLayout.createSequentialGroup()
-                                        .addGap(16, 16, 16)
-                                        .addComponent(storeIdLabel))
-                                    .addGroup(vendorDetailsHolderLayout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(storeId))))
+                                .addComponent(vendorIdLabel)
+                                .addGap(244, 244, 244)
+                                .addComponent(storeIdLabel))
                             .addComponent(vendorNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(vendorName, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(storeNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(storeName, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(storeName, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(vendorDetailsHolderLayout.createSequentialGroup()
+                                .addComponent(vendorId, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(storeId)))
                         .addGroup(vendorDetailsHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, vendorDetailsHolderLayout.createSequentialGroup()
                                 .addGap(26, 26, 26)
@@ -212,11 +214,11 @@ public class VendorDetailForm extends javax.swing.JFrame {
             .addGroup(vendorDetailsHolderLayout.createSequentialGroup()
                 .addGroup(vendorDetailsHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(vendorDetailsHolderLayout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(vendorDetails))
-                    .addGroup(vendorDetailsHolderLayout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(closeButton)))
+                        .addComponent(closeButton))
+                    .addGroup(vendorDetailsHolderLayout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(vendorDetails)))
                 .addGap(38, 38, 38)
                 .addGroup(vendorDetailsHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -225,9 +227,7 @@ public class VendorDetailForm extends javax.swing.JFrame {
                 .addGroup(vendorDetailsHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(storeId, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(vendorDetailsHolderLayout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(vendorId, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(vendorId, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(vendorDetailsHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(passwordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -317,7 +317,7 @@ public class VendorDetailForm extends javax.swing.JFrame {
     private javax.swing.JLabel storeNameLabel;
     private javax.swing.JLabel vendorDetails;
     private javax.swing.JPanel vendorDetailsHolder;
-    private javax.swing.JLabel vendorId;
+    private javax.swing.JTextField vendorId;
     private javax.swing.JLabel vendorIdLabel;
     private javax.swing.JTextField vendorName;
     private javax.swing.JLabel vendorNameLabel;
