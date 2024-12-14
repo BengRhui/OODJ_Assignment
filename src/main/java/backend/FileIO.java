@@ -4,9 +4,9 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Abstract class {@code FileIO} contains the general methods to retrieve and write the contents of text files.
+ * Class {@code FileIO} contains the general methods to retrieve and write the contents of text files.
  */
-public abstract class FileIO {
+public class FileIO {
 
     /**
      * The PARENT_PATH_TO_FILE variable contains the file path to the folder containing the text files
@@ -56,19 +56,18 @@ public abstract class FileIO {
 
             // Print out the file name that is not available and exit the system immediately
             System.out.println("Error: " + fileName + " file is not found.");
-            System.exit(0);
+            System.exit(1);
         }
 
         return null;
     }
 
     /**
-     * A method to write contents into text files.
+     * A method to write contents into text files. System exits immediately if there is error in writing files.
      *
      * @param fileName     The name of the text file to be written to
      * @param fileContents The contents to be written
      * @param spacingSize  The empty spaces reserved to make text file tidy
-     * @throws IllegalArgumentException Exception is thrown if the two array size (content and space) does not match
      */
     protected static void writeListToFile(String fileName, ArrayList<String[]> fileContents, int[] spacingSize) {
 
@@ -120,21 +119,14 @@ public abstract class FileIO {
 
             // Print error and exit system if there's error with file operations
             System.out.println("Error while writing " + fileName);
-            System.exit(0);
+            System.exit(1);
 
         } catch (IllegalArgumentException ex) {
 
             // Print error for different array sizes
             System.out.println("Error: The size of content array does not match with the size of spacing array.");
-            System.exit(0);
+            System.exit(1);
         }
 
     }
-
-    /**
-     * Abstract methods to be modified in different IO classes
-     */
-    public abstract void readFile();
-
-    public abstract void writeFile();
 }
