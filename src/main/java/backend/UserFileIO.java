@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Abstract class {@code UserFileIO} contains the general methods to read and write files related to users.
+ * @author Beng Rhui (TP068495)
  */
 public abstract class UserFileIO extends FileIO {
 
