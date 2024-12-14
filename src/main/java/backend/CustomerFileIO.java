@@ -56,26 +56,13 @@ public class CustomerFileIO extends UserFileIO {
         double eWalletAmount = Double.parseDouble(individualRecords[8]);
         String deliveryNote = individualRecords[9];
 
-        // Set email and password as null in default
-        String email = null;
-        String password = null;
+        // Retrieve email and password
+        String[] loginCredentials = getUsernameAndPassword(userID);
+        String email = loginCredentials[0];
+        String password = loginCredentials[1];
 
         // Create address object
         Address address = new Address(addressLine1, addressLine2, postcode, city, state);
-
-        // Loop through each record in the credentials list
-        for (String[] credentials : credentialsInformation) {
-
-            // Continue the loop if the user ID does not match
-            if (!credentials[0].equals(individualRecords[0])) {
-                continue;
-            }
-
-            // Retrieve email and password if user ID matches, then end the loop
-            email = credentials[1];
-            password = credentials[2];
-            break;
-        }
 
         // Create and return the generated customer object
         return new Customer(userID, email, password, name, contactNumber, address, eWalletAmount, deliveryNote);

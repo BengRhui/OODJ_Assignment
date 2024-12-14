@@ -50,23 +50,10 @@ public class AdminFileIO extends UserFileIO {
         String userID = individualStringRecord[0];
         String name = individualStringRecord[1];
 
-        // Set email and password as null in default
-        String email = null;
-        String password = null;
-
-        // Loop through the contents of login credentials file to obtain email and password
-        for (String[] credential : loginCredentialsList) {
-
-            // Continue the loop if the user ID does not match
-            if (!credential[0].equals(userID)) {
-                continue;
-            }
-
-            // If user ID matches, retrieve the corresponding email and password and end the loop
-            email = credential[1];
-            password = credential[2];
-            break;
-        }
+        // Retrieve email and password
+        String[] loginCredentials = getUsernameAndPassword(userID);
+        String email = loginCredentials[0];
+        String password = loginCredentials[1];
 
         // Create and return the Admin object
         return new Admin(userID, email, password, name);
