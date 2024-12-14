@@ -24,6 +24,7 @@ public class Order {
     private Stall orderedStall;
     private DeliveryRunner runnerInCharge;
     private String diningType;
+    private String tableNumber;
     private String deliveryNote;
     private double orderPrice;
     private LocalDateTime orderedDate;
@@ -39,6 +40,7 @@ public class Order {
      * @param orderedStall     The stall where the customer places the order
      * @param runnerInCharge   The delivery runner delivering the food (if available)
      * @param diningType       The dining type preferred by user
+     * @param tableNumber      The table number of user (for eat-in)
      * @param deliveryNote     The delivery note that user wishes to inform runner
      * @param orderPrice       The total payment of the order
      * @param orderedDate      The date where the order is made
@@ -47,13 +49,14 @@ public class Order {
      * @param orderItem        The list of items ordered by customer
      */
     public Order(String orderID, Customer orderingCustomer, Stall orderedStall, DeliveryRunner runnerInCharge,
-                 String diningType, String deliveryNote, double orderPrice, LocalDateTime orderedDate,
+                 String diningType, String tableNumber, String deliveryNote, double orderPrice, LocalDateTime orderedDate,
                  double tipsForRunner, String orderStatus, HashMap<String, Integer> orderItem) {
         this.orderID = orderID;
         this.orderingCustomer = orderingCustomer;
         this.orderedStall = orderedStall;
         this.runnerInCharge = runnerInCharge;
         this.diningType = diningType;
+        this.tableNumber = tableNumber;
         this.deliveryNote = deliveryNote;
         this.orderPrice = orderPrice;
         this.orderedDate = orderedDate;
@@ -123,6 +126,14 @@ public class Order {
         this.diningType = diningType;
     }
 
+    public String getTableNumber() {
+        return tableNumber;
+    }
+
+    public void setTableNumber(String tableNumber) {
+        this.tableNumber = tableNumber;
+    }
+
     public String getDeliveryNote() {
         return deliveryNote;
     }
@@ -188,6 +199,7 @@ public class Order {
                 "Runner in Charge: " + "\n" +
                 runnerInCharge.toString() + "\n" +
                 "Dining Type: " + diningType + "\n" +
+                "Table Number: " + tableNumber + "\n" +
                 "Delivery Note: " + deliveryNote + "\n" +
                 "Order Price: " + orderPrice + "\n" +
                 "Ordered Date: " + Utility.generateString(orderedDate) + "\n" +
