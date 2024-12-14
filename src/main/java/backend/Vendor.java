@@ -28,7 +28,6 @@ public class Vendor extends User {
     public Vendor(String userID, String email, String password, String name, Stall stall) {
         super(userID, email, password, name);
         this.stall = stall;
-        addToVendorList(this);
     }
 
     /**

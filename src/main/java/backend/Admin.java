@@ -25,7 +25,6 @@ public class Admin extends User {
      */
     public Admin(String userID, String email, String password, String name) {
         super(userID, email, password, name);
-        addToAdminList(this);
     }
 
     /**

@@ -39,7 +39,6 @@ public class Feedback {
         this.feedbackTitle = feedbackTitle;
         this.feedbackDetails = feedbackDetails;
         this.replyFromManager = responseFromManager;
-        addToFeedbackList(this);
     }
 
     /**

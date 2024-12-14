@@ -24,7 +24,6 @@ public class Manager extends User {
      */
     public Manager(String userID, String email, String password, String name) {
         super(userID, email, password, name);
-        addManager(this);
     }
 
     /**

@@ -38,7 +38,6 @@ public class Customer extends User {
         this.address = address;
         this.eWalletAmount = eWalletAmount;
         this.deliveryNote = deliveryNote;
-        addToCustomerList(this);
     }
 
     /**

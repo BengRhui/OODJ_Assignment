@@ -28,7 +28,6 @@ public class DeliveryRunner extends User {
     public DeliveryRunner(String userID, String email, String password, String name, String contactNumber) {
         super(userID, email, password, name);
         this.contactNumber = contactNumber;
-        addToRunnerList(this);
     }
 
     /**

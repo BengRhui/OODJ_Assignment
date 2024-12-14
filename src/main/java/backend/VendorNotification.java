@@ -40,7 +40,6 @@ public class VendorNotification implements Notification {
         this.readStatus = readStatus;
         this.notificationTitle = notificationTitle;
         this.notificationDetails = notificationDetails;
-        addToList(this);
     }
 
     /**

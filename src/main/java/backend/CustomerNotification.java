@@ -40,7 +40,6 @@ public class CustomerNotification implements Notification {
         this.readStatus = readStatus;
         this.notificationTitle = notificationTitle;
         this.notificationDetails = notificationDetails;
-        addToList(this);
     }
 
     /**

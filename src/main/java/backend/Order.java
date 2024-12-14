@@ -60,7 +60,6 @@ public class Order {
         this.tipsForRunner = tipsForRunner;
         this.orderStatus = orderStatus;
         this.orderItem = orderItem;
-        addToOrderList(this);
     }
 
     /**

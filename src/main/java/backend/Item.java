@@ -35,7 +35,6 @@ public class Item {
         this.stall = stall;
         this.price = price;
         this.description = description;
-        addItemToList(this);
     }
 
     /**

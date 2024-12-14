@@ -30,7 +30,6 @@ public class Stall {
         this.storeID = storeID;
         this.storeName = storeName;
         this.storeCategories = storeCategories;
-        addStallToList(this);
     }
 
     /**
