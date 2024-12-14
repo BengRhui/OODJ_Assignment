@@ -27,10 +27,9 @@ public class CustomerFileIO extends UserFileIO {
         // Loop through each record
         for (String[] individualRecords : unprocessedInformation) {
 
-            // Create a new customer object, then add to both customer list and user list
+            // Create a new customer object, then add to customer list
             Customer newCustomer = createCustomerObject(individualRecords);
             Customer.addToCustomerList(newCustomer);
-            User.addUserToList(newCustomer);
         }
     }
 

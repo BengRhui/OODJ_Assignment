@@ -30,9 +30,8 @@ public class AdminFileIO extends UserFileIO {
             // Create an Admin object
             Admin newAdmin = createAdminObject(data);
 
-            // Add the object to both Admin and User list
+            // Add the object to Admin list
             Admin.addToAdminList(newAdmin);
-            User.addUserToList(newAdmin);
         }
     }
 
