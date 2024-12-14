@@ -40,7 +40,7 @@ public class User {
      *
      * @param user The {@code User} object to be added into the ArrayList
      */
-    public static void addUser(User user) {
+    public static void addUserToList(User user) {
         userList.add(user);
     }
 
