@@ -40,7 +40,7 @@ public class Manager extends User {
      *
      * @param manager The {@code Manager} that will be added into a list
      */
-    public static void addManager(Manager manager) {
+    public static void addManagerToList(Manager manager) {
         managerList.add(manager);
     }
 
