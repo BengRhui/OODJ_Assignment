@@ -2,6 +2,10 @@ package backend;
 
 import java.util.ArrayList;
 
+/**
+ * Class {@code CustomerFileIO} contains the methods used to read and write customer information file.
+ * @author Beng Rhui (TP068495)
+ */
 public class CustomerFileIO extends UserFileIO {
 
     /**
