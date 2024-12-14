@@ -88,4 +88,19 @@ public class Stall {
                 "Store Name: " + storeName + "\n" +
                 "Store Categories: " + Arrays.toString(storeCategories);
     }
+
+    /**
+     * A method to retrieve the associated {@code Store} object based on store ID.
+     * @param stallID The ID of the stall
+     * @return The {@code Stall} object associated with the ID
+     */
+    public static Stall getStall(String stallID) {
+        for (Stall stall : stallList) {
+            if (!stall.getStoreID().equals(stallID)) {
+                continue;
+            }
+            return stall;
+        }
+        return null;
+    }
 }
