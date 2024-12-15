@@ -56,6 +56,29 @@ public class Item {
     }
 
     /**
+     * A method to retrieve {@code Item} object by ID.
+     * @param itemID The ID of the item
+     * @return The {@code Item} object associated with the ID
+     */
+    public static Item getItem(String itemID) {
+
+        // Loop through the list of item objects
+        for (Item item : itemList) {
+
+            // Continue loop if item ID does not match
+            if (!item.itemID.equals(itemID)) {
+                continue;
+            }
+
+            // Return the respective item object if item ID matches
+            return item;
+        }
+
+        // Return null if there is no matching ID
+        return null;
+    }
+
+    /**
      * Getters and setters for the {@code Item} class.
      */
     public String getItemID() {
