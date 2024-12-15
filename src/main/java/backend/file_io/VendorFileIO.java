@@ -79,7 +79,7 @@ public class VendorFileIO extends UserFileIO {
             String[] singleLine = new String[NUMBER_OF_INFORMATION_IN_FILE];
             singleLine[0] = vendor.getUserID();
             singleLine[1] = vendor.getName();
-            singleLine[2] = vendor.getStall().getStoreID();
+            singleLine[2] = vendor.getStall().getStallID();
             information.add(singleLine);
         }
 

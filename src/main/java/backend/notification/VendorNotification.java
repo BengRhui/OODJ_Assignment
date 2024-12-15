@@ -125,7 +125,7 @@ public class VendorNotification implements Notification {
      */
     @Override
     public String getEntityID() {
-        return stall.getStoreID();
+        return stall.getStallID();
     }
 
     /**
