@@ -19,6 +19,8 @@ public class NotificationIO extends FileIO {
      * Fixed variable to help in coding.
      */
     private final static String NOTIFICATION_FILE_NAME = "notifications.txt";
+    private final static int NUMBER_OF_INFORMATION_IN_FILE = 6;
+    private final static int[] SPACING_SIZE = {5, 5, 20, 10, 25, 80};
 
     /**
      * A method to read notification file and instantiate different {@code Notification} objects
@@ -125,5 +127,44 @@ public class NotificationIO extends FileIO {
 
         // Add notification to list
         CustomerNotification.addToList(newNotification);
+    }
+
+    /**
+     * A method to write notification objects into file.
+     */
+    public static void writeFile() {
+
+        // Combine all types of notification lists
+        ArrayList<Notification> notificationList = new ArrayList<>();
+        notificationList.addAll(CustomerNotification.getCustomerNotificationList());
+        notificationList.addAll(DeliveryRunnerNotification.getDeliveryRunnerNotificationList());
+        notificationList.addAll(VendorNotification.getVendorNotificationList());
+
+        // Sort the notification list based on notification ID using lambda expression
+        notificationList.sort(
+                (notification1, notification2) ->
+                        notification1.getNotificationID()
+                                .compareToIgnoreCase(notification2.getNotificationID())
+        );
+
+        // Create a local variable to store all string arrays to be written to text file
+        ArrayList<String[]> information = new ArrayList<>();
+
+        // Loop through all notification
+        for (Notification notification : notificationList) {
+
+            // Add each information into the string array and append to overall list
+            String[] record = new String[NUMBER_OF_INFORMATION_IN_FILE];
+            record[0] = notification.getNotificationID();
+            record[1] = notification.getEntityID();
+            record[2] = Utility.generateString(notification.getNotificationTime());
+            record[3] = notification.getReadStatus().toString();
+            record[4] = notification.getNotificationTitle();
+            record[5] = notification.getNotificationDetails();
+            information.add(record);
+        }
+
+        // Write the information into text file
+        writeListToFile(NOTIFICATION_FILE_NAME, information, SPACING_SIZE);
     }
 }
