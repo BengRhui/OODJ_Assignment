@@ -110,4 +110,27 @@ public class Customer extends User {
                 "Customer E-Wallet Amount: " + eWalletAmount + "\n" +
                 "Customer Delivery Note: " + deliveryNote;
     }
+
+    /**
+     * A method to retrieve {@code Customer} based on customer ID.
+     * @param customerID The ID of the customer
+     * @return The {@code Customer} object associated with the ID
+     */
+    public static Customer getCustomer(String customerID) {
+
+        // Loop through the list of customers
+        for (Customer customer : customerList) {
+
+            // Continue the loop if the ID does not match
+            if (!customer.userID.equals(customerID)) {
+                continue;
+            }
+
+            // Return customer object if the ID matches
+            return customer;
+        }
+
+        // If no ID matches, return null
+        return null;
+    }
 }
