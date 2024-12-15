@@ -39,7 +39,7 @@ THINGS TO TAKE NOTE: CONTRIBUTING TO THE PROJECT
 ---------------------------------------------------------------------
 To update your changes, follow the steps here:
 
-1. Create a branch and update your commits under the branch
+1. Create a branch based on `Development` and update your commits under the branch
    (Do come out with a good name that clearly depicts what you have done)
    
 2. Go to GitHub website and create a pull request
