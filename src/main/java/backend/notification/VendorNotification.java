@@ -13,11 +13,11 @@ import java.util.ArrayList;
  */
 public class VendorNotification implements Notification {
 
-    private final static ArrayList<Notification> vendorNotificationList = new ArrayList<>();
     /**
      * Attributes for {@code VendorNotification} objects.<br>
      * An overall list that records all vendor notifications is also included.
      */
+    private final static ArrayList<Notification> vendorNotificationList = new ArrayList<>();
     private String notificationID;
     private Stall stall;
     private LocalDateTime notificationTime;
@@ -121,6 +121,7 @@ public class VendorNotification implements Notification {
 
     /**
      * A method to return the ID related to the associated entity
+     *
      * @return The ID of the entity
      */
     @Override

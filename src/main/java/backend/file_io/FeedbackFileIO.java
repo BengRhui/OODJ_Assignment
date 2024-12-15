@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 /**
  * Class {@code FeedbackFileIO} contains the methods to read and write feedback file.
+ *
  * @author Beng Rhui (TP068495)
  */
 public class FeedbackFileIO extends FileIO {
@@ -37,6 +38,7 @@ public class FeedbackFileIO extends FileIO {
 
     /**
      * A method to create {@code Feedback} objects based on information from text file.
+     *
      * @param recordFromFile The string array obtained from text file
      * @return The {@code Feedback} object created based on the information
      */

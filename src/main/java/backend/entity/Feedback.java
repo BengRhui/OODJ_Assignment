@@ -4,14 +4,16 @@ import java.util.ArrayList;
 
 /**
  * Class {@code Feedback} represents the feedback that customers provide to the system, vendor and delivery runner.
+ *
+ * @author Beng Rhui (TP068495)
  */
 public class Feedback {
 
-    private final static ArrayList<Feedback> feedbackList = new ArrayList<Feedback>();
     /**
      * Attributes for {@code Feedback} objects.<br>
      * A list containing all {@code Feedback} objects is also included.
      */
+    private final static ArrayList<Feedback> feedbackList = new ArrayList<Feedback>();
     private String feedbackID;
     private String feedbackCategory;
     private Order orderAssociated;
@@ -23,12 +25,12 @@ public class Feedback {
     /**
      * Constructor to instantiate {@code Feedback} objects.
      *
-     * @param feedbackID          The ID of feedback
-     * @param feedbackCategory    The categories of feedback, i.e. system, vendor and delivery runner
-     * @param orderAssociated     The Order item associated with the feedback
-     * @param ratings             The ratings provided by the customer in the feedback
-     * @param feedbackTitle       The title of the feedback
-     * @param feedbackDetails     The description of the feedback
+     * @param feedbackID       The ID of feedback
+     * @param feedbackCategory The categories of feedback, i.e. system, vendor and delivery runner
+     * @param orderAssociated  The Order item associated with the feedback
+     * @param ratings          The ratings provided by the customer in the feedback
+     * @param feedbackTitle    The title of the feedback
+     * @param feedbackDetails  The description of the feedback
      * @param replyFromManager The reply that the manager provides to the customer
      */
     public Feedback(String feedbackID, String feedbackCategory, Order orderAssociated, double ratings, String feedbackTitle, String feedbackDetails, String replyFromManager) {

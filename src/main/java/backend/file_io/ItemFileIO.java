@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 /**
  * Class {@code ItemFileIO} contains the methods to read and write item-related files.
+ *
  * @author Beng Rhui (TP068495)
  */
 public class ItemFileIO extends FileIO {
@@ -37,6 +38,7 @@ public class ItemFileIO extends FileIO {
 
     /**
      * A method to create {@code Item} objects based on string record from file.
+     *
      * @param recordFromFile The string array obtained from file
      * @return The {@code Item} associated with the string array
      */

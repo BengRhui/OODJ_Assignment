@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 /**
  * Class {@code OrderFileIO} contains the methods to read and write files related to orders.
+ *
  * @author Beng Rhui (TP068495)
  */
 public class OrderFileIO extends FileIO {
@@ -39,23 +40,24 @@ public class OrderFileIO extends FileIO {
 
     /**
      * A method to create {@code Order} objects based on records from file.
+     *
      * @param recordFromFile The string array from file
      * @return The {@code Order} object being created
      */
     public static Order createOrderObject(String[] recordFromFile) {
 
         // Retrieve information from the string array
-        String orderID                   = recordFromFile[0];
-        Customer orderingCustomer        = Customer.getCustomer(recordFromFile[1]);
-        Stall orderedStall               = Stall.getStall(recordFromFile[2]);
-        DeliveryRunner runnerInCharge    = DeliveryRunner.getRunner(recordFromFile[3]);
-        String diningType                = recordFromFile[4];
-        String tableNumber               = recordFromFile[5];
-        String deliveryNote              = recordFromFile[6];
-        double orderPrice                = Double.parseDouble(recordFromFile[7]);
-        LocalDateTime orderedDate        = Utility.changeStringToTime(recordFromFile[8]);
-        double tipsForRunner             = Double.parseDouble(recordFromFile[9]);
-        String orderStatus               = recordFromFile[10];
+        String orderID = recordFromFile[0];
+        Customer orderingCustomer = Customer.getCustomer(recordFromFile[1]);
+        Stall orderedStall = Stall.getStall(recordFromFile[2]);
+        DeliveryRunner runnerInCharge = DeliveryRunner.getRunner(recordFromFile[3]);
+        String diningType = recordFromFile[4];
+        String tableNumber = recordFromFile[5];
+        String deliveryNote = recordFromFile[6];
+        double orderPrice = Double.parseDouble(recordFromFile[7]);
+        LocalDateTime orderedDate = Utility.changeStringToTime(recordFromFile[8]);
+        double tipsForRunner = Double.parseDouble(recordFromFile[9]);
+        String orderStatus = recordFromFile[10];
         HashMap<Item, Integer> orderItem = Utility.changeStringToHashMap(recordFromFile[11]);
 
         // Create and return a new item object

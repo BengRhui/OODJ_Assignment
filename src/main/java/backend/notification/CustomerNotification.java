@@ -13,11 +13,11 @@ import java.util.ArrayList;
  */
 public class CustomerNotification implements Notification {
 
-    private final static ArrayList<Notification> customerNotificationList = new ArrayList<>();
     /**
      * Attributes for {@code CustomerNotification} class.<br>
      * An overall list containing all {@code CustomerNotification} objects is included.
      */
+    private final static ArrayList<Notification> customerNotificationList = new ArrayList<>();
     private String notificationID;
     private Customer customer;
     private LocalDateTime notificationTime;
@@ -121,6 +121,7 @@ public class CustomerNotification implements Notification {
 
     /**
      * A method to return the ID related to the associated entity
+     *
      * @return The ID of the entity
      */
     @Override

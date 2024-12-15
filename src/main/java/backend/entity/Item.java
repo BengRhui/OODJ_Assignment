@@ -9,11 +9,11 @@ import java.util.ArrayList;
  */
 public class Item {
 
-    private final static ArrayList<Item> itemList = new ArrayList<>();
     /**
      * Attributes for the {@code Item} object.<br>
      * A list that contains all {@code Item} objects is also included.
      */
+    private final static ArrayList<Item> itemList = new ArrayList<>();
     private String itemID;
     private String itemName;
     private Stall stall;
@@ -57,6 +57,7 @@ public class Item {
 
     /**
      * A method to retrieve {@code Item} object by ID.
+     *
      * @param itemID The ID of the item
      * @return The {@code Item} object associated with the ID
      */

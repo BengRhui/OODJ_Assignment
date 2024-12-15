@@ -7,9 +7,10 @@ import java.util.Arrays;
 
 /**
  * Class {@code StallFileIO} contains methods to read and write information regarding stall.
+ *
  * @author Beng Rhui (TP068495)
  */
-public class StallFileIO extends FileIO{
+public class StallFileIO extends FileIO {
 
     /**
      * Fixed variables to help in read and write files.
@@ -27,7 +28,7 @@ public class StallFileIO extends FileIO{
         ArrayList<String[]> informationFromFile = getListFromFile(STALL_FILE_NAME);
 
         // Loop through each information
-        for (String[] record: informationFromFile) {
+        for (String[] record : informationFromFile) {
 
             // Create a stall object and add to list
             Stall newStall = createStallObject(record);
@@ -37,6 +38,7 @@ public class StallFileIO extends FileIO{
 
     /**
      * A method to create {@code Stall} objects based on string array from text file
+     *
      * @param recordFromFile The string record from text file
      * @return The {@code Stall} object created
      */
@@ -55,7 +57,7 @@ public class StallFileIO extends FileIO{
         // Create a stall object
         return new Stall(stallID, stallName, stallCategories);
     }
-    
+
     /**
      * A method to write {@code Stall} objects into file.
      */
@@ -68,7 +70,7 @@ public class StallFileIO extends FileIO{
         ArrayList<String[]> informationToFile = new ArrayList<>();
 
         // Loop through each stall
-        for (Stall stall: stallList) {
+        for (Stall stall : stallList) {
 
             // Retrieve information from stall object
             String[] record = new String[NUMBER_OF_INFORMATION_IN_FILE];

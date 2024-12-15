@@ -9,11 +9,11 @@ import java.util.ArrayList;
  */
 public class Vendor extends User {
 
-    private final static ArrayList<Vendor> vendorList = new ArrayList<>();
     /**
      * Additional attribute for {@code Vendor} class.<br>
      * An overall list to record all {@code Vendor} objects is also included.
      */
+    private final static ArrayList<Vendor> vendorList = new ArrayList<>();
     private Stall stall;
 
     /**

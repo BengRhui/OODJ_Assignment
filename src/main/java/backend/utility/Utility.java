@@ -55,6 +55,7 @@ public class Utility {
 
     /**
      * A method to generate string from {@code HashMap} with {@code Item} and {@code Integer} key and value
+     *
      * @param map HashMap with {@code Item} object as key and {@code Integer} object as value
      * @return The string representation of the {@code HashMap}
      */
@@ -81,6 +82,7 @@ public class Utility {
 
     /**
      * A method to parse string to {@code LocalDateTime} format.
+     *
      * @param time Time in string format
      * @return Time in {@code LocalDateTime} format
      */
@@ -96,6 +98,7 @@ public class Utility {
     /**
      * A method to change a string containing the pair of item and quantity into {@code HashMap}.<br>
      * The string is parsed in the format of "I001 - 1, I002 - 2, ..."
+     *
      * @param itemSet The string that contains the key-value pair of item and quantity
      * @return The key-value pair in {@code HashMap}
      */

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 /**
  * Class {@code NotificationIO} contains the methods to read and write files related to notification.
+ *
  * @author Beng Rhui (TP068495)
  */
 public class NotificationIO extends FileIO {
@@ -47,6 +48,7 @@ public class NotificationIO extends FileIO {
 
     /**
      * A method to create {@code VendorNotification} objects based on record.
+     *
      * @param record The string record obtained from text file
      */
     public static void createVendorNotification(String[] record) {
@@ -75,6 +77,7 @@ public class NotificationIO extends FileIO {
 
     /**
      * A method to create {@code DeliveryRunnerNotification} based on string record
+     *
      * @param record The string record obtained from text file
      */
     public static void createDeliveryRunnerNotification(String[] record) {
@@ -103,6 +106,7 @@ public class NotificationIO extends FileIO {
 
     /**
      * A method to create {@code CustomerNotification} based on the string record
+     *
      * @param record The string record obtained from text file
      */
     public static void createCustomerNotification(String[] record) {

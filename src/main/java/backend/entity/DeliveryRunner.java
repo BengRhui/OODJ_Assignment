@@ -49,6 +49,30 @@ public class DeliveryRunner extends User {
     }
 
     /**
+     * A method to retrieve {@code DeliveryRunner} object by using delivery runner ID.
+     *
+     * @param runnerID The ID of the delivery runner
+     * @return The {@code DeliveryRunner} object associated with the ID
+     */
+    public static DeliveryRunner getRunner(String runnerID) {
+
+        // Loop through each runner in the list
+        for (DeliveryRunner runner : deliveryRunnerList) {
+
+            // Continue the loop if the user ID does not match
+            if (!runner.userID.equals(runnerID)) {
+                continue;
+            }
+
+            // Return the associated runner if the ID matches
+            return runner;
+        }
+
+        // Return null if there is no matching ID
+        return null;
+    }
+
+    /**
      * Getter and setter for {@code DeliveryRunner} class
      */
     public String getContactNumber() {
@@ -71,29 +95,6 @@ public class DeliveryRunner extends User {
                 "Runner Password: " + super.password + "\n" +
                 "Runner Name: " + super.name + "\n" +
                 "Runner Contact No: " + contactNumber;
-    }
-
-    /**
-     * A method to retrieve {@code DeliveryRunner} object by using delivery runner ID.
-     * @param runnerID The ID of the delivery runner
-     * @return The {@code DeliveryRunner} object associated with the ID
-     */
-    public static DeliveryRunner getRunner(String runnerID) {
-
-        // Loop through each runner in the list
-        for (DeliveryRunner runner : deliveryRunnerList) {
-
-            // Continue the loop if the user ID does not match
-            if (!runner.userID.equals(runnerID)) {
-                continue;
-            }
-
-            // Return the associated runner if the ID matches
-            return runner;
-        }
-
-        // Return null if there is no matching ID
-        return null;
     }
 
 }

@@ -10,11 +10,11 @@ import java.util.Arrays;
  */
 public class Stall {
 
-    private final static ArrayList<Stall> stallList = new ArrayList<>();
     /**
      * Attributes of a {@code Stall} object.<br>
      * A list that consists of all {@code Stall} object is also included.
      */
+    private final static ArrayList<Stall> stallList = new ArrayList<>();
     private String stallID;
     private String stallName;
     private String[] stallCategories;
@@ -48,6 +48,30 @@ public class Stall {
      */
     public static void addStallToList(Stall stall) {
         stallList.add(stall);
+    }
+
+    /**
+     * A method to retrieve the associated {@code Store} object based on store ID.
+     *
+     * @param stallID The ID of the stall
+     * @return The {@code Stall} object associated with the ID
+     */
+    public static Stall getStall(String stallID) {
+
+        // Loop through the list of stores
+        for (Stall stall : stallList) {
+
+            // Continue loop if stall ID does not match
+            if (!stall.getStallID().equals(stallID)) {
+                continue;
+            }
+
+            // Return the associated stall object if ID matches
+            return stall;
+        }
+
+        // Return null if no ID matches
+        return null;
     }
 
     /**
@@ -87,28 +111,5 @@ public class Stall {
         return "Stall ID: " + stallID + "\n" +
                 "Stall Name: " + stallName + "\n" +
                 "Stall Categories: " + Arrays.toString(stallCategories);
-    }
-
-    /**
-     * A method to retrieve the associated {@code Store} object based on store ID.
-     * @param stallID The ID of the stall
-     * @return The {@code Stall} object associated with the ID
-     */
-    public static Stall getStall(String stallID) {
-
-        // Loop through the list of stores
-        for (Stall stall : stallList) {
-
-            // Continue loop if stall ID does not match
-            if (!stall.getStallID().equals(stallID)) {
-                continue;
-            }
-
-            // Return the associated stall object if ID matches
-            return stall;
-        }
-
-        // Return null if no ID matches
-        return null;
     }
 }

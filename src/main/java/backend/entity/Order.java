@@ -13,14 +13,14 @@ import java.util.HashMap;
  */
 public class Order {
 
-    private final static ArrayList<Order> orderList = new ArrayList<>();
-    public final String[] DINING_TYPES = {"Dine in", "Takeaway", "Delivery"};
-    public final String[] ORDER_STATUS = {"Waiting for Vendor and Delivery", "Waiting for Vendor", "Waiting for Delivery"};
     /**
      * Attributes for the {@code Order} object.<br>
      * A list that collects all orders is included.<br>
      * Two lists containing delivery types and order status are also included.
      */
+    private final static ArrayList<Order> orderList = new ArrayList<>();
+    public final String[] DINING_TYPES = {"Dine in", "Takeaway", "Delivery"};
+    public final String[] ORDER_STATUS = {"Waiting for Vendor and Delivery", "Waiting for Vendor", "Waiting for Delivery"};
     private String orderID;
     private Customer orderingCustomer;
     private Stall orderedStall;
@@ -87,6 +87,7 @@ public class Order {
 
     /**
      * A method to retrieve {@code Order} object based on order ID.
+     *
      * @param orderID The ID of the order
      * @return {@code Order} object associated with the ID
      */
@@ -207,9 +208,13 @@ public class Order {
         this.orderItem = orderItem;
     }
 
+    /**
+     * A method to return the {@code Order} object in string format.
+     *
+     * @return The string representation of the {@code Order} object
+     */
     @Override
     public String toString() {
-
         return "Order ID: " + orderID + "\n" +
                 "Ordering Customer: " + "\n" +
                 orderingCustomer.toString() + "\n" +

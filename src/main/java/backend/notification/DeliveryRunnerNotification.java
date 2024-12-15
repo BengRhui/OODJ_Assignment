@@ -13,11 +13,11 @@ import java.util.ArrayList;
  */
 public class DeliveryRunnerNotification implements Notification {
 
-    private final static ArrayList<Notification> deliveryRunnerNotificationList = new ArrayList<>();
     /**
      * Attributes for the {@code DeliveryRunnerNotification} objects.<br>
      * A list containing all notifications for delivery runners is included.
      */
+    private final static ArrayList<Notification> deliveryRunnerNotificationList = new ArrayList<>();
     private String notificationID;
     private DeliveryRunner runner;
     private LocalDateTime notificationTime;
@@ -122,6 +122,7 @@ public class DeliveryRunnerNotification implements Notification {
 
     /**
      * A method to return the ID related to the associated entity
+     *
      * @return The ID of the entity
      */
     @Override

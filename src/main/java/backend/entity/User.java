@@ -10,11 +10,11 @@ import java.util.ArrayList;
  */
 public class User {
 
-    private static final ArrayList<User> userList = new ArrayList<>();
     /**
      * The attributes for {@code User} class. <br>
      * An overall list that contains all instances of the {@code User} class is also included.
      */
+    private static final ArrayList<User> userList = new ArrayList<>();
     protected String userID;
     protected String email;
     protected String password;
@@ -53,7 +53,7 @@ public class User {
 
         // Clear the user list
         userList.clear();
-        
+
         // Add all the users into user list and return it
         userList.addAll(Admin.getAdminList());
         userList.addAll(Customer.getCustomerList());

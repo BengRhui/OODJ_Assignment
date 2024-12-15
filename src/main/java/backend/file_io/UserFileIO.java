@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Abstract class {@code UserFileIO} contains the general methods to read and write files related to users.
+ *
  * @author Beng Rhui (TP068495)
  */
 public abstract class UserFileIO extends FileIO {
@@ -15,6 +16,7 @@ public abstract class UserFileIO extends FileIO {
 
     /**
      * A general method to return the email and password of users based on user ID.
+     *
      * @param userID The ID of user
      * @return A string array consisting of email and password of user
      */

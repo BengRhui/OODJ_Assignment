@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 /**
  * Class {@code TransactionFileIO} consists of the methods to read and write transaction files.
+ *
  * @author Beng Rhui (TP068495)
  */
 public class TransactionFileIO extends FileIO {
@@ -39,18 +40,19 @@ public class TransactionFileIO extends FileIO {
 
     /**
      * A method to create {@code Transaction} objects from string record from text file.
+     *
      * @param recordFromFile The string record obtained from text file
      * @return The {@code Transaction} object being created
      */
     public static Transaction createTransactionObject(String[] recordFromFile) {
 
         // Retrieve information from string array
-        String transactionID                        = recordFromFile[0];
-        Customer customer                           = Customer.getCustomer(recordFromFile[1]);
-        LocalDateTime transactionTime               = Utility.changeStringToTime(recordFromFile[2]);
-        double transactionAmount                    = Double.parseDouble(recordFromFile[3]);
+        String transactionID = recordFromFile[0];
+        Customer customer = Customer.getCustomer(recordFromFile[1]);
+        LocalDateTime transactionTime = Utility.changeStringToTime(recordFromFile[2]);
+        double transactionAmount = Double.parseDouble(recordFromFile[3]);
         Transaction.TransactionType transactionType = Transaction.TransactionType.getType(recordFromFile[4]);
-        Transaction.PaymentMethod paymentMethod     = Transaction.PaymentMethod.getType(recordFromFile[5]);
+        Transaction.PaymentMethod paymentMethod = Transaction.PaymentMethod.getType(recordFromFile[5]);
 
         // Create and return new transaction object
         return new Transaction(

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 /**
  * Class {@code DeliveryRunnerFileIO} contains the methods to read and write delivery runner files
+ *
  * @author Beng Rhui (TP068495)
  */
 public class DeliveryRunnerFileIO extends UserFileIO {
@@ -18,25 +19,8 @@ public class DeliveryRunnerFileIO extends UserFileIO {
     private final static int[] SPACING_SIZE = {5, 50, 15};
 
     /**
-     * A method to read delivery runner file and initialize the delivery runner objects.
-     */
-    @Override
-    public void readFile() {
-
-        // Get list of runners from text file
-        ArrayList<String[]> runnerList = getListFromFile(RUNNER_FILE_NAME);
-
-        // Loop through the runners
-        for (String[] runnerRecord : runnerList) {
-
-            // Create the runners and add them to list
-            DeliveryRunner newRunner = createDeliveryRunnerObject(runnerRecord);
-            DeliveryRunner.addToRunnerList(newRunner);
-        }
-    }
-
-    /**
      * A method to create delivery runner objects based on records stored as string array.
+     *
      * @param individualRecord The string array containing the delivery runner's information
      * @return The {@code DeliveryRunner} object being created
      */
@@ -54,6 +38,24 @@ public class DeliveryRunnerFileIO extends UserFileIO {
 
         // Create delivery runner object
         return new DeliveryRunner(userID, email, password, name, contactNumber);
+    }
+
+    /**
+     * A method to read delivery runner file and initialize the delivery runner objects.
+     */
+    @Override
+    public void readFile() {
+
+        // Get list of runners from text file
+        ArrayList<String[]> runnerList = getListFromFile(RUNNER_FILE_NAME);
+
+        // Loop through the runners
+        for (String[] runnerRecord : runnerList) {
+
+            // Create the runners and add them to list
+            DeliveryRunner newRunner = createDeliveryRunnerObject(runnerRecord);
+            DeliveryRunner.addToRunnerList(newRunner);
+        }
     }
 
     /**

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 /**
  * Class {@code ManagerFileIO} contains the methods to read and write to manager file.
+ *
  * @author Beng Rhui (TP068495)
  */
 public class ManagerFileIO extends UserFileIO {
@@ -16,6 +17,27 @@ public class ManagerFileIO extends UserFileIO {
     private final static String MANAGER_FILE_NAME = "manager_information.txt";
     private final static int NUMBER_OF_INFO_IN_FILE = 2;
     private final static int[] SPACING_SIZE = {5, 50};
+
+    /**
+     * A method to create {@code Manager} objects.
+     *
+     * @param managerInformation The String array consisting of manager information
+     * @return The {@code Manager} object created
+     */
+    public static Manager createManagerObject(String[] managerInformation) {
+
+        // Retrieve information from string array
+        String userID = managerInformation[0];
+        String name = managerInformation[1];
+
+        // Retrieve email and password
+        String[] credentials = getUsernameAndPassword(userID);
+        String email = credentials[0];
+        String password = credentials[1];
+
+        // Create and return a newly generated manager object
+        return new Manager(userID, email, password, name);
+    }
 
     /**
      * A method to read manager file and create manager objects
@@ -33,26 +55,6 @@ public class ManagerFileIO extends UserFileIO {
             Manager newManager = createManagerObject(record);
             Manager.addManagerToList(newManager);
         }
-    }
-
-    /**
-     * A method to create {@code Manager} objects.
-     * @param managerInformation The String array consisting of manager information
-     * @return The {@code Manager} object created
-     */
-    public static Manager createManagerObject(String[] managerInformation) {
-
-        // Retrieve information from string array
-        String userID = managerInformation[0];
-        String name = managerInformation[1];
-
-        // Retrieve email and password
-        String[] credentials = getUsernameAndPassword(userID);
-        String email = credentials[0];
-        String password = credentials[1];
-
-        // Create and return a newly generated manager object
-        return new Manager(userID, email, password, name);
     }
 
     /**

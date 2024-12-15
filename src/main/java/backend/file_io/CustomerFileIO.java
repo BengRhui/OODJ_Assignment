@@ -1,12 +1,13 @@
 package backend.file_io;
 
-import backend.entity.Customer;
 import backend.entity.Address;
+import backend.entity.Customer;
 
 import java.util.ArrayList;
 
 /**
  * Class {@code CustomerFileIO} contains the methods used to read and write customer information file.
+ *
  * @author Beng Rhui (TP068495)
  */
 public class CustomerFileIO extends UserFileIO {
@@ -19,25 +20,8 @@ public class CustomerFileIO extends UserFileIO {
     private final static int[] SPACING_SIZE = {5, 50, 15, 40, 40, 10, 20, 15, 10, 50};
 
     /**
-     * A method to read information from customer file and login credentials file to create {@code Customer} objects.
-     */
-    @Override
-    public void readFile() {
-
-        // Obtain information from customer text file
-        ArrayList<String[]> unprocessedInformation = getListFromFile(CUSTOMER_FILE_NAME);
-
-        // Loop through each record
-        for (String[] individualRecords : unprocessedInformation) {
-
-            // Create a new customer object, then add to customer list
-            Customer newCustomer = createCustomerObject(individualRecords);
-            Customer.addToCustomerList(newCustomer);
-        }
-    }
-
-    /**
      * A method to create a {@code Customer} object based on individual records.
+     *
      * @param individualRecords The individual line of customer information
      * @return A {@code Customer} object with all information
      */
@@ -65,6 +49,24 @@ public class CustomerFileIO extends UserFileIO {
 
         // Create and return the generated customer object
         return new Customer(userID, email, password, name, contactNumber, address, eWalletAmount, deliveryNote);
+    }
+
+    /**
+     * A method to read information from customer file and login credentials file to create {@code Customer} objects.
+     */
+    @Override
+    public void readFile() {
+
+        // Obtain information from customer text file
+        ArrayList<String[]> unprocessedInformation = getListFromFile(CUSTOMER_FILE_NAME);
+
+        // Loop through each record
+        for (String[] individualRecords : unprocessedInformation) {
+
+            // Create a new customer object, then add to customer list
+            Customer newCustomer = createCustomerObject(individualRecords);
+            Customer.addToCustomerList(newCustomer);
+        }
     }
 
     /**
