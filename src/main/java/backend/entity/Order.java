@@ -4,6 +4,7 @@ import backend.utility.Utility;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -15,12 +16,9 @@ public class Order {
 
     /**
      * Attributes for the {@code Order} object.<br>
-     * A list that collects all orders is included.<br>
-     * Two lists containing delivery types and order status are also included.
+     * A list that collects all orders is included.
      */
     private final static ArrayList<Order> orderList = new ArrayList<>();
-    public final String[] DINING_TYPES = {"Dine in", "Takeaway", "Delivery"};
-    public final String[] ORDER_STATUS = {"Waiting for Vendor and Delivery", "Waiting for Vendor", "Waiting for Delivery"};
     private String orderID;
     private Customer orderingCustomer;
     private Stall orderedStall;
@@ -230,5 +228,110 @@ public class Order {
                 "Tips for Runner: " + tipsForRunner + "\n" +
                 "Order Status: " + orderStatus + "\n" +
                 "Order Items: " + Utility.generateString(orderItem);
+    }
+
+    /**
+     * Enum {@code DiningTypes} represents the different types of dining methods a customer can choose.
+     */
+    public enum DiningTypes {
+
+        /**
+         * Fields available in {@code DiningTypes}.
+         */
+        DINE_IN, TAKEAWAY, DELIVERY;
+
+        /**
+         * A variable that stores the list of available dining options.
+         */
+        public final static String[] DINING_OPTIONS = Arrays.stream(DiningTypes.values())  // Get fields
+                .map(DiningTypes::toString)                                                // Convert to string
+                .toArray(String[]::new);                                                   // Make it as String[]
+
+        /**
+         * A method to get {@code DiningTypes} from string input.
+         *
+         * @param input The string input representing dining types
+         * @return The {@code DiningTypes} field corresponding to the input
+         */
+        public static DiningTypes getFromString(String input) {
+            return Arrays.stream(DiningTypes.values())                          // Retrieve the values of enum
+                    .filter(field -> field.toString().equalsIgnoreCase(input))  // Filter the values based on input
+                    .findFirst()                                                // Find the first occurrence
+                    .orElse(null);                                              // Return null if nothing matches
+        }
+
+        /**
+         * A method that returns the corresponding string value of {@code DiningTypes}.
+         *
+         * @return The string representation of {@code DiningTypes}
+         */
+        @Override
+        public String toString() {
+            return switch (this) {
+                case DINE_IN -> "Dine In";
+                case TAKEAWAY -> "Takeaway";
+                case DELIVERY -> "Delivery";
+            };
+        }
+    }
+
+    /**
+     * Enum {@code OrderStatus} represents the different types of status an order can have.
+     */
+    public enum OrderStatus {
+
+        /**
+         * Fields for order status
+         */
+        WAITING_VENDOR_AND_RUNNER, WAITING_VENDOR, WAITING_RUNNER, VENDOR_PREPARING,
+        READY_FOR_PICK_UP, RUNNER_DELIVERY, COMPLETED;
+
+        /**
+         * Variables containing different types of options for an order
+         */
+        public final static String[] OPTIONS_FOR_DINE_IN = Arrays.stream(OrderStatus.values())   // Get the fields
+                .map(OrderStatus::toString)                                                      // Convert to string
+                .filter(string -> !string.contains("Deliver") && !string.contains("Pick Up"))    // Remove delivery and pickup
+                .toArray(String[]::new);                                                         // Return string array
+
+        public final static String[] OPTIONS_FOR_TAKEAWAY = Arrays.stream(OrderStatus.values())  // Get the fields
+                .map(OrderStatus::toString)                                                      // Convert to string
+                .filter(string -> !string.contains("Deliver"))                                   // Remove delivery ones
+                .toArray(String[]::new);                                                         // Return string array
+
+        public final static String[] OPTIONS_FOR_DELIVERY = Arrays.stream(OrderStatus.values())  // Get the fields
+                .map(OrderStatus::toString)                                                      // Convert to string
+                .toArray(String[]::new);                                                         // Return string array
+
+        /**
+         * A method to get the corresponding {@code OrderStatus} from string input.
+         *
+         * @param input The string input provided by user
+         * @return The {@code OrderStatus} corresponding to the string input
+         */
+        public static OrderStatus getFromString(String input) {
+            return Arrays.stream(OrderStatus.values())                           // Get the values of enum
+                    .filter(field -> field.toString().equalsIgnoreCase(input))   // Filter with input
+                    .findFirst()                                                 // Find the first occurrence
+                    .orElse(null);                                               // Return null if not found
+        }
+
+        /**
+         * A method to return the string value of {@code OrderStatus}.
+         *
+         * @return The string representation of the fields of {@code OrderStatus}
+         */
+        @Override
+        public String toString() {
+            return switch (this) {
+                case WAITING_VENDOR_AND_RUNNER -> "Waiting for Vendor and Delivery Confirmation";
+                case WAITING_VENDOR -> "Waiting for Vendor Confirmation";
+                case WAITING_RUNNER -> "Waiting for Delivery Confirmation";
+                case VENDOR_PREPARING -> "Vendor Preparing";
+                case READY_FOR_PICK_UP -> "Ready for Pick Up";
+                case RUNNER_DELIVERY -> "Delivering by Runner";
+                case COMPLETED -> "Completed";
+            };
+        }
     }
 }
