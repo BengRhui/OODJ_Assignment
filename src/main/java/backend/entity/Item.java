@@ -47,6 +47,15 @@ public class Item {
     }
 
     /**
+     * A method to add {@code Item} objects into an overall list.
+     *
+     * @param item The {@code Item} object to be added to list
+     */
+    public static void addItemToList(Item item) {
+        itemList.add(item);
+    }
+
+    /**
      * Getters and setters for the {@code Item} class.
      */
     public String getItemID() {
@@ -88,16 +97,6 @@ public class Item {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    /**
-     * A method to add {@code Item} objects into an overall list.
-     *
-     * @param item The {@code Item} object to be added to list
-     */
-    public void addItemToList(Item item) {
-        itemList.add(item);
-    }
-
 
     /**
      * A method to print out all information of the {@code Item} object.
