@@ -32,7 +32,7 @@ public class Order {
     private LocalDateTime orderedDate;
     private double tipsForRunner;
     private String orderStatus;
-    private HashMap<String, Integer> orderItem;
+    private HashMap<Item, Integer> orderItem;
 
     /**
      * Constructor to instantiate {@code Order} objects.
@@ -52,7 +52,7 @@ public class Order {
      */
     public Order(String orderID, Customer orderingCustomer, Stall orderedStall, DeliveryRunner runnerInCharge,
                  String diningType, String tableNumber, String deliveryNote, double orderPrice, LocalDateTime orderedDate,
-                 double tipsForRunner, String orderStatus, HashMap<String, Integer> orderItem) {
+                 double tipsForRunner, String orderStatus, HashMap<Item, Integer> orderItem) {
         this.orderID = orderID;
         this.orderingCustomer = orderingCustomer;
         this.orderedStall = orderedStall;
@@ -199,11 +199,11 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    public HashMap<String, Integer> getOrderItem() {
+    public HashMap<Item, Integer> getOrderItem() {
         return orderItem;
     }
 
-    public void setOrderItem(HashMap<String, Integer> orderItem) {
+    public void setOrderItem(HashMap<Item, Integer> orderItem) {
         this.orderItem = orderItem;
     }
 
@@ -211,8 +211,8 @@ public class Order {
     public String toString() {
 
         StringBuilder itemString = new StringBuilder();
-        for (HashMap.Entry<String, Integer> entry : orderItem.entrySet()) {
-            String currentItem = "- " + entry.getKey() + " x " + entry.getValue() + "\n";
+        for (HashMap.Entry<Item, Integer> entry : orderItem.entrySet()) {
+            String currentItem = "- " + entry.getKey().getItemID() + " x " + entry.getValue() + "\n";
             itemString.append(currentItem);
         }
 
