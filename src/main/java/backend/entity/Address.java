@@ -104,7 +104,7 @@ public class Address {
         SARAWAK, WP_KL, WP_PUTRAJAYA, WP_LABUAN;
 
         /**
-         * A method to return all the state options in string array.
+         * A variable that represents the list of all the state options in string array.
          */
         public final static String[] STATE_OPTIONS = Arrays.stream(State.values())  // Obtain the values of State
                 .map(State::toString)                                               // Map it to the output of toString
