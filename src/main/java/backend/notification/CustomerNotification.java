@@ -66,6 +66,7 @@ public class CustomerNotification implements Notification {
     /**
      * Getters and setters for {@code CustomerNotification} class.
      */
+    @Override
     public String getNotificationID() {
         return notificationID;
     }
@@ -82,6 +83,7 @@ public class CustomerNotification implements Notification {
         this.customer = customer;
     }
 
+    @Override
     public LocalDateTime getNotificationTime() {
         return notificationTime;
     }
@@ -90,6 +92,7 @@ public class CustomerNotification implements Notification {
         this.notificationTime = notificationTime;
     }
 
+    @Override
     public NotificationStatus getReadStatus() {
         return readStatus;
     }
@@ -98,6 +101,7 @@ public class CustomerNotification implements Notification {
         this.readStatus = readStatus;
     }
 
+    @Override
     public String getNotificationTitle() {
         return notificationTitle;
     }
@@ -106,12 +110,22 @@ public class CustomerNotification implements Notification {
         this.notificationTitle = notificationTitle;
     }
 
+    @Override
     public String getNotificationDetails() {
         return notificationDetails;
     }
 
     public void setNotificationDetails(String notificationDetails) {
         this.notificationDetails = notificationDetails;
+    }
+
+    /**
+     * A method to return the ID related to the associated entity
+     * @return The ID of the entity
+     */
+    @Override
+    public String getEntityID() {
+        return customer.getUserID();
     }
 
     /**
