@@ -51,6 +51,15 @@ public class Feedback {
     }
 
     /**
+     * A method to add {@code Feedback} objects to the overall list.
+     *
+     * @param feedback The {@code Feedback} object to be added to list
+     */
+    public static void addToFeedbackList(Feedback feedback) {
+        feedbackList.add(feedback);
+    }
+
+    /**
      * Getters and setters for {@code Feedback} class.
      */
     public String getFeedbackID() {
@@ -107,15 +116,6 @@ public class Feedback {
 
     public void setReplyFromManager(String replyFromManager) {
         this.replyFromManager = replyFromManager;
-    }
-
-    /**
-     * A method to add {@code Feedback} objects to the overall list.
-     *
-     * @param feedback The {@code Feedback} object to be added to list
-     */
-    public void addToFeedbackList(Feedback feedback) {
-        feedbackList.add(feedback);
     }
 
     /**
