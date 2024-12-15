@@ -41,4 +41,18 @@ public class Utility {
         }
         return string.toString();
     }
+
+    /**
+     * A method to parse string to {@code LocalDateTime} format.
+     * @param time Time in string format
+     * @return Time in {@code LocalDateTime} format
+     */
+    public static LocalDateTime changeStringToTime(String time) {
+
+        // Indicates the format of the time
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
+        // Return time in LocalDateTime format
+        return LocalDateTime.parse(time, timeFormat);
+    }
 }
