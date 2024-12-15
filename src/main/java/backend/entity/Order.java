@@ -23,13 +23,13 @@ public class Order {
     private Customer orderingCustomer;
     private Stall orderedStall;
     private DeliveryRunner runnerInCharge;
-    private String diningType;
+    private DiningType diningType;
     private String tableNumber;
     private String deliveryNote;
     private double orderPrice;
     private LocalDateTime orderedDate;
     private double tipsForRunner;
-    private String orderStatus;
+    private OrderStatus orderStatus;
     private HashMap<Item, Integer> orderItem;
 
     /**
@@ -49,8 +49,8 @@ public class Order {
      * @param orderItem        The list of items ordered by customer
      */
     public Order(String orderID, Customer orderingCustomer, Stall orderedStall, DeliveryRunner runnerInCharge,
-                 String diningType, String tableNumber, String deliveryNote, double orderPrice, LocalDateTime orderedDate,
-                 double tipsForRunner, String orderStatus, HashMap<Item, Integer> orderItem) {
+                 DiningType diningType, String tableNumber, String deliveryNote, double orderPrice, LocalDateTime orderedDate,
+                 double tipsForRunner, OrderStatus orderStatus, HashMap<Item, Integer> orderItem) {
         this.orderID = orderID;
         this.orderingCustomer = orderingCustomer;
         this.orderedStall = orderedStall;
@@ -142,11 +142,11 @@ public class Order {
         this.runnerInCharge = runnerInCharge;
     }
 
-    public String getDiningType() {
+    public DiningType getDiningType() {
         return diningType;
     }
 
-    public void setDiningType(String diningType) {
+    public void setDiningType(DiningType diningType) {
         this.diningType = diningType;
     }
 
@@ -190,11 +190,11 @@ public class Order {
         this.tipsForRunner = tipsForRunner;
     }
 
-    public String getOrderStatus() {
+    public OrderStatus getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(String orderStatus) {
+    public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
 
@@ -220,50 +220,50 @@ public class Order {
                 orderedStall.toString() + "\n" +
                 "Runner in Charge: " + "\n" +
                 runnerInCharge.toString() + "\n" +
-                "Dining Type: " + diningType + "\n" +
+                "Dining Type: " + diningType.toString() + "\n" +
                 "Table Number: " + tableNumber + "\n" +
                 "Delivery Note: " + deliveryNote + "\n" +
                 "Order Price: " + orderPrice + "\n" +
                 "Ordered Date: " + Utility.generateString(orderedDate) + "\n" +
                 "Tips for Runner: " + tipsForRunner + "\n" +
-                "Order Status: " + orderStatus + "\n" +
+                "Order Status: " + orderStatus.toString() + "\n" +
                 "Order Items: " + Utility.generateString(orderItem);
     }
 
     /**
-     * Enum {@code DiningTypes} represents the different types of dining methods a customer can choose.
+     * Enum {@code DiningType} represents the different types of dining methods a customer can choose.
      */
-    public enum DiningTypes {
+    public enum DiningType {
 
         /**
-         * Fields available in {@code DiningTypes}.
+         * Fields available in {@code DiningType}.
          */
         DINE_IN, TAKEAWAY, DELIVERY;
 
         /**
          * A variable that stores the list of available dining options.
          */
-        public final static String[] DINING_OPTIONS = Arrays.stream(DiningTypes.values())  // Get fields
-                .map(DiningTypes::toString)                                                // Convert to string
+        public final static String[] DINING_OPTIONS = Arrays.stream(DiningType.values())   // Get fields
+                .map(DiningType::toString)                                                 // Convert to string
                 .toArray(String[]::new);                                                   // Make it as String[]
 
         /**
-         * A method to get {@code DiningTypes} from string input.
+         * A method to get {@code DiningType} from string input.
          *
          * @param input The string input representing dining types
-         * @return The {@code DiningTypes} field corresponding to the input
+         * @return The {@code DiningType} field corresponding to the input
          */
-        public static DiningTypes getFromString(String input) {
-            return Arrays.stream(DiningTypes.values())                          // Retrieve the values of enum
+        public static DiningType getFromString(String input) {
+            return Arrays.stream(DiningType.values())                          // Retrieve the values of enum
                     .filter(field -> field.toString().equalsIgnoreCase(input))  // Filter the values based on input
                     .findFirst()                                                // Find the first occurrence
                     .orElse(null);                                              // Return null if nothing matches
         }
 
         /**
-         * A method that returns the corresponding string value of {@code DiningTypes}.
+         * A method that returns the corresponding string value of {@code DiningType}.
          *
-         * @return The string representation of {@code DiningTypes}
+         * @return The string representation of {@code DiningType}
          */
         @Override
         public String toString() {
