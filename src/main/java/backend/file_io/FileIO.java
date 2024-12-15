@@ -11,7 +11,7 @@ public class FileIO {
     /**
      * The PARENT_PATH_TO_FILE variable contains the file path to the folder containing the text files
      */
-    protected final static String PARENT_PATH_TO_FILE = "src/main/resources/text_file/";
+    private final static String PARENT_PATH_TO_FILE = "src/main/resources/text_file/";
 
     /**
      * A method to read text files from directory
