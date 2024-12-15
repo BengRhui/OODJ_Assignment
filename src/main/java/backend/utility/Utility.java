@@ -1,9 +1,12 @@
 package backend.utility;
 
+import backend.entity.Item;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * Class {@code Utility} includes a couple of methods that brings convenient to coding.
@@ -34,11 +37,45 @@ public class Utility {
      * @return Contents of the array-in-array, with each array separated by lines
      */
     public static String generateString(ArrayList<String[]> array) {
+
+        // Create a string builder to store strings
         StringBuilder string = new StringBuilder();
+
+        // Loop through each string array
         for (String[] stringList : array) {
+
+            // Get the string format of the string array and add to list
             string.append(Arrays.toString(stringList));
             string.append("\n");
         }
+
+        // Return the string builder in string format
+        return string.toString();
+    }
+
+    /**
+     * A method to generate string from {@code HashMap} with {@code Item} and {@code Integer} key and value
+     * @param map HashMap with {@code Item} object as key and {@code Integer} object as value
+     * @return The string representation of the {@code HashMap}
+     */
+    public static String generateString(HashMap<Item, Integer> map) {
+
+        // Create a string builder to store string
+        StringBuilder string = new StringBuilder();
+
+        // Append each pair of item and quantity to the string builder
+        map.forEach(
+                (item, quantity) ->
+                        string.append(item.getItemID())
+                                .append(" - ")
+                                .append(quantity)
+                                .append(", ")
+        );
+
+        // Remove the extra ", " at the end of the string builder
+        string.delete(string.length() - 2, string.length());
+
+        // Return the string builder
         return string.toString();
     }
 
