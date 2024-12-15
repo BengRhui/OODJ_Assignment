@@ -190,7 +190,7 @@ public class ManageUserPanel extends javax.swing.JPanel {
         }else if (AdminPopUp.userType.equals("Runner")){
             RunnerDetailForm form = new RunnerDetailForm(adminFrame);
             form.setVisible(true);
-        }else {
+        }else{
             CustomerDetailForm form = new CustomerDetailForm(adminFrame);
             form.setVisible(true);
         }

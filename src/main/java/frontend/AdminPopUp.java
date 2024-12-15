@@ -17,6 +17,7 @@ public class AdminPopUp extends javax.swing.JFrame {
     private JFrame parentFrame;
     public static String userType;
     private List<String> filterUser;
+    private List<String> paymentOptions;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton confirmButton;
     private javax.swing.JPanel contentHolder;
@@ -24,6 +25,10 @@ public class AdminPopUp extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> filterList;
     private javax.swing.JLabel title;
     private javax.swing.JPanel footer;
+    private javax.swing.JComboBox<String> paymentMethod;
+    private javax.swing.JLabel paymentMethodLabel;
+    private javax.swing.JTextField topUpAmount;
+    private javax.swing.JLabel amountLabel;
     private String popUpType;
 
     //customize the pop-up message for different approach
@@ -82,6 +87,7 @@ public class AdminPopUp extends javax.swing.JFrame {
     }
 
     public javax.swing.JFrame userTypeFilter(JPanel panel){
+        //TODO: fix a bug where filter without changing changing the combobox will return customer as userType
         parentPanel = panel;
         popUpType = "userTypeFilter";
         initNotificationPopUp();
@@ -93,17 +99,35 @@ public class AdminPopUp extends javax.swing.JFrame {
         confirmButton.setText("Confirm");
         cancelButton.setText("Cancel");
         filterUser = List.of("Customer", "Vendor", "Runner");
+
         filterList = new javax.swing.JComboBox<>();
         filterList.setFont(new java.awt.Font("Arial", 0, 18));
         filterUser.forEach(
                 e -> filterList.addItem(e)
         );
+        //initialize userType and track changes
+        userType = filterList.getSelectedItem().toString();
+        filterList.addItemListener(e -> {
+            if (e.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+                userType = e.getItem().toString();
+                System.out.println("Updated userType: " + userType);
+            }
+        });
         filterList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         contentHolder.add(filterList);
         filterList.setBounds(30, 100, 430, 60);
         return this;
     }
 
+    public javax.swing.JFrame userTopUp(JFrame frame){
+        parentFrame = frame;
+        popUpType = "userTopUp";
+        initTopUpPopUp();
+        this.setSize(500,500);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+        return this;
+    }
 
     public AdminPopUp() {}
 
@@ -159,6 +183,7 @@ public class AdminPopUp extends javax.swing.JFrame {
 
         confirmButton.setBackground(new java.awt.Color(173, 139, 115));
         confirmButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        confirmButton.setForeground(new java.awt.Color(255, 255, 255));
         confirmButton.setText("Yes");
         confirmButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         confirmButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -200,7 +225,114 @@ public class AdminPopUp extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void initTopUpPopUp(){
-        
+        contentHolder = new javax.swing.JPanel();
+        title = new javax.swing.JLabel();
+        cancelButton = new javax.swing.JButton();
+        confirmButton = new javax.swing.JButton();
+        footer = new javax.swing.JPanel();
+        paymentMethod = new javax.swing.JComboBox<>();
+        paymentMethodLabel = new javax.swing.JLabel();
+        amountLabel = new javax.swing.JLabel();
+        topUpAmount = new javax.swing.JTextField();
+        paymentOptions = List.of("QR Payment", "Cash", "Debit / Credit Card");
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+
+        contentHolder.setBackground(new java.awt.Color(255, 251, 233));
+        contentHolder.setLayout(null);
+
+        title.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title.setText("Title");
+        title.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        contentHolder.add(title);
+        title.setBounds(35, 18, 430, 42);
+
+        cancelButton.setBackground(new java.awt.Color(227, 202, 165));
+        cancelButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        cancelButton.setText("Cancel");
+        cancelButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        cancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cancelButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cancelButtonMouseExited(evt);
+            }
+        });
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
+        contentHolder.add(cancelButton);
+        cancelButton.setBounds(30, 400, 200, 48);
+
+        confirmButton.setBackground(new java.awt.Color(173, 139, 115));
+        confirmButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        confirmButton.setForeground(new java.awt.Color(255, 255, 255));
+        confirmButton.setText("Confirm");
+        confirmButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        confirmButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                confirmButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                confirmButtonMouseExited(evt);
+            }
+        });
+        confirmButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmButtonActionPerformed(evt);
+            }
+        });
+        contentHolder.add(confirmButton);
+        confirmButton.setBounds(260, 400, 200, 48);
+
+        footer.setBackground(new java.awt.Color(255, 251, 233));
+
+        javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
+        footer.setLayout(footerLayout);
+        footerLayout.setHorizontalGroup(
+                footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 500, Short.MAX_VALUE)
+        );
+        footerLayout.setVerticalGroup(
+                footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 38, Short.MAX_VALUE)
+        );
+
+        contentHolder.add(footer);
+        footer.setBounds(0, 460, 500, 38);
+
+        paymentMethod.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        paymentOptions.forEach(
+                e -> paymentMethod.addItem(e)
+        );
+        paymentMethod.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        paymentMethod.setDoubleBuffered(true);
+        contentHolder.add(paymentMethod);
+        paymentMethod.setBounds(30, 150, 430, 60);
+
+        paymentMethodLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        paymentMethodLabel.setText("Select Payment Method");
+        contentHolder.add(paymentMethodLabel);
+        paymentMethodLabel.setBounds(30, 120, 210, 30);
+
+        amountLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        amountLabel.setText("Enter Amount (RM):");
+        contentHolder.add(amountLabel);
+        amountLabel.setBounds(30, 240, 280, 30);
+
+        topUpAmount.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        topUpAmount.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        contentHolder.add(topUpAmount);
+        topUpAmount.setBounds(30, 270, 430, 60);
+
+        getContentPane().add(contentHolder, java.awt.BorderLayout.CENTER);
+
+        pack();
     }
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -213,6 +345,11 @@ public class AdminPopUp extends javax.swing.JFrame {
             case "deleteUser":
                 parentFrame.setEnabled(true);
                 this.dispose();
+                break;
+            case "userTopUp":
+                parentFrame.setEnabled(true);
+                this.dispose();
+                break;
             default:
                 this.dispose();
         }
@@ -233,8 +370,16 @@ public class AdminPopUp extends javax.swing.JFrame {
                 this.dispose();
                 break;
             case "userTypeFilter":
-                userType = filterList.getSelectedItem().toString();
+//                userType = filterList.getSelectedItem().toString(); //This will overwrite the type back to the default Customer, after 3rd loop without reopening the Panel, I struggle on this stupid bug for 3 hours
+                System.out.println("Final: " + userType);
                 parentPanel.setEnabled(true);
+                this.dispose();
+                break;
+            case "userTopUp":
+                // TODO: validation method should be input here
+                System.out.println(paymentMethod.getSelectedItem().toString());
+                System.out.println(topUpAmount.getText());
+                parentFrame.setEnabled(true);
                 this.dispose();
                 break;
             default:

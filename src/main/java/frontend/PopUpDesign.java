@@ -20,7 +20,10 @@ public class PopUpDesign extends javax.swing.JFrame {
         cancelButton = new javax.swing.JButton();
         confirmButton = new javax.swing.JButton();
         footer = new javax.swing.JPanel();
-        filterType = new javax.swing.JComboBox<>();
+        paymentMethod = new javax.swing.JComboBox<>();
+        paymentMethodLabel = new javax.swing.JLabel();
+        amountLabel = new javax.swing.JLabel();
+        topUpAmount = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -37,7 +40,7 @@ public class PopUpDesign extends javax.swing.JFrame {
 
         cancelButton.setBackground(new java.awt.Color(227, 202, 165));
         cancelButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        cancelButton.setText("No");
+        cancelButton.setText("Cancel");
         cancelButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         cancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -53,11 +56,12 @@ public class PopUpDesign extends javax.swing.JFrame {
             }
         });
         contentHolder.add(cancelButton);
-        cancelButton.setBounds(35, 214, 200, 48);
+        cancelButton.setBounds(30, 400, 200, 48);
 
         confirmButton.setBackground(new java.awt.Color(173, 139, 115));
         confirmButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        confirmButton.setText("Yes");
+        confirmButton.setForeground(new java.awt.Color(255, 255, 255));
+        confirmButton.setText("Confirm");
         confirmButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         confirmButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -73,7 +77,7 @@ public class PopUpDesign extends javax.swing.JFrame {
             }
         });
         contentHolder.add(confirmButton);
-        confirmButton.setBounds(265, 214, 200, 48);
+        confirmButton.setBounds(260, 400, 200, 48);
 
         footer.setBackground(new java.awt.Color(255, 251, 233));
 
@@ -89,13 +93,29 @@ public class PopUpDesign extends javax.swing.JFrame {
         );
 
         contentHolder.add(footer);
-        footer.setBounds(0, 262, 500, 38);
+        footer.setBounds(0, 460, 500, 38);
 
-        filterType.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        filterType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Customer", "Vendor", "Runner" }));
-        filterType.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
-        contentHolder.add(filterType);
-        filterType.setBounds(30, 100, 430, 60);
+        paymentMethod.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        paymentMethod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "QR Payment", "Cash", "Debit / Credit Card" }));
+        paymentMethod.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        paymentMethod.setDoubleBuffered(true);
+        contentHolder.add(paymentMethod);
+        paymentMethod.setBounds(30, 150, 430, 60);
+
+        paymentMethodLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        paymentMethodLabel.setText("Select Payment Method");
+        contentHolder.add(paymentMethodLabel);
+        paymentMethodLabel.setBounds(30, 120, 210, 30);
+
+        amountLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        amountLabel.setText("Enter Amount:");
+        contentHolder.add(amountLabel);
+        amountLabel.setBounds(30, 240, 280, 30);
+
+        topUpAmount.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        topUpAmount.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        contentHolder.add(topUpAmount);
+        topUpAmount.setBounds(30, 270, 430, 60);
 
         getContentPane().add(contentHolder, java.awt.BorderLayout.CENTER);
 
@@ -127,11 +147,14 @@ public class PopUpDesign extends javax.swing.JFrame {
     }//GEN-LAST:event_confirmButtonMouseEntered
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel amountLabel;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton confirmButton;
     private javax.swing.JPanel contentHolder;
-    private javax.swing.JComboBox<String> filterType;
     private javax.swing.JPanel footer;
+    private javax.swing.JComboBox<String> paymentMethod;
+    private javax.swing.JLabel paymentMethodLabel;
     private javax.swing.JLabel title;
+    private javax.swing.JTextField topUpAmount;
     // End of variables declaration//GEN-END:variables
 }

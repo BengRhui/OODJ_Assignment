@@ -175,7 +175,8 @@ public class TopUpCredit extends javax.swing.JPanel {
     }//GEN-LAST:event_logoutMouseExited
 
     private void topUpTestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_topUpTestMouseClicked
-
+        adminPopUp.userTopUp(adminFrame);
+        this.setEnabled(false);
     }//GEN-LAST:event_topUpTestMouseClicked
 
     private void topUpTestMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_topUpTestMouseEntered
