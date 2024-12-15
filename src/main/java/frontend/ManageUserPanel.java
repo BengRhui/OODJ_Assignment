@@ -149,11 +149,11 @@ public class ManageUserPanel extends javax.swing.JPanel {
         
 //        State control, use if to get into different userType form
 //        if (filterType.contains("C")){
-//            CustomerDetailForm form = new CustomerDetailForm();
+            CustomerDetailForm form = new CustomerDetailForm();
 //        }else if (filterType.contains("V")){
 //            VendorDetailForm form = new VendorDetailForm();
 //        }else if (filterType.contains("R")){
-            RunnerDetailForm form = new RunnerDetailForm();
+//            RunnerDetailForm form = new RunnerDetailForm();
 //        }
 //        
         form.setVisible(true);

@@ -1,12 +1,15 @@
 package frontend;
 
 import java.awt.Cursor;
+import frontend.AdminPopUp;
 
 /**
  *
  * @author Chun Ming
  */
 public class CustomerDetailForm extends javax.swing.JFrame {
+
+    AdminPopUp popUp = new AdminPopUp();
 
     public CustomerDetailForm() {
         initComponents();
@@ -315,7 +318,8 @@ public class CustomerDetailForm extends javax.swing.JFrame {
 
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
         //register/modify customer method should be here
-        this.dispose();
+        popUp.createUser().setVisible(true);
+//        this.dispose();
     }//GEN-LAST:event_confirmButtonActionPerformed
 
     private void cancelButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelButtonMouseEntered
