@@ -93,7 +93,7 @@ public class Address {
     }
 
     /**
-     * Enum {@code State} to represent all the possible states in Malaysia.
+     * Enum {@code State} represents all the possible states in Malaysia.
      */
     public enum State {
 
