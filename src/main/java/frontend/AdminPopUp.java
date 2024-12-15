@@ -1,8 +1,9 @@
 
 package frontend;
 
-import javax.swing.*;
 import java.awt.Cursor;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -11,10 +12,13 @@ import java.awt.Cursor;
 public class AdminPopUp extends javax.swing.JFrame {
 
     // Variables declaration
+    public static String userType;
+    private List<String> filterUser;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton confirmButton;
     private javax.swing.JPanel contentHolder;
     private javax.swing.JLabel description;
+    private javax.swing.JComboBox<String> filterList;
     private javax.swing.JLabel title;
     private javax.swing.JPanel footer;
     private String popUpType;
@@ -31,14 +35,14 @@ public class AdminPopUp extends javax.swing.JFrame {
         return this;
     }
 
-    public javax.swing.JFrame createUser(){
-        popUpType = "createUser";
+    public javax.swing.JFrame updateUser(){
+        popUpType = "updateUser";
         initNotificationPopUp();
         this.setSize(500,300);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         title.setText("New User Message");
-        description.setText("<html>User created successfully. <br>You will be redirected to the User List page.</html>");
+        description.setText("<html>User updated successfully. <br>You will be redirected to the User List page.</html>");
         contentHolder.remove(cancelButton);
         confirmButton.setText("OK");
         confirmButton.setBounds(170, 190, 170, 48);
@@ -72,6 +76,29 @@ public class AdminPopUp extends javax.swing.JFrame {
         confirmButton.setBounds(170, 190, 170, 48);
         return this;
     }
+
+    public javax.swing.JFrame userTypeFilter(){
+        popUpType = "userTypeFilter";
+        initNotificationPopUp();
+        this.setSize(500,300);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+        title.setText("Select User Type");
+        contentHolder.remove(description);
+        confirmButton.setText("Confirm");
+        cancelButton.setText("Cancel");
+        filterUser = List.of("Customer", "Vendor", "Runner");
+        filterList = new javax.swing.JComboBox<>();
+        filterList.setFont(new java.awt.Font("Arial", 0, 18));
+        filterUser.forEach(
+                e -> filterList.addItem(e)
+        );
+        filterList.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        contentHolder.add(filterList);
+        filterList.setBounds(30, 100, 430, 60);
+        return this;
+    }
+
 
     public AdminPopUp() {}
 
@@ -175,10 +202,14 @@ public class AdminPopUp extends javax.swing.JFrame {
                 //deleteUser method should be call here
                 this.dispose();
                 break;
-            case "createUser":
+            case "updateUser":
                 this.dispose();
                 break;
             case "topUpReceipt":
+                this.dispose();
+                break;
+            case "userTypeFilter":
+                userType = filterList.getSelectedItem().toString();
                 this.dispose();
                 break;
             default:

@@ -9,6 +9,7 @@ import java.awt.Cursor;
 public class TopUpCredit extends javax.swing.JPanel {
 
     public AdminFrame adminFrame;
+    AdminPopUp adminPopUp = new AdminPopUp();
 
     public TopUpCredit() {
         initComponents();
@@ -35,6 +36,7 @@ public class TopUpCredit extends javax.swing.JPanel {
     private void initComponents() {
 
         bgLayer = new javax.swing.JPanel();
+        searchIcon = new javax.swing.JLabel();
         customerCredit = new javax.swing.JLabel();
         logout = new javax.swing.JLabel();
         back = new javax.swing.JButton();
@@ -42,14 +44,18 @@ public class TopUpCredit extends javax.swing.JPanel {
         byName = new javax.swing.JLabel();
         searchByName = new javax.swing.JTextField();
         byContactNo = new javax.swing.JLabel();
-        searchIcon = new javax.swing.JLabel();
         searchByContact = new javax.swing.JTextField();
+        topUpTest = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
         setLayout(null);
 
         bgLayer.setBackground(new java.awt.Color(255, 251, 233));
         bgLayer.setLayout(null);
+
+        searchIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/search_icon.png"))); // NOI18N
+        bgLayer.add(searchIcon);
+        searchIcon.setBounds(1240, 160, 60, 60);
 
         customerCredit.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         customerCredit.setText("Customer Credit");
@@ -113,14 +119,25 @@ public class TopUpCredit extends javax.swing.JPanel {
         bgLayer.add(byContactNo);
         byContactNo.setBounds(800, 160, 120, 60);
 
-        searchIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/search_icon.png"))); // NOI18N
-        bgLayer.add(searchIcon);
-        searchIcon.setBounds(1240, 160, 60, 60);
-
         searchByContact.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         searchByContact.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         bgLayer.add(searchByContact);
         searchByContact.setBounds(930, 160, 370, 60);
+
+        topUpTest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/top_up_icon.png"))); // NOI18N
+        topUpTest.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                topUpTestMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                topUpTestMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                topUpTestMouseExited(evt);
+            }
+        });
+        bgLayer.add(topUpTest);
+        topUpTest.setBounds(1090, 50, 110, 80);
 
         add(bgLayer);
         bgLayer.setBounds(0, 0, 1400, 800);
@@ -156,6 +173,18 @@ public class TopUpCredit extends javax.swing.JPanel {
         logout.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_logoutMouseExited
 
+    private void topUpTestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_topUpTestMouseClicked
+
+    }//GEN-LAST:event_topUpTestMouseClicked
+
+    private void topUpTestMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_topUpTestMouseEntered
+        topUpTest.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_topUpTestMouseEntered
+
+    private void topUpTestMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_topUpTestMouseExited
+        topUpTest.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_topUpTestMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
@@ -168,6 +197,7 @@ public class TopUpCredit extends javax.swing.JPanel {
     private javax.swing.JTextField searchByContact;
     private javax.swing.JTextField searchByName;
     private javax.swing.JLabel searchIcon;
+    private javax.swing.JLabel topUpTest;
     private javax.swing.JScrollPane userListScroll;
     // End of variables declaration//GEN-END:variables
 }

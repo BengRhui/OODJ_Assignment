@@ -18,6 +18,7 @@ import javax.swing.*;
 public class AdminFrame extends javax.swing.JFrame {
 
     CardLayout cardLayout;
+    AdminPopUp adminPopUp;
 
     public AdminFrame() {
         //to initialize all panel in the frame and validate the layout
@@ -41,6 +42,7 @@ public class AdminFrame extends javax.swing.JFrame {
         pageHolder.add(manageUserPage, "manageUser");
         pageHolder.add(topUpCreditPage, "topUpCredit");
         pageHolder.add(manageStorePage, "manageStore");
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -185,6 +187,9 @@ public class AdminFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_manageStoreActionPerformed
 
     private void manageUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageUserActionPerformed
+        adminPopUp = new AdminPopUp();
+        adminPopUp.userTypeFilter();
+        System.out.println(AdminPopUp.userType);
         cardLayout.show(pageHolder, "manageUser");
     }//GEN-LAST:event_manageUserActionPerformed
 

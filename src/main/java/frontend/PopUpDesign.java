@@ -6,9 +6,6 @@ package frontend;
  */
 public class PopUpDesign extends javax.swing.JFrame {
 
-    /**
-     * Creates new form PopUpDesign
-     */
     public PopUpDesign() {
         initComponents();
     }
@@ -20,10 +17,10 @@ public class PopUpDesign extends javax.swing.JFrame {
 
         contentHolder = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
-        description = new javax.swing.JLabel();
         cancelButton = new javax.swing.JButton();
         confirmButton = new javax.swing.JButton();
         footer = new javax.swing.JPanel();
+        filterType = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -37,12 +34,6 @@ public class PopUpDesign extends javax.swing.JFrame {
         title.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         contentHolder.add(title);
         title.setBounds(35, 18, 430, 42);
-
-        description.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        description.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        description.setText("Description");
-        contentHolder.add(description);
-        description.setBounds(35, 86, 430, 93);
 
         cancelButton.setBackground(new java.awt.Color(227, 202, 165));
         cancelButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -100,6 +91,12 @@ public class PopUpDesign extends javax.swing.JFrame {
         contentHolder.add(footer);
         footer.setBounds(0, 262, 500, 38);
 
+        filterType.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        filterType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Customer", "Vendor", "Runner" }));
+        filterType.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        contentHolder.add(filterType);
+        filterType.setBounds(30, 100, 430, 60);
+
         getContentPane().add(contentHolder, java.awt.BorderLayout.CENTER);
 
         pack();
@@ -133,7 +130,7 @@ public class PopUpDesign extends javax.swing.JFrame {
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton confirmButton;
     private javax.swing.JPanel contentHolder;
-    private javax.swing.JLabel description;
+    private javax.swing.JComboBox<String> filterType;
     private javax.swing.JPanel footer;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables

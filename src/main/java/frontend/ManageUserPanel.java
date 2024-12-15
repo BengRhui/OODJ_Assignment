@@ -9,6 +9,7 @@ import java.awt.Cursor;
 public class ManageUserPanel extends javax.swing.JPanel {
 
     public AdminFrame adminFrame;
+    AdminPopUp adminPopUp = new AdminPopUp();
 
     public ManageUserPanel() {
         initComponents();
@@ -34,6 +35,7 @@ public class ManageUserPanel extends javax.swing.JPanel {
         backButton = new javax.swing.JButton();
         registerUser = new javax.swing.JButton();
         userListHolder = new javax.swing.JScrollPane();
+        deleteTest = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
         setLayout(null);
@@ -113,6 +115,21 @@ public class ManageUserPanel extends javax.swing.JPanel {
         bgLayer.add(userListHolder);
         userListHolder.setBounds(90, 140, 1210, 540);
 
+        deleteTest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/delete_icon.png"))); // NOI18N
+        deleteTest.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteTestMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                deleteTestMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                deleteTestMouseExited(evt);
+            }
+        });
+        bgLayer.add(deleteTest);
+        deleteTest.setBounds(990, 50, 80, 70);
+
         add(bgLayer);
         bgLayer.setBounds(0, 0, 1400, 800);
 
@@ -146,7 +163,7 @@ public class ManageUserPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_registerUserMouseExited
 
     private void registerUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerUserActionPerformed
-        
+        System.out.println(AdminPopUp.userType);
 //        State control, use if to get into different userType form
 //        if (filterType.contains("C")){
             CustomerDetailForm form = new CustomerDetailForm();
@@ -171,11 +188,25 @@ public class ManageUserPanel extends javax.swing.JPanel {
         logout.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_logoutMouseExited
 
+    private void deleteTestMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteTestMouseEntered
+        deleteTest.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_deleteTestMouseEntered
+
+    private void deleteTestMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteTestMouseExited
+        deleteTest.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_deleteTestMouseExited
+
+    private void deleteTestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteTestMouseClicked
+        //delete pop-up test
+        adminPopUp.deleteUser();
+    }//GEN-LAST:event_deleteTestMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
     private javax.swing.JLabel background;
     private javax.swing.JPanel bgLayer;
+    private javax.swing.JLabel deleteTest;
     private javax.swing.JLabel filter;
     private javax.swing.JLabel logout;
     private javax.swing.JButton registerUser;

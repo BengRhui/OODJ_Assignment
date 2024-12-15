@@ -1,7 +1,6 @@
 package frontend;
 
 import java.awt.Cursor;
-import frontend.AdminPopUp;
 
 /**
  *
@@ -26,6 +25,7 @@ public class CustomerDetailForm extends javax.swing.JFrame {
                 </ul>
                 </html>
                 """);
+        this.setLocationRelativeTo(null);
     }
 
     private void initContent() {
@@ -318,8 +318,8 @@ public class CustomerDetailForm extends javax.swing.JFrame {
 
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
         //register/modify customer method should be here
-        popUp.createUser().setVisible(true);
-//        this.dispose();
+        popUp.updateUser().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_confirmButtonActionPerformed
 
     private void cancelButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelButtonMouseEntered

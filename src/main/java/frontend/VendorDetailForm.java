@@ -8,6 +8,7 @@ import java.awt.Cursor;
  */
 public class VendorDetailForm extends javax.swing.JFrame {
 
+    AdminPopUp popUp = new AdminPopUp();
 
     public VendorDetailForm() {
         initComponents();
@@ -24,6 +25,7 @@ public class VendorDetailForm extends javax.swing.JFrame {
                 </ul>
                 </html>
                 """);
+        this.setLocationRelativeTo(null);
     }
 
     private void initContent() {
@@ -282,6 +284,7 @@ public class VendorDetailForm extends javax.swing.JFrame {
 
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
         //register/modify vendor method should be here
+        popUp.updateUser().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_confirmButtonActionPerformed
 

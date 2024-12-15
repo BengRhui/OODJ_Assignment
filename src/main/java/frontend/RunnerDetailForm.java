@@ -12,6 +12,7 @@ import java.awt.Cursor;
  */
 public class RunnerDetailForm extends javax.swing.JFrame {
 
+    AdminPopUp popUp = new AdminPopUp();
 
     public RunnerDetailForm() {
         initComponents();
@@ -29,6 +30,7 @@ public class RunnerDetailForm extends javax.swing.JFrame {
                 </ul>
                 </html>
                 """);
+        this.setLocationRelativeTo(null);
     }
 
     private void initContent() {
@@ -263,7 +265,8 @@ public class RunnerDetailForm extends javax.swing.JFrame {
 
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
         //register/modify vendor method should be here
-        this.dispose(); 
+        popUp.updateUser().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_confirmButtonActionPerformed
 
     private void confirmButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_confirmButtonMouseExited
