@@ -12,4 +12,5 @@ public interface Notification {
 
     void markAsRead();
 
+    String getNotificationID();
 }
