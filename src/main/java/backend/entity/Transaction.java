@@ -35,6 +35,19 @@ public class Transaction {
         CASH_IN, CASH_OUT;
 
         /**
+         * A method to convert string into {@code TransactionType}
+         * @param transactionType The string input of transaction type
+         * @return The {@code TransactionType} corresponding to the string input
+         */
+        public static TransactionType getType(String transactionType) {
+            return switch (transactionType.toLowerCase()) {
+                case "cash in" -> CASH_IN;
+                case "cash out" -> CASH_OUT;
+                default -> null;
+            };
+        }
+
+        /**
          * A method to return the transaction types as strings
          * @return String representation of transaction types
          */
@@ -56,6 +69,21 @@ public class Transaction {
          * Default types of payment method
          */
         QR_PAYMENT, CASH, DEBIT_CREDIT_CARD, E_WALLET;
+
+        /**
+         * A method to convert string into {@code PaymentMethod}
+         * @param paymentMethod The string input of payment method
+         * @return The {@code PaymentMethod} corresponding to the string input
+         */
+        public static PaymentMethod getType(String paymentMethod) {
+            return switch (paymentMethod.toLowerCase()) {
+                case "qr payment" -> QR_PAYMENT;
+                case "cash" -> CASH;
+                case "debit / credit card" -> DEBIT_CREDIT_CARD;
+                case "e-wallet" -> E_WALLET;
+                default -> null;
+            };
+        }
 
         /**
          * A method to return the payment methods in string
