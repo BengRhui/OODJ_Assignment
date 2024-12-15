@@ -9,11 +9,11 @@ import java.util.ArrayList;
  */
 public class DeliveryRunner extends User {
 
-    private final static ArrayList<DeliveryRunner> deliveryRunnerList = new ArrayList<>();
     /**
      * Additional attributes for {@code DeliveryRunner} objects.<br>
      * A list that contains all delivery runners is also included.
      */
+    private final static ArrayList<DeliveryRunner> deliveryRunnerList = new ArrayList<>();
     private String contactNumber;
 
     /**
