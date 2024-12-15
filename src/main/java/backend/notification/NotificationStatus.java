@@ -1,5 +1,7 @@
 package backend.notification;
 
+import java.util.Arrays;
+
 /**
  * Enum {@code NotificationStatus} represents the different types of status in a notification.
  *
@@ -19,11 +21,10 @@ public enum NotificationStatus {
      * @return The status in {@code NotificationStatus} class
      */
     public static NotificationStatus fromString(String status) {
-        return switch (status.toLowerCase()) {
-            case "read" -> READ;
-            case "unread" -> UNREAD;
-            default -> null;
-        };
+        return Arrays.stream(NotificationStatus.values())                    // Get all fields
+                .filter(field -> field.toString().equalsIgnoreCase(status))  // Compare input with strings from toString
+                .findFirst()                                                 // Find the first occurrence
+                .orElse(null);                                         // Return null if nothing is found
     }
 
     /**
