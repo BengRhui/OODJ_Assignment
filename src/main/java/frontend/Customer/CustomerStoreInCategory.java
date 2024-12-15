@@ -8,12 +8,12 @@ package frontend.Customer;
  *
  * @author Lenovo
  */
-public class CustomerHomePage extends javax.swing.JFrame {
+public class CustomerStoreInCategory extends javax.swing.JFrame {
 
     /**
      * Creates new form CustomerHomePage
      */
-    public CustomerHomePage() {
+    public CustomerStoreInCategory() {
         initComponents();
     }
 
@@ -32,19 +32,16 @@ public class CustomerHomePage extends javax.swing.JFrame {
         order_history = new javax.swing.JLabel();
         e_wallet = new javax.swing.JLabel();
         issue_and_support = new javax.swing.JLabel();
-        welcome_text = new javax.swing.JLabel();
+        list_of_shops_text = new javax.swing.JLabel();
         settings_icon = new javax.swing.JLabel();
         notification_icon = new javax.swing.JLabel();
         back_icon = new javax.swing.JLabel();
         customer_background = new javax.swing.JLabel();
         bottom_panel = new javax.swing.JPanel();
-        current_orders_text = new javax.swing.JLabel();
-        current_orders_panel = new javax.swing.JScrollPane();
-        current_orders_text1 = new javax.swing.JLabel();
-        categories_panel = new javax.swing.JScrollPane();
+        shops_for_fried_chicken = new javax.swing.JLabel();
+        shops_of_fried_chicken_scrollpanel = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1400, 800));
         setSize(new java.awt.Dimension(1400, 800));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -56,7 +53,7 @@ public class CustomerHomePage extends javax.swing.JFrame {
         top_panel.add(logo_light);
         logo_light.setBounds(-10, 0, 250, 150);
 
-        home_page.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        home_page.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         home_page.setForeground(new java.awt.Color(255, 255, 255));
         home_page.setText("Home Page");
         home_page.setAlignmentY(0.0F);
@@ -108,18 +105,18 @@ public class CustomerHomePage extends javax.swing.JFrame {
         top_panel.add(issue_and_support);
         issue_and_support.setBounds(770, 60, 210, 30);
 
-        welcome_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        welcome_text.setForeground(new java.awt.Color(255, 255, 255));
-        welcome_text.setText("Welcome, ");
-        welcome_text.setAlignmentY(0.0F);
-        welcome_text.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        welcome_text.setIconTextGap(0);
-        welcome_text.setMaximumSize(new java.awt.Dimension(130, 30));
-        welcome_text.setMinimumSize(new java.awt.Dimension(130, 30));
-        welcome_text.setName(""); // NOI18N
-        welcome_text.setPreferredSize(new java.awt.Dimension(130, 30));
-        top_panel.add(welcome_text);
-        welcome_text.setBounds(70, 140, 130, 30);
+        list_of_shops_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        list_of_shops_text.setForeground(new java.awt.Color(255, 255, 255));
+        list_of_shops_text.setText("List of Shops based on Category");
+        list_of_shops_text.setAlignmentY(0.0F);
+        list_of_shops_text.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        list_of_shops_text.setIconTextGap(0);
+        list_of_shops_text.setMaximumSize(new java.awt.Dimension(130, 30));
+        list_of_shops_text.setMinimumSize(new java.awt.Dimension(130, 30));
+        list_of_shops_text.setName(""); // NOI18N
+        list_of_shops_text.setPreferredSize(new java.awt.Dimension(130, 30));
+        top_panel.add(list_of_shops_text);
+        list_of_shops_text.setBounds(70, 140, 420, 30);
 
         settings_icon.setBackground(new java.awt.Color(255, 255, 255));
         settings_icon.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
@@ -176,22 +173,16 @@ public class CustomerHomePage extends javax.swing.JFrame {
         bottom_panel.setPreferredSize(new java.awt.Dimension(1400, 600));
         bottom_panel.setLayout(null);
 
-        current_orders_text.setBackground(new java.awt.Color(0, 0, 0));
-        current_orders_text.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        current_orders_text.setForeground(new java.awt.Color(0, 0, 0));
-        current_orders_text.setText("Current Orders");
-        bottom_panel.add(current_orders_text);
-        current_orders_text.setBounds(30, 19, 249, 48);
-        bottom_panel.add(current_orders_panel);
-        current_orders_panel.setBounds(30, 73, 650, 450);
+        shops_for_fried_chicken.setBackground(new java.awt.Color(0, 0, 0));
+        shops_for_fried_chicken.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        shops_for_fried_chicken.setForeground(new java.awt.Color(0, 0, 0));
+        shops_for_fried_chicken.setText("Shops for Fried Chicken");
+        bottom_panel.add(shops_for_fried_chicken);
+        shops_for_fried_chicken.setBounds(100, 30, 450, 48);
 
-        current_orders_text1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        current_orders_text1.setForeground(new java.awt.Color(0, 0, 0));
-        current_orders_text1.setText("Categories");
-        bottom_panel.add(current_orders_text1);
-        current_orders_text1.setBounds(700, 20, 177, 48);
-        bottom_panel.add(categories_panel);
-        categories_panel.setBounds(700, 70, 650, 450);
+        shops_of_fried_chicken_scrollpanel.setBackground(new java.awt.Color(255, 251, 233));
+        bottom_panel.add(shops_of_fried_chicken_scrollpanel);
+        shops_of_fried_chicken_scrollpanel.setBounds(50, 90, 1300, 450);
 
         getContentPane().add(bottom_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, -1, -1));
 
@@ -215,20 +206,21 @@ public class CustomerHomePage extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CustomerHomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerStoreInCategory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CustomerHomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerStoreInCategory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CustomerHomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerStoreInCategory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CustomerHomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerStoreInCategory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CustomerHomePage().setVisible(true);
+                new CustomerStoreInCategory().setVisible(true);
             }
         });
     }
@@ -236,19 +228,17 @@ public class CustomerHomePage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel back_icon;
     private javax.swing.JPanel bottom_panel;
-    private javax.swing.JScrollPane categories_panel;
-    private javax.swing.JScrollPane current_orders_panel;
-    private javax.swing.JLabel current_orders_text;
-    private javax.swing.JLabel current_orders_text1;
     private javax.swing.JLabel customer_background;
     private javax.swing.JLabel e_wallet;
     private javax.swing.JLabel home_page;
     private javax.swing.JLabel issue_and_support;
+    private javax.swing.JLabel list_of_shops_text;
     private javax.swing.JLabel logo_light;
     private javax.swing.JLabel notification_icon;
     private javax.swing.JLabel order_history;
     private javax.swing.JLabel settings_icon;
+    private javax.swing.JLabel shops_for_fried_chicken;
+    private javax.swing.JScrollPane shops_of_fried_chicken_scrollpanel;
     public javax.swing.JPanel top_panel;
-    private javax.swing.JLabel welcome_text;
     // End of variables declaration//GEN-END:variables
 }
