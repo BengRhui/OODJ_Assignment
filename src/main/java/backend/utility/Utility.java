@@ -92,4 +92,36 @@ public class Utility {
         // Return time in LocalDateTime format
         return LocalDateTime.parse(time, timeFormat);
     }
+
+    /**
+     * A method to change a string containing the pair of item and quantity into {@code HashMap}.<br>
+     * The string is parsed in the format of "I001 - 1, I002 - 2, ..."
+     * @param itemSet The string that contains the key-value pair of item and quantity
+     * @return The key-value pair in {@code HashMap}
+     */
+    public static HashMap<Item, Integer> changeStringToHashMap(String itemSet) {
+
+        // Create a new HashMap to store information
+        HashMap<Item, Integer> map = new HashMap<>();
+
+        // Split each item pair
+        String[] itemPairs = itemSet.split(", ");
+
+        // Loop through each item pair to extract information
+        for (String itemPair : itemPairs) {
+
+            // Separate item ID and quantity
+            String[] itemAndQuantity = itemPair.split("-");
+
+            // Retrieve item and quantity after removing the trailing whitespaces
+            Item item = Item.getItem(itemAndQuantity[0].strip());
+            int quantity = Integer.parseInt(itemAndQuantity[1].strip());
+
+            // Add the item and quantity into HashMap
+            map.put(item, quantity);
+        }
+
+        // Return HashMap after everything is done
+        return map;
+    }
 }
