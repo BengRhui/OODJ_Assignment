@@ -86,6 +86,29 @@ public class Order {
     }
 
     /**
+     * A method to retrieve {@code Order} object based on order ID.
+     * @param orderID The ID of the order
+     * @return {@code Order} object associated with the ID
+     */
+    public static Order getOrder(String orderID) {
+
+        // Loop through the list of order objects
+        for (Order order : orderList) {
+
+            // Continue the loop if order ID does not match
+            if (!order.orderID.equals(orderID)) {
+                continue;
+            }
+
+            // Return the associated order object if order ID matches
+            return order;
+        }
+
+        // Return null if no order ID matches
+        return null;
+    }
+
+    /**
      * Getters and setters for {@code Order} class
      */
     public String getOrderID() {
