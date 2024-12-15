@@ -1,5 +1,6 @@
 package frontend;
 
+import javax.swing.JFrame;
 import java.awt.Cursor;
 
 /**
@@ -9,6 +10,14 @@ import java.awt.Cursor;
 public class CustomerDetailForm extends javax.swing.JFrame {
 
     AdminPopUp popUp = new AdminPopUp();
+    private JFrame parentFrame;
+
+    public CustomerDetailForm(JFrame parentFrame){
+        this.parentFrame = parentFrame;
+        initComponents();
+        textFormatter();
+        initContent();
+    }
 
     public CustomerDetailForm() {
         initComponents();
@@ -319,7 +328,9 @@ public class CustomerDetailForm extends javax.swing.JFrame {
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
         //register/modify customer method should be here
         popUp.updateUser().setVisible(true);
+        parentFrame.setEnabled(true);
         this.dispose();
+
     }//GEN-LAST:event_confirmButtonActionPerformed
 
     private void cancelButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelButtonMouseEntered
@@ -333,6 +344,7 @@ public class CustomerDetailForm extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonMouseExited
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        parentFrame.setEnabled(true);
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
@@ -345,6 +357,7 @@ public class CustomerDetailForm extends javax.swing.JFrame {
     }//GEN-LAST:event_closeButtonMouseExited
 
     private void closeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeButtonMouseClicked
+        parentFrame.setEnabled(true);
         this.dispose();
     }//GEN-LAST:event_closeButtonMouseClicked
 

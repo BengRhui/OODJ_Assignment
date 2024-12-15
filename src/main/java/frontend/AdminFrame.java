@@ -188,8 +188,8 @@ public class AdminFrame extends javax.swing.JFrame {
 
     private void manageUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageUserActionPerformed
         adminPopUp = new AdminPopUp();
-        adminPopUp.userTypeFilter();
-        System.out.println(AdminPopUp.userType);
+        adminPopUp.userTypeFilter(manageUserPage);
+        manageUserPage.setEnabled(false);
         cardLayout.show(pageHolder, "manageUser");
     }//GEN-LAST:event_manageUserActionPerformed
 

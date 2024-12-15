@@ -1,5 +1,6 @@
 package frontend;
 
+import javax.swing.*;
 import java.awt.Cursor;
 
 /**
@@ -9,6 +10,14 @@ import java.awt.Cursor;
 public class VendorDetailForm extends javax.swing.JFrame {
 
     AdminPopUp popUp = new AdminPopUp();
+    private JFrame parentFrame;
+
+    public VendorDetailForm(JFrame parentFrame){
+        this.parentFrame = parentFrame;
+        initComponents();
+        textFormatter();
+        initContent();
+    }
 
     public VendorDetailForm() {
         initComponents();
@@ -25,10 +34,10 @@ public class VendorDetailForm extends javax.swing.JFrame {
                 </ul>
                 </html>
                 """);
-        this.setLocationRelativeTo(null);
     }
 
     private void initContent() {
+        this.setLocationRelativeTo(null);
         //Initialize content of selected user
     }
     
@@ -261,6 +270,7 @@ public class VendorDetailForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void closeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeButtonMouseClicked
+        parentFrame.setEnabled(true);
         this.dispose();
     }//GEN-LAST:event_closeButtonMouseClicked
 
@@ -285,6 +295,7 @@ public class VendorDetailForm extends javax.swing.JFrame {
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
         //register/modify vendor method should be here
         popUp.updateUser().setVisible(true);
+        parentFrame.setEnabled(true);
         this.dispose();
     }//GEN-LAST:event_confirmButtonActionPerformed
 
@@ -299,6 +310,7 @@ public class VendorDetailForm extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonMouseExited
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        parentFrame.setEnabled(true);
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 

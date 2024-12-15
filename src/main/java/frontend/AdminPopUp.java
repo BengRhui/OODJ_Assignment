@@ -1,6 +1,7 @@
 
 package frontend;
 
+import javax.swing.*;
 import java.awt.Cursor;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.List;
 public class AdminPopUp extends javax.swing.JFrame {
 
     // Variables declaration
+    private JPanel parentPanel;
+    private JFrame parentFrame;
     public static String userType;
     private List<String> filterUser;
     private javax.swing.JButton cancelButton;
@@ -24,7 +27,8 @@ public class AdminPopUp extends javax.swing.JFrame {
     private String popUpType;
 
     //customize the pop-up message for different approach
-    public javax.swing.JFrame deleteUser(){
+    public javax.swing.JFrame deleteUser(JFrame frame) {
+        parentFrame = frame;
         popUpType = "deleteUser";
         initNotificationPopUp();
         this.setSize(500,300);
@@ -77,7 +81,8 @@ public class AdminPopUp extends javax.swing.JFrame {
         return this;
     }
 
-    public javax.swing.JFrame userTypeFilter(){
+    public javax.swing.JFrame userTypeFilter(JPanel panel){
+        parentPanel = panel;
         popUpType = "userTypeFilter";
         initNotificationPopUp();
         this.setSize(500,300);
@@ -149,7 +154,8 @@ public class AdminPopUp extends javax.swing.JFrame {
             }
         });
         contentHolder.add(cancelButton);
-        cancelButton.setBounds(35, 214, 200, 48);
+        cancelButton.setBounds(55, 190,170,48);
+//        cancelButton.setBounds(35, 214, 200, 48);
 
         confirmButton.setBackground(new java.awt.Color(173, 139, 115));
         confirmButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -169,7 +175,8 @@ public class AdminPopUp extends javax.swing.JFrame {
             }
         });
         contentHolder.add(confirmButton);
-        confirmButton.setBounds(265, 214, 200, 48);
+        confirmButton.setBounds(265, 190,170,48);
+//        confirmButton.setBounds(265, 214, 200, 48);
 
         footer.setBackground(new java.awt.Color(255, 251, 233));
 
@@ -192,14 +199,31 @@ public class AdminPopUp extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void initTopUpPopUp(){
+        
+    }
+
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        this.dispose();
+        switch (popUpType){
+            case "userTypeFilter":
+                userType = filterList.getSelectedItem().toString();
+                parentPanel.setEnabled(true);
+                this.dispose();
+                break;
+            case "deleteUser":
+                parentFrame.setEnabled(true);
+                this.dispose();
+            default:
+                this.dispose();
+        }
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
         switch(popUpType){
             case "deleteUser":
                 //deleteUser method should be call here
+
+                parentFrame.setEnabled(true);
                 this.dispose();
                 break;
             case "updateUser":
@@ -210,6 +234,7 @@ public class AdminPopUp extends javax.swing.JFrame {
                 break;
             case "userTypeFilter":
                 userType = filterList.getSelectedItem().toString();
+                parentPanel.setEnabled(true);
                 this.dispose();
                 break;
             default:

@@ -14,6 +14,7 @@ public class ManageUserPanel extends javax.swing.JPanel {
     public ManageUserPanel() {
         initComponents();
         initLayout();
+        initContent();
     }
 
     public void setAdminFrame(AdminFrame adminFrame) {
@@ -22,6 +23,10 @@ public class ManageUserPanel extends javax.swing.JPanel {
 
     private void initLayout(){
         bgLayer.setBackground(new java.awt.Color(255, 251, 233, 180));
+    }
+
+    private void initContent(){
+        //ScrollPane content initialization
     }
 
     @SuppressWarnings("unchecked")
@@ -49,6 +54,17 @@ public class ManageUserPanel extends javax.swing.JPanel {
         userListLabel.setBounds(80, 50, 220, 70);
 
         filter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/filter_icon_1.png"))); // NOI18N
+        filter.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                filterMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                filterMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                filterMouseExited(evt);
+            }
+        });
         bgLayer.add(filter);
         filter.setBounds(1090, 50, 110, 70);
 
@@ -164,16 +180,22 @@ public class ManageUserPanel extends javax.swing.JPanel {
 
     private void registerUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerUserActionPerformed
         System.out.println(AdminPopUp.userType);
-//        State control, use if to get into different userType form
-//        if (filterType.contains("C")){
-            CustomerDetailForm form = new CustomerDetailForm();
-//        }else if (filterType.contains("V")){
-//            VendorDetailForm form = new VendorDetailForm();
-//        }else if (filterType.contains("R")){
-//            RunnerDetailForm form = new RunnerDetailForm();
-//        }
-//        
-        form.setVisible(true);
+//       to get into different userType form based on selection, default to customer
+        if (AdminPopUp.userType.equals("Customer")){
+            CustomerDetailForm form = new CustomerDetailForm(adminFrame);
+            form.setVisible(true);
+        }else if (AdminPopUp.userType.equals("Vendor")){
+            VendorDetailForm form = new VendorDetailForm(adminFrame);
+            form.setVisible(true);
+        }else if (AdminPopUp.userType.equals("Runner")){
+            RunnerDetailForm form = new RunnerDetailForm(adminFrame);
+            form.setVisible(true);
+        }else {
+            CustomerDetailForm form = new CustomerDetailForm(adminFrame);
+            form.setVisible(true);
+        }
+
+        adminFrame.setEnabled(false);
     }//GEN-LAST:event_registerUserActionPerformed
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
@@ -198,8 +220,21 @@ public class ManageUserPanel extends javax.swing.JPanel {
 
     private void deleteTestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteTestMouseClicked
         //delete pop-up test
-        adminPopUp.deleteUser();
+        adminPopUp.deleteUser(adminFrame);
+        adminFrame.setEnabled(false);
     }//GEN-LAST:event_deleteTestMouseClicked
+
+    private void filterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_filterMouseClicked
+        adminPopUp.userTypeFilter(this);
+    }//GEN-LAST:event_filterMouseClicked
+
+    private void filterMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_filterMouseEntered
+        filter.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_filterMouseEntered
+
+    private void filterMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_filterMouseExited
+        filter.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_filterMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

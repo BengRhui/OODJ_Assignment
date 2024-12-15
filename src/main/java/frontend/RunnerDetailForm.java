@@ -4,6 +4,7 @@
  */
 package frontend;
 
+import javax.swing.*;
 import java.awt.Cursor;
 
 /**
@@ -13,6 +14,14 @@ import java.awt.Cursor;
 public class RunnerDetailForm extends javax.swing.JFrame {
 
     AdminPopUp popUp = new AdminPopUp();
+    private JFrame parentFrame;
+
+    public RunnerDetailForm(JFrame parentFrame){
+        this.parentFrame = parentFrame;
+        initComponents();
+        textFormatter();
+        initContent();
+    }
 
     public RunnerDetailForm() {
         initComponents();
@@ -250,6 +259,7 @@ public class RunnerDetailForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        parentFrame.setEnabled(true);
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
@@ -266,6 +276,7 @@ public class RunnerDetailForm extends javax.swing.JFrame {
     private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
         //register/modify vendor method should be here
         popUp.updateUser().setVisible(true);
+        parentFrame.setEnabled(true);
         this.dispose();
     }//GEN-LAST:event_confirmButtonActionPerformed
 
@@ -288,6 +299,7 @@ public class RunnerDetailForm extends javax.swing.JFrame {
     }//GEN-LAST:event_closeButtonMouseEntered
 
     private void closeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeButtonMouseClicked
+        parentFrame.setEnabled(true);
         this.dispose();
     }//GEN-LAST:event_closeButtonMouseClicked
 

@@ -110,19 +110,20 @@ public class TopUpCredit extends javax.swing.JPanel {
         bgLayer.add(byName);
         byName.setBounds(90, 160, 110, 60);
 
+        searchByName.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         searchByName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         bgLayer.add(searchByName);
-        searchByName.setBounds(240, 160, 520, 60);
+        searchByName.setBounds(240, 160, 470, 60);
 
         byContactNo.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         byContactNo.setText("Search by \nContact No.:");
         bgLayer.add(byContactNo);
-        byContactNo.setBounds(800, 160, 120, 60);
+        byContactNo.setBounds(740, 160, 120, 60);
 
-        searchByContact.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        searchByContact.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         searchByContact.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         bgLayer.add(searchByContact);
-        searchByContact.setBounds(930, 160, 370, 60);
+        searchByContact.setBounds(860, 160, 370, 60);
 
         topUpTest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/top_up_icon.png"))); // NOI18N
         topUpTest.addMouseListener(new java.awt.event.MouseAdapter() {
