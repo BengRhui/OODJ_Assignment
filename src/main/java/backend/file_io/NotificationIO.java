@@ -31,12 +31,12 @@ public class NotificationIO extends FileIO {
         // Loop through all lists
         for (String[] record : notificationList) {
 
-            // Retrieve the associated object ID (stall, runner or customer)
-            String ID = record[1];
+            // Retrieve the associated notification ID
+            String ID = record[0];
 
             // Check the first letter of the ID and create respective notifications
-            switch (ID.charAt(0)) {
-                case 'S' -> createVendorNotification(record);
+            switch (ID.charAt(1)) {
+                case 'V' -> createVendorNotification(record);
                 case 'R' -> createDeliveryRunnerNotification(record);
                 case 'C' -> createCustomerNotification(record);
             }
