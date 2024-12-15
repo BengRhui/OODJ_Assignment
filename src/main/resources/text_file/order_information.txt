@@ -1,1 +1,1 @@
-ORD00001  ; C001 ; S001 ; R001 ; Delivery  ; T001 ; Call when arrive.     ; 105.45    ; 8 December 2024 01:34:10 AM   ; 15.40 ; Pending waiter and delivery confirmation     ; I001 - 2, I002 - 1
+ORD00001  ; C001 ; S001 ; R001 ; Delivery  ; T001 ; Call when arrive.     ; 105.45    ; 08/12/2024 01:34:10   ; 15.40 ; Pending waiter and delivery confirmation     ; I001 - 2, I002 - 1
