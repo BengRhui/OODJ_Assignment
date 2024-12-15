@@ -29,16 +29,16 @@ public class Feedback {
      * @param ratings             The ratings provided by the customer in the feedback
      * @param feedbackTitle       The title of the feedback
      * @param feedbackDetails     The description of the feedback
-     * @param responseFromManager The reply that the manager provides to the customer
+     * @param replyFromManager The reply that the manager provides to the customer
      */
-    public Feedback(String feedbackID, String feedbackCategory, Order orderAssociated, double ratings, String feedbackTitle, String feedbackDetails, String responseFromManager) {
+    public Feedback(String feedbackID, String feedbackCategory, Order orderAssociated, double ratings, String feedbackTitle, String feedbackDetails, String replyFromManager) {
         this.feedbackID = feedbackID;
         this.feedbackCategory = feedbackCategory;
         this.orderAssociated = orderAssociated;
         this.ratings = ratings;
         this.feedbackTitle = feedbackTitle;
         this.feedbackDetails = feedbackDetails;
-        this.replyFromManager = responseFromManager;
+        this.replyFromManager = replyFromManager;
     }
 
     /**
