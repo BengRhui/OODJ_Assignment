@@ -210,12 +210,6 @@ public class Order {
     @Override
     public String toString() {
 
-        StringBuilder itemString = new StringBuilder();
-        for (HashMap.Entry<Item, Integer> entry : orderItem.entrySet()) {
-            String currentItem = "- " + entry.getKey().getItemID() + " x " + entry.getValue() + "\n";
-            itemString.append(currentItem);
-        }
-
         return "Order ID: " + orderID + "\n" +
                 "Ordering Customer: " + "\n" +
                 orderingCustomer.toString() + "\n" +
@@ -230,6 +224,6 @@ public class Order {
                 "Ordered Date: " + Utility.generateString(orderedDate) + "\n" +
                 "Tips for Runner: " + tipsForRunner + "\n" +
                 "Order Status: " + orderStatus + "\n" +
-                "Order Items: " + itemString;
+                "Order Items: " + Utility.generateString(orderItem);
     }
 }
