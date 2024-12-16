@@ -40,6 +40,8 @@ public class Admin extends User {
 
     /**
      * A method to add {@code Admin} objects into an overall list.
+     *
+     * @param admin {@code Admin} objects to be added to list
      */
     public static void addToAdminList(Admin... admin) {
 

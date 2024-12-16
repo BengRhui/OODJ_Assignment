@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * Class {@code Order} represents the order placed by the customer via the system.
@@ -77,10 +78,19 @@ public class Order {
     /**
      * A method to add {@code Order} objects into the overall list.
      *
-     * @param order The {@code Order} object to be added into list.
+     * @param order The {@code Order} objectS to be added into list.
      */
-    public static void addToOrderList(Order order) {
-        orderList.add(order);
+    public static void addToOrderList(Order... order) {
+
+        // Throws an error if there is no order passed into the argument, or a null order is passed into argument
+        if (order.length == 0 || Arrays.stream(order).anyMatch(Objects::isNull)) {
+            throw new IllegalArgumentException("Arguments should contain at least one Order object");
+        }
+
+        // Add all the orders from the arguments into the list
+        orderList.addAll(
+                Arrays.asList(order)
+        );
     }
 
     /**

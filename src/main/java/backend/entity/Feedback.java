@@ -1,6 +1,8 @@
 package backend.entity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Class {@code Feedback} represents the feedback that customers provide to the system, vendor and delivery runner.
@@ -55,10 +57,19 @@ public class Feedback {
     /**
      * A method to add {@code Feedback} objects to the overall list.
      *
-     * @param feedback The {@code Feedback} object to be added to list
+     * @param feedback The {@code Feedback} objects to be added to list
      */
-    public static void addToFeedbackList(Feedback feedback) {
-        feedbackList.add(feedback);
+    public static void addToFeedbackList(Feedback... feedback) {
+
+        // Throws an error if there is no feedback passed into the argument, or a null feedback is passed into argument
+        if (feedback.length == 0 || Arrays.stream(feedback).anyMatch(Objects::isNull)) {
+            throw new IllegalArgumentException("Arguments should contain at least one Feedback object");
+        }
+
+        // Add all the feedbacks from the arguments into the list
+        feedbackList.addAll(
+                Arrays.asList(feedback)
+        );
     }
 
     /**

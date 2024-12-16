@@ -2,6 +2,7 @@ package backend.entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Class {@code Stall} is used to represent the different types of stalls in the food court.
@@ -42,12 +43,21 @@ public class Stall {
     }
 
     /**
-     * A method to add a {@code Stall} object to the overall list.
+     * A method to add {@code Stall} objects to the overall list.
      *
-     * @param stall The {@code Stall} object to be added
+     * @param stall The {@code Stall} objects to be added
      */
-    public static void addStallToList(Stall stall) {
-        stallList.add(stall);
+    public static void addStallToList(Stall... stall) {
+
+        // Throws an error if there is no stall passed into the argument, or a null stall is passed into argument
+        if (stall.length == 0 || Arrays.stream(stall).anyMatch(Objects::isNull)) {
+            throw new IllegalArgumentException("Arguments should contain at least one Stall object");
+        }
+
+        // Add all the stalls from the arguments into the list
+        stallList.addAll(
+                Arrays.asList(stall)
+        );
     }
 
     /**

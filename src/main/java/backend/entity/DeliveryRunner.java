@@ -1,6 +1,8 @@
 package backend.entity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Class {@code DeliveryRunner} represents the delivery people who will use the system to update delivery progress.
@@ -40,12 +42,21 @@ public class DeliveryRunner extends User {
     }
 
     /**
-     * A method to add an instance of {@code DeliveryRunner} to the overall list
+     * A method to add multiple instances of {@code DeliveryRunner} to the overall list
      *
-     * @param runner The {@code DeliveryRunner} object to be added into the list
+     * @param runner The {@code DeliveryRunner} objects to be added into the list
      */
-    public static void addToRunnerList(DeliveryRunner runner) {
-        deliveryRunnerList.add(runner);
+    public static void addToRunnerList(DeliveryRunner... runner) {
+
+        // Throws an error if there is no runner passed into the argument, or a null runner is passed into argument
+        if (runner.length == 0 || Arrays.stream(runner).anyMatch(Objects::isNull)) {
+            throw new IllegalArgumentException("Arguments should contain at least one DeliveryRunner object");
+        }
+
+        // Add all the runners from the arguments into the list
+        deliveryRunnerList.addAll(
+                Arrays.asList(runner)
+        );
     }
 
     /**

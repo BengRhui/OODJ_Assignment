@@ -1,6 +1,8 @@
 package backend.entity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Class {@code Item} represents the item sold by each stall in the food court.
@@ -49,10 +51,19 @@ public class Item {
     /**
      * A method to add {@code Item} objects into an overall list.
      *
-     * @param item The {@code Item} object to be added to list
+     * @param item The {@code Item} objects to be added to list
      */
-    public static void addItemToList(Item item) {
-        itemList.add(item);
+    public static void addItemToList(Item... item) {
+
+        // Throws an error if there is no item passed into the argument, or a null item is passed into argument
+        if (item.length == 0 || Arrays.stream(item).anyMatch(Objects::isNull)) {
+            throw new IllegalArgumentException("Arguments should contain at least one Item object");
+        }
+
+        // Add all the items from the arguments into the list
+        itemList.addAll(
+                Arrays.asList(item)
+        );
     }
 
     /**

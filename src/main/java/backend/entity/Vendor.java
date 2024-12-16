@@ -1,6 +1,8 @@
 package backend.entity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Class {@code Vendor} represents the hawkers / sellers in the food court.
@@ -42,10 +44,19 @@ public class Vendor extends User {
     /**
      * A method to add {@code Vendor} objects into the overall list.
      *
-     * @param vendor {@code Vendor} object to be added to overall list
+     * @param vendor {@code Vendor} objects to be added to overall list
      */
-    public static void addToVendorList(Vendor vendor) {
-        vendorList.add(vendor);
+    public static void addToVendorList(Vendor... vendor) {
+
+        // Throws an error if there is no vendor passed into the argument, or a null vendor is passed into argument
+        if (vendor.length == 0 || Arrays.stream(vendor).anyMatch(Objects::isNull)) {
+            throw new IllegalArgumentException("Arguments should contain at least one Vendor object");
+        }
+
+        // Add all the vendors from the arguments into the list
+        vendorList.addAll(
+                Arrays.asList(vendor)
+        );
     }
 
     /**

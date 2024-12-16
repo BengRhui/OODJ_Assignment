@@ -4,6 +4,8 @@ import backend.utility.Utility;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Class {@code Transaction} represents the transaction that occurs during purchasing items and topping up.
@@ -56,10 +58,19 @@ public class Transaction {
     /**
      * A method to add transactions into an overall list.
      *
-     * @param transaction The {@code Transaction} object to be added to list
+     * @param transaction The {@code Transaction} objects to be added to list
      */
-    public static void addToList(Transaction transaction) {
-        transactionList.add(transaction);
+    public static void addToList(Transaction... transaction) {
+
+        // Throws an error if there is no transaction passed into the argument, or a null transaction is passed into argument
+        if (transaction.length == 0 || Arrays.stream(transaction).anyMatch(Objects::isNull)) {
+            throw new IllegalArgumentException("Arguments should contain at least one Transaction object");
+        }
+
+        // Add all the transactions from the arguments into the list
+        transactionList.addAll(
+                Arrays.asList(transaction)
+        );
     }
 
     /**
