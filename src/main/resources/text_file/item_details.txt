@@ -1,1 +1,2 @@
-I001 ; Char Kuey Teow                ; S001 ; 100.00    ; A local delicacy that everyone should try! Yellow noodles that are fried using black sauce will definitely savor your taste buds.
+I001 ; Delivery Fees                 ; null ; 2.0       ; Fees charged for delivery services                                                                                                                    
+I002 ; Char Kuey Teow                ; S001 ; 100.0     ; A local delicacy that everyone should try! Yellow noodles that are fried using black sauce will definitely savor your taste buds.                     

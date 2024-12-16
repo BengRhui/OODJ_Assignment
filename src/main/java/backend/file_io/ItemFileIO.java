@@ -30,6 +30,11 @@ public class ItemFileIO extends FileIO {
         // Loop through each information
         for (String[] information : informationList) {
 
+            // Skip for the creation of item object
+            if (information[1].equalsIgnoreCase("Delivery fees")) {
+                continue;
+            }
+
             // Create the item object based on the information and add to list
             Item newItem = createItemObject(information);
             Item.addItemToList(newItem);
@@ -47,7 +52,7 @@ public class ItemFileIO extends FileIO {
         // Retrieve information from the string array
         String itemID = recordFromFile[0];
         String itemName = recordFromFile[1];
-        Stall stall = Stall.getStall(recordFromFile[2]);
+        Stall stall = recordFromFile[2].equals("null") ? null : Stall.getStall(recordFromFile[2]);
         double price = Double.parseDouble(recordFromFile[3]);
         String description = recordFromFile[4];
 
@@ -73,7 +78,7 @@ public class ItemFileIO extends FileIO {
             String[] record = new String[NUMBER_OF_INFORMATION_IN_FILE];
             record[0] = item.getItemID();
             record[1] = item.getItemName();
-            record[2] = item.getStall().getStallID();
+            record[2] = item.getStall() != null ? item.getStall().getStallID() : null;
             record[3] = Double.toString(item.getPrice());
             record[4] = item.getDescription();
             informationToFile.add(record);

@@ -2,6 +2,7 @@ package backend.entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -15,7 +16,14 @@ public class Item {
      * Attributes for the {@code Item} object.<br>
      * A list that contains all {@code Item} objects is also included.
      */
-    private final static ArrayList<Item> itemList = new ArrayList<>();
+    private final static Item deliveryFees = new Item(
+            "I001",
+            "Delivery Fees",
+            null,
+            2,
+            "Fees charged for delivery services"
+    );
+    private final static ArrayList<Item> itemList = new ArrayList<>(List.of(deliveryFees));
     private String itemID;
     private String itemName;
     private Stall stall;
