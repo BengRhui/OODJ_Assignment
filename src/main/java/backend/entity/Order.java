@@ -29,7 +29,6 @@ public class Order {
     private String noteToVendor;
     private double orderPrice;
     private LocalDateTime orderedDate;
-    private double tipsForRunner;
     private OrderStatus orderStatus;
     private HashMap<Item, Integer> orderItem;
 
@@ -45,13 +44,12 @@ public class Order {
      * @param noteToVendor     The note that user wishes to inform vendor when preparing for food
      * @param orderPrice       The total payment of the order
      * @param orderedDate      The date where the order is made
-     * @param tipsForRunner    The delivery tips that customer gives to runner
      * @param orderStatus      The current status of order
      * @param orderItem        The list of items ordered by customer
      */
     public Order(String orderID, Customer orderingCustomer, Stall orderedStall, DeliveryRunner runnerInCharge,
-                 DiningType diningType, String tableNumber, String noteToVendor, double orderPrice, LocalDateTime orderedDate,
-                 double tipsForRunner, OrderStatus orderStatus, HashMap<Item, Integer> orderItem) {
+                 DiningType diningType, String tableNumber, String noteToVendor, double orderPrice,
+                 LocalDateTime orderedDate, OrderStatus orderStatus, HashMap<Item, Integer> orderItem) {
         this.orderID = orderID;
         this.orderingCustomer = orderingCustomer;
         this.orderedStall = orderedStall;
@@ -61,7 +59,6 @@ public class Order {
         this.noteToVendor = noteToVendor;
         this.orderPrice = orderPrice;
         this.orderedDate = orderedDate;
-        this.tipsForRunner = tipsForRunner;
         this.orderStatus = orderStatus;
         this.orderItem = orderItem;
     }
@@ -192,14 +189,6 @@ public class Order {
         this.orderedDate = orderedDate;
     }
 
-    public double getTipsForRunner() {
-        return tipsForRunner;
-    }
-
-    public void setTipsForRunner(double tipsForRunner) {
-        this.tipsForRunner = tipsForRunner;
-    }
-
     public OrderStatus getOrderStatus() {
         return orderStatus;
     }
@@ -235,7 +224,6 @@ public class Order {
                 "Delivery Note: " + noteToVendor + "\n" +
                 "Order Price: " + orderPrice + "\n" +
                 "Ordered Date: " + Utility.generateString(orderedDate) + "\n" +
-                "Tips for Runner: " + tipsForRunner + "\n" +
                 "Order Status: " + orderStatus.toString() + "\n" +
                 "Order Items: " + Utility.generateString(orderItem);
     }

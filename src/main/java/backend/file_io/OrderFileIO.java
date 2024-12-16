@@ -18,8 +18,8 @@ public class OrderFileIO extends FileIO {
      * Fixed variables to aid in coding.
      */
     private final static String ORDER_FILE_NAME = "order_information.txt";
-    private final static int NUMBER_OF_INFORMATION_IN_FILE = 12;
-    private final static int[] SPACING_SIZE = {10, 5, 5, 5, 15, 5, 60, 10, 20, 10, 50, 200};
+    private final static int NUMBER_OF_INFORMATION_IN_FILE = 11;
+    private final static int[] SPACING_SIZE = {10, 5, 5, 5, 15, 5, 60, 10, 20, 50, 200};
 
     /**
      * A method to read file and initialize {@code Order} objects.
@@ -56,9 +56,8 @@ public class OrderFileIO extends FileIO {
         String deliveryNote = recordFromFile[6];
         double orderPrice = Double.parseDouble(recordFromFile[7]);
         LocalDateTime orderedDate = Utility.changeStringToTime(recordFromFile[8]);
-        double tipsForRunner = Double.parseDouble(recordFromFile[9]);
-        Order.OrderStatus orderStatus = Order.OrderStatus.getFromString(recordFromFile[10]);
-        HashMap<Item, Integer> orderItem = Utility.changeStringToHashMap(recordFromFile[11]);
+        Order.OrderStatus orderStatus = Order.OrderStatus.getFromString(recordFromFile[9]);
+        HashMap<Item, Integer> orderItem = Utility.changeStringToHashMap(recordFromFile[10]);
 
         // Create and return a new item object
         return new Order(
@@ -71,7 +70,6 @@ public class OrderFileIO extends FileIO {
                 deliveryNote,
                 orderPrice,
                 orderedDate,
-                tipsForRunner,
                 orderStatus,
                 orderItem
         );
@@ -104,9 +102,8 @@ public class OrderFileIO extends FileIO {
             record[6] = order.getNoteToVendor();
             record[7] = String.valueOf(order.getOrderPrice());
             record[8] = Utility.generateString(order.getOrderedDate());
-            record[9] = String.valueOf(order.getTipsForRunner());
-            record[10] = order.getOrderStatus().toString();
-            record[11] = Utility.generateString(order.getOrderItem());
+            record[9] = order.getOrderStatus().toString();
+            record[10] = Utility.generateString(order.getOrderItem());
 
             // Add the record into list
             informationToFile.add(record);
