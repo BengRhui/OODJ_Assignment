@@ -26,7 +26,7 @@ public class Order {
     private DeliveryRunner runnerInCharge;
     private DiningType diningType;
     private String tableNumber;
-    private String deliveryNote;
+    private String noteToVendor;
     private double orderPrice;
     private LocalDateTime orderedDate;
     private double tipsForRunner;
@@ -42,7 +42,7 @@ public class Order {
      * @param runnerInCharge   The delivery runner delivering the food (if available)
      * @param diningType       The dining type preferred by user
      * @param tableNumber      The table number of user (for eat-in)
-     * @param deliveryNote     The delivery note that user wishes to inform runner
+     * @param noteToVendor     The note that user wishes to inform vendor when preparing for food
      * @param orderPrice       The total payment of the order
      * @param orderedDate      The date where the order is made
      * @param tipsForRunner    The delivery tips that customer gives to runner
@@ -50,7 +50,7 @@ public class Order {
      * @param orderItem        The list of items ordered by customer
      */
     public Order(String orderID, Customer orderingCustomer, Stall orderedStall, DeliveryRunner runnerInCharge,
-                 DiningType diningType, String tableNumber, String deliveryNote, double orderPrice, LocalDateTime orderedDate,
+                 DiningType diningType, String tableNumber, String noteToVendor, double orderPrice, LocalDateTime orderedDate,
                  double tipsForRunner, OrderStatus orderStatus, HashMap<Item, Integer> orderItem) {
         this.orderID = orderID;
         this.orderingCustomer = orderingCustomer;
@@ -58,7 +58,7 @@ public class Order {
         this.runnerInCharge = runnerInCharge;
         this.diningType = diningType;
         this.tableNumber = tableNumber;
-        this.deliveryNote = deliveryNote;
+        this.noteToVendor = noteToVendor;
         this.orderPrice = orderPrice;
         this.orderedDate = orderedDate;
         this.tipsForRunner = tipsForRunner;
@@ -168,12 +168,12 @@ public class Order {
         this.tableNumber = tableNumber;
     }
 
-    public String getDeliveryNote() {
-        return deliveryNote;
+    public String getNoteToVendor() {
+        return noteToVendor;
     }
 
-    public void setDeliveryNote(String deliveryNote) {
-        this.deliveryNote = deliveryNote;
+    public void setNoteToVendor(String noteToVendor) {
+        this.noteToVendor = noteToVendor;
     }
 
     public double getOrderPrice() {
@@ -232,7 +232,7 @@ public class Order {
                 runnerInCharge.toString() + "\n" +
                 "Dining Type: " + diningType.toString() + "\n" +
                 "Table Number: " + tableNumber + "\n" +
-                "Delivery Note: " + deliveryNote + "\n" +
+                "Delivery Note: " + noteToVendor + "\n" +
                 "Order Price: " + orderPrice + "\n" +
                 "Ordered Date: " + Utility.generateString(orderedDate) + "\n" +
                 "Tips for Runner: " + tipsForRunner + "\n" +

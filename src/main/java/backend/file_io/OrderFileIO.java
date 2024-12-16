@@ -101,7 +101,7 @@ public class OrderFileIO extends FileIO {
             record[3] = order.getRunnerInCharge().getUserID();
             record[4] = order.getDiningType().toString();
             record[5] = order.getTableNumber();
-            record[6] = order.getDeliveryNote();
+            record[6] = order.getNoteToVendor();
             record[7] = String.valueOf(order.getOrderPrice());
             record[8] = Utility.generateString(order.getOrderedDate());
             record[9] = String.valueOf(order.getTipsForRunner());
