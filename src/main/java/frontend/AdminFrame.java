@@ -6,9 +6,6 @@ package frontend;
 
 import java.awt.*;
 
-import frontend.ManageUserPanel;
-
-import javax.smartcardio.Card;
 import javax.swing.*;
 
 /**
@@ -18,7 +15,7 @@ import javax.swing.*;
 public class AdminFrame extends javax.swing.JFrame {
 
     CardLayout cardLayout;
-    AdminPopUp adminPopUp;
+    NotificationPopUp notificationPopUp;
 
     public AdminFrame() {
         //to initialize all panel in the frame and validate the layout
@@ -187,8 +184,8 @@ public class AdminFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_manageStoreActionPerformed
 
     private void manageUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageUserActionPerformed
-        adminPopUp = new AdminPopUp();
-        adminPopUp.userTypeFilter(manageUserPage);
+        notificationPopUp = new NotificationPopUp();
+        notificationPopUp.userTypeFilter(manageUserPage);
         manageUserPage.setEnabled(false);
         cardLayout.show(pageHolder, "manageUser");
     }//GEN-LAST:event_manageUserActionPerformed

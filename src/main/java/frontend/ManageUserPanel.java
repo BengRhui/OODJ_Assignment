@@ -9,7 +9,7 @@ import java.awt.Cursor;
 public class ManageUserPanel extends javax.swing.JPanel {
 
     public AdminFrame adminFrame;
-    AdminPopUp adminPopUp = new AdminPopUp();
+    NotificationPopUp notificationPopUp = new NotificationPopUp();
 
     public ManageUserPanel() {
         initComponents();
@@ -179,15 +179,15 @@ public class ManageUserPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_registerUserMouseExited
 
     private void registerUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerUserActionPerformed
-        System.out.println(AdminPopUp.userType);
+        System.out.println(NotificationPopUp.userType);
 //       to get into different userType form based on selection, default to customer
-        if (AdminPopUp.userType.equals("Customer")){
+        if (NotificationPopUp.userType.equals("Customer")){
             CustomerDetailForm form = new CustomerDetailForm(adminFrame);
             form.setVisible(true);
-        }else if (AdminPopUp.userType.equals("Vendor")){
+        }else if (NotificationPopUp.userType.equals("Vendor")){
             VendorDetailForm form = new VendorDetailForm(adminFrame);
             form.setVisible(true);
-        }else if (AdminPopUp.userType.equals("Runner")){
+        }else if (NotificationPopUp.userType.equals("Runner")){
             RunnerDetailForm form = new RunnerDetailForm(adminFrame);
             form.setVisible(true);
         }else{
@@ -220,12 +220,12 @@ public class ManageUserPanel extends javax.swing.JPanel {
 
     private void deleteTestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteTestMouseClicked
         //delete pop-up test
-        adminPopUp.deleteUser(adminFrame);
+        notificationPopUp.deleteUser(adminFrame);
         adminFrame.setEnabled(false);
     }//GEN-LAST:event_deleteTestMouseClicked
 
     private void filterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_filterMouseClicked
-        adminPopUp.userTypeFilter(this);
+        notificationPopUp.userTypeFilter(this);
     }//GEN-LAST:event_filterMouseClicked
 
     private void filterMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_filterMouseEntered

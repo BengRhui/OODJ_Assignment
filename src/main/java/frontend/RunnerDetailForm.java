@@ -13,7 +13,7 @@ import java.awt.Cursor;
  */
 public class RunnerDetailForm extends javax.swing.JFrame {
 
-    AdminPopUp popUp = new AdminPopUp();
+    NotificationPopUp popUp = new NotificationPopUp();
     private JFrame parentFrame;
 
     public RunnerDetailForm(JFrame parentFrame){

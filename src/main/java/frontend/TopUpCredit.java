@@ -9,6 +9,7 @@ import java.awt.Cursor;
 public class TopUpCredit extends javax.swing.JPanel {
 
     public AdminFrame adminFrame;
+    NotificationPopUp notificationPopUp = new NotificationPopUp();
     AdminPopUp adminPopUp = new AdminPopUp();
 
     public TopUpCredit() {
@@ -176,7 +177,7 @@ public class TopUpCredit extends javax.swing.JPanel {
 
     private void topUpTestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_topUpTestMouseClicked
         adminPopUp.userTopUp(adminFrame);
-        this.setEnabled(false);
+        adminFrame.setEnabled(false);
     }//GEN-LAST:event_topUpTestMouseClicked
 
     private void topUpTestMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_topUpTestMouseEntered
