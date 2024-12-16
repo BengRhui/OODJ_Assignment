@@ -16,7 +16,7 @@ public class Item {
      * Attributes for the {@code Item} object.<br>
      * A list that contains all {@code Item} objects is also included.
      */
-    private final static Item deliveryFees = new Item(
+    public final static Item deliveryFees = new Item(
             "I001",
             "Delivery Fees",
             null,
