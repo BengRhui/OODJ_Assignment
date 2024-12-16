@@ -48,11 +48,12 @@ public class StallFileIO extends FileIO {
         String stallID = recordFromFile[0];
         String stallName = recordFromFile[1];
 
-        // Make sure that the categories are parsed correctly without blank spaces
-        String[] stallCategories = recordFromFile[2].split(",");
-        for (int i = 0; i < stallCategories.length; i++) {
-            stallCategories[i] = stallCategories[i].strip();
-        }
+        // Convert stall categories from string to StallCategory type
+        String[] unformattedStallCategories = recordFromFile[2].split(",");                  // Retrieve categories
+        Stall.StallCategories[] stallCategories = Arrays.stream(unformattedStallCategories)  // Pass into array stream
+                .map(String::strip)                                                          // Strip each string
+                .map(Stall.StallCategories::generateFromString)                              // Map to correct category
+                .toArray(Stall.StallCategories[]::new);                                      // Return as string array
 
         // Create a stall object
         return new Stall(stallID, stallName, stallCategories);
