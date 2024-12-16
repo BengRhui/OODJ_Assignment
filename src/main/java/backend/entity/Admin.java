@@ -1,6 +1,8 @@
 package backend.entity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Class {@code Admin} represents users with the Admin role in the system.<br>
@@ -37,10 +39,19 @@ public class Admin extends User {
     }
 
     /**
-     * A method to add an {@code Admin} object into an overall list.
+     * A method to add {@code Admin} objects into an overall list.
      */
-    public static void addToAdminList(Admin admin) {
-        adminList.add(admin);
+    public static void addToAdminList(Admin... admin) {
+
+        // Throws an error if there is no admin passed into the argument, or a null admin is passed into argument
+        if (admin.length == 0 || Arrays.stream(admin).anyMatch(Objects::isNull)) {
+            throw new IllegalArgumentException("Arguments should contain at least one Admin object");
+        }
+
+        // Add all the admins from the arguments into the list
+        adminList.addAll(
+                Arrays.asList(admin)
+        );
     }
 
     /**
