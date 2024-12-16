@@ -13,6 +13,7 @@ import java.awt.Cursor;
 public class ManageStorePanel extends javax.swing.JPanel {
 
     public AdminFrame adminFrame;
+    NotificationPopUp notificationPopUp = new NotificationPopUp();
     AdminPopUp adminPopUp = new AdminPopUp();
 
     public ManageStorePanel() {
@@ -173,7 +174,7 @@ public class ManageStorePanel extends javax.swing.JPanel {
         //Show pop out form
         adminPopUp.updateStore(adminFrame);
         adminFrame.setEnabled(false);
-        adminPopUp.updateStoreMsg();
+//        notificationPopUp.updateStoreMsg();
     }//GEN-LAST:event_registerStoreActionPerformed
 
     private void backButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseEntered
