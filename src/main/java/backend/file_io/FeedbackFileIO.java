@@ -47,7 +47,7 @@ public class FeedbackFileIO extends FileIO {
         // Retrieve information from the string array
         String feedbackID = recordFromFile[0];
         Feedback.Category feedbackCategory = Feedback.Category.getFromString(recordFromFile[1]);
-        Order orderAssociated = Order.getOrder(recordFromFile[2]);
+        Order orderAssociated = recordFromFile[2].equalsIgnoreCase("null") ? null : Order.getOrder(recordFromFile[2]);
         double ratings = Double.parseDouble(recordFromFile[3]);
         String feedbackTitle = recordFromFile[4];
         String feedbackDetails = recordFromFile[5];
@@ -83,7 +83,7 @@ public class FeedbackFileIO extends FileIO {
             String[] record = new String[NUMBER_OF_INFORMATION_IN_FILE];
             record[0] = feedback.getFeedbackID();
             record[1] = feedback.getFeedbackCategory().toString();
-            record[2] = feedback.getOrderAssociated().getOrderID();
+            record[2] = feedback.getOrderAssociated() == null ? "null" : feedback.getOrderAssociated().getOrderID();
             record[3] = Double.toString(feedback.getRatings());
             record[4] = feedback.getFeedbackTitle();
             record[5] = feedback.getFeedbackDetails();
