@@ -19,7 +19,7 @@ public class DeliveryRunnerNotification implements Notification {
      * Attributes for the {@code DeliveryRunnerNotification} objects.<br>
      * A list containing all notifications for delivery runners is included.
      */
-    private final static ArrayList<Notification> deliveryRunnerNotificationList = new ArrayList<>();
+    private final static ArrayList<DeliveryRunnerNotification> deliveryRunnerNotificationList = new ArrayList<>();
     private String notificationID;
     private DeliveryRunner runner;
     private LocalDateTime notificationTime;
@@ -53,7 +53,7 @@ public class DeliveryRunnerNotification implements Notification {
      *
      * @return An ArrayList consisting of all {@code DeliveryRunnerNotification} instances.
      */
-    public static ArrayList<Notification> getDeliveryRunnerNotificationList() {
+    public static ArrayList<DeliveryRunnerNotification> getDeliveryRunnerNotificationList() {
         return deliveryRunnerNotificationList;
     }
 
@@ -81,10 +81,10 @@ public class DeliveryRunnerNotification implements Notification {
      * @param notificationID The ID of the notification
      * @return The {@code Notification} object associated with the ID
      */
-    public static Notification getNotification(String notificationID) {
+    public static DeliveryRunnerNotification getNotification(String notificationID) {
 
         // Loop through the list of notification
-        for (Notification notification : deliveryRunnerNotificationList) {
+        for (DeliveryRunnerNotification notification : deliveryRunnerNotificationList) {
 
             // Continue the loop if the notification ID does not match
             if (!notification.getNotificationID().equals(notificationID)) {

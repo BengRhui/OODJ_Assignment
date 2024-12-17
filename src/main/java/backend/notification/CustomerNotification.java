@@ -19,7 +19,7 @@ public class CustomerNotification implements Notification {
      * Attributes for {@code CustomerNotification} class.<br>
      * An overall list containing all {@code CustomerNotification} objects is included.
      */
-    private final static ArrayList<Notification> customerNotificationList = new ArrayList<>();
+    private final static ArrayList<CustomerNotification> customerNotificationList = new ArrayList<>();
     private String notificationID;
     private Customer customer;
     private LocalDateTime notificationTime;
@@ -52,7 +52,7 @@ public class CustomerNotification implements Notification {
      *
      * @return An ArrayList consisting of all {@code CustomerNotification} instances
      */
-    public static ArrayList<Notification> getCustomerNotificationList() {
+    public static ArrayList<CustomerNotification> getCustomerNotificationList() {
         return customerNotificationList;
     }
 
@@ -80,10 +80,10 @@ public class CustomerNotification implements Notification {
      * @param notificationID The ID of the notification
      * @return The {@code Notification} object associated with the ID
      */
-    public static Notification getNotification(String notificationID) {
+    public static CustomerNotification getNotification(String notificationID) {
 
         // Loop through the list of notification
-        for (Notification notification : customerNotificationList) {
+        for (CustomerNotification notification : customerNotificationList) {
 
             // Continue the loop if the notification ID does not match
             if (!notification.getNotificationID().equals(notificationID)) {

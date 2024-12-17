@@ -1,6 +1,7 @@
 package backend.notification;
 
 import backend.entity.Stall;
+import backend.entity.Vendor;
 import backend.utility.Utility;
 
 import java.time.LocalDateTime;
@@ -19,7 +20,7 @@ public class VendorNotification implements Notification {
      * Attributes for {@code VendorNotification} objects.<br>
      * An overall list that records all vendor notifications is also included.
      */
-    private final static ArrayList<Notification> vendorNotificationList = new ArrayList<>();
+    private final static ArrayList<VendorNotification> vendorNotificationList = new ArrayList<>();
     private String notificationID;
     private Stall stall;
     private LocalDateTime notificationTime;
@@ -52,7 +53,7 @@ public class VendorNotification implements Notification {
      *
      * @return An ArrayList containing all instances of {@code VendorNotification}
      */
-    public static ArrayList<Notification> getVendorNotificationList() {
+    public static ArrayList<VendorNotification> getVendorNotificationList() {
         return vendorNotificationList;
     }
 
@@ -80,10 +81,10 @@ public class VendorNotification implements Notification {
      * @param notificationID The ID of the notification
      * @return The {@code Notification} object associated with the ID
      */
-    public static Notification getNotification(String notificationID) {
+    public static VendorNotification getNotification(String notificationID) {
 
         // Loop through the list of notification
-        for (Notification notification : vendorNotificationList) {
+        for (VendorNotification notification : vendorNotificationList) {
 
             // Continue the loop if the notification ID does not match
             if (!notification.getNotificationID().equals(notificationID)) {
