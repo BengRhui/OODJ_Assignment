@@ -19,6 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * 2. Write to file<br>
  * 3. Read from file<br>
  * 4. Check if the attributes tally
+ *
+ * @author Beng Rhui (TP068495)
  */
 class ReadWriteFileTest extends BaseTest {
 

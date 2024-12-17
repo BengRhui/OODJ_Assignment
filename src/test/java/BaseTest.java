@@ -24,6 +24,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Test class {@code ReadWriteFileTest} covers the read and write operations of all text files.
+ *
+ * @author Beng Rhui (TP068495)
  */
 class BaseTest {
 
