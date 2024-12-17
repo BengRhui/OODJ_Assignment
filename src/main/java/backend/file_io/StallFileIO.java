@@ -53,6 +53,7 @@ public class StallFileIO extends FileIO {
 
         // Convert stall categories from string to StallCategory type
         String[] unformattedStallCategories = recordFromFile[2].split(",");                  // Retrieve categories
+        Arrays.sort(unformattedStallCategories);                                             // Sort the categories
         Stall.StallCategories[] stallCategories = Arrays.stream(unformattedStallCategories)  // Pass into array stream
                 .map(String::strip)                                                          // Strip each string
                 .map(Stall.StallCategories::generateFromString)                              // Map to correct category
