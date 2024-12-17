@@ -17,9 +17,9 @@ public class TransactionFileIO extends FileIO {
     /**
      * Fixed variables to help in coding.
      */
-    private final static String TRANSACTION_FILE_NAME = "transaction_history.txt";
-    private final static int NUMBER_OF_INFORMATION_IN_FILE = 6;
-    private final static int[] SPACING_SIZE = {10, 5, 20, 10, 10, 20};
+    public final static String TRANSACTION_FILE_NAME = "transaction_history.txt";
+    public final static int NUMBER_OF_INFORMATION_IN_FILE = 6;
+    public final static int[] SPACING_SIZE = {10, 5, 20, 10, 10, 20};
 
     /**
      * A method to read from transaction file and create {@code Transaction} objects.
