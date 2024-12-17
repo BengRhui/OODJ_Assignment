@@ -150,8 +150,7 @@ public class Item {
     public String toString() {
         return "Item ID: " + itemID + "\n" +
                 "Item Name: " + itemName + "\n" +
-                "Stall: " + "\n" +
-                stall.toString() + "\n" +
+                "Stall: " + (stall == null ? "null" : "\n" + stall) + "\n" +
                 "Price: " + price + "\n" +
                 "Item Description: " + description;
     }
