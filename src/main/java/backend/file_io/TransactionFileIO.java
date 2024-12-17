@@ -26,6 +26,9 @@ public class TransactionFileIO extends FileIO {
      */
     public static void readFile() {
 
+        // Reset list before reading files
+        Transaction.getTransactionList().clear();
+
         // Retrieve list of transactions from text file
         ArrayList<String[]> transactionList = getListFromFile(TRANSACTION_FILE_NAME);
 

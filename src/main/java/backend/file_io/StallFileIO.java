@@ -24,6 +24,9 @@ public class StallFileIO extends FileIO {
      */
     public static void readFile() {
 
+        // Reset list before reading files
+        Stall.getStallList().clear();
+
         // Get stall information from text file
         ArrayList<String[]> informationFromFile = getListFromFile(STALL_FILE_NAME);
 

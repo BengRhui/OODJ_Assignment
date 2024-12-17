@@ -57,6 +57,9 @@ public class CustomerFileIO extends UserFileIO {
     @Override
     public void readFile() {
 
+        // Reset list before reading files
+        Customer.getCustomerList().clear();
+
         // Obtain information from customer text file
         ArrayList<String[]> unprocessedInformation = getListFromFile(CUSTOMER_FILE_NAME);
 

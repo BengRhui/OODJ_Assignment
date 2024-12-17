@@ -26,6 +26,9 @@ public class OrderFileIO extends FileIO {
      */
     public static void readFile() {
 
+        // Reset list before reading files
+        Order.getOrderList().clear();
+
         // Retrieve information from text file
         ArrayList<String[]> orderList = getListFromFile(ORDER_FILE_NAME);
 

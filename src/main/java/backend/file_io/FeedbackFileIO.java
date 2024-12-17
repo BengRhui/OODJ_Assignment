@@ -24,6 +24,9 @@ public class FeedbackFileIO extends FileIO {
      */
     public static void readFile() {
 
+        // Reset list before reading files
+        Feedback.getFeedbackList().clear();
+
         // Get information from text file
         ArrayList<String[]> informationFromFile = getListFromFile(FEEDBACK_FILE_NAME);
 

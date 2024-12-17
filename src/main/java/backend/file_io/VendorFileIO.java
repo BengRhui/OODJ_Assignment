@@ -50,6 +50,9 @@ public class VendorFileIO extends UserFileIO {
     @Override
     public void readFile() {
 
+        // Reset list before reading files
+        Vendor.getVendorList().clear();
+
         // Retrieve vendor information from text file
         ArrayList<String[]> vendorList = getListFromFile(VENDOR_FILE_NAME);
 

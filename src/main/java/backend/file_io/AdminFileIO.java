@@ -45,6 +45,9 @@ public class AdminFileIO extends UserFileIO {
     @Override
     public void readFile() {
 
+        // Reset list before reading files
+        Admin.getAdminList().clear();
+
         // Retrieve information from admin file
         ArrayList<String[]> adminDataList = getListFromFile(ADMIN_FILE_NAME);
 

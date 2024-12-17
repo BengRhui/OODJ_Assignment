@@ -24,6 +24,9 @@ public class ItemFileIO extends FileIO {
      */
     public static void readFile() {
 
+        // Reset list before reading files
+        Item.getItemList().clear();
+
         // Retrieve information from text file
         ArrayList<String[]> informationList = getListFromFile(ITEM_FILE_NAME);
 

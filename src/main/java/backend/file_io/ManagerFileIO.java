@@ -45,6 +45,9 @@ public class ManagerFileIO extends UserFileIO {
     @Override
     public void readFile() {
 
+        // Reset list before reading files
+        Manager.getManagerList().clear();
+
         // Get list of managers from text file
         ArrayList<String[]> managerInformation = getListFromFile(MANAGER_FILE_NAME);
 

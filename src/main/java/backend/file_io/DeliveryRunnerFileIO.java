@@ -46,6 +46,9 @@ public class DeliveryRunnerFileIO extends UserFileIO {
     @Override
     public void readFile() {
 
+        // Reset list before reading files
+        DeliveryRunner.getDeliveryRunnerList().clear();
+
         // Get list of runners from text file
         ArrayList<String[]> runnerList = getListFromFile(RUNNER_FILE_NAME);
 
