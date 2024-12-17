@@ -1,5 +1,3 @@
-package backend;
-
 import backend.entity.*;
 import backend.file_io.*;
 import backend.notification.CustomerNotification;
