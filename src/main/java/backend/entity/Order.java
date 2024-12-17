@@ -217,8 +217,7 @@ public class Order {
                 orderingCustomer.toString() + "\n" +
                 "Ordered Stall: " + "\n" +
                 orderedStall.toString() + "\n" +
-                "Runner in Charge: " + "\n" +
-                runnerInCharge.toString() + "\n" +
+                "Runner in Charge: " + (runnerInCharge == null ? "null" : "\n" + runnerInCharge) + "\n" +
                 "Dining Type: " + diningType.toString() + "\n" +
                 "Table Number: " + tableNumber + "\n" +
                 "Delivery Note: " + noteToVendor + "\n" +
