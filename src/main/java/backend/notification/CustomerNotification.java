@@ -75,6 +75,30 @@ public class CustomerNotification implements Notification {
     }
 
     /**
+     * A method to get notification by ID.
+     *
+     * @param notificationID The ID of the notification
+     * @return The {@code Notification} object associated with the ID
+     */
+    public static Notification getNotification(String notificationID) {
+
+        // Loop through the list of notification
+        for (Notification notification : customerNotificationList) {
+
+            // Continue the loop if the notification ID does not match
+            if (!notification.getNotificationID().equals(notificationID)) {
+                continue;
+            }
+
+            // Return notification object if ID matches
+            return notification;
+        }
+
+        // Return null if no ID matches
+        return null;
+    }
+
+    /**
      * Getters and setters for {@code CustomerNotification} class.
      */
     @Override
