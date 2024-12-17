@@ -38,13 +38,15 @@ public class RunnerMain extends javax.swing.JFrame {
         bottom_panel = new javax.swing.JPanel();
         current_task_text = new javax.swing.JLabel();
         current_task = new javax.swing.JPanel();
+        buttom_top_panel = new javax.swing.JPanel();
         order_icon = new javax.swing.JLabel();
+        current_task_combobox = new javax.swing.JComboBox<>();
+        buttom_buttom_panel = new javax.swing.JPanel();
         person_icon = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        food_text = new javax.swing.JLabel();
         address_text = new javax.swing.JLabel();
         delivery_note = new javax.swing.JLabel();
         food_icon = new javax.swing.JLabel();
+        food_text = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1400, 800));
@@ -141,24 +143,54 @@ public class RunnerMain extends javax.swing.JFrame {
         current_task_text.setBounds(60, 45, 298, 56);
 
         current_task.setBackground(new java.awt.Color(255, 251, 233));
+        current_task.setLayout(null);
+
+        buttom_top_panel.setBackground(new java.awt.Color(227, 202, 165));
+        buttom_top_panel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
 
         order_icon.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         order_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         order_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/order_icon.png"))); // NOI18N
 
+        current_task_combobox.setBackground(new java.awt.Color(255, 255, 255));
+        current_task_combobox.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        current_task_combobox.setForeground(new java.awt.Color(0, 0, 0));
+        current_task_combobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preparing", "Done", "Out of Delivery" }));
+        current_task_combobox.setPreferredSize(new java.awt.Dimension(300, 60));
+
+        javax.swing.GroupLayout buttom_top_panelLayout = new javax.swing.GroupLayout(buttom_top_panel);
+        buttom_top_panel.setLayout(buttom_top_panelLayout);
+        buttom_top_panelLayout.setHorizontalGroup(
+            buttom_top_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buttom_top_panelLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(order_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 794, Short.MAX_VALUE)
+                .addComponent(current_task_combobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
+        );
+        buttom_top_panelLayout.setVerticalGroup(
+            buttom_top_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buttom_top_panelLayout.createSequentialGroup()
+                .addGroup(buttom_top_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(buttom_top_panelLayout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(current_task_combobox, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(buttom_top_panelLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(order_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20))
+        );
+
+        current_task.add(buttom_top_panel);
+        buttom_top_panel.setBounds(0, 0, 1290, 130);
+
+        buttom_buttom_panel.setBackground(new java.awt.Color(255, 255, 255));
+        buttom_buttom_panel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+
         person_icon.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         person_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         person_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/person_icon.png"))); // NOI18N
-
-        jComboBox2.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jComboBox2.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Preparing", "Done", "Out of Delivery" }));
-        jComboBox2.setPreferredSize(new java.awt.Dimension(300, 60));
-
-        food_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        food_text.setForeground(new java.awt.Color(0, 0, 0));
-        food_text.setText("Food");
 
         address_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         address_text.setForeground(new java.awt.Color(0, 0, 0));
@@ -172,54 +204,53 @@ public class RunnerMain extends javax.swing.JFrame {
         food_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         food_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/food_icon.png"))); // NOI18N
 
-        javax.swing.GroupLayout current_taskLayout = new javax.swing.GroupLayout(current_task);
-        current_task.setLayout(current_taskLayout);
-        current_taskLayout.setHorizontalGroup(
-            current_taskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(current_taskLayout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addGroup(current_taskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(current_taskLayout.createSequentialGroup()
-                        .addComponent(food_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(food_text)
-                        .addGap(352, 352, 352)
-                        .addComponent(person_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)
-                        .addGroup(current_taskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(delivery_note)
-                            .addComponent(address_text))
-                        .addContainerGap(479, Short.MAX_VALUE))
-                    .addGroup(current_taskLayout.createSequentialGroup()
-                        .addComponent(order_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(84, 84, 84))))
+        food_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        food_text.setForeground(new java.awt.Color(0, 0, 0));
+        food_text.setText("Food");
+
+        javax.swing.GroupLayout buttom_buttom_panelLayout = new javax.swing.GroupLayout(buttom_buttom_panel);
+        buttom_buttom_panel.setLayout(buttom_buttom_panelLayout);
+        buttom_buttom_panelLayout.setHorizontalGroup(
+            buttom_buttom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buttom_buttom_panelLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(food_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(food_text, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(214, 214, 214)
+                .addComponent(person_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(615, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buttom_buttom_panelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(buttom_buttom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(delivery_note, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(address_text, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(340, 340, 340))
         );
-        current_taskLayout.setVerticalGroup(
-            current_taskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(current_taskLayout.createSequentialGroup()
-                .addGroup(current_taskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(current_taskLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(order_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(current_taskLayout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(55, 55, 55)
-                .addGroup(current_taskLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(person_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(food_text)
-                    .addComponent(food_icon))
-                .addGap(23, 23, 23)
+        buttom_buttom_panelLayout.setVerticalGroup(
+            buttom_buttom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buttom_buttom_panelLayout.createSequentialGroup()
+                .addGroup(buttom_buttom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(buttom_buttom_panelLayout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addGroup(buttom_buttom_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(person_icon, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(food_icon)))
+                    .addGroup(buttom_buttom_panelLayout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addComponent(food_text)))
+                .addGap(44, 44, 44)
                 .addComponent(address_text)
-                .addGap(79, 79, 79)
+                .addGap(71, 71, 71)
                 .addComponent(delivery_note)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
 
+        current_task.add(buttom_buttom_panel);
+        buttom_buttom_panel.setBounds(20, 100, 1250, 410);
+
         bottom_panel.add(current_task);
-        current_task.setBounds(50, 120, 1300, 500);
+        current_task.setBounds(60, 120, 1300, 510);
 
         getContentPane().add(bottom_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, -1, 660));
 
@@ -281,14 +312,16 @@ public class RunnerMain extends javax.swing.JFrame {
     private javax.swing.JLabel address_text;
     private javax.swing.JLabel back;
     private javax.swing.JPanel bottom_panel;
+    private javax.swing.JPanel buttom_buttom_panel;
+    private javax.swing.JPanel buttom_top_panel;
     private javax.swing.JPanel current_task;
+    private javax.swing.JComboBox<String> current_task_combobox;
     private javax.swing.JLabel current_task_text;
     private javax.swing.JLabel delivery_history;
     private javax.swing.JLabel delivery_note;
     private javax.swing.JLabel food_icon;
     private javax.swing.JLabel food_text;
     private javax.swing.JLabel home_page;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel logo_light;
     private javax.swing.JLabel notification;
     private javax.swing.JLabel order_icon;
