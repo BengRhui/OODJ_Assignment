@@ -73,6 +73,30 @@ public class Feedback {
     }
 
     /**
+     * A method to retrieve feedback based on ID
+     *
+     * @param feedbackID The ID of the feedback
+     * @return The {@code Feedback} object associated to the ID
+     */
+    public static Feedback getFeedback(String feedbackID) {
+
+        // Loop through the list of feedback
+        for (Feedback feedback : feedbackList) {
+
+            // Continue loop if ID does not match
+            if (!feedback.feedbackID.equals(feedbackID)) {
+                continue;
+            }
+
+            // Return feedback if ID matches
+            return feedback;
+        }
+
+        // Return null if all ID does not match the input ID
+        return null;
+    }
+
+    /**
      * Getters and setters for {@code Feedback} class.
      */
     public String getFeedbackID() {
