@@ -5,6 +5,8 @@ import backend.utility.Utility;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Class {@code DeliveryRunnerNotification} represents the notifications that will be received by the delivery runners.
@@ -58,10 +60,19 @@ public class DeliveryRunnerNotification implements Notification {
     /**
      * A method to add the notifications for delivery runner into an overall list.
      *
-     * @param notification The {@code DeliveryRunnerNotification} object to be added to list
+     * @param notification The {@code DeliveryRunnerNotification} objects to be added to list
      */
-    public static void addToList(DeliveryRunnerNotification notification) {
-        deliveryRunnerNotificationList.add(notification);
+    public static void addToList(DeliveryRunnerNotification... notification) {
+
+        // Throws an error if there is no notification or a null notification is passed as argument
+        if (notification.length == 0 || Arrays.stream(notification).anyMatch(Objects::isNull)) {
+            throw new IllegalArgumentException("Arguments should contain at least one DeliveryRunnerNotification object");
+        }
+
+        // Add all the notifications from the arguments into the list
+        deliveryRunnerNotificationList.addAll(
+                Arrays.asList(notification)
+        );
     }
 
     /**
