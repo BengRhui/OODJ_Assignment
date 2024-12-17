@@ -28,6 +28,11 @@ public class NotificationIO extends FileIO {
      */
     public static void readFile() {
 
+        // Clear the array list before reading file
+        CustomerNotification.getCustomerNotificationList().clear();
+        VendorNotification.getVendorNotificationList().clear();
+        DeliveryRunnerNotification.getDeliveryRunnerNotificationList().clear();
+
         // Obtain the list of notifications from text file
         ArrayList<String[]> notificationList = getListFromFile(NOTIFICATION_FILE_NAME);
 
