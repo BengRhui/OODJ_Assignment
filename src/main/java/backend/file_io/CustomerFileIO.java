@@ -15,9 +15,9 @@ public class CustomerFileIO extends UserFileIO {
     /**
      * Fixed variables to store information used for coding.
      */
-    private final static String CUSTOMER_FILE_NAME = "customer_information.txt";
-    private final static int NUMBER_OF_INFORMATION_IN_CUSTOMER = 10;
-    private final static int[] SPACING_SIZE = {5, 50, 15, 40, 40, 10, 20, 15, 10, 50};
+    public final static String CUSTOMER_FILE_NAME = "customer_information.txt";
+    public final static int NUMBER_OF_INFORMATION_IN_CUSTOMER = 10;
+    public final static int[] SPACING_SIZE = {5, 50, 15, 40, 40, 10, 20, 15, 10, 50};
 
     /**
      * A method to create a {@code Customer} object based on individual records.

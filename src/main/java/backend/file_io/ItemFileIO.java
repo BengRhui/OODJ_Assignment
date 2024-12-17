@@ -15,9 +15,9 @@ public class ItemFileIO extends FileIO {
     /**
      * Fixed variables to aid in coding.
      */
-    private final static String ITEM_FILE_NAME = "item_details.txt";
-    private final static int NUMBER_OF_INFORMATION_IN_FILE = 5;
-    private final static int[] SPACING_SIZE = {5, 30, 5, 10, 150};
+    public final static String ITEM_FILE_NAME = "item_details.txt";
+    public final static int NUMBER_OF_INFORMATION_IN_FILE = 5;
+    public final static int[] SPACING_SIZE = {5, 30, 5, 10, 150};
 
     /**
      * A method to read item file and initialize {@code Item} objects.

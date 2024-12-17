@@ -15,9 +15,9 @@ public class StallFileIO extends FileIO {
     /**
      * Fixed variables to help in read and write files.
      */
-    private final static String STALL_FILE_NAME = "stall_information.txt";
-    private final static int NUMBER_OF_INFORMATION_IN_FILE = 3;
-    private final static int[] SPACING_SIZE = {5, 40, 50};
+    public final static String STALL_FILE_NAME = "stall_information.txt";
+    public final static int NUMBER_OF_INFORMATION_IN_FILE = 3;
+    public final static int[] SPACING_SIZE = {5, 40, 50};
 
     /**
      * A method to read from stall file and create {@code Stall} objects.

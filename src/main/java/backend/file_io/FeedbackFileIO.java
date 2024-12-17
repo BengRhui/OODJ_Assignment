@@ -15,9 +15,9 @@ public class FeedbackFileIO extends FileIO {
     /**
      * Fixed variables to help in coding.
      */
-    private final static String FEEDBACK_FILE_NAME = "feedback.txt";
-    private final static int NUMBER_OF_INFORMATION_IN_FILE = 7;
-    private final static int[] SPACING_SIZE = {5, 20, 10, 5, 35, 150, 150};
+    public final static String FEEDBACK_FILE_NAME = "feedback.txt";
+    public final static int NUMBER_OF_INFORMATION_IN_FILE = 7;
+    public final static int[] SPACING_SIZE = {5, 20, 10, 5, 35, 150, 150};
 
     /**
      * A method to read from feedback file and initialize {@code Feedback} objects.

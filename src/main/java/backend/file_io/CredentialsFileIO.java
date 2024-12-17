@@ -14,9 +14,9 @@ public class CredentialsFileIO extends FileIO {
     /**
      * Fixed variables to aid in writing the login credentials file.
      */
-    private static final String CREDENTIALS_FILE_NAME = "login_credentials.txt";
-    private static final int INFORMATION_NUMBER_IN_CREDENTIALS = 3;
-    private static final int[] SPACING_SIZE = {5, 30, 20};
+    public static final String CREDENTIALS_FILE_NAME = "login_credentials.txt";
+    public static final int INFORMATION_NUMBER_IN_CREDENTIALS = 3;
+    public static final int[] SPACING_SIZE = {5, 30, 20};
 
     /**
      * A method to write the login credentials file.

@@ -14,9 +14,9 @@ public class DeliveryRunnerFileIO extends UserFileIO {
     /**
      * Fixed variables to help in coding
      */
-    private final static String RUNNER_FILE_NAME = "delivery_runner_information.txt";
-    private final static int NUMBER_OF_INFO_IN_FILE = 3;
-    private final static int[] SPACING_SIZE = {5, 50, 15};
+    public final static String RUNNER_FILE_NAME = "delivery_runner_information.txt";
+    public final static int NUMBER_OF_INFO_IN_FILE = 3;
+    public final static int[] SPACING_SIZE = {5, 50, 15};
 
     /**
      * A method to create delivery runner objects based on records stored as string array.

@@ -17,9 +17,9 @@ public class OrderFileIO extends FileIO {
     /**
      * Fixed variables to aid in coding.
      */
-    private final static String ORDER_FILE_NAME = "order_information.txt";
-    private final static int NUMBER_OF_INFORMATION_IN_FILE = 11;
-    private final static int[] SPACING_SIZE = {10, 5, 5, 5, 15, 5, 60, 10, 20, 50, 200};
+    public final static String ORDER_FILE_NAME = "order_information.txt";
+    public final static int NUMBER_OF_INFORMATION_IN_FILE = 11;
+    public final static int[] SPACING_SIZE = {10, 5, 5, 5, 15, 5, 60, 10, 20, 50, 200};
 
     /**
      * A method to read file and initialize {@code Order} objects.

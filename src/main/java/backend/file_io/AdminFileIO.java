@@ -14,9 +14,9 @@ public class AdminFileIO extends UserFileIO {
     /**
      * Fixed variables to help in coding.
      */
-    private static final String ADMIN_FILE_NAME = "admin_information.txt";
-    private static final int NUMBER_OF_INFORMATION = 2;
-    private static final int[] SPACING_SIZE = {5, 30};
+    public static final String ADMIN_FILE_NAME = "admin_information.txt";
+    public static final int NUMBER_OF_INFORMATION = 2;
+    public static final int[] SPACING_SIZE = {5, 30};
 
     /**
      * A method to create {@code Admin} object by getting information from login credentials file
