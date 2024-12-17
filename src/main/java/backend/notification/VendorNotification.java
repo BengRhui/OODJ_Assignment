@@ -1,7 +1,6 @@
 package backend.notification;
 
 import backend.entity.Stall;
-import backend.entity.Vendor;
 import backend.utility.Utility;
 
 import java.time.LocalDateTime;

@@ -2,13 +2,17 @@ package backend;
 
 import backend.entity.*;
 import backend.file_io.*;
-import backend.notification.*;
+import backend.notification.CustomerNotification;
+import backend.notification.DeliveryRunnerNotification;
+import backend.notification.NotificationStatus;
+import backend.notification.VendorNotification;
 import backend.utility.Utility;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Test class {@code ReadWriteFileTest} covers the read and write operations of all text files.<br>
@@ -175,7 +179,7 @@ class ReadWriteFileTest extends BaseTest {
         Stall newStall = new Stall(
                 "S002",
                 "Fried Chicken store",
-                new Stall.StallCategories[] {
+                new Stall.StallCategories[]{
                         Stall.StallCategories.LOCAL,
                         Stall.StallCategories.FAST_FOOD
                 }
@@ -433,7 +437,7 @@ class ReadWriteFileTest extends BaseTest {
         // Modify attributes
         stall1.setStallName("New Stall");
         stall1.setStallCategories(
-                new Stall.StallCategories[] {
+                new Stall.StallCategories[]{
                         Stall.StallCategories.JAPANESE,
                         Stall.StallCategories.DESSERT
                 });

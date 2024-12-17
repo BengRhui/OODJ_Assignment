@@ -86,6 +86,27 @@ class BaseTest {
     }
 
     /**
+     * Set directory and test if the system is able to retrieve file from the directory
+     */
+    @BeforeAll
+    static void setDirectory() {
+
+        // Set file path to test resources file
+        FileIO.setParentPathToFile(TESTING_FILE_PATH);
+
+        // Test if file can be written from file path by reading a preset file from test resources folder
+        try (BufferedReader reader = new BufferedReader(new FileReader(TESTING_FILE_PATH + "exist_file.txt"))) {
+            String line = reader.readLine();
+            assertEquals(
+                    "Hi, this file is used to test if JUnit is able to detect this file during testing.",
+                    line
+            );
+        } catch (IOException e) {
+            fail("The test case is not able to access the files under test resources.");
+        }
+    }
+
+    /**
      * Removes the objects in arrays after each testing to avoid duplication
      */
     @AfterEach
@@ -107,27 +128,6 @@ class BaseTest {
         CustomerNotification.getCustomerNotificationList().clear();
         VendorNotification.getVendorNotificationList().clear();
         DeliveryRunnerNotification.getDeliveryRunnerNotificationList().clear();
-    }
-
-    /**
-     * Set directory and test if the system is able to retrieve file from the directory
-     */
-    @BeforeAll
-    static void setDirectory() {
-
-        // Set file path to test resources file
-        FileIO.setParentPathToFile(TESTING_FILE_PATH);
-
-        // Test if file can be written from file path by reading a preset file from test resources folder
-        try (BufferedReader reader = new BufferedReader(new FileReader(TESTING_FILE_PATH + "exist_file.txt"))) {
-            String line = reader.readLine();
-            assertEquals(
-                    "Hi, this file is used to test if JUnit is able to detect this file during testing.",
-                    line
-            );
-        } catch (IOException e) {
-            fail("The test case is not able to access the files under test resources.");
-        }
     }
 
     /**
