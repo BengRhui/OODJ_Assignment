@@ -74,6 +74,30 @@ public class Transaction {
     }
 
     /**
+     * A method to obtain transaction based on ID
+     *
+     * @param ID The ID that related to a transaction
+     * @return The {@code Transaction} object corresponding to the ID
+     */
+    public static Transaction getTransaction(String ID) {
+
+        // Loop through the list of transactions
+        for (Transaction transaction : transactionList) {
+
+            // Continue loop if ID does not match
+            if (!transaction.getTransactionID().equals(ID)) {
+                continue;
+            }
+
+            // Return transaction object if ID matches
+            return transaction;
+        }
+
+        // Return null if there is no matching ID
+        return null;
+    }
+
+    /**
      * Getters and setters for the class {@code Transaction}
      */
     public String getTransactionID() {
