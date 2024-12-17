@@ -56,6 +56,30 @@ public class Manager extends User {
     }
 
     /**
+     * A method to retrieve {@code Manager} based on ID
+     *
+     * @param userID The ID of the manager
+     * @return The {@code Manager} object associated with the ID
+     */
+    public static Manager getManager(String userID) {
+
+        // Loop through the list of managers
+        for (Manager manager : managerList) {
+
+            // Continue loop if the user ID does not match
+            if (!manager.userID.equals(userID)) {
+                continue;
+            }
+
+            // Return manager object if ID matches
+            return manager;
+        }
+
+        // Return null if no ID matches
+        return null;
+    }
+
+    /**
      * A method to print out all the information of the {@code Manager} object.
      *
      * @return A string representation of {@code Manager}

@@ -60,6 +60,30 @@ public class Vendor extends User {
     }
 
     /**
+     * A method to retrieve {@code Vendor} object using vendor ID
+     *
+     * @param vendorID The ID of the vendor
+     * @return The {@code Vendor} object associated with the ID
+     */
+    public static Vendor getVendor(String vendorID) {
+
+        // Loop through the list of vendors
+        for (Vendor vendor : vendorList) {
+
+            // Continue loop if the ID does not match
+            if (!vendor.getUserID().equals(vendorID)) {
+                continue;
+            }
+
+            // Return the vendor if ID matches
+            return vendor;
+        }
+
+        // Return null if there is no matching ID
+        return null;
+    }
+
+    /**
      * Getter and setter for additional attributes.
      */
     public Stall getStall() {
@@ -83,28 +107,5 @@ public class Vendor extends User {
                 "Vendor Name: " + super.name + "\n" +
                 "Vendor Stall: " + "\n" +
                 stall.toString();
-    }
-
-    /**
-     * A method to retrieve {@code Vendor} object using vendor ID
-     * @param vendorID The ID of the vendor
-     * @return The {@code Vendor} object associated with the ID
-     */
-    public static Vendor getVendor(String vendorID) {
-
-        // Loop through the list of vendors
-        for (Vendor vendor : vendorList) {
-
-            // Continue loop if the ID does not match
-            if (!vendor.getUserID().equals(vendorID)) {
-                continue;
-            }
-
-            // Return the vendor if ID matches
-            return vendor;
-        }
-
-        // Return null if there is no matching ID
-        return null;
     }
 }
