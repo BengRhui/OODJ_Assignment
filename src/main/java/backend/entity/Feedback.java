@@ -17,7 +17,7 @@ public class Feedback {
      */
     private final static ArrayList<Feedback> feedbackList = new ArrayList<Feedback>();
     private String feedbackID;
-    private String feedbackCategory;
+    private Category feedbackCategory;
     private Order orderAssociated;
     private double ratings;
     private String feedbackTitle;
@@ -35,7 +35,7 @@ public class Feedback {
      * @param feedbackDetails  The description of the feedback
      * @param replyFromManager The reply that the manager provides to the customer
      */
-    public Feedback(String feedbackID, String feedbackCategory, Order orderAssociated, double ratings, String feedbackTitle, String feedbackDetails, String replyFromManager) {
+    public Feedback(String feedbackID, Category feedbackCategory, Order orderAssociated, double ratings, String feedbackTitle, String feedbackDetails, String replyFromManager) {
         this.feedbackID = feedbackID;
         this.feedbackCategory = feedbackCategory;
         this.orderAssociated = orderAssociated;
@@ -83,11 +83,11 @@ public class Feedback {
         this.feedbackID = feedbackID;
     }
 
-    public String getFeedbackCategory() {
+    public Category getFeedbackCategory() {
         return feedbackCategory;
     }
 
-    public void setFeedbackCategory(String feedbackCategory) {
+    public void setFeedbackCategory(Category feedbackCategory) {
         this.feedbackCategory = feedbackCategory;
     }
 
@@ -139,12 +139,57 @@ public class Feedback {
     @Override
     public String toString() {
         return "Feedback ID: " + feedbackID + "\n" +
-                "Feedback Category: " + feedbackCategory + "\n" +
+                "Feedback Category: " + feedbackCategory.toString() + "\n" +
                 "Order Associated: " + "\n" +
                 orderAssociated + "\n" +
                 "Ratings: " + ratings + "\n" +
                 "Feedback Title: " + feedbackTitle + "\n" +
                 "Feedback Details: " + feedbackDetails + "\n" +
                 "Reply From Manager: " + replyFromManager;
+    }
+
+    /**
+     * Enum {@code Category} contains the different {@code Feedback} types.
+     */
+    public enum Category {
+
+        /**
+         * Different status of categories
+         */
+        SYSTEM, VENDOR, DELIVERY_RUNNER;
+
+        /**
+         * The list of available categories in list
+         */
+        public final static String[] CATEGORY_OPTIONS = Arrays.stream(Category.values())  // Get the fields
+                .map(Category::toString)                                                  // Map to values in toString
+                .toArray(String[]::new);                                                  // Return as string array
+
+        /**
+         * A method to retrieve {@code Category} based on string input
+         *
+         * @param category The string input corresponding to the category
+         * @return The {@code Category} field corresponding to the string
+         */
+        public static Category getFromString(String category) {
+            return Arrays.stream(Category.values())                                       // Get the fields
+                    .filter(field -> field.toString().equalsIgnoreCase(category))         // Compare with input
+                    .findFirst()                                                          // Find the first occurrence
+                    .orElse(null);                                                        // Return null if not match
+        }
+
+        /**
+         * A method to return the string value of the {@code Feedback} fields
+         *
+         * @return The string representation of the fields
+         */
+        @Override
+        public String toString() {
+            return switch (this) {
+                case SYSTEM -> "System";
+                case VENDOR -> "Vendor";
+                case DELIVERY_RUNNER -> "Delivery Runner";
+            };
+        }
     }
 }
