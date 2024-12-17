@@ -57,6 +57,30 @@ public class Admin extends User {
     }
 
     /**
+     * A method to obtain {@code Admin} object based on ID.
+     *
+     * @param userID The ID of the admin
+     * @return The {@code Admin} object associated with the ID
+     */
+    public static Admin getAdmin(String userID) {
+
+        // Loop through the list of admins
+        for (Admin admin : adminList) {
+
+            // Continue the loop if user ID does not match
+            if (!admin.userID.equals(userID)) {
+                continue;
+            }
+
+            // Return the admin object if user ID matches
+            return admin;
+        }
+
+        // Return null if there is no matching ID
+        return null;
+    }
+
+    /**
      * A method to print out information about the {@code Admin} object.
      *
      * @return A string representation of the {@code Admin} object
