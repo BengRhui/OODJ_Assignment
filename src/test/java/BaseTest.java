@@ -338,7 +338,7 @@ class BaseTest {
 
         vendorNotification1 = new VendorNotification(
                 "NV001",
-                stall1,
+                vendor1,
                 Utility.changeStringToTime("17/12/2024 13:28:54"),
                 NotificationStatus.READ,
                 "Update Order Status",
