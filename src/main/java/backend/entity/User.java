@@ -126,4 +126,31 @@ public class User {
         // Return null if there's no matching credentials
         return null;
     }
+
+    /**
+     * A method to validate password
+     * @param password The string password provided
+     * @return True if password matches requirement, false otherwise
+     */
+    public static boolean validatePassword(String password) {
+
+        // Check if the password length matches requirements
+        boolean correctPasswordLength = password.length() >= 8 && password.length() <= 20;
+
+        // Check if password contains alphabets and digits
+        boolean containsAlphabets = false;
+        boolean containsDigits = false;
+
+        for (char character : password.toCharArray()) {
+            if (Character.isLetter(character)) containsAlphabets = true;
+            if (Character.isDigit(character)) containsDigits = true;
+            if (containsAlphabets && containsDigits) break;
+        }
+
+        // Check if password contains special characters
+        boolean containsSpecialCharacters = password.matches(".*[!@#$%^&*(),.?\":{}|<>].*");
+
+        // Return true if all values are met
+        return correctPasswordLength && containsAlphabets && containsDigits && containsSpecialCharacters;
+    }
 }
