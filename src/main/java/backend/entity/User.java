@@ -153,4 +153,32 @@ public class User {
         // Return true if all values are met
         return correctPasswordLength && containsAlphabets && containsDigits && containsSpecialCharacters;
     }
+
+    /**
+     * A method to reset user password
+     * @param email The email of the user
+     * @param newPassword The new password of the user
+     * @return True if password is reset successfully, else false
+     */
+    public static boolean resetPassword(String email, String newPassword) {
+
+        // Return false if the new password does not match
+        if (!validatePassword(newPassword)) return false;
+
+        // Loop through the list of users
+        for (User user : getUserList()) {
+
+            // Continue the loop if email does not match
+            if (!user.getEmail().equalsIgnoreCase(email)) {
+                continue;
+            }
+
+            // Set the new password
+            user.setPassword(newPassword.strip());
+            return true;
+        }
+
+        // Return false if there is no matching email
+        return false;
+    }
 }
