@@ -105,4 +105,25 @@ public class User {
                 "Email: " + email + "\n" +
                 "Password: " + password;
     }
+
+    /**
+     * A method to get {@code User} object during system login by providing email and password as credentials.
+     * @param email The email of the user
+     * @param password The password of the user
+     * @return A {@code User} object if user and password matches, else return null.
+     */
+    public static User getUser(String email, String password) {
+
+        // Loop through the list of users
+        for (User user : getUserList()) {
+
+            // Continue loop if email and password does not match
+            if (user.getEmail().equalsIgnoreCase(email) && user.getPassword().equals(password)) {
+                return user;
+            }
+        }
+
+        // Return null if there's no matching credentials
+        return null;
+    }
 }
