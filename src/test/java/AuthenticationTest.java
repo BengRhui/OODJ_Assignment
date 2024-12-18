@@ -39,4 +39,33 @@ public class AuthenticationTest extends BaseTest {
         assertNull(wrongPassword, "User can login with the wrong password.");
     }
 
+    /**
+     * Focuses on password reset password
+     */
+    @Test
+    void testResetPassword() {
+
+        // User who fills in the correct information
+        String modifiedPassword = "New@pass123";
+        assertTrue(User.resetPassword(customer1.getEmail(), modifiedPassword));   // Make sure true is returned
+        assertEquals(modifiedPassword, customer1.getPassword());                  // Make sure password is changed
+
+        // User who fills in password that does not match requirement
+        String passwordNotSatisfyReq1 = "short@1";
+        String passwordNotSatisfyReq2 = "ThisP@ss10rdIsTooLong";
+        String passwordNotSatisfyReq3 = "N0SpecialChar";
+        String passwordNotSatisfyReq4 = "NoNumbers";
+        String passwordNotSatisfyReq5 = "1234567890";
+
+        assertFalse(User.resetPassword(admin1.getEmail(), passwordNotSatisfyReq1));
+        assertFalse(User.resetPassword(vendor1.getEmail(), passwordNotSatisfyReq2));
+        assertFalse(User.resetPassword(runner1.getEmail(), passwordNotSatisfyReq3));
+        assertFalse(User.resetPassword(manager1.getEmail(), passwordNotSatisfyReq4));
+        assertFalse(User.resetPassword(customer1.getEmail(), passwordNotSatisfyReq5));
+
+        // User who fills in the wrong email
+        String wrongEmail = "invalid_email";
+        assertFalse(User.resetPassword(wrongEmail, modifiedPassword));
+    }
+
 }
