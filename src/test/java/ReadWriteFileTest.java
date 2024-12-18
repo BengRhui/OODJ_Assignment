@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test class {@code ReadWriteFileTest} covers the read and write operations of all text files.<br>
@@ -457,7 +456,7 @@ class ReadWriteFileTest extends BaseTest {
 
         // Check if the changes are reflected into file
         assertEquals(stall1.getStallName(), retrievedStall.getStallName(), "Fail to update stall name to file");
-        assertEquals(Arrays.toString(stall1.getStallCategories()), Arrays.toString(retrievedStall.getStallCategories()), "Fail to update stall categories to file");
+        assertArrayEquals(stall1.getStallCategories(), retrievedStall.getStallCategories(), "Fail to update stall categories to file");
     }
 
     /**
