@@ -114,7 +114,7 @@ public class CustomerNotification implements Notification {
             return false;
         }
 
-        // Create a new delivery runner notification object
+        // Create a new customer notification object
         CustomerNotification newNotification = new CustomerNotification(
                 Utility.generateNewNotificationID(CustomerNotification.class),
                 customer,
