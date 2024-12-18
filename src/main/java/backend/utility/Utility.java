@@ -1,6 +1,9 @@
 package backend.utility;
 
 import backend.entity.Item;
+import backend.notification.CustomerNotification;
+import backend.notification.DeliveryRunnerNotification;
+import backend.notification.VendorNotification;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -136,5 +139,47 @@ public class Utility {
      */
     public static String convertPasswordToString(char[] password) {
         return new String(password);
+    }
+
+    /**
+     * A method to generate new notification ID based on notification class
+     *
+     * @param clazz The class type of the notification
+     * @param <T>   Used to declare that the method can receive any types of class
+     * @return The new notification ID
+     */
+    public static <T> String generateNewNotificationID(Class<T> clazz) {
+
+        // Declare variables to store prefix and index
+        final String prefix;
+        final int index;
+
+        // Obtain and assign different prefix and index based on the types of notification class
+        switch (clazz.getSimpleName()) {
+
+            // When class is delivery runner notification
+            case "DeliveryRunnerNotification" -> {
+                prefix = "ND";
+                index = DeliveryRunnerNotification.getDeliveryRunnerNotificationList().size();
+            }
+
+            // When class is vendor notification
+            case "VendorNotification" -> {
+                prefix = "NV";
+                index = VendorNotification.getVendorNotificationList().size();
+            }
+
+            // When class is customer notification
+            case "CustomerNotification" -> {
+                prefix = "NC";
+                index = CustomerNotification.getCustomerNotificationList().size();
+            }
+
+            // Throw an exception if the class is not a notification class
+            default -> throw new IllegalStateException("Unexpected class: " + clazz.getSimpleName());
+        }
+
+        // Format the string with prefix and three-digit numbers before returning it
+        return String.format("%s%03d", prefix, index + 1);
     }
 }
