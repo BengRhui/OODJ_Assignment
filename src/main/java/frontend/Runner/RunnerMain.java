@@ -66,13 +66,13 @@ public class RunnerMain extends javax.swing.JFrame {
         delivery_history.setForeground(new java.awt.Color(255, 255, 255));
         delivery_history.setText("Delivery History");
         top_panel.add(delivery_history);
-        delivery_history.setBounds(440, 50, 170, 28);
+        delivery_history.setBounds(440, 50, 240, 28);
 
         home_page.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         home_page.setForeground(new java.awt.Color(255, 255, 255));
         home_page.setText("Home Page");
         top_panel.add(home_page);
-        home_page.setBounds(240, 50, 130, 28);
+        home_page.setBounds(240, 50, 200, 28);
 
         rating_icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         rating_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/rating_icon.png"))); // NOI18N

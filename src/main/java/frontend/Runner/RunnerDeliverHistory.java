@@ -74,13 +74,13 @@ public class RunnerDeliverHistory extends javax.swing.JFrame {
         home_page.setForeground(new java.awt.Color(255, 255, 255));
         home_page.setText("Home Page");
         top_panel.add(home_page);
-        home_page.setBounds(240, 50, 126, 28);
+        home_page.setBounds(240, 50, 200, 28);
 
         delivery_history.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         delivery_history.setForeground(new java.awt.Color(255, 255, 255));
         delivery_history.setText("Delivery History");
         top_panel.add(delivery_history);
-        delivery_history.setBounds(440, 50, 190, 28);
+        delivery_history.setBounds(440, 50, 260, 28);
 
         back.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logout_icon.png"))); // NOI18N
