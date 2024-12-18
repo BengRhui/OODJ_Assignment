@@ -1,6 +1,7 @@
 package backend.notification;
 
 import backend.entity.Customer;
+import backend.file_io.NotificationIO;
 import backend.utility.Utility;
 
 import java.time.LocalDateTime;
@@ -96,6 +97,37 @@ public class CustomerNotification implements Notification {
 
         // Return null if no ID matches
         return null;
+    }
+
+    /**
+     * A method to create new customer notification
+     *
+     * @param title       The title of the notification
+     * @param description The description associated with the notification
+     * @param customer    The customer associated with the notification
+     * @return True if notification is created successfully, else false
+     */
+    public static boolean createNewNotification(String title, String description, Customer customer) {
+
+        // Returns false if the arguments are empty
+        if (title.isBlank() || description.isBlank() || customer == null) {
+            return false;
+        }
+
+        // Create a new delivery runner notification object
+        CustomerNotification newNotification = new CustomerNotification(
+                Utility.generateNewNotificationID(CustomerNotification.class),
+                customer,
+                LocalDateTime.now(),
+                NotificationStatus.UNREAD,
+                title,
+                description
+        );
+
+        // Add the notification to list and write to file, then return true to indicate success creation
+        CustomerNotification.addToList(newNotification);
+        NotificationIO.writeFile();
+        return true;
     }
 
     /**
