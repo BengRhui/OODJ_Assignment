@@ -232,7 +232,4 @@ public class VendorNotification implements Notification {
 //        NotificationIO.writeFile();
 //        return true;
 //    }
-    public static void main(String[] args) {
-        System.out.println("hello");
-    }
 }
