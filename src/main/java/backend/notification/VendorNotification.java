@@ -1,9 +1,6 @@
 package backend.notification;
 
-import backend.entity.Customer;
-import backend.entity.Stall;
 import backend.entity.Vendor;
-import backend.file_io.NotificationIO;
 import backend.utility.Utility;
 
 import java.time.LocalDateTime;
@@ -34,7 +31,7 @@ public class VendorNotification implements Notification {
      * Constructor to instantiate {@code VendorNotification} objects.
      *
      * @param notificationID      The ID of the notification
-     * @param stall               The stall associated to the notification
+     * @param vendor              The stall associated to the notification
      * @param notificationTime    The time the notification is created
      * @param readStatus          Status that records if the vendor has read the message or not
      * @param notificationTitle   The title of the notification
@@ -201,35 +198,4 @@ public class VendorNotification implements Notification {
                 "Notification Title: " + notificationTitle + "\n" +
                 "Notification Details: " + notificationDetails;
     }
-
-//    /**
-//     * A method to create new vendor notification
-//     *
-//     * @param title       The title of the notification
-//     * @param description The description associated with the notification
-//     * @param stall    The stall associated with the notification
-//     * @return True if notification is created successfully, else false
-//     */
-//    public static boolean createNewNotification(String title, String description, Stall stall) {
-//
-//        // Returns false if the arguments are empty
-//        if (title.isBlank() || description.isBlank() || stall == null) {
-//            return false;
-//        }
-//
-//        // Create a new delivery runner notification object
-//        VendorNotification newNotification = new VendorNotification(
-//                Utility.generateNewNotificationID(VendorNotification.class),
-//                stall,
-//                LocalDateTime.now(),
-//                NotificationStatus.UNREAD,
-//                title,
-//                description
-//        );
-//
-//        // Add the notification to list and write to file, then return true to indicate success creation
-//        CustomerNotification.addToList(newNotification);
-//        NotificationIO.writeFile();
-//        return true;
-//    }
 }
