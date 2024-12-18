@@ -29,7 +29,8 @@ public class VendorDetailForm extends javax.swing.JFrame {
         note.setText("""
                 <html><b><u>Note:</u></b>
                 <ul>
-                <li>Password should consist of 6 to 12 characters</li>
+                <li>Password should consist of 8 to 20 characters</li>
+                <li>Password should have at least one number and one alphabet</li>
                 <li>Password should have at least one special characters (#, @, $, etc.)</li>
                 </ul>
                 </html>

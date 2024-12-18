@@ -4,7 +4,10 @@
  */
 package frontend.manager;
 
+import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Chun Ming
@@ -13,24 +16,36 @@ public class ManagerFrame extends javax.swing.JFrame {
 
     public CardLayout cardLayout;
     private CheckVendor checkVendorPage;
+    private CheckRunner checkRunnerPage;
+    private ComplaintsPane complaintsPage;
 
     public ManagerFrame() {
         cardLayout = new CardLayout();
         contentHolder = new javax.swing.JPanel(cardLayout);
         initComponents();
         initLayout();
+        initContent();
         cardLayout = (CardLayout) contentHolder.getLayout();
     }
 
     private void initLayout(){
+        //initialize the layout for better visualization
 
         checkVendorPage = new CheckVendor();
+        checkRunnerPage = new CheckRunner();
+        complaintsPage = new ComplaintsPane();
         header.setBackground(new java.awt.Color(0, 0, 0, 220));
         contentHolder.setBackground(new java.awt.Color(255, 251, 233, 240));
-        dashboard.setBackground(new java.awt.Color(255, 251, 233, 240));
+        dashboard.setBackground(new java.awt.Color(255, 251, 233, 0));
+        dashboardContent.setBackground(new java.awt.Color(255, 251, 233, 240));
         contentHolder.add(checkVendorPage,"checkVendor");
-        checkVendorPage.setManagerFrame(this);
+        contentHolder.add(checkRunnerPage,"checkRunner");
+        contentHolder.add(complaintsPage,"checkComplaints");
         this.setLocationRelativeTo(null);
+    }
+
+    private void initContent(){
+
     }
 
 
@@ -41,6 +56,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         pageHolder = new javax.swing.JPanel();
         contentHolder = new javax.swing.JPanel();
         dashboard = new javax.swing.JPanel();
+        dashboardContent = new javax.swing.JPanel();
         revenue = new javax.swing.JLabel();
         revenueExcel = new javax.swing.JLabel();
         revenueFilter = new javax.swing.JLabel();
@@ -49,6 +65,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         complaintsExcel = new javax.swing.JLabel();
         complaintsFilter = new javax.swing.JLabel();
         complaintsChartHolder = new javax.swing.JPanel();
+        bottomBackground = new javax.swing.JLabel();
         header = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
         dashboardLabel = new javax.swing.JLabel();
@@ -71,9 +88,12 @@ public class ManagerFrame extends javax.swing.JFrame {
         dashboard.setBackground(new java.awt.Color(255, 251, 233));
         dashboard.setLayout(null);
 
+        dashboardContent.setBackground(new java.awt.Color(255, 251, 233));
+        dashboardContent.setLayout(null);
+
         revenue.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         revenue.setText("Revenue");
-        dashboard.add(revenue);
+        dashboardContent.add(revenue);
         revenue.setBounds(42, 54, 280, 56);
 
         revenueExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/excel_icon.png"))); // NOI18N
@@ -88,7 +108,7 @@ public class ManagerFrame extends javax.swing.JFrame {
                 revenueExcelMouseExited(evt);
             }
         });
-        dashboard.add(revenueExcel);
+        dashboardContent.add(revenueExcel);
         revenueExcel.setBounds(566, 50, 61, 60);
 
         revenueFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/filter_icon.png"))); // NOI18N
@@ -103,7 +123,7 @@ public class ManagerFrame extends javax.swing.JFrame {
                 revenueFilterMouseExited(evt);
             }
         });
-        dashboard.add(revenueFilter);
+        dashboardContent.add(revenueFilter);
         revenueFilter.setBounds(645, 50, 68, 60);
 
         javax.swing.GroupLayout revenueChartHolderLayout = new javax.swing.GroupLayout(revenueChartHolder);
@@ -117,12 +137,12 @@ public class ManagerFrame extends javax.swing.JFrame {
             .addGap(0, 480, Short.MAX_VALUE)
         );
 
-        dashboard.add(revenueChartHolder);
+        dashboardContent.add(revenueChartHolder);
         revenueChartHolder.setBounds(42, 128, 671, 480);
 
         complaints.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         complaints.setText("Complaints");
-        dashboard.add(complaints);
+        dashboardContent.add(complaints);
         complaints.setBounds(749, 50, 280, 56);
 
         complaintsExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/excel_icon.png"))); // NOI18N
@@ -137,7 +157,7 @@ public class ManagerFrame extends javax.swing.JFrame {
                 complaintsExcelMouseExited(evt);
             }
         });
-        dashboard.add(complaintsExcel);
+        dashboardContent.add(complaintsExcel);
         complaintsExcel.setBounds(1220, 50, 61, 60);
 
         complaintsFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/filter_icon.png"))); // NOI18N
@@ -152,7 +172,7 @@ public class ManagerFrame extends javax.swing.JFrame {
                 complaintsFilterMouseExited(evt);
             }
         });
-        dashboard.add(complaintsFilter);
+        dashboardContent.add(complaintsFilter);
         complaintsFilter.setBounds(1300, 50, 68, 60);
 
         javax.swing.GroupLayout complaintsChartHolderLayout = new javax.swing.GroupLayout(complaintsChartHolder);
@@ -166,8 +186,15 @@ public class ManagerFrame extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        dashboard.add(complaintsChartHolder);
+        dashboardContent.add(complaintsChartHolder);
         complaintsChartHolder.setBounds(749, 128, 619, 480);
+
+        dashboard.add(dashboardContent);
+        dashboardContent.setBounds(0, 0, 1400, 650);
+
+        bottomBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/manager_background_bottom.png"))); // NOI18N
+        dashboard.add(bottomBackground);
+        bottomBackground.setBounds(0, 0, 1400, 650);
 
         contentHolder.add(dashboard, "managerDashboard");
 
@@ -321,7 +348,7 @@ public class ManagerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_vendorLabelMouseExited
 
     private void runnerLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_runnerLabelMouseClicked
-        // TODO cardLayout.show()
+        cardLayout.show(contentHolder, "checkRunner");
     }//GEN-LAST:event_runnerLabelMouseClicked
 
     private void runnerLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_runnerLabelMouseEntered
@@ -333,7 +360,7 @@ public class ManagerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_runnerLabelMouseExited
 
     private void complaintsLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_complaintsLabelMouseClicked
-        // TODO add your handling code here:
+        cardLayout.show(contentHolder, "checkComplaints");
     }//GEN-LAST:event_complaintsLabelMouseClicked
 
     private void complaintsLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_complaintsLabelMouseEntered
@@ -439,6 +466,7 @@ public class ManagerFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
+    private javax.swing.JLabel bottomBackground;
     private javax.swing.JLabel complaints;
     private javax.swing.JPanel complaintsChartHolder;
     private javax.swing.JLabel complaintsExcel;
@@ -446,6 +474,7 @@ public class ManagerFrame extends javax.swing.JFrame {
     private javax.swing.JLabel complaintsLabel;
     private javax.swing.JPanel contentHolder;
     private javax.swing.JPanel dashboard;
+    private javax.swing.JPanel dashboardContent;
     private javax.swing.JLabel dashboardLabel;
     private javax.swing.JPanel header;
     private javax.swing.JLabel logo;
