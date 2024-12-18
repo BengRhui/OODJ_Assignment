@@ -37,7 +37,7 @@ public class CustomerFeedbackForRunner extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Customer Feedback");
         add(jLabel1);
-        jLabel1.setBounds(100, 80, 460, 56);
+        jLabel1.setBounds(100, 80, 660, 56);
 
         jScrollPane1.setBackground(new java.awt.Color(255, 251, 233));
         jScrollPane1.setForeground(new java.awt.Color(255, 251, 233));

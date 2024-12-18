@@ -148,7 +148,7 @@ public class RunnerDeliverHistory extends javax.swing.JFrame {
         revenue_text.setForeground(new java.awt.Color(0, 0, 0));
         revenue_text.setText("Revenue");
         bottom_panel.add(revenue_text);
-        revenue_text.setBounds(60, 30, 240, 56);
+        revenue_text.setBounds(60, 30, 650, 56);
 
         javax.swing.GroupLayout graph_panelLayout = new javax.swing.GroupLayout(graph_panel);
         graph_panel.setLayout(graph_panelLayout);
@@ -232,13 +232,13 @@ public class RunnerDeliverHistory extends javax.swing.JFrame {
         total_delivery_text.setForeground(new java.awt.Color(0, 0, 0));
         total_delivery_text.setText("Total Delivery");
         bottom_panel.add(total_delivery_text);
-        total_delivery_text.setBounds(750, 120, 214, 42);
+        total_delivery_text.setBounds(750, 120, 300, 42);
 
         total_earnings_text.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
         total_earnings_text.setForeground(new java.awt.Color(0, 0, 0));
         total_earnings_text.setText("Total Earnings");
         bottom_panel.add(total_earnings_text);
-        total_earnings_text.setBounds(1060, 120, 227, 42);
+        total_earnings_text.setBounds(1060, 120, 290, 42);
 
         total_delivery_value.setBackground(new java.awt.Color(255, 251, 233));
         total_delivery_value.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
@@ -251,7 +251,7 @@ public class RunnerDeliverHistory extends javax.swing.JFrame {
             }
         });
         bottom_panel.add(total_delivery_value);
-        total_delivery_value.setBounds(750, 160, 280, 75);
+        total_delivery_value.setBounds(750, 160, 290, 75);
 
         total_earnings_value.setBackground(new java.awt.Color(255, 251, 233));
         total_earnings_value.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
@@ -264,13 +264,13 @@ public class RunnerDeliverHistory extends javax.swing.JFrame {
             }
         });
         bottom_panel.add(total_earnings_value);
-        total_earnings_value.setBounds(1060, 160, 280, 75);
+        total_earnings_value.setBounds(1060, 160, 290, 75);
 
         recent_delivery_text.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
         recent_delivery_text.setForeground(new java.awt.Color(0, 0, 0));
         recent_delivery_text.setText("Recent Delivery");
         bottom_panel.add(recent_delivery_text);
-        recent_delivery_text.setBounds(750, 240, 249, 42);
+        recent_delivery_text.setBounds(750, 240, 590, 42);
 
         jScrollPane1.setBackground(new java.awt.Color(255, 251, 233));
         jScrollPane1.setForeground(new java.awt.Color(255, 251, 233));
