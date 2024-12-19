@@ -4,14 +4,14 @@
  */
 package frontend.manager;
 
-import javax.swing.*;
-import java.util.List;
-
 /**
  *
  * @author Chun Ming
  */
 public class CheckVendor extends javax.swing.JPanel {
+
+    public ManagerFrame mainFrame;
+    private UserStats userStats = new UserStats();
 
     public CheckVendor() {
         initComponents();
@@ -24,6 +24,9 @@ public class CheckVendor extends javax.swing.JPanel {
         bgLayer.setBackground(new java.awt.Color(255, 251, 233, 240));
     }
 
+    public void setMainFrame(ManagerFrame frame){
+        this.mainFrame = frame;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -35,6 +38,7 @@ public class CheckVendor extends javax.swing.JPanel {
         searchName = new javax.swing.JTextField();
         searchStoreIdLabel = new javax.swing.JLabel();
         searchStoreId = new javax.swing.JTextField();
+        searchTest = new javax.swing.JLabel();
         bottomBg = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 251, 233));
@@ -65,6 +69,15 @@ public class CheckVendor extends javax.swing.JPanel {
         bgLayer.add(searchStoreId);
         searchStoreId.setBounds(950, 40, 380, 60);
 
+        searchTest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/search_icon.png"))); // NOI18N
+        searchTest.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchTestMouseClicked(evt);
+            }
+        });
+        bgLayer.add(searchTest);
+        searchTest.setBounds(20, 20, 60, 40);
+
         add(bgLayer);
         bgLayer.setBounds(0, 0, 1400, 650);
 
@@ -72,6 +85,11 @@ public class CheckVendor extends javax.swing.JPanel {
         add(bottomBg);
         bottomBg.setBounds(0, 0, 1400, 650);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void searchTestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchTestMouseClicked
+        userStats.vendorStatsPopUp(mainFrame);
+        mainFrame.setEnabled(false);
+    }//GEN-LAST:event_searchTestMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -81,6 +99,7 @@ public class CheckVendor extends javax.swing.JPanel {
     private javax.swing.JLabel searchNameLabel;
     private javax.swing.JTextField searchStoreId;
     private javax.swing.JLabel searchStoreIdLabel;
+    private javax.swing.JLabel searchTest;
     private javax.swing.JScrollPane vendorScrollList;
     // End of variables declaration//GEN-END:variables
 }

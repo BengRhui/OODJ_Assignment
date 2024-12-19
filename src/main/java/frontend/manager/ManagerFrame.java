@@ -6,8 +6,7 @@ package frontend.manager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * @author Chun Ming
@@ -44,6 +43,8 @@ public class ManagerFrame extends javax.swing.JFrame {
         contentHolder.add(checkRunnerPage,"checkRunner");
         contentHolder.add(complaintsPage,"checkComplaints");
         this.setLocationRelativeTo(null);
+        checkVendorPage.setMainFrame(this);
+        checkRunnerPage.setMainFrame(this);
     }
 
     private void initContent(){
