@@ -1,7 +1,6 @@
-package frontend;
+package frontend.admin;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class StandardButton {
 //Not completed

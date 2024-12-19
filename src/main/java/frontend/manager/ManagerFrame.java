@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class ManagerFrame extends javax.swing.JFrame {
 
+    public String currentPage;
     public CardLayout cardLayout;
     private CheckVendor checkVendorPage;
     private CheckRunner checkRunnerPage;
@@ -36,6 +37,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         complaintsPage = new ComplaintsPane();
         header.setBackground(new java.awt.Color(0, 0, 0, 220));
         contentHolder.setBackground(new java.awt.Color(255, 251, 233, 240));
+        dashboardLabel.setText("<html><b><u>Dashboard</b></u></html>");
         dashboard.setBackground(new java.awt.Color(255, 251, 233, 0));
         dashboardContent.setBackground(new java.awt.Color(255, 251, 233, 240));
         contentHolder.add(checkVendorPage,"checkVendor");
@@ -48,6 +50,37 @@ public class ManagerFrame extends javax.swing.JFrame {
 
     }
 
+    private void labelFormat(JLabel dashboard, JLabel vendor, JLabel runner, JLabel complaints){
+        switch(currentPage){
+            case "dashboard":
+                dashboard.setText("<html><b><u>Dashboard</b></u></html>");
+                vendor.setText("Vendor");
+                runner.setText("Delivery Runner");
+                complaints.setText("Complaints");
+                break;
+            case "vendor":
+                dashboard.setText("Dashboard");
+                vendor.setText("<html><b><u>Vendor</b></u></html>");
+                runner.setText("Delivery Runner");
+                complaints.setText("Complaints");
+                break;
+            case "runner":
+                dashboard.setText("Dashboard");
+                vendor.setText("Vendor");
+                runner.setText("<html><b><u>Delivery Runner</b></u></html>");
+                complaints.setText("Complaints");
+                break;
+            case "complaints":
+                dashboard.setText("Dashboard");
+                vendor.setText("Vendor");
+                runner.setText("Delivery Runner");
+                complaints.setText("<html><b><u>Complaints</b></u></html>");
+                break;
+            default:
+                System.out.println("Wrong Case is detected.");
+                break;
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -211,7 +244,9 @@ public class ManagerFrame extends javax.swing.JFrame {
 
         dashboardLabel.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         dashboardLabel.setForeground(new java.awt.Color(255, 255, 255));
+        dashboardLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         dashboardLabel.setText("Dashboard");
+        dashboardLabel.setPreferredSize(new java.awt.Dimension(130, 30));
         dashboardLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 dashboardLabelMouseClicked(evt);
@@ -224,10 +259,11 @@ public class ManagerFrame extends javax.swing.JFrame {
             }
         });
         header.add(dashboardLabel);
-        dashboardLabel.setBounds(261, 60, 117, 28);
+        dashboardLabel.setBounds(250, 50, 160, 40);
 
         vendorLabel.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         vendorLabel.setForeground(new java.awt.Color(255, 255, 255));
+        vendorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         vendorLabel.setText("Vendor");
         vendorLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -241,10 +277,11 @@ public class ManagerFrame extends javax.swing.JFrame {
             }
         });
         header.add(vendorLabel);
-        vendorLabel.setBounds(503, 60, 76, 28);
+        vendorLabel.setBounds(490, 50, 120, 40);
 
         runnerLabel.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         runnerLabel.setForeground(new java.awt.Color(255, 255, 255));
+        runnerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         runnerLabel.setText("Delivery Runner");
         runnerLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -258,10 +295,11 @@ public class ManagerFrame extends javax.swing.JFrame {
             }
         });
         header.add(runnerLabel);
-        runnerLabel.setBounds(704, 60, 172, 28);
+        runnerLabel.setBounds(680, 50, 250, 40);
 
         complaintsLabel.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         complaintsLabel.setForeground(new java.awt.Color(255, 255, 255));
+        complaintsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         complaintsLabel.setText("Complaints");
         complaintsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -275,7 +313,7 @@ public class ManagerFrame extends javax.swing.JFrame {
             }
         });
         header.add(complaintsLabel);
-        complaintsLabel.setBounds(1001, 60, 120, 28);
+        complaintsLabel.setBounds(980, 50, 170, 40);
 
         logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logout_icon.png"))); // NOI18N
         logout.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -325,6 +363,8 @@ public class ManagerFrame extends javax.swing.JFrame {
 
     private void dashboardLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboardLabelMouseClicked
         cardLayout.show(contentHolder,"managerDashboard");
+        currentPage = "dashboard";
+        labelFormat(dashboardLabel, vendorLabel, runnerLabel, complaintsLabel);
     }//GEN-LAST:event_dashboardLabelMouseClicked
 
     private void dashboardLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboardLabelMouseEntered
@@ -337,6 +377,8 @@ public class ManagerFrame extends javax.swing.JFrame {
 
     private void vendorLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vendorLabelMouseClicked
         cardLayout.show(contentHolder,"checkVendor");
+        currentPage = "vendor";
+        labelFormat(dashboardLabel, vendorLabel, runnerLabel, complaintsLabel);
     }//GEN-LAST:event_vendorLabelMouseClicked
 
     private void vendorLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vendorLabelMouseEntered
@@ -349,6 +391,8 @@ public class ManagerFrame extends javax.swing.JFrame {
 
     private void runnerLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_runnerLabelMouseClicked
         cardLayout.show(contentHolder, "checkRunner");
+        currentPage = "runner";
+        labelFormat(dashboardLabel, vendorLabel, runnerLabel, complaintsLabel);
     }//GEN-LAST:event_runnerLabelMouseClicked
 
     private void runnerLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_runnerLabelMouseEntered
@@ -361,6 +405,8 @@ public class ManagerFrame extends javax.swing.JFrame {
 
     private void complaintsLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_complaintsLabelMouseClicked
         cardLayout.show(contentHolder, "checkComplaints");
+        currentPage = "complaints";
+        labelFormat(dashboardLabel, vendorLabel, runnerLabel, complaintsLabel);
     }//GEN-LAST:event_complaintsLabelMouseClicked
 
     private void complaintsLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_complaintsLabelMouseEntered

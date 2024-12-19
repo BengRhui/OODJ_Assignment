@@ -1,4 +1,4 @@
-package frontend;
+package frontend.admin;
 
 import javax.swing.JFrame;
 import java.awt.Cursor;
@@ -157,6 +157,7 @@ public class CustomerDetailForm extends javax.swing.JFrame {
         confirmButton.setForeground(new java.awt.Color(255, 255, 255));
         confirmButton.setText("Confirm");
         confirmButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        confirmButton.setOpaque(true);
         confirmButton.setPreferredSize(new java.awt.Dimension(200, 50));
         confirmButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -176,6 +177,7 @@ public class CustomerDetailForm extends javax.swing.JFrame {
         cancelButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         cancelButton.setText("Cancel");
         cancelButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        cancelButton.setOpaque(true);
         cancelButton.setPreferredSize(new java.awt.Dimension(200, 50));
         cancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {

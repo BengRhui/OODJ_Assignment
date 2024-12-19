@@ -1,6 +1,6 @@
 package main;
 
-import frontend.AdminFrame;
+import frontend.admin.AdminFrame;
 import frontend.manager.ManagerFrame;
 
 public class Main {

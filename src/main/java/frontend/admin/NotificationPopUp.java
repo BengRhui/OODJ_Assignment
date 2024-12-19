@@ -1,5 +1,5 @@
 
-package frontend;
+package frontend.admin;
 
 import javax.swing.*;
 import java.awt.Cursor;
@@ -180,6 +180,7 @@ public class NotificationPopUp extends javax.swing.JFrame {
         cancelButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         cancelButton.setText("No");
         cancelButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        cancelButton.setOpaque(true);
         cancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 cancelButtonMouseEntered(evt);
@@ -202,6 +203,7 @@ public class NotificationPopUp extends javax.swing.JFrame {
         confirmButton.setForeground(new java.awt.Color(255, 255, 255));
         confirmButton.setText("Yes");
         confirmButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        confirmButton.setOpaque(true);
         confirmButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 confirmButtonMouseEntered(evt);

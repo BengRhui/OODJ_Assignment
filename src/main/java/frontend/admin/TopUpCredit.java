@@ -1,4 +1,4 @@
-package frontend;
+package frontend.admin;
 
 import java.awt.Cursor;
 
@@ -83,6 +83,7 @@ public class TopUpCredit extends javax.swing.JPanel {
         back.setForeground(new java.awt.Color(255, 255, 255));
         back.setText("Back");
         back.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        back.setOpaque(true);
         back.setPreferredSize(new java.awt.Dimension(200, 50));
         back.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
