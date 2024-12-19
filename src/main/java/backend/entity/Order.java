@@ -1,5 +1,8 @@
 package backend.entity;
 
+import backend.notification.CustomerNotification;
+import backend.notification.DeliveryRunnerNotification;
+import backend.notification.VendorNotification;
 import backend.utility.Utility;
 
 import java.time.LocalDateTime;
@@ -225,6 +228,87 @@ public class Order {
                 "Ordered Date: " + Utility.generateString(orderedDate) + "\n" +
                 "Order Status: " + orderStatus.toString() + "\n" +
                 "Order Items: " + Utility.generateString(orderItem);
+    }
+
+    /**
+     * A method to change order status to either "waiting for runner" or "vendor preparing" depending on the order.
+     * We have three different cases to consider here:<br>
+     * Case 1: Dining type is {@code DINE_IN} or {@code TAKEAWAY} (runner is not involved) - status is {@code WAITING_VENDOR}<br>
+     * Case 2: Dining type is {@code DELIVERY} and runner has not accepted order - status is {@code WAITING_VENDOR_AND_RUNNER}<br>
+     * Case 3: Dining type is {@code DELIVERY} and runner has accepted order - status is {@code WAITING_VENDOR}
+     *
+     * @return {@code 1} if order is accepted by vendor and notification is created<br>
+     * {@code 0} if order is not accepted and notification is not created<br>
+     * {@code -1} if order is accepted but notification fail to create
+     */
+    public int vendorAcceptOrder() {
+
+        // Retrieve the order's dining type (different dining type has different logic)
+        DiningType orderDiningType = this.getDiningType();
+        OrderStatus currentStatus = this.getOrderStatus();
+
+        // Case 1 and 3
+        if (currentStatus == OrderStatus.WAITING_VENDOR) {
+
+            // Change the order status to "vendor preparing"
+            this.setOrderStatus(OrderStatus.VENDOR_PREPARING);
+
+            // Create a notification to alert users - Case 3 (runner is involved)
+            if (this.getRunnerInCharge() != null) {
+                boolean runnerNotificationStatus = DeliveryRunnerNotification.createNewNotification(
+                        "Order " + this.getOrderID() + " Preparing",
+                        "The order " + this.getOrderID() + " is now being prepared. Please be ready to pick up at stall " + this.getOrderedStall().getStallID() + ".",
+                        this.getRunnerInCharge()
+                );
+                if (!runnerNotificationStatus) return -1;
+            }
+
+            // Create notifications for customers and vendors - Case 1 and 3
+            boolean customerNotificationStatus = CustomerNotification.createNewNotification(
+                    "Your Order " + this.getOrderID() + " is Preparing",
+                    "Your order " + this.getOrderID() + " is now being prepared by our vendor.",
+                    this.getOrderingCustomer()
+            );
+            if (!customerNotificationStatus) return -1;
+
+            boolean vendorNotificationStatus = VendorNotification.createNewNotification(
+                    "Order " + this.getOrderID() + " is Preparing",
+                    "Order " + this.getOrderID() + " has been updated to preparing.",
+                    this.getOrderedStall()
+            );
+            if (!vendorNotificationStatus) return -1;
+
+            // Return 1 to indicate success modification
+            return 1;
+        }
+
+        // Case 2
+        if (currentStatus == OrderStatus.WAITING_VENDOR_AND_RUNNER && orderDiningType == DiningType.DELIVERY) {
+
+            // Change the order status to "waiting for runner"
+            this.setOrderStatus(OrderStatus.WAITING_RUNNER);
+
+            // Create notification for vendor and customer (no delivery runner coz runner hasn't accepted the order)
+            boolean customerNotificationStatus = CustomerNotification.createNewNotification(
+                    "Order " + this.getOrderID() + " Accepted by Vendor",
+                    "Your order " + this.getOrderID() + " has been accepted by vendor. We're currently assigning a delivery runner to pick it up.",
+                    this.getOrderingCustomer()
+            );
+            if (!customerNotificationStatus) return -1;
+
+            boolean vendorNotificationStatus = VendorNotification.createNewNotification(
+                    "Order " + this.getOrderID() + " Accepted - Awaiting Runner", // Change
+                    "The order " + this.getOrderID() + " has been accepted. A delivery runner will be assigned shortly to pick it up.", // Change
+                    this.getOrderedStall()
+            );
+            if (!vendorNotificationStatus) return -1;
+
+            // Return true to indicate success modification
+            return 1;
+        }
+
+        // False is returned if the method is called wrongly (e.g. if the current order is not in waiting state)
+        return 0;
     }
 
     /**
