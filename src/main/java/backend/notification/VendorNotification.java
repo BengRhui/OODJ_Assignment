@@ -1,5 +1,6 @@
 package backend.notification;
 
+import backend.entity.Stall;
 import backend.entity.Vendor;
 import backend.file_io.NotificationIO;
 import backend.utility.Utility;
@@ -104,29 +105,39 @@ public class VendorNotification implements Notification {
      *
      * @param title       The title of the notification
      * @param description The description associated with the notification
-     * @param vendor      The vendor associated with the notification
+     * @param stall       The stall that invoked the notification
      * @return True if notification is created successfully, else false
      */
-    public static boolean createNewNotification(String title, String description, Vendor vendor) {
+    public static boolean createNewNotification(String title, String description, Stall stall) {
 
         // Returns false if the arguments are empty
-        if (title.isBlank() || description.isBlank() || vendor == null) {
+        if (title.isBlank() || description.isBlank() || stall == null) {
             return false;
         }
 
-        // Create a new vendor notification object
-        VendorNotification newNotification = new VendorNotification(
-                Utility.generateNewNotificationID(VendorNotification.class),
-                vendor,
-                LocalDateTime.now(),
-                NotificationStatus.UNREAD,
-                title,
-                description
-        );
+        // Search for the vendors involved in the stall
+        ArrayList<Vendor> vendorList = Stall.getVendors(stall);
+        if (vendorList.isEmpty()) return false;
 
-        // Add the notification to list and write to file, then return true to indicate success creation
-        VendorNotification.addToList(newNotification);
-        NotificationIO.writeFile();
+        // Create a new vendor notification object
+        for (Vendor vendor : vendorList) {
+
+            // Create notification for each vendor
+            VendorNotification newNotification = new VendorNotification(
+                    Utility.generateNewNotificationID(VendorNotification.class),
+                    vendor,
+                    LocalDateTime.now(),
+                    NotificationStatus.UNREAD,
+                    title,
+                    description
+            );
+
+            // Add the notification to list and write to file
+            VendorNotification.addToList(newNotification);
+            NotificationIO.writeFile();
+        }
+
+        // Return true if notification is created successfully
         return true;
     }
 
