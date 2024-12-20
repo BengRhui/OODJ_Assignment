@@ -8,6 +8,7 @@ import frontend.admin.NotificationPopUp;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Time;
 
 /**
  *
@@ -20,6 +21,7 @@ public class UserStats extends javax.swing.JFrame {
     private String userType;
     private VendorItems vendorItems;
     private NotificationPopUp notificationPopUp = new NotificationPopUp();
+    private TimeFilter filter;
 
     /*
     userType: temporary state that store from where Manager call this pop-up
@@ -333,7 +335,8 @@ public class UserStats extends javax.swing.JFrame {
     }//GEN-LAST:event_revenueExcelMouseExited
 
     private void revenueFilterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_revenueFilterMouseClicked
-        // TODO add your handling code here:
+        filter = new TimeFilter(this);
+        this.setEnabled(false);
     }//GEN-LAST:event_revenueFilterMouseClicked
 
     private void revenueFilterMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_revenueFilterMouseEntered

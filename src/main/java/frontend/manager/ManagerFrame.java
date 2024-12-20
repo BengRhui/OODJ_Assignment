@@ -18,6 +18,7 @@ public class ManagerFrame extends javax.swing.JFrame {
     public String currentPage;
     public CardLayout cardLayout;
     private NotificationPopUp notificationPopUp = new NotificationPopUp();
+    private TimeFilter filter;
     private CheckVendor checkVendorPage;
     private CheckRunner checkRunnerPage;
     private ComplaintsPane complaintsPage;
@@ -448,7 +449,8 @@ public class ManagerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_revenueExcelMouseExited
 
     private void revenueFilterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_revenueFilterMouseClicked
-        // TODO add your handling code here:
+        filter = new TimeFilter(this);
+        this.setEnabled(false);
     }//GEN-LAST:event_revenueFilterMouseClicked
 
     private void revenueFilterMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_revenueFilterMouseEntered
@@ -473,7 +475,8 @@ public class ManagerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_complaintsExcelMouseExited
 
     private void complaintsFilterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_complaintsFilterMouseClicked
-        // TODO add your handling code here:
+        filter = new TimeFilter(this);
+        this.setEnabled(false);
     }//GEN-LAST:event_complaintsFilterMouseClicked
 
     private void complaintsFilterMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_complaintsFilterMouseEntered
