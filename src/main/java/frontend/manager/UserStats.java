@@ -4,6 +4,8 @@
  */
 package frontend.manager;
 
+import frontend.admin.NotificationPopUp;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -17,6 +19,7 @@ public class UserStats extends javax.swing.JFrame {
     private JFrame mainFrame;
     private String userType;
     private VendorItems vendorItems;
+    private NotificationPopUp notificationPopUp = new NotificationPopUp();
 
     /*
     userType: temporary state that store from where Manager call this pop-up
@@ -317,7 +320,8 @@ public class UserStats extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void revenueExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_revenueExcelMouseClicked
-        // TODO export excel
+        notificationPopUp.managerExportPopUp(this);
+        this.setEnabled(false);
     }//GEN-LAST:event_revenueExcelMouseClicked
 
     private void revenueExcelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_revenueExcelMouseEntered

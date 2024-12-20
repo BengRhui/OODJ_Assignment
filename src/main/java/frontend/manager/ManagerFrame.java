@@ -4,6 +4,8 @@
  */
 package frontend.manager;
 
+import frontend.admin.NotificationPopUp;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,6 +17,7 @@ public class ManagerFrame extends javax.swing.JFrame {
 
     public String currentPage;
     public CardLayout cardLayout;
+    private NotificationPopUp notificationPopUp = new NotificationPopUp();
     private CheckVendor checkVendorPage;
     private CheckRunner checkRunnerPage;
     private ComplaintsPane complaintsPage;
@@ -45,6 +48,7 @@ public class ManagerFrame extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         checkVendorPage.setMainFrame(this);
         checkRunnerPage.setMainFrame(this);
+        complaintsPage.setMainFrame(this);
     }
 
     private void initContent(){
@@ -431,7 +435,8 @@ public class ManagerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutMouseExited
 
     private void revenueExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_revenueExcelMouseClicked
-        // TODO export excel
+        notificationPopUp.managerExportPopUp(this);
+        this.setEnabled(false);
     }//GEN-LAST:event_revenueExcelMouseClicked
 
     private void revenueExcelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_revenueExcelMouseEntered
@@ -455,7 +460,8 @@ public class ManagerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_revenueFilterMouseExited
 
     private void complaintsExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_complaintsExcelMouseClicked
-        // TODO add your handling code here:
+        notificationPopUp.managerExportPopUp(this);
+        this.setEnabled(false);
     }//GEN-LAST:event_complaintsExcelMouseClicked
 
     private void complaintsExcelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_complaintsExcelMouseEntered

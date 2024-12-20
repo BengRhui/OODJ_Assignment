@@ -4,6 +4,8 @@
  */
 package frontend.manager;
 
+import frontend.admin.NotificationPopUp;
+
 import javax.swing.JFrame;
 import java.awt.*;
 
@@ -14,6 +16,7 @@ import java.awt.*;
 public class VendorItems extends javax.swing.JFrame {
 
     private JFrame previousFrame;
+    private NotificationPopUp notificationPopUp = new NotificationPopUp();
 
     public VendorItems(JFrame frame) {
         previousFrame = frame;
@@ -108,7 +111,8 @@ public class VendorItems extends javax.swing.JFrame {
     }//GEN-LAST:event_closeMouseExited
 
     private void deleteTestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteTestMouseClicked
-        // TODO add your handling code here:
+        notificationPopUp.deleteItem(this);
+        this.setEnabled(false);
     }//GEN-LAST:event_deleteTestMouseClicked
 
 

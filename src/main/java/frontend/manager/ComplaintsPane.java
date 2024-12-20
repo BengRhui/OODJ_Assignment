@@ -10,6 +10,9 @@ package frontend.manager;
  */
 public class ComplaintsPane extends javax.swing.JPanel {
 
+    public ManagerFrame mainFrame;
+    private ComplaintDetails complaintDetails;
+
     public ComplaintsPane() {
         initComponents();
         initLayout();
@@ -21,6 +24,9 @@ public class ComplaintsPane extends javax.swing.JPanel {
         bgLayer.setBackground(new java.awt.Color(255, 251, 233, 240));
     }
 
+    public void setMainFrame(ManagerFrame frame){
+        this.mainFrame = frame;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -33,6 +39,7 @@ public class ComplaintsPane extends javax.swing.JPanel {
         systemLabel = new javax.swing.JLabel();
         vendorLabel = new javax.swing.JLabel();
         runnerLabel = new javax.swing.JLabel();
+        complaintDetailsTest = new javax.swing.JLabel();
         bottomBackground = new javax.swing.JLabel();
 
         setLayout(null);
@@ -61,6 +68,15 @@ public class ComplaintsPane extends javax.swing.JPanel {
         bgLayer.add(runnerLabel);
         runnerLabel.setBounds(950, 35, 180, 40);
 
+        complaintDetailsTest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/search_icon.png"))); // NOI18N
+        complaintDetailsTest.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                complaintDetailsTestMouseClicked(evt);
+            }
+        });
+        bgLayer.add(complaintDetailsTest);
+        complaintDetailsTest.setBounds(180, 0, 50, 50);
+
         add(bgLayer);
         bgLayer.setBounds(0, 0, 1400, 650);
 
@@ -69,10 +85,16 @@ public class ComplaintsPane extends javax.swing.JPanel {
         bottomBackground.setBounds(0, 0, 1400, 650);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void complaintDetailsTestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_complaintDetailsTestMouseClicked
+        complaintDetails = new ComplaintDetails(mainFrame);
+        mainFrame.setEnabled(false);
+    }//GEN-LAST:event_complaintDetailsTestMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bgLayer;
     private javax.swing.JLabel bottomBackground;
+    private javax.swing.JLabel complaintDetailsTest;
     private javax.swing.JScrollPane runnerComplaintsScroll;
     private javax.swing.JLabel runnerLabel;
     private javax.swing.JScrollPane systemComplaintsScroll;
