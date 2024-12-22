@@ -84,6 +84,7 @@ public class UserStats extends javax.swing.JFrame {
         chartHolder = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         pageHolder.setBackground(new java.awt.Color(255, 251, 233));
 

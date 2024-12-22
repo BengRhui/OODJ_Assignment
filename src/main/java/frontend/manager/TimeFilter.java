@@ -32,13 +32,14 @@ public class TimeFilter extends javax.swing.JFrame {
         description = new javax.swing.JLabel();
         overall = new javax.swing.JRadioButton();
         daily = new javax.swing.JRadioButton();
-        weekly = new javax.swing.JRadioButton();
         monthly = new javax.swing.JRadioButton();
+        quarterly = new javax.swing.JRadioButton();
         yearly = new javax.swing.JRadioButton();
         confirmButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         pageHolder.setBackground(new java.awt.Color(255, 251, 233));
 
@@ -62,13 +63,18 @@ public class TimeFilter extends javax.swing.JFrame {
         daily.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         daily.setText("Daily");
 
-        filterOptions.add(weekly);
-        weekly.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        weekly.setText("Weekly");
-
         filterOptions.add(monthly);
         monthly.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         monthly.setText("Monthly");
+
+        filterOptions.add(quarterly);
+        quarterly.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        quarterly.setText("Quarterly");
+        quarterly.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quarterlyActionPerformed(evt);
+            }
+        });
 
         filterOptions.add(yearly);
         yearly.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -130,8 +136,8 @@ public class TimeFilter extends javax.swing.JFrame {
                             .addComponent(description, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(overall, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(daily, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(weekly, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(monthly, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(quarterly, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(yearly, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(pageHolderLayout.createSequentialGroup()
                                 .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -152,9 +158,9 @@ public class TimeFilter extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(daily, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(weekly, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(monthly, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(quarterly, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(yearly, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
@@ -203,6 +209,10 @@ public class TimeFilter extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
+    private void quarterlyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quarterlyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_quarterlyActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton confirmButton;
@@ -212,8 +222,8 @@ public class TimeFilter extends javax.swing.JFrame {
     private javax.swing.JRadioButton monthly;
     private javax.swing.JRadioButton overall;
     private javax.swing.JPanel pageHolder;
+    private javax.swing.JRadioButton quarterly;
     private javax.swing.JLabel title;
-    private javax.swing.JRadioButton weekly;
     private javax.swing.JRadioButton yearly;
     // End of variables declaration//GEN-END:variables
 }

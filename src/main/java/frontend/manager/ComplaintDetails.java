@@ -44,6 +44,7 @@ public class ComplaintDetails extends javax.swing.JFrame {
         cancelButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         pageHolder.setBackground(new java.awt.Color(255, 251, 233));
 

@@ -7,6 +7,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -54,8 +55,8 @@
                               <Component id="description" max="32767" attributes="0"/>
                               <Component id="overall" max="32767" attributes="0"/>
                               <Component id="daily" alignment="0" max="32767" attributes="0"/>
-                              <Component id="weekly" alignment="0" max="32767" attributes="0"/>
                               <Component id="monthly" alignment="0" max="32767" attributes="0"/>
+                              <Component id="quarterly" alignment="0" max="32767" attributes="0"/>
                               <Component id="yearly" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="cancelButton" min="-2" max="-2" attributes="0"/>
@@ -82,9 +83,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="daily" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="weekly" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="monthly" min="-2" pref="40" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="quarterly" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="yearly" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
@@ -140,17 +141,6 @@
             <Property name="text" type="java.lang.String" value="Daily"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="weekly">
-          <Properties>
-            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="filterOptions"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="18" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Weekly"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JRadioButton" name="monthly">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
@@ -161,6 +151,20 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Monthly"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="quarterly">
+          <Properties>
+            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+              <ComponentRef name="filterOptions"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="18" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Quarterly"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="quarterlyActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="yearly">
           <Properties>
