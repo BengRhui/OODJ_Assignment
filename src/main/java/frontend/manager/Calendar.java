@@ -4,10 +4,13 @@
  */
 package frontend.manager;
 
-import com.toedter.calendar.JCalendar;
+//import com.toedter.calendar.JCalendar;
 
 import javax.swing.*;
-import java.util.Date;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+//import java.util.Date;
 
 /**
  *
@@ -16,24 +19,59 @@ import java.util.Date;
 public class Calendar extends javax.swing.JFrame {
 
     private JFrame parentFrame;
+    private final ArrayList<String> yearList = initializeYearList();
+    private int yearIndex = 0;
 
-    public Calendar() {}
-
-    public javax.swing.JFrame calendarDaily(JFrame frame){
-        return this;
+    private ArrayList<String> initializeYearList(){
+        ArrayList<String> years = new ArrayList<>();
+        for (int year = 2021; year <= 2030; year++) {
+            years.add(String.valueOf(year));
+        }
+        return years;
     }
 
-    public javax.swing.JFrame calendarMonthly(JFrame frame){
-        return this;
+    private void checkIndex(JButton previous, JButton next) {
+        if (yearIndex == yearList.size()) {
+            yearIndex = 9;
+            next.setEnabled(false);
+        }else if (yearIndex < 0) {
+            yearIndex = 0;
+            previous.setEnabled(false);
+        }else{
+            previous.setEnabled(true);
+            next.setEnabled(true);
+        }
     }
 
-    public javax.swing.JFrame calendarQuarterly(JFrame frame){
-        return this;
+    public Calendar() {
+//        parentFrame = frame;
+        initComponents();
+        initLayout();
+        this.setLocationRelativeTo(null);
+        this.setSize(530, 500);
+        System.out.println(yearList);
     }
 
-    public javax.swing.JFrame calendarYearly(JFrame frame){
-        return this;
+    private void initLayout(){
+        previousButton.setBackground(new Color(255,255,255,0));
+        nextButton.setBackground(new Color(255,255,255,0));
+        timeFrame.setText(yearList.get(yearIndex));
     }
+//    public javax.swing.JFrame calendarDaily(JFrame frame){
+//        return this;
+//    }
+//
+//    public javax.swing.JFrame calendarMonthly(JFrame frame){
+//        return this;
+//    }
+//
+//    public javax.swing.JFrame calendarQuarterly(JFrame frame){
+//        return this;
+//    }
+//
+//    public javax.swing.JFrame calendarYearly(JFrame frame){
+//        return this;
+//    }
 
 
 
@@ -68,62 +106,194 @@ public class Calendar extends javax.swing.JFrame {
 
         january.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         january.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        january.setText("jLabel1");
+        january.setText("January");
+        january.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                januaryMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                januaryMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                januaryMouseExited(evt);
+            }
+        });
         calendarHolder.add(january);
 
         february.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         february.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        february.setText("jLabel2");
+        february.setText("February");
+        february.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                februaryMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                februaryMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                februaryMouseExited(evt);
+            }
+        });
         calendarHolder.add(february);
 
         march.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         march.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        march.setText("jLabel3");
+        march.setText("March");
+        march.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                marchMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                marchMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                marchMouseExited(evt);
+            }
+        });
         calendarHolder.add(march);
 
         april.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         april.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        april.setText("jLabel4");
+        april.setText("April");
+        april.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                aprilMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                aprilMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                aprilMouseExited(evt);
+            }
+        });
         calendarHolder.add(april);
 
         may.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         may.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        may.setText("jLabel5");
+        may.setText("May");
+        may.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mayMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mayMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                mayMouseExited(evt);
+            }
+        });
         calendarHolder.add(may);
 
         june.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         june.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        june.setText("jLabel6");
+        june.setText("June");
+        june.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                juneMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                juneMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                juneMouseExited(evt);
+            }
+        });
         calendarHolder.add(june);
 
         july.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         july.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        july.setText("jLabel6");
+        july.setText("July");
+        july.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                julyMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                julyMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                julyMouseExited(evt);
+            }
+        });
         calendarHolder.add(july);
 
         august.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         august.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        august.setText("jLabel6");
+        august.setText("August");
+        august.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                augustMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                augustMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                augustMouseExited(evt);
+            }
+        });
         calendarHolder.add(august);
 
         september.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         september.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        september.setText("jLabel6");
+        september.setText("September");
+        september.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                septemberMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                septemberMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                septemberMouseExited(evt);
+            }
+        });
         calendarHolder.add(september);
 
         october.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         october.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        october.setText("jLabel6");
+        october.setText("October");
+        october.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                octoberMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                octoberMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                octoberMouseExited(evt);
+            }
+        });
         calendarHolder.add(october);
 
         november.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         november.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        november.setText("jLabel6");
+        november.setText("November");
+        november.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                novemberMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                novemberMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                novemberMouseExited(evt);
+            }
+        });
         calendarHolder.add(november);
 
         december.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         december.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        december.setText("jLabel6");
+        december.setText("December");
+        december.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                decemberMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                decemberMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                decemberMouseExited(evt);
+            }
+        });
         calendarHolder.add(december);
 
         getContentPane().add(calendarHolder, java.awt.BorderLayout.CENTER);
@@ -133,7 +303,18 @@ public class Calendar extends javax.swing.JFrame {
 
         timeFrame.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         timeFrame.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        timeFrame.setText("January");
+        timeFrame.setText("2024");
+        timeFrame.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                timeFrameMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                timeFrameMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                timeFrameMouseExited(evt);
+            }
+        });
 
         previousButton.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         previousButton.setText("<");
@@ -144,6 +325,11 @@ public class Calendar extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 previousButtonMouseExited(evt);
+            }
+        });
+        previousButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                previousButtonActionPerformed(evt);
             }
         });
 
@@ -158,6 +344,11 @@ public class Calendar extends javax.swing.JFrame {
                 nextButtonMouseExited(evt);
             }
         });
+        nextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
@@ -166,21 +357,21 @@ public class Calendar extends javax.swing.JFrame {
             .addGroup(headerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(previousButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(timeFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(25, 25, 25)
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(timeFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(previousButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(timeFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         getContentPane().add(header, java.awt.BorderLayout.PAGE_START);
@@ -189,20 +380,190 @@ public class Calendar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void previousButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_previousButtonMouseEntered
-        // TODO add your handling code here:
+        previousButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_previousButtonMouseEntered
 
     private void previousButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_previousButtonMouseExited
-        // TODO add your handling code here:
+        previousButton.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_previousButtonMouseExited
 
     private void nextButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextButtonMouseEntered
-        // TODO add your handling code here:
+        nextButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_nextButtonMouseEntered
 
     private void nextButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nextButtonMouseExited
-        // TODO add your handling code here:
+        nextButton.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_nextButtonMouseExited
+
+    private void timeFrameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timeFrameMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_timeFrameMouseClicked
+
+    private void timeFrameMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timeFrameMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_timeFrameMouseEntered
+
+    private void timeFrameMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timeFrameMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_timeFrameMouseExited
+
+    private void januaryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_januaryMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_januaryMouseClicked
+
+    private void januaryMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_januaryMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_januaryMouseEntered
+
+    private void januaryMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_januaryMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_januaryMouseExited
+
+    private void februaryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_februaryMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_februaryMouseClicked
+
+    private void februaryMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_februaryMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_februaryMouseEntered
+
+    private void februaryMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_februaryMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_februaryMouseExited
+
+    private void marchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_marchMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_marchMouseClicked
+
+    private void marchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_marchMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_marchMouseEntered
+
+    private void marchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_marchMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_marchMouseExited
+
+    private void aprilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aprilMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_aprilMouseClicked
+
+    private void aprilMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aprilMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_aprilMouseEntered
+
+    private void aprilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aprilMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_aprilMouseExited
+
+    private void mayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mayMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mayMouseClicked
+
+    private void mayMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mayMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mayMouseEntered
+
+    private void mayMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mayMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mayMouseExited
+
+    private void juneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_juneMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_juneMouseClicked
+
+    private void juneMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_juneMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_juneMouseEntered
+
+    private void juneMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_juneMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_juneMouseExited
+
+    private void julyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_julyMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_julyMouseClicked
+
+    private void julyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_julyMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_julyMouseEntered
+
+    private void julyMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_julyMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_julyMouseExited
+
+    private void augustMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_augustMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_augustMouseClicked
+
+    private void augustMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_augustMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_augustMouseEntered
+
+    private void augustMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_augustMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_augustMouseExited
+
+    private void septemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_septemberMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_septemberMouseClicked
+
+    private void septemberMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_septemberMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_septemberMouseEntered
+
+    private void septemberMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_septemberMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_septemberMouseExited
+
+    private void octoberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_octoberMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_octoberMouseClicked
+
+    private void octoberMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_octoberMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_octoberMouseEntered
+
+    private void octoberMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_octoberMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_octoberMouseExited
+
+    private void novemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_novemberMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_novemberMouseClicked
+
+    private void novemberMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_novemberMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_novemberMouseEntered
+
+    private void novemberMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_novemberMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_novemberMouseExited
+
+    private void decemberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_decemberMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_decemberMouseClicked
+
+    private void decemberMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_decemberMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_decemberMouseEntered
+
+    private void decemberMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_decemberMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_decemberMouseExited
+
+    private void previousButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousButtonActionPerformed
+        yearIndex--;
+        checkIndex(previousButton,nextButton);
+        System.out.println(yearList.get(yearIndex));
+        timeFrame.setText(yearList.get(yearIndex));
+    }//GEN-LAST:event_previousButtonActionPerformed
+
+    private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
+        yearIndex++;
+        checkIndex(previousButton,nextButton);
+        System.out.println(yearList.get(yearIndex));
+        timeFrame.setText(yearList.get(yearIndex));
+    }//GEN-LAST:event_nextButtonActionPerformed
 
     /**
      * @param args the command line arguments
