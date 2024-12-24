@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Test class {@code VendorTest} contains the tests covering the operations involving vendors.
@@ -61,6 +62,23 @@ public class VendorTest extends BaseTest {
                 initialVendorNotification,
                 initialDeliveryRunnerNotification
         );
+
+        // Erroneous order: Order was not in waiting status (even though this should not happen)
+        try {
+            order1.setOrderStatus(Order.OrderStatus.RUNNER_DELIVERY);
+            testCaseForAcceptingOrder(
+                    order1,
+                    initialCustomerNotification,
+                    initialVendorNotification,
+                    initialDeliveryRunnerNotification
+            );
+
+            // Fail the test if the order passes the test case
+            fail("The order should return 0 when the wrong order is passed into the test.");
+
+        } catch (AssertionError e) {
+            assert true;
+        }
     }
 
     /**
