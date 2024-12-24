@@ -241,7 +241,7 @@ public class Order {
      * {@code 0} if order is not accepted and notification is not created<br>
      * {@code -1} if order is accepted but notification fail to create
      */
-    public int vendorAcceptOrder() {
+    public int acceptOrder() {
 
         // Retrieve the order's dining type (different dining type has different logic)
         DiningType orderDiningType = this.getDiningType();
