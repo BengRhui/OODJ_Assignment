@@ -54,7 +54,7 @@ public class FeedbackFileIO extends FileIO {
         double ratings = Double.parseDouble(recordFromFile[3]);
         String feedbackTitle = recordFromFile[4];
         String feedbackDetails = recordFromFile[5];
-        String replyFromManager = recordFromFile[6];
+        String replyFromManager = recordFromFile[6].equalsIgnoreCase("null") ? null : recordFromFile[6];
 
         // Create a feedback object and return it
         return new Feedback(
