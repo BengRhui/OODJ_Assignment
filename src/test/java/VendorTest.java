@@ -79,7 +79,7 @@ public class VendorTest extends BaseTest {
     ) {
 
         // Accept the order
-        int orderTesting = order.acceptOrder();
+        int orderTesting = order.vendorAcceptOrder();
 
         // Check whether order is successfully updated
         assertEquals(1, orderTesting);
