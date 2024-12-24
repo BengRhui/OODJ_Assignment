@@ -298,7 +298,7 @@ public class Order {
 
             boolean vendorNotificationStatus = VendorNotification.createNewNotification(
                     "Order " + this.getOrderID() + " Accepted - Awaiting Runner", // Change
-                    "The order " + this.getOrderID() + " has been accepted. A delivery runner will be assigned shortly to pick it up.", // Change
+                    "The order " + this.getOrderID() + " has been accepted. A delivery runner will be assigned shortly to pick it up.",
                     this.getOrderedStall()
             );
             if (!vendorNotificationStatus) return -1;
