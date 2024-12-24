@@ -312,6 +312,56 @@ public class Order {
     }
 
     /**
+     * A method for vendor to cancel an order. Few cases to consider:<br>
+     * Case 1: Runner is not involved (dine-in, takeaway and delivery - runner hasn't accepted)<br>
+     * Case 2: Runner is involved (delivery - runner has accepted)<br>
+     *
+     * @return {@code 1} if order is cancelled successfully and notification is created<br>
+     * {@code 0} if order is cancelled unsuccessfully and notification is not created<br>
+     * {@code -1} if order is cancelled successfully but notification is not created
+     */
+    public int vendorCancelOrder() {
+
+        // Check if the method is called correctly
+        if (this.getOrderStatus() != OrderStatus.WAITING_VENDOR_AND_RUNNER && this.getOrderStatus() != OrderStatus.WAITING_VENDOR) {
+            return 0;
+        }
+
+        // Change the status of order to "cancelled"
+        this.setOrderStatus(OrderStatus.CANCELLED);
+
+        // Create a notification to indicate that the order is cancelled - returns -1 if notification fails to create
+        // Runner
+        if (this.getRunnerInCharge() != null) {
+            boolean runnerNotification = DeliveryRunnerNotification.createNewNotification(
+                    "Order Cancelled",
+                    "The order " + this.getOrderID() + " has been cancelled due to rejection of the vendor.",
+                    this.getRunnerInCharge()
+            );
+            if (!runnerNotification) return -1;
+        }
+
+        // Customer
+        boolean customerNotification = CustomerNotification.createNewNotification(
+                "Order Rejected by Vendor",
+                "We're sorry to inform that your order " + this.getOrderID() + " has been rejected by the vendor. Please consider placing a new order.",
+                this.getOrderingCustomer()
+        );
+        if (!customerNotification) return -1;
+
+        // Vendor
+        boolean vendorNotification = VendorNotification.createNewNotification(
+                "Order Rejected",
+                "You have rejected the order " + this.getOrderID() + ".",
+                this.getOrderedStall()
+        );
+        if (!vendorNotification) return -1;
+
+        // Return 1 for successful operation
+        return 1;
+    }
+
+    /**
      * Enum {@code DiningType} represents the different types of dining methods a customer can choose.
      */
     public enum DiningType {
@@ -365,7 +415,7 @@ public class Order {
          * Fields for order status
          */
         WAITING_VENDOR_AND_RUNNER, WAITING_VENDOR, WAITING_RUNNER, VENDOR_PREPARING,
-        READY_FOR_PICK_UP, RUNNER_DELIVERY, COMPLETED;
+        READY_FOR_PICK_UP, RUNNER_DELIVERY, COMPLETED, CANCELLED;
 
         /**
          * Variables containing different types of options for an order
@@ -412,6 +462,7 @@ public class Order {
                 case READY_FOR_PICK_UP -> "Ready for Pick Up";
                 case RUNNER_DELIVERY -> "Delivering by Runner";
                 case COMPLETED -> "Completed";
+                case CANCELLED -> "Cancelled";
             };
         }
     }

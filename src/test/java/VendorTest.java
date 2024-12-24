@@ -178,4 +178,139 @@ public class VendorTest extends BaseTest {
         cleanEnvironment();
         setUpArray();
     }
+
+    /**
+     * This test focuses on the case where a vendor rejects an order.
+     */
+    @Test
+    void testVendorRejectOrder() {
+
+        // Initialise the initial lists
+        ArrayList<Notification> initialCustomerNotification = TestUtility.convertToNotificationArray(
+                CustomerNotification.getCustomerNotificationList()
+        );
+
+        ArrayList<Notification> initialVendorNotification = TestUtility.convertToNotificationArray(
+                VendorNotification.getVendorNotificationList()
+        );
+
+        ArrayList<Notification> initialRunnerNotification = TestUtility.convertToNotificationArray(
+                DeliveryRunnerNotification.getDeliveryRunnerNotificationList()
+        );
+
+        // Order 1 - Delivery
+        order1.setOrderStatus(Order.OrderStatus.WAITING_VENDOR_AND_RUNNER);
+        testCaseForRejectingOrder(
+                order1,
+                initialCustomerNotification,
+                initialVendorNotification,
+                initialRunnerNotification
+        );
+
+        // Order 2 - Dine in
+        order2.setOrderStatus(Order.OrderStatus.WAITING_VENDOR);
+        testCaseForRejectingOrder(
+                order2,
+                initialCustomerNotification,
+                initialVendorNotification,
+                initialRunnerNotification
+        );
+
+        // Order 3 - Takeaway
+        order3.setOrderStatus(Order.OrderStatus.WAITING_VENDOR);
+        testCaseForRejectingOrder(
+                order3,
+                initialCustomerNotification,
+                initialVendorNotification,
+                initialRunnerNotification
+        );
+
+        // Erroneous order:
+        try {
+
+            // Create an erroneous order where the status is not correct (even though this should not happen)
+            order1.setOrderStatus(Order.OrderStatus.VENDOR_PREPARING);
+            testCaseForRejectingOrder(
+                    order1,
+                    initialCustomerNotification,
+                    initialVendorNotification,
+                    initialRunnerNotification
+            );
+
+        } catch (AssertionError e) {
+
+            // Test is passed if an error is thrown
+            assert true;
+        }
+    }
+
+    private void testCaseForRejectingOrder(
+            Order order,
+            ArrayList<Notification> initialCustomerList,
+            ArrayList<Notification> initialVendorList,
+            ArrayList<Notification> initialRunnerList
+    ) {
+
+        // Order is declined
+        int declineOrder = order.vendorCancelOrder();
+
+        // Make sure that the order is declined successfully
+        assertEquals(1, declineOrder);
+
+        // Check if the status of the order has changed correctly
+        assertEquals(Order.OrderStatus.CANCELLED, order.getOrderStatus());
+
+        // Check if customer notification is created
+        ArrayList<Notification> differentCustomerNotification = TestUtility.getDifferent(
+                initialCustomerList,
+                TestUtility.convertToNotificationArray(
+                        CustomerNotification.getCustomerNotificationList()
+                )
+        );
+        assertEquals(1, differentCustomerNotification.size());
+
+        // Check if content of customer notification is correct
+        assertEquals(
+                "We're sorry to inform that your order " + order.getOrderID() + " has been rejected by the vendor. Please consider placing a new order.",
+                differentCustomerNotification.getFirst().getNotificationDetails()
+        );
+
+        // Check if vendor notification is created
+        ArrayList<Notification> differentVendorNotification = TestUtility.getDifferent(
+                initialVendorList,
+                TestUtility.convertToNotificationArray(
+                        VendorNotification.getVendorNotificationList()
+                )
+        );
+        assertEquals(1, differentVendorNotification.size());
+
+        // Check if content is correct
+        assertEquals(
+                "You have rejected the order " + order.getOrderID() + ".",
+                differentVendorNotification.getFirst().getNotificationDetails()
+        );
+
+        // If runner is involved
+        if (order.getRunnerInCharge() != null) {
+
+            // Check if runner notification is created successfully
+            ArrayList<Notification> differentRunnerNotification = TestUtility.getDifferent(
+                    initialRunnerList,
+                    TestUtility.convertToNotificationArray(
+                            DeliveryRunnerNotification.getDeliveryRunnerNotificationList()
+                    )
+            );
+            assertEquals(1, differentRunnerNotification.size());
+
+            // Check if content is correct
+            assertEquals("The order " + order.getOrderID() + " has been cancelled due to rejection of the vendor.",
+                    differentRunnerNotification.getFirst().getNotificationDetails()
+            );
+        }
+
+        // Reset environment
+        clearArray();
+        cleanEnvironment();
+        setUpArray();
+    }
 }
