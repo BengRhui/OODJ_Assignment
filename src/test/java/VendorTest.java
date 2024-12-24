@@ -244,6 +244,14 @@ public class VendorTest extends BaseTest {
         }
     }
 
+    /**
+     * A method to simplify the test case {@code testVendorRejectOrder}
+     *
+     * @param order               The order to be rejected
+     * @param initialCustomerList The initial list of customer notifications before order is cancelled
+     * @param initialVendorList   The initial list of vendor notifications before order is cancelled
+     * @param initialRunnerList   The initial list of delivery runner notifications before order is cancelled
+     */
     private void testCaseForRejectingOrder(
             Order order,
             ArrayList<Notification> initialCustomerList,
