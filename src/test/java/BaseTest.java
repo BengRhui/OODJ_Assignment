@@ -105,6 +105,42 @@ public class BaseTest {
     }
 
     /**
+     * A method to retrieve the different notifications in a new notification list
+     *
+     * @param initialList The initial list before modification takes place
+     * @param newList     The list after modification takes place
+     * @return An array consisting of the notification not in the initial list
+     */
+    static ArrayList<Notification> getDifferent(ArrayList<Notification> initialList, ArrayList<Notification> newList) {
+
+        // Declare empty list to accommodate the different notifications
+        ArrayList<Notification> differentList = new ArrayList<>();
+
+        // Loop through the new notification list: Check if the new notification is in the initial list
+        for (Notification newNotification : newList) {
+
+            // Declare a boolean variable to check if the notification is in the initial list
+            boolean isInList = false;
+
+            // Loop through the initial list
+            for (Notification initialNotification : initialList) {
+
+                // If the notification ID matches, skip the current notification
+                if (initialNotification.getNotificationID().equals(newNotification.getNotificationID())) {
+                    isInList = true;
+                    break;
+                }
+            }
+
+            // Add to list if the notification is not in the list
+            if (!isInList) differentList.add(newNotification);
+        }
+
+        // Return the list containing new notifications
+        return differentList;
+    }
+
+    /**
      * Removes the objects in arrays after each testing to avoid duplication
      */
     @AfterEach
@@ -363,35 +399,6 @@ public class BaseTest {
         OrderFileIO.writeFile();
         TransactionFileIO.writeFile();
         NotificationIO.writeFile();
-    }
-
-    static ArrayList<Notification> getDifferent(ArrayList<Notification> initialList, ArrayList<Notification> newList) {
-
-        // Declare empty list to accommodate the different notifications
-        ArrayList<Notification> differentList = new ArrayList<>();
-
-        // Loop through the new notification list: Check if the new notification is in the initial list
-        for (Notification newNotification : newList) {
-
-            // Declare a boolean variable to check if the notification is in the initial list
-            boolean isInList = false;
-
-            // Loop through the initial list
-            for (Notification initialNotification : initialList) {
-
-                // If the notification ID matches, skip the current notification
-                if (initialNotification.getNotificationID().equals(newNotification.getNotificationID())) {
-                    isInList = true;
-                    break;
-                }
-            }
-
-            // Add to list if the notification is not in the list
-            if (!isInList) differentList.add(newNotification);
-        }
-
-        // Return the list containing new notifications
-        return differentList;
     }
 
 }
