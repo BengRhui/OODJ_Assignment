@@ -1,6 +1,9 @@
 import backend.entity.*;
 import backend.file_io.*;
-import backend.notification.*;
+import backend.notification.CustomerNotification;
+import backend.notification.DeliveryRunnerNotification;
+import backend.notification.NotificationStatus;
+import backend.notification.VendorNotification;
 import backend.utility.Utility;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -13,7 +16,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -102,42 +104,6 @@ public class BaseTest {
         } catch (IOException e) {
             fail("The test case is not able to access the files under test resources.");
         }
-    }
-
-    /**
-     * A method to retrieve the different notifications in a new notification list
-     *
-     * @param initialList The initial list before modification takes place
-     * @param newList     The list after modification takes place
-     * @return An array consisting of the notification not in the initial list
-     */
-    static ArrayList<Notification> getDifferent(ArrayList<Notification> initialList, ArrayList<Notification> newList) {
-
-        // Declare empty list to accommodate the different notifications
-        ArrayList<Notification> differentList = new ArrayList<>();
-
-        // Loop through the new notification list: Check if the new notification is in the initial list
-        for (Notification newNotification : newList) {
-
-            // Declare a boolean variable to check if the notification is in the initial list
-            boolean isInList = false;
-
-            // Loop through the initial list
-            for (Notification initialNotification : initialList) {
-
-                // If the notification ID matches, skip the current notification
-                if (initialNotification.getNotificationID().equals(newNotification.getNotificationID())) {
-                    isInList = true;
-                    break;
-                }
-            }
-
-            // Add to list if the notification is not in the list
-            if (!isInList) differentList.add(newNotification);
-        }
-
-        // Return the list containing new notifications
-        return differentList;
     }
 
     /**
