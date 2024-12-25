@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test class {@code VendorTest} contains the tests covering the operations involving vendors.
@@ -16,6 +15,15 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @author Beng Rhui (TP068495)
  */
 public class VendorTest extends BaseTest {
+
+    /**
+     * A helper method to help reset the testing environment after every case is run
+     */
+    private void resetTestingEnvironment() {
+        clearArray();
+        cleanEnvironment();
+        setUpArray();
+    }
 
     /**
      * Test focusing on accepting order from customer
@@ -174,9 +182,7 @@ public class VendorTest extends BaseTest {
         }
 
         // Reset environment
-        clearArray();
-        cleanEnvironment();
-        setUpArray();
+        resetTestingEnvironment();
     }
 
     /**
@@ -317,8 +323,191 @@ public class VendorTest extends BaseTest {
         }
 
         // Reset environment
-        clearArray();
-        cleanEnvironment();
-        setUpArray();
+        resetTestingEnvironment();
+    }
+
+    /**
+     * This test focuses on the case where the vendor updates the status of the order that is being accepted.
+     */
+    @Test
+    void testVendorUpdateOrderStatus() {
+
+        // Obtain the initial lists of notifications
+        ArrayList<Notification> initialCustomerList = TestUtility.convertToNotificationArray(
+                CustomerNotification.getCustomerNotificationList()
+        );
+
+        ArrayList<Notification> initialVendorList = TestUtility.convertToNotificationArray(
+                VendorNotification.getVendorNotificationList()
+        );
+
+        ArrayList<Notification> initialRunnerList = TestUtility.convertToNotificationArray(
+                DeliveryRunnerNotification.getDeliveryRunnerNotificationList()
+        );
+
+        // Order 1: Delivery - start from "preparing" status and change to "ready for pickup"
+        order1.setOrderStatus(Order.OrderStatus.VENDOR_PREPARING);
+        ArrayList<Notification> order1Notification = testCaseForUpdatingOrder(
+                order1,
+                Order.OrderStatus.READY_FOR_PICK_UP,
+                initialCustomerList,
+                initialVendorList,
+                initialRunnerList
+        );
+
+        // Check customer notification for order 1
+        assertNotNull(order1Notification.getFirst());
+        assertEquals(
+                "Your order " + order1.getOrderID() + " is ready. Runner " + order1.getRunnerInCharge().getName() + " will pick-up your order shortly.",
+                order1Notification.getFirst().getNotificationDetails()
+        );
+
+        // Check vendor notification for order 1
+        assertNotNull(order1Notification.get(1));
+        assertEquals(
+                "You have marked the order " + order1.getOrderID() + " as 'Ready for Pickup'.",
+                order1Notification.get(1).getNotificationDetails()
+        );
+
+        // Check runner notification for order 1
+        assertNotNull(order1Notification.getLast());
+        assertEquals(
+                "The order " + order1.getOrderID() + " is ready at stall " + order1.getOrderedStall() + ". Please proceed to the stall to collect it.",
+                order1Notification.getLast().getNotificationDetails()
+        );
+
+        // Order 2: Dine In - start from "ready for pickup" to "completed"
+        order2.setOrderStatus(Order.OrderStatus.READY_FOR_PICK_UP);
+        ArrayList<Notification> order2Notification = testCaseForUpdatingOrder(
+                order2,
+                Order.OrderStatus.COMPLETED,
+                initialCustomerList,
+                initialVendorList,
+                initialRunnerList
+        );
+
+        // Check customer notification for order 2
+        assertNotNull(order2Notification.getFirst());
+        assertEquals(
+                "You have successfully received your order " + order2.getOrderID() + ". Enjoy your meal!",
+                order2Notification.getFirst().getNotificationDetails()
+        );
+
+        // Check vendor notification for order 2
+        assertNotNull(order2Notification.get(1));
+        assertEquals(
+                "The order " + order2.getOrderID() + " is received by customer.",
+                order2Notification.get(1).getNotificationDetails()
+        );
+
+        // Check runner notification for order 2 - should be null since order 2 is a dine-in order
+        assertNull(order2Notification.getLast());
+
+        // Order 3: Takeaway - start from "ready for pickup" to "prepared"
+        order3.setOrderStatus(Order.OrderStatus.READY_FOR_PICK_UP);
+        ArrayList<Notification> order3Notification = testCaseForUpdatingOrder(
+                order3,
+                Order.OrderStatus.VENDOR_PREPARING,
+                initialCustomerList,
+                initialVendorList,
+                initialRunnerList
+        );
+
+        // Check customer notification for order 3
+        assertNotNull(order3Notification.getFirst());
+        assertEquals(
+                "Your order " + order3.getOrderID() + " has been reverted to 'Preparing' status by the vendor. We will notify you once it's ready.",
+                order3Notification.getFirst().getNotificationDetails()
+        );
+
+        // Check vendor notification for order 3
+        assertNotNull(order3Notification.get(1));
+        assertEquals(
+                "You have reverted the status of order " + order3.getOrderID() + " to 'Preparing'. Please update the status again once the preparation is complete.",
+                order3Notification.get(1).getNotificationDetails()
+        );
+
+        // Check runner notification for order 3 - should be null since order 3 is a takeaway order
+        assertNull(order3Notification.getLast());
+
+        // Erroneous order
+        order1.setOrderStatus(Order.OrderStatus.COMPLETED);
+        int errorOrder = order1.vendorUpdateOrderStatus(Order.OrderStatus.VENDOR_PREPARING);
+        assertEquals(0, errorOrder);
+
+        // Order with the same status
+        order2.setOrderStatus(Order.OrderStatus.READY_FOR_PICK_UP);
+        int sameStatus = order2.vendorUpdateOrderStatus(Order.OrderStatus.READY_FOR_PICK_UP);
+        assertEquals(0, sameStatus);
+    }
+
+    /**
+     * A method to reduce the code complexity of the test case {@code testVendorUpdateOrderStatus}
+     *
+     * @param order               The order that the vendor changes status
+     * @param status              The status to be changed to
+     * @param initialCustomerList The initial list of customer notifications
+     * @param initialVendorList   The initial list of vendor notifications
+     * @param initialRunnerList   The initial list of delivery runner notifications
+     * @return An array of the created notifications in the format of [customer, vendor, runner]
+     */
+    private ArrayList<Notification> testCaseForUpdatingOrder(
+            Order order,
+            Order.OrderStatus status,
+            ArrayList<Notification> initialCustomerList,
+            ArrayList<Notification> initialVendorList,
+            ArrayList<Notification> initialRunnerList
+    ) {
+
+        // Update status of order
+        int updateOrder = order.vendorUpdateOrderStatus(status);
+
+        // Make sure that the status is updated successfully
+        assertEquals(1, updateOrder);
+
+        // Check if the correct status is set
+        assertEquals(status, order.getOrderStatus());
+
+        // Retrieve the difference in notifications
+        ArrayList<Notification> differentCustomerNotification = TestUtility.getDifferent(
+                initialCustomerList,
+                TestUtility.convertToNotificationArray(
+                        CustomerNotification.getCustomerNotificationList()
+                )
+        );
+
+        ArrayList<Notification> differentVendorNotification = TestUtility.getDifferent(
+                initialVendorList,
+                TestUtility.convertToNotificationArray(
+                        VendorNotification.getVendorNotificationList()
+                )
+        );
+
+        ArrayList<Notification> differentRunnerNotification = TestUtility.getDifferent(
+                initialRunnerList,
+                TestUtility.convertToNotificationArray(
+                        DeliveryRunnerNotification.getDeliveryRunnerNotificationList()
+                )
+        );
+
+        // Make sure that no repeating notifications are created per order
+        assertTrue(differentCustomerNotification.size() < 2);
+        assertTrue(differentVendorNotification.size() < 2);
+        assertTrue(differentRunnerNotification.size() < 2);
+
+        // Set the list as null if it does not have any elements
+        if (differentCustomerNotification.isEmpty()) differentCustomerNotification = null;
+        if (differentVendorNotification.isEmpty()) differentVendorNotification = null;
+        if (differentRunnerNotification.isEmpty()) differentRunnerNotification = null;
+
+        // Retrieve the notification array - format: customer, vendor, runner
+        ArrayList<Notification> differentNotification = new ArrayList<>();
+        differentNotification.add(differentCustomerNotification == null ? null : differentCustomerNotification.getFirst());
+        differentNotification.add(differentVendorNotification == null ? null : differentVendorNotification.getFirst());
+        differentNotification.add(differentRunnerNotification == null ? null : differentRunnerNotification.getFirst());
+
+        // Reset environment and return list
+        resetTestingEnvironment();
+        return differentNotification;
     }
 }

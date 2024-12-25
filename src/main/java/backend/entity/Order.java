@@ -362,6 +362,143 @@ public class Order {
     }
 
     /**
+     * A method to change the status of an order that has been accepted
+     *
+     * @param status The order status to be changed
+     * @return {@code 1} for successful change and notification created<br>
+     * {@code 0} for unsuccessful change and notification not created<br>
+     * {@code -1} for successful change but notification not created
+     */
+    public int vendorUpdateOrderStatus(OrderStatus status) {
+
+        // Check if the initial order status is valid
+        if (this.getOrderStatus() != OrderStatus.VENDOR_PREPARING && this.getOrderStatus() != OrderStatus.READY_FOR_PICK_UP) {
+            return 0;
+        }
+
+        // Return 0 if both initial and new status are the same
+        if (this.getOrderStatus() == status) {
+            return 0;
+        }
+
+        // Change the status if status are different
+        this.setOrderStatus(status);
+
+        // Notification if vendor revert from other types to "preparing"
+        if (status == OrderStatus.VENDOR_PREPARING) {
+
+            // Customer notification for revert
+            CustomerNotification.createNewNotification(
+                    "Order Status Updated to Preparing",
+                    "Your order " + this.getOrderID() + " has been reverted to 'Preparing' status by the vendor. We will notify you once it's ready.",
+                    this.getOrderingCustomer()
+            );
+
+            // Vendor notification for revert
+            VendorNotification.createNewNotification(
+                    "Order Status Updated to Preparing",
+                    "You have reverted the status of order " + this.getOrderID() + " to 'Preparing'. Please update the status again once the preparation is complete.",
+                    this.getOrderedStall()
+            );
+
+            // Delivery runner notification for revert (if applicable)
+            if (this.getRunnerInCharge() != null) {
+                DeliveryRunnerNotification.createNewNotification(
+                        "Order Status Updated to Preparing",
+                        "The status of order " + this.getOrderID() + " has been reverted to 'Preparing' by vendor.",
+                        this.getRunnerInCharge()
+                );
+            }
+
+            // Return 1 to indicate successful modification
+            return 1;
+
+          // Notification if status updated to ready for pickup
+        } else if (status == OrderStatus.READY_FOR_PICK_UP) {
+
+            // Vendor notification for all orders
+            boolean vendorNotification = VendorNotification.createNewNotification(
+                    "Order Marked as Ready",
+                    "You have marked the order " + this.getOrderID() + " as 'Ready for Pickup'.",
+                    this.getOrderedStall()
+            );
+            if (!vendorNotification) return -1;
+
+            // Different notification for different orders
+            switch (this.getDiningType()) {
+
+                // If user choose dine-in
+                case DINE_IN -> {
+                    boolean customerNotification = CustomerNotification.createNewNotification(
+                            "Your Order is Ready!",
+                            "Your order " + this.getOrderID() + " is ready. We will shortly send it to your table " + this.getTableNumber() + ".",
+                            this.getOrderingCustomer()
+                    );
+                    if (!customerNotification) return -1;
+                }
+
+                // If the user choose takeaway
+                case TAKEAWAY -> {
+                    boolean customerNotification = CustomerNotification.createNewNotification(
+                            "Your Order is Ready!",
+                            "Your order " + this.getOrderID() + " is ready at stall " + this.getOrderedStall() + ". Please collect at your earliest convenience.",
+                            this.getOrderingCustomer()
+                    );
+                    if (!customerNotification) return -1;
+                }
+
+                // If the order is to be delivered
+                case DELIVERY -> {
+
+                    // Customer notification for delivery
+                    boolean customerNotification = CustomerNotification.createNewNotification(
+                            "Your Order is Ready!",
+                            "Your order " + this.getOrderID() + " is ready. Runner " + this.getRunnerInCharge().getName() + " will pick-up your order shortly.",
+                            this.getOrderingCustomer()
+                    );
+                    if (!customerNotification) return -1;
+
+                    // Runner notification for delivery
+                    boolean runnerNotification = DeliveryRunnerNotification.createNewNotification(
+                            "Your Order is Ready!",
+                            "The order " + this.getOrderID() + " is ready at stall " + this.getOrderedStall() + ". Please proceed to the stall to collect it.",
+                            this.getRunnerInCharge()
+                    );
+                    if (!runnerNotification) return -1;
+                }
+            }
+
+            // Return 1 for successful modification
+            return 1;
+
+          // When the status is marked as complete (only applicable for dine in and takeaway orders)
+        } else if (status == OrderStatus.COMPLETED && (this.getDiningType() == DiningType.DINE_IN || this.getDiningType() == DiningType.TAKEAWAY)) {
+
+            // Customer notification for complete order
+            boolean customerNotification = CustomerNotification.createNewNotification(
+                    "You have received your order!",
+                    "You have successfully received your order " + this.getOrderID() + ". Enjoy your meal!",
+                    this.getOrderingCustomer()
+            );
+            if (!customerNotification) return -1;
+
+            // Vendor notification for delivery
+            boolean vendorNotification = VendorNotification.createNewNotification(
+                    "Order Received by Customer",
+                    "The order " + this.getOrderID() + " is received by customer.",
+                    this.getOrderedStall()
+            );
+            if (!vendorNotification) return -1;
+
+            // Return 1 for successful modification
+            return 1;
+        }
+
+        // Return 0 to indicate unsuccessful modification (does not fit preparing, ready for pickup or customer received)
+        return 0;
+    }
+
+    /**
      * Enum {@code DiningType} represents the different types of dining methods a customer can choose.
      */
     public enum DiningType {
