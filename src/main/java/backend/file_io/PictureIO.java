@@ -1,7 +1,6 @@
 package backend.file_io;
 
 import backend.entity.Item;
-import backend.entity.Stall;
 import backend.entity.Vendor;
 
 import java.io.File;
@@ -24,6 +23,7 @@ public class PictureIO {
 
     /**
      * Setter to set directory to the store folder (used in testing).
+     *
      * @param parentPathToStoreDirectory The directory to the store folder
      */
     public static void setParentPathToStoreDirectory(String parentPathToStoreDirectory) {
@@ -32,6 +32,7 @@ public class PictureIO {
 
     /**
      * Setter to set directory to the item folder (used in testing).
+     *
      * @param parentPathToItemDirectory The directory to the item folder
      */
     public static void setParentPathToItemDirectory(String parentPathToItemDirectory) {
