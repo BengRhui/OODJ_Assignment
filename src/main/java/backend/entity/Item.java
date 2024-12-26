@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Class {@code Item} represents the item sold by each stall in the food court.
@@ -105,6 +106,38 @@ public class Item {
 
         // Return null if there is no matching ID
         return null;
+    }
+
+    /**
+     * A method to automatically generate a new item ID.
+     * @return The new item ID generated
+     */
+    public static String generateItemID() {
+
+        // Initialize an index
+        int index = 1;
+
+        // Get the list of item ID
+        ArrayList<String> itemIDList = itemList.stream()              // Get the list of items
+                .map(item -> item.itemID)                             // Map each item to their item ID
+                .collect(Collectors.toCollection(ArrayList::new));    // Convert the list of ID into arrays
+
+        // Begin loop
+        while (true) {
+
+            // Convert index into ID
+            String newID = String.format("I%03d", index);
+
+            // Check if ID is in the list
+            if (!itemIDList.contains(newID)) {
+
+                // Return the ID if it's not in the list
+                return newID;
+            }
+
+            // Increase the index if the item ID is in the list
+            index++;
+        }
     }
 
     /**
