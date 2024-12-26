@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -19,8 +20,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test class {@code ReadWriteFileTest} covers the read and write operations of all text files.
@@ -32,7 +32,8 @@ public class BaseTest {
     /**
      * A list of objects to be initialized in testing
      */
-    static final String TESTING_FILE_PATH = "src/test/resources/";
+    static final String TESTING_FILE_PATH = "src/test/resources/text_file/";
+    static final String TESTING_PICTURE_PATH = "src/test/resources/picture/";
 
     static Address address1;
     static Stall stall1;
@@ -91,7 +92,7 @@ public class BaseTest {
     @BeforeAll
     static void setDirectory() {
 
-        // Set file path to test resources file
+        // Set file path to test resources text_file file
         FileIO.setParentPathToFile(TESTING_FILE_PATH);
 
         // Test if file can be written from file path by reading a preset file from test resources folder
@@ -102,7 +103,23 @@ public class BaseTest {
                     line
             );
         } catch (IOException e) {
-            fail("The test case is not able to access the files under test resources.");
+            fail("The test case is not able to access the files under test resources -> text_file folder.");
+        }
+
+
+        // Set directory to store pictures
+        PictureIO.setParentPathToItemDirectory(TESTING_PICTURE_PATH);
+        PictureIO.setParentPathToStoreDirectory(TESTING_PICTURE_PATH);
+
+        // Set up the file directory
+        File[] pictureDirectory = new File(TESTING_PICTURE_PATH).listFiles();
+
+        // Test if the picture file can be detected
+        try {
+            assertNotNull(pictureDirectory);
+            assertEquals("test_picture.jpg", pictureDirectory[0].getName());
+        } catch (AssertionError e) {
+            fail("The test case is not able to access the picture file under test resources -> picture folder.");
         }
     }
 
