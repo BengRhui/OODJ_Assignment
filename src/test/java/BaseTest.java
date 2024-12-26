@@ -86,6 +86,16 @@ public class BaseTest {
                 System.out.println("Error deleting file: " + fileName);    // Display error if file fails to be deleted
             }
         }
+
+        // Delete any additional pictures created
+        File[] pictureDirectory = new File(TESTING_PICTURE_PATH).listFiles();
+        assertNotNull(pictureDirectory);
+        for (File file : pictureDirectory) {
+            if (file.getName().contains("test_picture")) {
+                continue;
+            }
+            assertTrue(file.delete());
+        }
     }
 
     /**
