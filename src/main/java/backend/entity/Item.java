@@ -23,7 +23,7 @@ public class Item {
             2,
             "Fees charged for delivery services"
     );
-    private final static ArrayList<Item> itemList = new ArrayList<>(List.of(deliveryFees));
+    private static ArrayList<Item> itemList = new ArrayList<>(List.of(deliveryFees));
     private String itemID;
     private String itemName;
     private Stall stall;
@@ -54,6 +54,15 @@ public class Item {
      */
     public static ArrayList<Item> getItemList() {
         return itemList;
+    }
+
+    /**
+     * A setter to set item list (used for reset purposes).
+     *
+     * @param list The new list to be set to replace the current list
+     */
+    public static void setItemList(ArrayList<Item> list) {
+        itemList = list;
     }
 
     /**
