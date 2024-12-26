@@ -17,8 +17,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -137,7 +139,7 @@ public class BaseTest {
         Vendor.getVendorList().clear();
 
         Feedback.getFeedbackList().clear();
-        Item.getItemList().clear();
+        Item.setItemList(new ArrayList<>(List.of(Item.deliveryFees)));
         Order.getOrderList().clear();
         Stall.getStallList().clear();
         Transaction.getTransactionList().clear();
@@ -383,5 +385,4 @@ public class BaseTest {
         TransactionFileIO.writeFile();
         NotificationIO.writeFile();
     }
-
 }
