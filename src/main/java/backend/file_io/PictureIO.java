@@ -19,7 +19,24 @@ public class PictureIO {
     /**
      * A final variable that stores the path to the directory to store pictures
      */
-    public final static String PARENT_PATH_TO_DIRECTORY = "src/main/resources/asset/";
+    public static String PARENT_PATH_TO_STORE_DIRECTORY = "src/main/resources/asset/store/";
+    public static String PARENT_PATH_TO_ITEM_DIRECTORY = "src/main/resources/asset/item/";
+
+    /**
+     * Setter to set directory to the store folder (used in testing).
+     * @param parentPathToStoreDirectory The directory to the store folder
+     */
+    public static void setParentPathToStoreDirectory(String parentPathToStoreDirectory) {
+        PARENT_PATH_TO_STORE_DIRECTORY = parentPathToStoreDirectory;
+    }
+
+    /**
+     * Setter to set directory to the item folder (used in testing).
+     * @param parentPathToItemDirectory The directory to the item folder
+     */
+    public static void setParentPathToItemDirectory(String parentPathToItemDirectory) {
+        PARENT_PATH_TO_ITEM_DIRECTORY = parentPathToItemDirectory;
+    }
 
     /**
      * A method to store vendor background into the directory after uploading it.
@@ -37,7 +54,7 @@ public class PictureIO {
         String newFileName = vendor.getStall().getStallID() + "_background." + fileExtension;
 
         // Retrieve the file in the directory to be copied to
-        String pathToSavePicture = PARENT_PATH_TO_DIRECTORY + "store/" + newFileName;
+        String pathToSavePicture = PARENT_PATH_TO_STORE_DIRECTORY + newFileName;
         File targetFileLocation = new File(pathToSavePicture);
 
         // Pass arguments to upload picture method and return boolean
@@ -59,7 +76,7 @@ public class PictureIO {
         String newFileName = item.getStall().getStallID() + "_" + item.getItemID() + "." + fileExtension;
 
         // Retrieve the file in the directory to be copied to
-        String pathToSavePicture = PARENT_PATH_TO_DIRECTORY + "item/" + newFileName;
+        String pathToSavePicture = PARENT_PATH_TO_ITEM_DIRECTORY + newFileName;
         File targetFileLocation = new File(pathToSavePicture);
 
         // Pass arguments to upload picture method and return boolean
@@ -103,7 +120,7 @@ public class PictureIO {
         String fileName = vendor.getStall().getStallID() + "_background";
 
         // Get the list of files in the directory
-        File[] directory = new File(PARENT_PATH_TO_DIRECTORY + "store/").listFiles();
+        File[] directory = new File(PARENT_PATH_TO_STORE_DIRECTORY).listFiles();
 
         // Retrieve the relevant picture
         return retrievePictureWithoutExtension(directory, fileName);
@@ -121,8 +138,7 @@ public class PictureIO {
         String pictureName = item.getStall().getStallID() + "_" + item.getItemID();
 
         // Set directory and retrieve the files in the directory
-        String directoryString = PARENT_PATH_TO_DIRECTORY + "item/";
-        File[] directory = new File(directoryString).listFiles();
+        File[] directory = new File(PARENT_PATH_TO_ITEM_DIRECTORY).listFiles();
 
         // Retrieve the relevant picture
         return retrievePictureWithoutExtension(directory, pictureName);
