@@ -1,10 +1,12 @@
 import backend.entity.Order;
+import backend.file_io.PictureIO;
 import backend.notification.CustomerNotification;
 import backend.notification.DeliveryRunnerNotification;
 import backend.notification.Notification;
 import backend.notification.VendorNotification;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -509,5 +511,45 @@ public class VendorTest extends BaseTest {
         // Reset environment and return list
         resetTestingEnvironment();
         return differentNotification;
+    }
+
+    /**
+     * This test focuses on the process where the vendors upload their profile picture to the system
+     */
+    @Test
+    void testVendorUploadBackgroundPicture() {
+
+        // Get the picture to be uploaded
+        File backgroundPicture = new File(TESTING_PICTURE_PATH + "test_picture.jpg");
+
+        // Upload picture as background for vendor 1
+        boolean backgroundUpload = PictureIO.uploadVendorBackground(backgroundPicture, vendor1);
+
+        // Make sure that the process is successful
+        assertTrue(backgroundUpload);
+
+        // Make sure that the file can be retrieved, and the name is correct
+        File uploadedBackgroundPicture = PictureIO.retrieveBackgroundPicture(vendor1);
+        String expectedPictureName = vendor1.getStall().getStallID() + "_background";
+        String actualPictureName = uploadedBackgroundPicture.getName().split("\\.")[0];
+
+        assertNotNull(uploadedBackgroundPicture);
+        assertEquals(expectedPictureName, actualPictureName);
+
+        // Delete file after test
+        File[] directory = new File(TESTING_PICTURE_PATH).listFiles();
+
+        // Make sure that the directory is valid
+        assertNotNull(directory);
+
+        // Loop through the list of files
+        for (File file : directory) {
+
+            // Get the file name without extension
+            String fileNameWithoutExtension = file.getName().split("\\.")[0];
+
+            // Delete the file if it matches the name
+            if (fileNameWithoutExtension.equals(expectedPictureName)) assertTrue(file.delete());
+        }
     }
 }
