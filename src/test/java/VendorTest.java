@@ -4,6 +4,7 @@ import backend.notification.CustomerNotification;
 import backend.notification.DeliveryRunnerNotification;
 import backend.notification.Notification;
 import backend.notification.VendorNotification;
+import backend.utility.Utility;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -542,14 +543,8 @@ public class VendorTest extends BaseTest {
         // Make sure that the directory is valid
         assertNotNull(directory);
 
-        // Loop through the list of files
-        for (File file : directory) {
-
-            // Get the file name without extension
-            String fileNameWithoutExtension = file.getName().split("\\.")[0];
-
-            // Delete the file if it matches the name
-            if (fileNameWithoutExtension.equals(expectedPictureName)) assertTrue(file.delete());
-        }
+        // Retrieve the file and delete it
+        File currentFile = Utility.retrieveFileWithoutExtension(directory, expectedPictureName);
+        assertTrue(currentFile.delete());
     }
 }
