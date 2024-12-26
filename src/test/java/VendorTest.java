@@ -1,10 +1,10 @@
+import backend.entity.Item;
 import backend.entity.Order;
 import backend.file_io.PictureIO;
 import backend.notification.CustomerNotification;
 import backend.notification.DeliveryRunnerNotification;
 import backend.notification.Notification;
 import backend.notification.VendorNotification;
-import backend.utility.Utility;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -120,17 +120,17 @@ public class VendorTest extends BaseTest {
         }
 
         // Get the newly included notification
-        ArrayList<Notification> differentCustomerNotification = TestUtility.getDifferent(
+        ArrayList<Notification> differentCustomerNotification = TestUtility.getDifferentNotification(
                 initialCustomerList,
                 TestUtility.convertToNotificationArray(CustomerNotification.getCustomerNotificationList())
         );
 
-        ArrayList<Notification> differentVendorNotification = TestUtility.getDifferent(
+        ArrayList<Notification> differentVendorNotification = TestUtility.getDifferentNotification(
                 initialVendorList,
                 TestUtility.convertToNotificationArray(VendorNotification.getVendorNotificationList())
         );
 
-        ArrayList<Notification> differentRunnerNotification = TestUtility.getDifferent(
+        ArrayList<Notification> differentRunnerNotification = TestUtility.getDifferentNotification(
                 initialRunnerList,
                 TestUtility.convertToNotificationArray(DeliveryRunnerNotification.getDeliveryRunnerNotificationList())
         );
@@ -278,7 +278,7 @@ public class VendorTest extends BaseTest {
         assertEquals(Order.OrderStatus.CANCELLED, order.getOrderStatus());
 
         // Check if customer notification is created
-        ArrayList<Notification> differentCustomerNotification = TestUtility.getDifferent(
+        ArrayList<Notification> differentCustomerNotification = TestUtility.getDifferentNotification(
                 initialCustomerList,
                 TestUtility.convertToNotificationArray(
                         CustomerNotification.getCustomerNotificationList()
@@ -293,7 +293,7 @@ public class VendorTest extends BaseTest {
         );
 
         // Check if vendor notification is created
-        ArrayList<Notification> differentVendorNotification = TestUtility.getDifferent(
+        ArrayList<Notification> differentVendorNotification = TestUtility.getDifferentNotification(
                 initialVendorList,
                 TestUtility.convertToNotificationArray(
                         VendorNotification.getVendorNotificationList()
@@ -311,7 +311,7 @@ public class VendorTest extends BaseTest {
         if (order.getRunnerInCharge() != null) {
 
             // Check if runner notification is created successfully
-            ArrayList<Notification> differentRunnerNotification = TestUtility.getDifferent(
+            ArrayList<Notification> differentRunnerNotification = TestUtility.getDifferentNotification(
                     initialRunnerList,
                     TestUtility.convertToNotificationArray(
                             DeliveryRunnerNotification.getDeliveryRunnerNotificationList()
@@ -472,21 +472,21 @@ public class VendorTest extends BaseTest {
         assertEquals(status, order.getOrderStatus());
 
         // Retrieve the difference in notifications
-        ArrayList<Notification> differentCustomerNotification = TestUtility.getDifferent(
+        ArrayList<Notification> differentCustomerNotification = TestUtility.getDifferentNotification(
                 initialCustomerList,
                 TestUtility.convertToNotificationArray(
                         CustomerNotification.getCustomerNotificationList()
                 )
         );
 
-        ArrayList<Notification> differentVendorNotification = TestUtility.getDifferent(
+        ArrayList<Notification> differentVendorNotification = TestUtility.getDifferentNotification(
                 initialVendorList,
                 TestUtility.convertToNotificationArray(
                         VendorNotification.getVendorNotificationList()
                 )
         );
 
-        ArrayList<Notification> differentRunnerNotification = TestUtility.getDifferent(
+        ArrayList<Notification> differentRunnerNotification = TestUtility.getDifferentNotification(
                 initialRunnerList,
                 TestUtility.convertToNotificationArray(
                         DeliveryRunnerNotification.getDeliveryRunnerNotificationList()
@@ -536,15 +536,53 @@ public class VendorTest extends BaseTest {
 
         assertNotNull(uploadedBackgroundPicture);
         assertEquals(expectedPictureName, actualPictureName);
+    }
 
-        // Delete file after test
-        File[] directory = new File(TESTING_PICTURE_PATH).listFiles();
+    @Test
+    void testVendorAddingItem() {
 
-        // Make sure that the directory is valid
-        assertNotNull(directory);
+        // Get the list of items before adding item
+        ArrayList<Item> itemList = new ArrayList<>(Item.getItemList());
 
-        // Retrieve the file and delete it
-        File currentFile = Utility.retrieveFileWithoutExtension(directory, expectedPictureName);
-        assertTrue(currentFile.delete());
+        // Perform operation of adding items
+        boolean successfulAdded = Item.addNewVendorItem(
+                "A new item",
+                20.5,
+                "This is just an ordinary item.",
+                new File("src/test/resources/picture/test_picture.jpg"),
+                vendor1
+        );
+
+        // Make sure that the operation is successful
+        assertTrue(successfulAdded);
+
+        // Check if a new item is inserted into the item list
+        ArrayList<Item> newItemList = TestUtility.getDifferentItem(itemList, Item.getItemList());
+        assertEquals(1, newItemList.size());
+
+        // Check if the correct item is added to the list by checking description
+        Item addedItem = newItemList.getFirst();
+        assertNotNull(addedItem);
+        assertEquals("This is just an ordinary item.", addedItem.getDescription());
+
+        // Check if item is created with null inputs
+        boolean nullInput = Item.addNewVendorItem(
+                " ",
+                10,
+                " ",
+                null,
+                null
+        );
+        assertFalse(nullInput);
+
+        // Check if item is created with repeating names
+        boolean repeatedName = Item.addNewVendorItem(
+                "A New Item",
+                10.3,
+                "This is another ordinary item.",
+                new File("src/test/resources/picture/test_picture.jpg"),
+                vendor1
+        );
+        assertFalse(repeatedName);
     }
 }
