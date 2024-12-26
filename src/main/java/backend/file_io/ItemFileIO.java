@@ -4,6 +4,7 @@ import backend.entity.Item;
 import backend.entity.Stall;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class {@code ItemFileIO} contains the methods to read and write item-related files.
@@ -24,8 +25,8 @@ public class ItemFileIO extends FileIO {
      */
     public static void readFile() {
 
-        // Reset list before reading files
-        Item.getItemList().clear();
+        // Reset list before reading file
+        Item.setItemList(new ArrayList<>(List.of(Item.deliveryFees)));
 
         // Retrieve information from text file
         ArrayList<String[]> informationList = getListFromFile(ITEM_FILE_NAME);
