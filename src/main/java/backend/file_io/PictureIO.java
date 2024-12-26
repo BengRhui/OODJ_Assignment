@@ -2,6 +2,7 @@ package backend.file_io;
 
 import backend.entity.Item;
 import backend.entity.Vendor;
+import backend.utility.Utility;
 
 import java.io.File;
 import java.io.IOException;
@@ -124,7 +125,7 @@ public class PictureIO {
         File[] directory = new File(PARENT_PATH_TO_STORE_DIRECTORY).listFiles();
 
         // Retrieve the relevant picture
-        return retrievePictureWithoutExtension(directory, fileName);
+        return Utility.retrieveFileWithoutExtension(directory, fileName);
     }
 
     /**
@@ -142,38 +143,6 @@ public class PictureIO {
         File[] directory = new File(PARENT_PATH_TO_ITEM_DIRECTORY).listFiles();
 
         // Retrieve the relevant picture
-        return retrievePictureWithoutExtension(directory, pictureName);
-    }
-
-    /**
-     * A method to retrieve picture by providing directory and the name of the picture without considering extension
-     *
-     * @param directory The directory to be searched
-     * @param fileName  The file name of the picture
-     * @return The corresponding picture in File object
-     */
-    public static File retrievePictureWithoutExtension(File[] directory, String fileName) {
-
-        // Return null if directory is empty
-        if (directory == null) {
-            return null;
-        }
-
-        // Loop through the directory
-        for (File file : directory) {
-            if (file.isFile()) {
-
-                // Retrieve the file names in the directory
-                String fullFileName = file.getName();
-                int dotIndex = fullFileName.lastIndexOf(".");
-                String trimmedName = fullFileName.substring(0, dotIndex);
-
-                // Return the picture if it is found
-                if (trimmedName.equalsIgnoreCase(fileName)) return file;
-            }
-        }
-
-        // Return a default picture if the picture is not found (CHANGE HERE)
-        return null;
+        return Utility.retrieveFileWithoutExtension(directory, pictureName);
     }
 }

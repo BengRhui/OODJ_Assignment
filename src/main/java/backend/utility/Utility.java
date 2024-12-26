@@ -5,6 +5,7 @@ import backend.notification.CustomerNotification;
 import backend.notification.DeliveryRunnerNotification;
 import backend.notification.VendorNotification;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -181,5 +182,40 @@ public class Utility {
 
         // Format the string with prefix and three-digit numbers before returning it
         return String.format("%s%03d", prefix, index + 1);
+    }
+
+    /**
+     * A method to retrieve picture by providing directory and the name of the picture without considering extension
+     *
+     * @param directory The directory to be searched
+     * @param fileName  The file name of the picture
+     * @return The corresponding picture in File object
+     */
+    public static File retrieveFileWithoutExtension(File[] directory, String fileName) {
+
+        // Return null if directory is empty
+        if (directory == null) {
+            return null;
+        }
+
+        // Loop through the directory
+        for (File file : directory) {
+
+            // Continue the loop if the item is not a file
+            if (!file.isFile()) {
+                continue;
+            }
+
+            // Retrieve the file names in the directory
+            String fullFileName = file.getName();
+            int dotIndex = fullFileName.lastIndexOf(".");
+            String trimmedName = fullFileName.substring(0, dotIndex);
+
+            // Return the file if it is found
+            if (trimmedName.equalsIgnoreCase(fileName)) return file;
+        }
+
+        // Return null if file is not found
+        return null;
     }
 }
