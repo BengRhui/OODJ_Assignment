@@ -1,5 +1,8 @@
 package backend.entity;
 
+import backend.file_io.PictureIO;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -110,6 +113,7 @@ public class Item {
 
     /**
      * A method to automatically generate a new item ID.
+     *
      * @return The new item ID generated
      */
     public static String generateItemID() {
@@ -138,6 +142,48 @@ public class Item {
             // Increase the index if the item ID is in the list
             index++;
         }
+    }
+
+    /**
+     * A method to let vendors create a new item.
+     *
+     * @param name        The name of the item
+     * @param price       The price of the item
+     * @param description The description of the item
+     * @param picture     The picture of the item
+     * @param vendor      The vendor associated with the item
+     * @return Returns {@code true} if item is created successfully, else {@code false}
+     */
+    public static boolean addNewVendorItem(String name, double price, String description, File picture, Vendor vendor) {
+
+        // Return false if the arguments are invalid
+        if (name.isBlank() || price <= 0 || description.isBlank() || picture == null || vendor == null) {
+            return false;
+        }
+
+        // Return false if the name of the item matches with existing items of the same stall in the list
+        boolean itemExist = itemList.stream()                              // Get the list of items
+                .filter(item -> item.stall == null || item.stall.equals(vendor.getStall()))      // Filter the items to the ones in stall
+                .anyMatch(item -> item.itemName.equalsIgnoreCase(name));   // Check if item name exists in list
+        if (itemExist) return false;
+
+        // Create a new item
+        Item newItem = new Item(
+                Item.generateItemID(),
+                name,
+                vendor.getStall(),
+                price,
+                description
+        );
+
+        // Return false if the item picture could not be set
+        if (!PictureIO.uploadVendorItemPicture(picture, newItem)) return false;
+
+        // Add the item into list
+        Item.addItemToList(newItem);
+
+        // Return true to indicate successfully adding a new item
+        return true;
     }
 
     /**
