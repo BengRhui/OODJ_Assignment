@@ -5,6 +5,7 @@ import backend.notification.CustomerNotification;
 import backend.notification.DeliveryRunnerNotification;
 import backend.notification.Notification;
 import backend.notification.VendorNotification;
+import backend.utility.Utility;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -620,5 +621,77 @@ public class VendorTest extends BaseTest {
         assertEquals("empty_picture.jpg", testBlankPicture.getName());
     }
 
+    @Test
+    void testVendorModifyItem() {
+
+        // Item 1 is in the list, so get the ID for item 1
+        String itemID = item1.getItemID();
+
+        // Declare attributes to be modified
+        String newName = "An ordinary item";
+        double newPrice = 100.35;
+        String newDescription = "A weird item with a weird price.";
+        File newPicture = new File(TESTING_PICTURE_PATH + "empty_picture.jpg");
+
+        // The new picture should have a new name
+        String newPictureName = item1.getStall().getStallID() + "_" + item1.getItemID();
+
+        // Change attributes of item 1
+        boolean modifyItem = item1.modifyItemDetails(
+                newName,
+                newPrice,
+                newDescription,
+                newPicture
+        );
+        assertTrue(modifyItem);
+
+        // Make sure that the attributes are changed correctly
+        Item modifiedItem = Item.getItem(itemID);
+        assertNotNull(modifiedItem);
+        assertEquals(newName, modifiedItem.getItemName());
+        assertEquals(newPrice, modifiedItem.getPrice());
+        assertEquals(newDescription, modifiedItem.getDescription());
+
+        // Make sure that the picture is changed correctly
+        File modifiedItemPicture = PictureIO.retrieveItemPicture(item1);
+        assertNotNull(modifiedItemPicture);
+
+        File[] directory = new File(TESTING_PICTURE_PATH).listFiles();
+        assertEquals(
+                Utility.retrieveFileWithoutExtension(directory, newPictureName),
+                modifiedItemPicture
+        );
+
+        // Try to change the attributes back to its name
+        boolean ownName = item1.modifyItemDetails(
+                item1.getItemName().toUpperCase(),
+                item1.getPrice(),
+                item1.getDescription(),
+                newPicture
+        );
+        assertTrue(ownName);
+
+        // Try to change the attributes to the name of another item
+        boolean existingName = item1.modifyItemDetails(
+                "DELIVERY FEES",
+                item1.getPrice(),
+                item1.getDescription(),
+                newPicture
+        );
+        assertFalse(existingName);
+
+        // Try to not include picture when modifying item 1
+        boolean noPicture = item1.modifyItemDetails(
+                item1.getItemName(),
+                item1.getPrice(),
+                item1.getDescription(),
+                null
+        );
+        assertTrue(noPicture);
+
+        // Make sure that the empty picture is retrieved when no picture is added for item
+        File blankPicture = PictureIO.retrieveItemPicture(item1);
+        assertNotNull(blankPicture);
+        assertEquals("empty_picture.jpg", blankPicture.getName());
     }
 }

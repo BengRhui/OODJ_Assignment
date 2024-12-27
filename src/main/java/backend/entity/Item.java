@@ -185,6 +185,38 @@ public class Item {
     }
 
     /**
+     * A method for vendors to modify the details of an item.
+     *
+     * @param name        The name of the item
+     * @param price       The price of the item
+     * @param description The description of the item
+     * @param picture     THe picture associated with the item
+     * @return Status is {@code true} if everything works well, else {@code wrong}
+     */
+    public boolean modifyItemDetails(String name, double price, String description, File picture) {
+
+        // Make sure that the arguments are valid
+        if (name.isBlank() || price <= 0 || description.isBlank()) return false;
+
+        // Check if name is used by other items from the same stall
+        boolean isNameRepeated = itemList.stream()
+                .filter(item -> item.stall == null || item.stall.equals(this.stall) && !item.equals(this))
+                .anyMatch(item -> item.itemName.equalsIgnoreCase(name));
+        if (isNameRepeated) return false;
+
+        // Update the picture and return false if unsuccessful
+        if (!PictureIO.uploadVendorItemPicture(picture, this)) return false;
+
+        // Modify the item details
+        this.setItemName(name);
+        this.setPrice(price);
+        this.setDescription(description);
+
+        // Return true upon successful modification
+        return true;
+    }
+
+    /**
      * Getters and setters for the {@code Item} class.
      */
     public String getItemID() {
