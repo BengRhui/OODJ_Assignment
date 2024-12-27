@@ -157,14 +157,12 @@ public class Item {
     public static boolean addNewVendorItem(String name, double price, String description, File picture, Vendor vendor) {
 
         // Return false if the arguments are invalid
-        if (name.isBlank() || price <= 0 || description.isBlank() || picture == null || vendor == null) {
-            return false;
-        }
+        if (name.isBlank() || price <= 0 || description.isBlank() || vendor == null) return false;
 
         // Return false if the name of the item matches with existing items of the same stall in the list
-        boolean itemExist = itemList.stream()                              // Get the list of items
+        boolean itemExist = itemList.stream()                                                    // Get the list of items
                 .filter(item -> item.stall == null || item.stall.equals(vendor.getStall()))      // Filter the items to the ones in stall
-                .anyMatch(item -> item.itemName.equalsIgnoreCase(name));   // Check if item name exists in list
+                .anyMatch(item -> item.itemName.equalsIgnoreCase(name));                         // Check if item name exists in list
         if (itemExist) return false;
 
         // Create a new item
@@ -177,7 +175,7 @@ public class Item {
         );
 
         // Return false if the item picture could not be set
-        if (!PictureIO.uploadVendorItemPicture(picture, newItem)) return false;
+        if (picture != null && !PictureIO.uploadVendorItemPicture(picture, newItem)) return false;
 
         // Add the item into list
         Item.addItemToList(newItem);
