@@ -175,7 +175,7 @@ public class Item {
         );
 
         // Return false if the item picture could not be set
-        if (picture != null && !PictureIO.uploadVendorItemPicture(picture, newItem)) return false;
+        if (!PictureIO.uploadVendorItemPicture(picture, newItem)) return false;
 
         // Add the item into list
         Item.addItemToList(newItem);
