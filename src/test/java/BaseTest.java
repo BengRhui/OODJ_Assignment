@@ -91,7 +91,7 @@ public class BaseTest {
         File[] pictureDirectory = new File(TESTING_PICTURE_PATH).listFiles();
         assertNotNull(pictureDirectory);
         for (File file : pictureDirectory) {
-            if (file.getName().contains("test_picture")) {
+            if (file.getName().contains("empty_picture")) {
                 continue;
             }
             assertTrue(file.delete());
@@ -129,7 +129,7 @@ public class BaseTest {
         // Test if the picture file can be detected
         try {
             assertNotNull(pictureDirectory);
-            assertEquals("test_picture.jpg", pictureDirectory[0].getName());
+            assertEquals("empty_picture.jpg", pictureDirectory[0].getName());
         } catch (AssertionError e) {
             fail("The test case is not able to access the picture file under test resources -> picture folder.");
         }
