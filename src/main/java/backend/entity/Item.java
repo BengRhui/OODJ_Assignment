@@ -224,6 +224,26 @@ public class Item {
     }
 
     /**
+     * A method to delete an item from the list
+     *
+     * @return Status indicating if the item is successfully deleted
+     */
+    public boolean deleteItem() {
+
+        // Delete the picture of the item
+        if (!PictureIO.retrieveItemPicture(this).equals(PictureIO.getEmptyPicture())) {
+            if (!PictureIO.retrieveItemPicture(this).delete()) return false;
+        }
+
+        // Return false if the item was not found in the list (cannot be deleted)
+        if (!Item.getItemList().remove(this)) return false;
+
+        // Write to file and return true after deletion
+        ItemFileIO.writeFile();
+        return true;
+    }
+
+    /**
      * Getters and setters for the {@code Item} class.
      */
     public String getItemID() {

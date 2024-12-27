@@ -694,4 +694,28 @@ public class VendorTest extends BaseTest {
         assertNotNull(blankPicture);
         assertEquals("empty_picture.jpg", blankPicture.getName());
     }
+
+    @Test
+    void testVendorDeleteItem() {
+
+        // Obtain the initial information for item 1
+        ArrayList<Item> initialArray = new ArrayList<>(Item.getItemList());
+        int initialSize = initialArray.size();
+        String pictureName = item1.getStall().getStallID() + "_" + item1.getItemID();
+
+        // Delete item 1
+        boolean deleteStatus = item1.deleteItem();
+        assertTrue(deleteStatus);
+
+        // Make sure that the array size reduces
+        assertEquals(initialSize - 1, Item.getItemList().size());
+
+        // Make sure that the item cannot be retrieved from the list anymore
+        assertNull(Item.getItem(item1.getItemID()));
+
+        // Make sure that the picture of item 1 is deleted
+        File[] directory = new File(TESTING_PICTURE_PATH).listFiles();
+        File itemPicture = Utility.retrieveFileWithoutExtension(directory, pictureName);
+        assertNull(itemPicture);
+    }
 }
