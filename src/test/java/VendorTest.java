@@ -573,6 +573,9 @@ public class VendorTest extends BaseTest {
         assertNotNull(addedItem);
         assertEquals("This is just an ordinary item.", addedItem.getDescription());
 
+        // Save the new list to the initial list for further testing purpose
+        itemList = new ArrayList<>(Item.getItemList());
+
         // Check if item is created with null inputs
         boolean nullInput = Item.addNewVendorItem(
                 " ",
@@ -592,5 +595,30 @@ public class VendorTest extends BaseTest {
                 vendor1
         );
         assertFalse(repeatedName);
+
+        // Check if item is created with an empty picture
+        boolean emptyPicture = Item.addNewVendorItem(
+                "Another Item",
+                10.9,
+                "This is the third item to be added.",
+                null,
+                vendor1
+        );
+        assertTrue(emptyPicture);
+
+        // Make sure that the newly added item is in the list
+        ArrayList<Item> itemWithoutPictureList = TestUtility.getDifferentItem(itemList, Item.getItemList());
+        assertEquals(1, itemWithoutPictureList.size());
+
+        // Retrieve the newly added item
+        Item itemWithoutPicture = itemWithoutPictureList.getFirst();
+        assertNotNull(itemWithoutPicture);
+
+        // Check if the picture for the item is blank picture
+        File testBlankPicture = PictureIO.retrieveItemPicture(itemWithoutPicture);
+        assertNotNull(testBlankPicture);
+        assertEquals("empty_picture.jpg", testBlankPicture.getName());
+    }
+
     }
 }
