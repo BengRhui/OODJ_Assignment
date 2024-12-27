@@ -59,6 +59,21 @@ public class PictureIO {
      */
     public static boolean uploadVendorBackground(File uploadedFile, Vendor vendor) {
 
+        // Return true if vendor does not provide a background (they can have a choice to do so) - but the current background shall be removed
+        if (uploadedFile == null) {
+
+            // Get the directory for the existing background picture
+            File[] directory = new File(PARENT_PATH_TO_STORE_DIRECTORY).listFiles();
+            String fileName = vendor.getStall().getStallID() + "_background";
+
+            // Get the background file
+            File initialBackground = Utility.retrieveFileWithoutExtension(directory, fileName);
+
+            // Delete the background file and return true
+            if (initialBackground != null) return initialBackground.delete();
+            return true;
+        }
+
         // Get the file extension and generate file name
         String[] initialFileName = uploadedFile.getName().split("\\.");
         String fileExtension = initialFileName[initialFileName.length - 1];
@@ -81,7 +96,22 @@ public class PictureIO {
      */
     public static boolean uploadVendorItemPicture(File uploadedFile, Item item) {
 
-        // Get the file extension and generate file name
+        // Return true (since vendors can have the option to upload picture) - but the initial picture has to be removed
+        if (uploadedFile == null) {
+
+            // Get the directory
+            File[] directory = new File(PARENT_PATH_TO_ITEM_DIRECTORY).listFiles();
+            String fileName = item.getStall().getStallID() + "_" + item.getItemID();
+
+            // Retrieve the item picture
+            File initialItem = Utility.retrieveFileWithoutExtension(directory, fileName);
+
+            // Remove the picture and return true
+            if (initialItem != null) return initialItem.delete();
+            return true;
+        }
+
+        // Generate file name
         String[] initialFileName = uploadedFile.getName().split("\\.");
         String fileExtension = initialFileName[initialFileName.length - 1];
         String newFileName = item.getStall().getStallID() + "_" + item.getItemID() + "." + fileExtension;
@@ -134,7 +164,13 @@ public class PictureIO {
         File[] directory = new File(PARENT_PATH_TO_STORE_DIRECTORY).listFiles();
 
         // Retrieve the relevant picture
-        return Utility.retrieveFileWithoutExtension(directory, fileName);
+        File retrievedPicture = Utility.retrieveFileWithoutExtension(directory, fileName);
+
+        // Return the empty picture if the picture is not found
+        if (retrievedPicture == null) return getEmptyPicture();
+
+        // If not null, the picture is returned
+        return retrievedPicture;
     }
 
     /**
@@ -150,8 +186,12 @@ public class PictureIO {
 
         // Set directory and retrieve the files in the directory
         File[] directory = new File(PARENT_PATH_TO_ITEM_DIRECTORY).listFiles();
+        File itemPicture = Utility.retrieveFileWithoutExtension(directory, pictureName);
+
+        // Get the empty picture if the item picture does not exist
+        if (itemPicture == null) return getEmptyPicture();
 
         // Retrieve the relevant picture
-        return Utility.retrieveFileWithoutExtension(directory, pictureName);
+        return itemPicture;
     }
 }
