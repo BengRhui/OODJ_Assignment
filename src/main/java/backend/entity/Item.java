@@ -1,5 +1,6 @@
 package backend.entity;
 
+import backend.file_io.ItemFileIO;
 import backend.file_io.PictureIO;
 
 import java.io.File;
@@ -180,6 +181,9 @@ public class Item {
         // Add the item into list
         Item.addItemToList(newItem);
 
+        // Write to file after modification
+        ItemFileIO.writeFile();
+
         // Return true to indicate successfully adding a new item
         return true;
     }
@@ -211,6 +215,9 @@ public class Item {
         this.setItemName(name);
         this.setPrice(price);
         this.setDescription(description);
+
+        // Write to file after modification
+        ItemFileIO.writeFile();
 
         // Return true upon successful modification
         return true;
