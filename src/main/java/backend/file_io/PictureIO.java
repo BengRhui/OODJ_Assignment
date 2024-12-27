@@ -21,6 +21,15 @@ public class PictureIO {
      */
     public static String PARENT_PATH_TO_STORE_DIRECTORY = "src/main/resources/asset/store/";
     public static String PARENT_PATH_TO_ITEM_DIRECTORY = "src/main/resources/asset/item/";
+    public static String PARENT_PATH_TO_SYSTEM_DIRECTORY = "src/main/resources/asset/system/";
+
+    /**
+     * A method to get the empty picture file.
+     * @return The empty picture file
+     */
+    public static File getEmptyPicture() {
+        return new File(PARENT_PATH_TO_SYSTEM_DIRECTORY + "empty_picture.jpg");
+    }
 
     /**
      * Setter to set directory to the store folder (used in testing).
