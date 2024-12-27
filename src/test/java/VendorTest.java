@@ -522,6 +522,7 @@ public class VendorTest extends BaseTest {
 
         // Get the picture to be uploaded
         File backgroundPicture = new File(TESTING_PICTURE_PATH + "test_picture.jpg");
+        File backgroundPicture = new File(TESTING_PICTURE_PATH + "empty_picture.jpg");
 
         // Upload picture as background for vendor 1
         boolean backgroundUpload = PictureIO.uploadVendorBackground(backgroundPicture, vendor1);
@@ -536,6 +537,13 @@ public class VendorTest extends BaseTest {
 
         assertNotNull(uploadedBackgroundPicture);
         assertEquals(expectedPictureName, actualPictureName);
+
+        // Test if the vendor does not update any files, and make sure that the process is successful
+        boolean noBackground = PictureIO.uploadVendorBackground(null, vendor1);
+        assertTrue(noBackground);
+
+        // Attempt to retrieve for the background picture, but the file should not exist
+
     }
 
     @Test
@@ -549,7 +557,7 @@ public class VendorTest extends BaseTest {
                 "A new item",
                 20.5,
                 "This is just an ordinary item.",
-                new File("src/test/resources/picture/test_picture.jpg"),
+                new File("src/test/resources/picture/empty_picture.jpg"),
                 vendor1
         );
 
