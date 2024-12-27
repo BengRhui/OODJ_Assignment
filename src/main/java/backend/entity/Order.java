@@ -1,5 +1,7 @@
 package backend.entity;
 
+import backend.file_io.NotificationIO;
+import backend.file_io.OrderFileIO;
 import backend.notification.CustomerNotification;
 import backend.notification.DeliveryRunnerNotification;
 import backend.notification.VendorNotification;
@@ -278,6 +280,10 @@ public class Order {
             );
             if (!vendorNotificationStatus) return -1;
 
+            // Write to file
+            OrderFileIO.writeFile();
+            NotificationIO.writeFile();
+
             // Return 1 to indicate success modification
             return 1;
         }
@@ -302,6 +308,10 @@ public class Order {
                     this.getOrderedStall()
             );
             if (!vendorNotificationStatus) return -1;
+
+            // Write to file
+            OrderFileIO.writeFile();
+            NotificationIO.writeFile();
 
             // Return true to indicate success modification
             return 1;
@@ -357,6 +367,10 @@ public class Order {
         );
         if (!vendorNotification) return -1;
 
+        // Write to file
+        OrderFileIO.writeFile();
+        NotificationIO.writeFile();
+
         // Return 1 for successful operation
         return 1;
     }
@@ -410,10 +424,14 @@ public class Order {
                 );
             }
 
+            // Write to file
+            OrderFileIO.writeFile();
+            NotificationIO.writeFile();
+
             // Return 1 to indicate successful modification
             return 1;
 
-          // Notification if status updated to ready for pickup
+        // Notification if status updated to ready for pickup
         } else if (status == OrderStatus.READY_FOR_PICK_UP) {
 
             // Vendor notification for all orders
@@ -468,10 +486,14 @@ public class Order {
                 }
             }
 
+            // Write to file
+            OrderFileIO.writeFile();
+            NotificationIO.writeFile();
+
             // Return 1 for successful modification
             return 1;
 
-          // When the status is marked as complete (only applicable for dine in and takeaway orders)
+            // When the status is marked as complete (only applicable for dine in and takeaway orders)
         } else if (status == OrderStatus.COMPLETED && (this.getDiningType() == DiningType.DINE_IN || this.getDiningType() == DiningType.TAKEAWAY)) {
 
             // Customer notification for complete order
@@ -489,6 +511,10 @@ public class Order {
                     this.getOrderedStall()
             );
             if (!vendorNotification) return -1;
+
+            // Write to file
+            OrderFileIO.writeFile();
+            NotificationIO.writeFile();
 
             // Return 1 for successful modification
             return 1;
