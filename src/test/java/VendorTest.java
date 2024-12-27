@@ -521,7 +521,6 @@ public class VendorTest extends BaseTest {
     void testVendorUploadBackgroundPicture() {
 
         // Get the picture to be uploaded
-        File backgroundPicture = new File(TESTING_PICTURE_PATH + "test_picture.jpg");
         File backgroundPicture = new File(TESTING_PICTURE_PATH + "empty_picture.jpg");
 
         // Upload picture as background for vendor 1
@@ -542,8 +541,9 @@ public class VendorTest extends BaseTest {
         boolean noBackground = PictureIO.uploadVendorBackground(null, vendor1);
         assertTrue(noBackground);
 
-        // Attempt to retrieve for the background picture, but the file should not exist
-
+        // Attempt to retrieve for the background picture, but the file should not exist. Should get empty picture instead
+        File retrieveNoBackground = PictureIO.retrieveBackgroundPicture(vendor1);
+        assertEquals("empty_picture.jpg", retrieveNoBackground.getName());
     }
 
     @Test
