@@ -1,5 +1,6 @@
 package backend.utility;
 
+import backend.entity.DeliveryRunner;
 import backend.entity.Item;
 import backend.notification.CustomerNotification;
 import backend.notification.DeliveryRunnerNotification;
@@ -74,6 +75,33 @@ public class Utility {
                         string.append(item.getItemID())
                                 .append(" - ")
                                 .append(quantity)
+                                .append(", ")
+        );
+
+        // Remove the extra ", " at the end of the string builder
+        string.delete(string.length() - 2, string.length());
+
+        // Return the string builder
+        return string.toString();
+    }
+
+    /**
+     * A method to generate the string representation of {@code HashMap} representing availability of delivery runners.
+     *
+     * @param map The HashMap consisting of {@code DeliveryRunner} as the key, {@code Boolean} as the value
+     * @return The string representation of the HashMap
+     */
+    public static String generateRunnerString(HashMap<DeliveryRunner, Boolean> map) {
+
+        // Create a string builder to store string
+        StringBuilder string = new StringBuilder();
+
+        // Append each pair of item and quantity to the string builder
+        map.forEach(
+                (runner, status) ->
+                        string.append(runner.getUserID())
+                                .append(" - ")
+                                .append(status)
                                 .append(", ")
         );
 
