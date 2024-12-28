@@ -1,5 +1,7 @@
 package backend.entity;
 
+import backend.utility.Utility;
+
 import java.util.*;
 
 /**
@@ -150,7 +152,8 @@ public class DeliveryRunner extends User {
         return Order.getOrderList().stream()                                                        // Convert list of orders into stream
                 .filter(                                                                            // Get orders excluding completed and cancelled ones
                         order -> !order.getOrderStatus().equals(Order.OrderStatus.COMPLETED) &&
-                                !order.getOrderStatus().equals(Order.OrderStatus.CANCELLED)
+                                !order.getOrderStatus().equals(Order.OrderStatus.CANCELLED) &&
+                                !(order.getRunnerInCharge() == null)
                         )
                 .noneMatch(order -> order.getRunnerInCharge().equals(this));                        // Return true if runner is not in the list
     }
