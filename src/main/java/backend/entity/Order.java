@@ -1,5 +1,7 @@
 package backend.entity;
 
+import backend.file_io.NotificationIO;
+import backend.file_io.OrderFileIO;
 import backend.notification.CustomerNotification;
 import backend.notification.DeliveryRunnerNotification;
 import backend.notification.VendorNotification;
@@ -413,7 +415,7 @@ public class Order {
             // Return 1 to indicate successful modification
             return 1;
 
-          // Notification if status updated to ready for pickup
+        // Notification if status updated to ready for pickup
         } else if (status == OrderStatus.READY_FOR_PICK_UP) {
 
             // Vendor notification for all orders
@@ -471,7 +473,7 @@ public class Order {
             // Return 1 for successful modification
             return 1;
 
-          // When the status is marked as complete (only applicable for dine in and takeaway orders)
+        // When the status is marked as complete (only applicable for dine in and takeaway orders)
         } else if (status == OrderStatus.COMPLETED && (this.getDiningType() == DiningType.DINE_IN || this.getDiningType() == DiningType.TAKEAWAY)) {
 
             // Customer notification for complete order
@@ -495,6 +497,100 @@ public class Order {
         }
 
         // Return 0 to indicate unsuccessful modification (does not fit preparing, ready for pickup or customer received)
+        return 0;
+    }
+
+    /**
+     * A method for delivery runner to update the status of an order.<br>
+     * Note: The status cannot be reverted after choosing it<br>
+     * (heading to stall (involves two status: vendor preparing and ready to pick up) -> heading to customer address -> order complete)
+     *
+     * @param status The new status to be updated
+     * @return {@code 1} if status is updated and notification is created<br>
+     * {@code 0} if status is not updated and notification is not created<br>
+     * {@code -1} if status is updated but notification is not created
+     */
+    public int runnerUpdateOrderStatus(OrderStatus status) {
+
+        // Only applicable for delivery orders
+        if (this.getDiningType() != DiningType.DELIVERY) return 0;
+
+        // If status remains the same, do nothing
+        if (this.getOrderStatus() == status) return 0;
+
+        // Change order status
+        this.setOrderStatus(status);
+
+        // If status is changed to delivering (on the way to customer address)
+        if (status == OrderStatus.RUNNER_DELIVERY) {
+
+            // Customer notification
+            boolean customerNotification = CustomerNotification.createNewNotification(
+                    "Your Order is On its Way!",
+                    "Runner " + this.getRunnerInCharge().getUserID() + " is on his/her way to deliver your order " + this.getOrderID() + ". Get ready to collect your meals in a while!",
+                    this.getOrderingCustomer()
+            );
+            if (!customerNotification) return -1;
+
+            // Vendor notification
+            boolean vendorNotification = VendorNotification.createNewNotification(
+                    "Order collected by Runner",
+                    "The order " + this.getOrderID() + " is picked up by runner " + this.getRunnerInCharge().getUserID() + ".",
+                    this.getOrderedStall()
+            );
+            if (!vendorNotification) return -1;
+
+            // Runner notification
+            boolean runnerNotification = DeliveryRunnerNotification.createNewNotification(
+                    "Delivery in Progress",
+                    "You have picked up order " + this.getOrderID() + ". Please proceed to deliver it to customer in a safely manner.",
+                    this.getRunnerInCharge()
+            );
+            if (!runnerNotification) return -1;
+
+            // Write to files
+            OrderFileIO.writeFile();
+            NotificationIO.writeFile();
+
+            // Return 1 for successful modification
+            return 1;
+
+            // If status is changed to complete (customer has received order)
+        } else if (status == OrderStatus.COMPLETED) {
+
+            // Customer notification
+            boolean customerNotification = CustomerNotification.createNewNotification(
+                    "Order Delivered!",
+                    "Your order " + this.getOrderID() + " has been delivered. Enjoy your meal!",
+                    this.getOrderingCustomer()
+            );
+            if (!customerNotification) return -1;
+
+            // Vendor notification
+            boolean vendorNotification = VendorNotification.createNewNotification(
+                    "Delivery Completed",
+                    "You have successfully delivered the order " + this.getOrderID() + ".",
+                    this.getOrderedStall()
+            );
+            if (!vendorNotification) return -1;
+
+            // Runner notification
+            boolean runnerNotification = DeliveryRunnerNotification.createNewNotification(
+                    "Order Completed",
+                    "Runner " + this.getRunnerInCharge().getUserID() + " has successfully delivered the order " + this.getOrderID() + " to the customer.",
+                    this.getRunnerInCharge()
+            );
+            if (!runnerNotification) return -1;
+
+            // Write to files
+            OrderFileIO.writeFile();
+            NotificationIO.writeFile();
+
+            // Return 1 for successful modification
+            return 1;
+        }
+
+        // Return 0 for other status which are irrelevant
         return 0;
     }
 
