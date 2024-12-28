@@ -120,6 +120,19 @@ public class Order {
     }
 
     /**
+     * This method randomly assigns the current order to an available runner.
+     */
+    public void assignOrderToRandomRunner() {
+
+        // Get a new runner and assign to the current order
+        DeliveryRunner newRunner = DeliveryRunner.getAvailableRunner();
+        this.setRunnerInCharge(newRunner);
+
+        // Write changes into file
+        OrderFileIO.writeFile();
+    }
+
+    /**
      * Getters and setters for {@code Order} class
      */
     public String getOrderID() {
@@ -515,7 +528,7 @@ public class Order {
             // Write into file
             OrderFileIO.writeFile();
             NotificationIO.writeFile();
-            
+
             // Return 1 for successful modification
             return 1;
         }
