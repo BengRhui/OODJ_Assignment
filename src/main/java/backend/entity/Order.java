@@ -280,6 +280,10 @@ public class Order {
             );
             if (!vendorNotificationStatus) return -1;
 
+            // Write into file
+            OrderFileIO.writeFile();
+            NotificationIO.writeFile();
+
             // Return 1 to indicate success modification
             return 1;
         }
@@ -304,6 +308,10 @@ public class Order {
                     this.getOrderedStall()
             );
             if (!vendorNotificationStatus) return -1;
+
+            // Write into file
+            OrderFileIO.writeFile();
+            NotificationIO.writeFile();
 
             // Return true to indicate success modification
             return 1;
@@ -359,6 +367,10 @@ public class Order {
         );
         if (!vendorNotification) return -1;
 
+        // Write into file
+        OrderFileIO.writeFile();
+        NotificationIO.writeFile();
+
         // Return 1 for successful operation
         return 1;
     }
@@ -411,6 +423,10 @@ public class Order {
                         this.getRunnerInCharge()
                 );
             }
+
+            // Write into file
+            OrderFileIO.writeFile();
+            NotificationIO.writeFile();
 
             // Return 1 to indicate successful modification
             return 1;
@@ -470,6 +486,10 @@ public class Order {
                 }
             }
 
+            // Write into file
+            OrderFileIO.writeFile();
+            NotificationIO.writeFile();
+
             // Return 1 for successful modification
             return 1;
 
@@ -492,6 +512,10 @@ public class Order {
             );
             if (!vendorNotification) return -1;
 
+            // Write into file
+            OrderFileIO.writeFile();
+            NotificationIO.writeFile();
+            
             // Return 1 for successful modification
             return 1;
         }
