@@ -712,6 +712,68 @@ public class Order {
     }
 
     /**
+     * A method for delivery runner to reject an order.
+     * @return {@code true} if the order is rejected successfully, otherwise {@code false} if notification is not created successfully
+     */
+    public boolean runnerRejectOrder() {
+
+        // Check if the correct type of order is implemented by the method
+        if (this.getDiningType() != DiningType.DELIVERY) return false;
+        if (this.getOrderStatus() != OrderStatus.WAITING_VENDOR_AND_RUNNER && this.getOrderStatus() != OrderStatus.WAITING_RUNNER) return false;
+
+        // Mark the current runner as unavailable
+        boolean markAvailability = this.getRunnerInCharge().updateAvailability(false);
+        if (!markAvailability) return false;
+
+        // Pass the order to another runner
+        DeliveryRunner newRunner = DeliveryRunner.getAvailableRunner();
+
+        // If there is another available runner
+        if (newRunner != null) {
+
+            // Create notification for the current runner
+            boolean currentRunnerNotification = DeliveryRunnerNotification.createNewNotification(
+                    "Order Reassigned to Another Runner",
+                    "You have declined the order " + this.getOrderID() + ". The order is now passed to another runner.",
+                    this.getRunnerInCharge()
+            );
+            if (!currentRunnerNotification) return false;
+
+            // Assign the order to the runner
+            this.setRunnerInCharge(newRunner);
+
+        } else {
+
+            // Customer should choose another dining method if no runner is available. Notifications are created here.
+            boolean runnerNotification = DeliveryRunnerNotification.createNewNotification(
+                    "Order Declined",
+                    "You have declined the order " + this.getOrderID() + ".",
+                    this.getRunnerInCharge()
+            );
+            if (!runnerNotification) return false;
+
+            boolean customerNotification = CustomerNotification.createNewNotification(
+                    "Unavailability of Delivery Runners",
+                    "We regret to inform that your order " + this.getOrderID() + " cannot be delivered as no runners were available to deliver it. " +
+                            "Please change your dining method or cancel your order and try again later.",
+                    this.getOrderingCustomer()
+            );
+            if (!customerNotification) return false;
+
+            // Mark order as pending change
+            this.setRunnerInCharge(null);
+            this.setOrderStatus(OrderStatus.PENDING_CHANGE);
+        }
+
+        // Write into file
+        OrderFileIO.writeFile();
+        NotificationIO.writeFile();
+
+        // Return true for successful operation
+        return true;
+    }
+
+    /**
      * Enum {@code DiningType} represents the different types of dining methods a customer can choose.
      */
     public enum DiningType {
@@ -765,7 +827,7 @@ public class Order {
          * Fields for order status
          */
         WAITING_VENDOR_AND_RUNNER, WAITING_VENDOR, WAITING_RUNNER, VENDOR_PREPARING,
-        READY_FOR_PICK_UP, RUNNER_DELIVERY, COMPLETED, CANCELLED;
+        READY_FOR_PICK_UP, RUNNER_DELIVERY, COMPLETED, CANCELLED, PENDING_CHANGE;
 
         /**
          * Variables containing different types of options for an order
@@ -813,6 +875,7 @@ public class Order {
                 case RUNNER_DELIVERY -> "Delivering by Runner";
                 case COMPLETED -> "Completed";
                 case CANCELLED -> "Cancelled";
+                case PENDING_CHANGE -> "Pending Change";
             };
         }
     }

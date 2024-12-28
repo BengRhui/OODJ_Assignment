@@ -1,3 +1,4 @@
+import backend.entity.DeliveryRunner;
 import backend.entity.Order;
 import backend.notification.CustomerNotification;
 import backend.notification.DeliveryRunnerNotification;
@@ -280,5 +281,119 @@ public class RunnerTest extends BaseTest {
         // Erroneous order - Order 2: Dine in - cannot use this function since delivery runner is not involved
         int errorOrder = order2.runnerUpdateOrderStatus(Order.OrderStatus.RUNNER_DELIVERY);
         assertEquals(0, errorOrder);
+    }
+
+    /**
+     * This test focuses on the operation where the runner declines an order.
+     */
+    @Test
+    void runnerDeclineOrder() {
+
+        // Create new runner for testing purposes
+        DeliveryRunner runner2 = new DeliveryRunner(
+                "R002",
+                "ratio_veritas@starrail.com",
+                "ratio123",
+                "Dr Veritas Ratio",
+                "012-9361842"
+        );
+        DeliveryRunner.addToRunnerList(runner2);
+        DeliveryRunner.initializeAvailabilityList();
+
+        // Get initial notification lists
+        ArrayList<Notification> initialCustomer = TestUtility.convertToNotificationArray(
+                CustomerNotification.getCustomerNotificationList()
+        );
+
+        ArrayList<Notification> initialRunner = TestUtility.convertToNotificationArray(
+                DeliveryRunnerNotification.getDeliveryRunnerNotificationList()
+        );
+
+        // Set status of order 1 (delivery) to waiting for runner
+        order1.setOrderStatus(Order.OrderStatus.WAITING_RUNNER);
+
+        // Reject order 1
+        boolean rejectOrderFirstTime = order1.runnerRejectOrder();
+
+        // Check if the operation is successful
+        assertTrue(rejectOrderFirstTime);
+
+        // Check if the status remains
+        assertEquals(Order.OrderStatus.WAITING_RUNNER, order1.getOrderStatus());
+
+        // Check if order 1 is assigned to another runner (runner2 in this case)
+        assertEquals(runner2, order1.getRunnerInCharge());
+
+        // Get the created notification list
+        ArrayList<Notification> differentCustomer = TestUtility.getDifferentNotification(
+                initialCustomer,
+                TestUtility.convertToNotificationArray(
+                        CustomerNotification.getCustomerNotificationList()
+                )
+        );
+
+        ArrayList<Notification> differentRunner = TestUtility.getDifferentNotification(
+                initialRunner,
+                TestUtility.convertToNotificationArray(
+                        DeliveryRunnerNotification.getDeliveryRunnerNotificationList()
+                )
+        );
+
+        // Check if notification is produced for runner, and if notification remains for customer
+        assertEquals(0, differentCustomer.size());
+        assertEquals(1, differentRunner.size());
+
+        // Check if the notification description tallies
+        assertEquals(
+                "You have declined the order " + order1.getOrderID() + ". The order is now passed to another runner.",
+                differentRunner.getFirst().getNotificationDetails()
+        );
+
+        // Reject order 1 again
+        boolean rejectOrderSecondTime = order1.runnerRejectOrder();
+
+        // Make sure that the operation is successful
+        assertTrue(rejectOrderSecondTime);
+
+        // Check if the order is changed to "pending change" (no runners are available anymore)
+        assertEquals(Order.OrderStatus.PENDING_CHANGE, order1.getOrderStatus());
+
+        // Initiate notification list
+        initialRunner.add(differentRunner.getFirst());
+
+        // Get the new notification
+        differentCustomer = TestUtility.getDifferentNotification(
+                initialCustomer,
+                TestUtility.convertToNotificationArray(
+                        CustomerNotification.getCustomerNotificationList()
+                )
+        );
+
+        differentRunner = TestUtility.getDifferentNotification(
+                initialRunner,
+                TestUtility.convertToNotificationArray(
+                        DeliveryRunnerNotification.getDeliveryRunnerNotificationList()
+                )
+        );
+
+        // Check if one notification is produced for each notification type
+        assertEquals(1, differentCustomer.size());
+        assertEquals(1, differentRunner.size());
+
+        // Check if the notification description is correct
+        assertEquals(
+                "We regret to inform that your order " + order1.getOrderID() + " cannot be delivered as no runners were available to deliver it. " +
+                        "Please change your dining method or cancel your order and try again later.",
+                differentCustomer.getFirst().getNotificationDetails()
+        );
+
+        assertEquals(
+                "You have declined the order " + order1.getOrderID() + ".",
+                differentRunner.getFirst().getNotificationDetails()
+        );
+
+        // Erroneous order: the method should not be used here
+        boolean errorOrder = order2.runnerRejectOrder();
+        assertFalse(errorOrder);
     }
 }
