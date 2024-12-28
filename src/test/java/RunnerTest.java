@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test class {@code RunnerTest} focuses on the operations that a delivery runner would perform.
@@ -15,6 +15,137 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Beng Rhui (TP068495)
  */
 public class RunnerTest extends BaseTest {
+
+    /**
+     * This test focuses on the operation where the delivery runner accepts the order.
+     */
+    @Test
+    void runnerAcceptOrder() {
+
+        // Get the initial list of notifications
+        ArrayList<Notification> initialCustomerNotification = TestUtility.convertToNotificationArray(
+                CustomerNotification.getCustomerNotificationList()
+        );
+
+        ArrayList<Notification> initialVendorNotification = TestUtility.convertToNotificationArray(
+                VendorNotification.getVendorNotificationList()
+        );
+
+        ArrayList<Notification> initialRunnerNotification = TestUtility.convertToNotificationArray(
+                DeliveryRunnerNotification.getDeliveryRunnerNotificationList()
+        );
+
+        // Initialize order 1 (delivery)
+        order1.setOrderStatus(Order.OrderStatus.WAITING_VENDOR_AND_RUNNER);
+
+        // Let runner accept the order
+        boolean orderBothWaitingAccepted = order1.runnerAcceptOrder();
+
+        // Make sure that the operation is successful
+        assertTrue(orderBothWaitingAccepted);
+
+        // Make sure that the status is updated after accepting order
+        assertEquals(Order.OrderStatus.WAITING_VENDOR, order1.getOrderStatus());
+
+        // Get the new notifications generated
+        ArrayList<Notification> differentCustomer = TestUtility.getDifferentNotification(
+                initialCustomerNotification,
+                TestUtility.convertToNotificationArray(
+                        CustomerNotification.getCustomerNotificationList()
+                )
+        );
+
+        ArrayList<Notification> differentVendor = TestUtility.getDifferentNotification(
+                initialVendorNotification,
+                TestUtility.convertToNotificationArray(
+                        VendorNotification.getVendorNotificationList()
+                )
+        );
+
+        ArrayList<Notification> differentRunner = TestUtility.getDifferentNotification(
+                initialRunnerNotification,
+                TestUtility.convertToNotificationArray(
+                        DeliveryRunnerNotification.getDeliveryRunnerNotificationList()
+                )
+        );
+
+        // Make sure that notification is generated after accepting order
+        assertEquals(1, differentCustomer.size());
+        assertEquals(0, differentVendor.size());
+        assertEquals(1, differentRunner.size());
+
+        // Make sure that the notification contents are accurate
+        assertEquals(
+                "Your order " + order1.getOrderID() + " is accepted by runner " + order1.getRunnerInCharge().getName() + ". Please give us a moment for vendors to accept this order.",
+                differentCustomer.getFirst().getNotificationDetails()
+        );
+
+        assertEquals(
+                "You have accepted the order " + order1.getOrderID() + ". Please wait for the confirmation from the vendor side (" + order1.getOrderedStall().getStallID() + ").",
+                differentRunner.getFirst().getNotificationDetails()
+        );
+
+        // Initialize the initial list
+        initialCustomerNotification.add(differentCustomer.getFirst());
+        initialRunnerNotification.add(differentRunner.getFirst());
+
+        // Set order 1 to "waiting runner" status
+        order1.setOrderStatus(Order.OrderStatus.WAITING_RUNNER);
+
+        // Test runner accepting order for order 1
+        boolean orderWaitingRunnerAccepted = order1.runnerAcceptOrder();
+        assertTrue(orderWaitingRunnerAccepted);
+
+        // Make sure that the order status is correct
+        assertEquals(Order.OrderStatus.VENDOR_PREPARING, order1.getOrderStatus());
+
+        // Get the new notifications
+        differentCustomer = TestUtility.getDifferentNotification(
+                initialCustomerNotification,
+                TestUtility.convertToNotificationArray(
+                        CustomerNotification.getCustomerNotificationList()
+                )
+        );
+
+        differentVendor = TestUtility.getDifferentNotification(
+                initialVendorNotification,
+                TestUtility.convertToNotificationArray(
+                        VendorNotification.getVendorNotificationList()
+                )
+        );
+
+        differentRunner = TestUtility.getDifferentNotification(
+                initialRunnerNotification,
+                TestUtility.convertToNotificationArray(
+                        DeliveryRunnerNotification.getDeliveryRunnerNotificationList()
+                )
+        );
+
+        // Make sure that the notifications are created
+        assertEquals(1, differentCustomer.size());
+        assertEquals(1, differentVendor.size());
+        assertEquals(1, differentRunner.size());
+
+        // Make sure that the notification description is correct
+        assertEquals(
+                "Your order " + order1.getOrderID() + " has been accepted by runner " + order1.getRunnerInCharge().getUserID() + ". The vendor will now start to prepare your order.",
+                differentCustomer.getFirst().getNotificationDetails()
+        );
+
+        assertEquals(
+                "Order " + order1.getOrderID() + " has been assigned to runner " + order1.getRunnerInCharge().getUserID() + ". You may start preparing the food.",
+                differentVendor.getFirst().getNotificationDetails()
+        );
+
+        assertEquals(
+                "You have accepted the order " + order1.getOrderID() + ". Please head to the stall " + order1.getOrderedStall().getStallID() + " to pick-up the order.",
+                differentRunner.getFirst().getNotificationDetails()
+        );
+
+        // Erroneous order: The order should not use this method
+        boolean erroneousOrder = order2.runnerAcceptOrder();
+        assertFalse(erroneousOrder);
+    }
 
     /**
      * This test focuses on the operation where the runner updates the status of an order.

@@ -501,6 +501,86 @@ public class Order {
     }
 
     /**
+     * A method for delivery runner to accept an order.
+     *
+     * @return {@code true} if the delivery runner accepts the order and notification is created successfully, {@code false} otherwise
+     */
+    public boolean runnerAcceptOrder() {
+
+        // Perform nothing if the order is wrong (not a delivery order)
+        if (this.getDiningType() != DiningType.DELIVERY) {
+            return false;
+        }
+
+        // Change status according to different types of initial status
+        switch (this.getOrderStatus()) {
+
+            // When the initial status is waiting for vendor and runner
+            case WAITING_VENDOR_AND_RUNNER -> {
+
+                // Create notification
+                boolean customerNotification = CustomerNotification.createNewNotification(
+                        "Order Accepted by Runner",
+                        "Your order " + this.getOrderID() + " is accepted by runner " + this.getRunnerInCharge().getName() + ". Please give us a moment for vendors to accept this order.",
+                        this.getOrderingCustomer()
+                );
+                if (!customerNotification) return false;
+
+                boolean runnerNotification = DeliveryRunnerNotification.createNewNotification(
+                        "Order Accepted",
+                        "You have accepted the order " + this.getOrderID() + ". Please wait for the confirmation from the vendor side (" + this.getOrderedStall().getStallID() + ").",
+                        this.getRunnerInCharge()
+                );
+                if (!runnerNotification) return false;
+
+                // Change status
+                this.setOrderStatus(OrderStatus.WAITING_VENDOR);
+            }
+
+            // When initial status is waiting runner
+            case WAITING_RUNNER -> {
+
+                // Create notification
+                boolean customerNotification = CustomerNotification.createNewNotification(
+                        "Order Accepted by Runner",
+                        "Your order " + this.getOrderID() + " has been accepted by runner " + this.getRunnerInCharge().getUserID() + ". The vendor will now start to prepare your order.",
+                        this.getOrderingCustomer()
+                );
+                if (!customerNotification) return false;
+
+                boolean vendorNotification = VendorNotification.createNewNotification(
+                        "Order Assigned to Runner",
+                        "Order " + this.getOrderID() + " has been assigned to runner " + this.getRunnerInCharge().getUserID() + ". You may start preparing the food.",
+                        this.getOrderedStall()
+                );
+                if (!vendorNotification) return false;
+
+                boolean runnerNotification = DeliveryRunnerNotification.createNewNotification(
+                        "Order Accepted",
+                        "You have accepted the order " + this.getOrderID() + ". Please head to the stall " + this.getOrderedStall().getStallID() + " to pick-up the order.",
+                        this.getRunnerInCharge()
+                );
+                if (!runnerNotification) return false;
+
+                // Change status
+                this.setOrderStatus(OrderStatus.VENDOR_PREPARING);
+            }
+
+            // Return false for other initial status
+            default -> {
+                return false;
+            }
+        }
+
+        // Write to file
+        OrderFileIO.writeFile();
+        NotificationIO.writeFile();
+
+        // Return true for successful operation
+        return true;
+    }
+
+    /**
      * A method for delivery runner to update the status of an order.<br>
      * Note: The status cannot be reverted after choosing it<br>
      * (heading to stall (involves two status: vendor preparing and ready to pick up) -> heading to customer address -> order complete)
