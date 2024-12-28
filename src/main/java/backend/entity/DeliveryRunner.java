@@ -68,7 +68,7 @@ public class DeliveryRunner extends User {
         for (DeliveryRunner runner : deliveryRunnerList) {
 
             // Check for the runner availability
-            boolean availability = runner.getAvailability();
+            boolean availability = runner.checkAvailability();
 
             // Add runner and the corresponding availability into the HashMap
             availabilityList.put(runner, availability);
@@ -146,10 +146,13 @@ public class DeliveryRunner extends User {
      *
      * @return {@code true} if the runner is free from any incomplete orders, {@code false} otherwise
      */
-    public boolean getAvailability() {
-        return Order.getOrderList().stream()                                                    // Convert list of orders into stream
-                .filter(order -> !order.getOrderStatus().equals(Order.OrderStatus.COMPLETED))   // Get orders that are incomplete
-                .noneMatch(order -> order.getRunnerInCharge().equals(this));                    // Return true if runner is not in the list
+    public boolean checkAvailability() {
+        return Order.getOrderList().stream()                                                        // Convert list of orders into stream
+                .filter(                                                                            // Get orders excluding completed and cancelled ones
+                        order -> !order.getOrderStatus().equals(Order.OrderStatus.COMPLETED) &&
+                                !order.getOrderStatus().equals(Order.OrderStatus.CANCELLED)
+                        )
+                .noneMatch(order -> order.getRunnerInCharge().equals(this));                        // Return true if runner is not in the list
     }
 
     /**
