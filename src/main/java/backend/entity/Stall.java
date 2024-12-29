@@ -118,6 +118,34 @@ public class Stall {
     }
 
     /**
+     * A method to generate new stall ID.
+     *
+     * @return The new stall ID generated
+     */
+    public static String generateNewID() {
+
+        // Declare variables to record index
+        int index = 1;
+
+        // Start a loop
+        while (true) {
+
+            // Get the generated ID
+            String generatedID = String.format("S%03d", index);
+
+            // Check if the generated ID is in the stall list
+            boolean generatedIDExists = stallList.stream()                      // Get the list of stalls
+                    .anyMatch(stall -> stall.stallID.equals(generatedID));      // Check if there is any match with the existing stall ID
+
+            // If the ID does not exist among the stall list, return that ID
+            if (!generatedIDExists) return generatedID;
+
+            // Increment the index if there is a match
+            index++;
+        }
+    }
+
+    /**
      * Getters and setters for {@code Stall} class.
      */
     public String getStallID() {

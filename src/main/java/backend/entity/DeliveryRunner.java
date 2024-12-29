@@ -1,7 +1,5 @@
 package backend.entity;
 
-import backend.utility.Utility;
-
 import java.util.*;
 
 /**
@@ -129,6 +127,34 @@ public class DeliveryRunner extends User {
     }
 
     /**
+     * A method to generate new delivery runner ID.
+     *
+     * @return The new delivery runner ID generated
+     */
+    public static String generateNewID() {
+
+        // Declare variables to record index
+        int index = 1;
+
+        // Start a loop
+        while (true) {
+
+            // Get the generated ID
+            String generatedID = String.format("R%03d", index);
+
+            // Check if the generated ID is in the runner list
+            boolean generatedIDExists = deliveryRunnerList.stream()             // Get the list of delivery runners
+                    .anyMatch(runner -> runner.userID.equals(generatedID));     // Check if there is any match with the existing runner ID
+
+            // If the ID does not exist among the runner list, return that ID
+            if (!generatedIDExists) return generatedID;
+
+            // Increment the index if there is a match
+            index++;
+        }
+    }
+
+    /**
      * A method to update the availability of runners (mainly used when runner rejects an order)
      *
      * @param status The status of the runner
@@ -154,7 +180,7 @@ public class DeliveryRunner extends User {
                         order -> !order.getOrderStatus().equals(Order.OrderStatus.COMPLETED) &&
                                 !order.getOrderStatus().equals(Order.OrderStatus.CANCELLED) &&
                                 !(order.getRunnerInCharge() == null)
-                        )
+                )
                 .noneMatch(order -> order.getRunnerInCharge().equals(this));                        // Return true if runner is not in the list
     }
 
@@ -182,5 +208,4 @@ public class DeliveryRunner extends User {
                 "Runner Name: " + super.name + "\n" +
                 "Runner Contact No: " + contactNumber;
     }
-
 }

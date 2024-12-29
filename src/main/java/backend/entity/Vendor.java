@@ -84,6 +84,34 @@ public class Vendor extends User {
     }
 
     /**
+     * A method to generate new vendor ID.
+     *
+     * @return The new vendor ID generated
+     */
+    public static String generateNewID() {
+
+        // Declare variables to record index
+        int index = 1;
+
+        // Start a loop
+        while (true) {
+
+            // Get the generated ID
+            String generatedID = String.format("V%03d", index);
+
+            // Check if the generated ID is in the vendor list
+            boolean generatedIDExists = vendorList.stream()                      // Get the list of vendors
+                    .anyMatch(vendor -> vendor.userID.equals(generatedID));      // Check if there is any match with the existing vendor ID
+
+            // If the ID does not exist among the vendor list, return that ID
+            if (!generatedIDExists) return generatedID;
+
+            // Increment the index if there is a match
+            index++;
+        }
+    }
+
+    /**
      * Getter and setter for additional attributes.
      */
     public Stall getStall() {

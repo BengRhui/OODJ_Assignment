@@ -94,6 +94,34 @@ public class Customer extends User {
     }
 
     /**
+     * A method to generate new ID for customers.
+     *
+     * @return THe new ID generated
+     */
+    public static String generateNewID() {
+
+        // Declare variables to record index
+        int index = 1;
+
+        // Start a loop
+        while (true) {
+
+            // Get the generated ID
+            String generatedID = String.format("C%03d", index);
+
+            // Check if the generated ID is in the customer list
+            boolean generatedIDExists = customerList.stream()                       // Get the list of customers
+                    .anyMatch(customer -> customer.userID.equals(generatedID));     // Check if there is any match with the existing customer ID
+
+            // If the ID does not exist among the customer list, return that ID
+            if (!generatedIDExists) return generatedID;
+
+            // Increment the index if there is a match
+            index++;
+        }
+    }
+
+    /**
      * Getters and setters for the {@code Customer} class
      */
     public String getContactNumber() {
