@@ -41,12 +41,12 @@ public class CustomerEWallet extends javax.swing.JFrame {
         current_balance_text = new javax.swing.JLabel();
         show = new javax.swing.JLabel();
         hide = new javax.swing.JLabel();
-        current_balance_value = new javax.swing.JTextField();
+        current_balance_value = new javax.swing.JLabel();
         cash_flow_text = new javax.swing.JLabel();
         total_cash_in_text = new javax.swing.JLabel();
-        total_cash_in_value = new javax.swing.JTextArea();
+        total_cash_in_value = new javax.swing.JLabel();
         total_cash_out_text = new javax.swing.JLabel();
-        total_cash_out_value = new javax.swing.JTextArea();
+        total_cash_out_value = new javax.swing.JLabel();
         transaction_history_text = new javax.swing.JLabel();
         overall_icon = new javax.swing.JButton();
         cash_in_icon = new javax.swing.JButton();
@@ -54,6 +54,8 @@ public class CustomerEWallet extends javax.swing.JFrame {
         current_orders_panel = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1400, 800));
+        setPreferredSize(new java.awt.Dimension(1400, 800));
         setSize(new java.awt.Dimension(1400, 800));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -202,11 +204,9 @@ public class CustomerEWallet extends javax.swing.JFrame {
         bottom_panel.add(hide);
         hide.setBounds(310, 20, 50, 50);
 
-        current_balance_value.setBackground(new java.awt.Color(255, 251, 233));
-        current_balance_value.setFont(new java.awt.Font("Arial", 0, 48)); // NOI18N
+        current_balance_value.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         current_balance_value.setForeground(new java.awt.Color(0, 0, 0));
-        current_balance_value.setText("RM");
-        current_balance_value.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        current_balance_value.setText("RM ");
         bottom_panel.add(current_balance_value);
         current_balance_value.setBounds(30, 90, 370, 60);
 
@@ -222,13 +222,11 @@ public class CustomerEWallet extends javax.swing.JFrame {
         bottom_panel.add(total_cash_in_text);
         total_cash_in_text.setBounds(700, 70, 169, 48);
 
-        total_cash_in_value.setBackground(new java.awt.Color(255, 251, 233));
         total_cash_in_value.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         total_cash_in_value.setForeground(new java.awt.Color(0, 0, 0));
-        total_cash_in_value.setRows(1);
-        total_cash_in_value.setText("RM");
+        total_cash_in_value.setText("RM ");
         bottom_panel.add(total_cash_in_value);
-        total_cash_in_value.setBounds(700, 110, 220, 46);
+        total_cash_in_value.setBounds(700, 110, 220, 50);
 
         total_cash_out_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         total_cash_out_text.setForeground(new java.awt.Color(0, 0, 0));
@@ -236,13 +234,11 @@ public class CustomerEWallet extends javax.swing.JFrame {
         bottom_panel.add(total_cash_out_text);
         total_cash_out_text.setBounds(930, 70, 190, 48);
 
-        total_cash_out_value.setBackground(new java.awt.Color(255, 251, 233));
         total_cash_out_value.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         total_cash_out_value.setForeground(new java.awt.Color(0, 0, 0));
-        total_cash_out_value.setRows(1);
-        total_cash_out_value.setText("RM");
+        total_cash_out_value.setText("RM ");
         bottom_panel.add(total_cash_out_value);
-        total_cash_out_value.setBounds(930, 110, 220, 46);
+        total_cash_out_value.setBounds(930, 110, 260, 50);
 
         transaction_history_text.setBackground(new java.awt.Color(0, 0, 0));
         transaction_history_text.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -322,7 +318,7 @@ public class CustomerEWallet extends javax.swing.JFrame {
     private javax.swing.JButton cash_in_icon;
     private javax.swing.JButton cash_out_icon;
     private javax.swing.JLabel current_balance_text;
-    private javax.swing.JTextField current_balance_value;
+    private javax.swing.JLabel current_balance_value;
     private javax.swing.JScrollPane current_orders_panel;
     private javax.swing.JLabel customer_background;
     private javax.swing.JLabel e_wallet;
@@ -338,9 +334,9 @@ public class CustomerEWallet extends javax.swing.JFrame {
     private javax.swing.JLabel show;
     public javax.swing.JPanel top_panel;
     private javax.swing.JLabel total_cash_in_text;
-    private javax.swing.JTextArea total_cash_in_value;
+    private javax.swing.JLabel total_cash_in_value;
     private javax.swing.JLabel total_cash_out_text;
-    private javax.swing.JTextArea total_cash_out_value;
+    private javax.swing.JLabel total_cash_out_value;
     private javax.swing.JLabel transaction_history_text;
     // End of variables declaration//GEN-END:variables
 }
