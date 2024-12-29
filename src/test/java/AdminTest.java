@@ -1,9 +1,12 @@
 import backend.entity.Customer;
+import backend.notification.CustomerNotification;
+import backend.notification.Notification;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * Test class {@code AdminTest} focuses on the operations that an admin would perform.
@@ -102,5 +105,104 @@ public class AdminTest extends BaseTest {
         assertEquals(name, newCustomer.getName());
         assertEquals(contactNumber, newCustomer.getContactNumber());
         assertEquals(email, newCustomer.getEmail());
+    }
+
+    @Test
+    void testUpdateCustomer() {
+
+        // Get initial list of notifications
+        ArrayList<Notification> initialCustomerList = TestUtility.convertToNotificationArray(
+                CustomerNotification.getCustomerNotificationList()
+        );
+
+        // Initialize information for testing
+        String customerName = customer1.getName();
+        String contactNumber = "12-345";
+        String addressLine1 = customer1.getAddress().getAddressLine1();
+        String addressLine2 = customer1.getAddress().getAddressLine2();
+        String postcode = customer1.getAddress().getPostcode();
+        String state = customer1.getAddress().getState().toString();
+        String city = customer1.getAddress().getCity();
+        String email = "abc@123";
+        char[] password = "Abc123".toCharArray();
+        char[] confirmPassword = "Abc@123".toCharArray();
+
+        // Start loop to validate different attributes
+        for (int i = 0; i < 7; i++) {
+
+            // Call the modify customer function on customer 1
+            int createCustomerStatus = customer1.modifyCustomer(
+                    customerName,
+                    contactNumber,
+                    addressLine1,
+                    addressLine2,
+                    postcode,
+                    state,
+                    city,
+                    email,
+                    password,
+                    confirmPassword
+            );
+
+            // Use switch statement to go through each validation stage
+            switch (i) {
+
+                // Case 1: Email is not in the correct format
+                case 0 -> {
+                    assertEquals(-1, createCustomerStatus);
+                    email = "firefly@hunters.abc";
+                }
+
+                // Case 2: Email is unavailable
+                case 1 -> {
+                    assertEquals(-2, createCustomerStatus);
+                    email = customer1.getEmail();
+                }
+
+                // Case 3: Use back own email
+                case 2 -> assertNotEquals(-2, createCustomerStatus);
+
+                // Case 4: Password does not meet requirement
+                case 3 -> {
+                    assertEquals(-3, createCustomerStatus);
+                    password = "Abc@1234".toCharArray();
+                }
+
+                // Case 5: Password does not match
+                case 4 -> {
+                    assertEquals(-4, createCustomerStatus);
+                    confirmPassword = "Abc@1234".toCharArray();
+                }
+
+                // Case 6: Contact number format is incorrect
+                case 5 -> {
+                    assertEquals(-5, createCustomerStatus);
+                    contactNumber = "05-1849845";
+                }
+
+                // Finally information is modified successfully
+                case 6 -> assertEquals(1, createCustomerStatus);
+            }
+        }
+
+        // Check if the information is updated correctly
+        assertEquals("05-1849845", customer1.getContactNumber());
+        assertEquals("Abc@1234", customer1.getPassword());
+
+        // Check if notification is created
+        ArrayList<Notification> differentNotification = TestUtility.getDifferentNotification(
+                initialCustomerList,
+                TestUtility.convertToNotificationArray(
+                        CustomerNotification.getCustomerNotificationList()
+                )
+        );
+        assertEquals(1, differentNotification.size());
+
+        // Check if the correct description is produced
+        Notification createdNotification = differentNotification.getFirst();
+        assertEquals(
+                "The admin has updated your personal information successfully.",
+                createdNotification.getNotificationDetails()
+        );
     }
 }

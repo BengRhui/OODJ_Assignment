@@ -1,6 +1,7 @@
 package backend.entity;
 
 import backend.file_io.CustomerFileIO;
+import backend.notification.CustomerNotification;
 import backend.utility.Utility;
 
 import java.util.ArrayList;
@@ -208,6 +209,86 @@ public class Customer extends User {
         customerIO.writeFile();
 
         // Return 1 for successful creation
+        return 1;
+    }
+
+    /**
+     * A method to modify the existing details of a customer
+     *
+     * @param customerName    The name of the customer
+     * @param contactNumber   The contact number of the customer
+     * @param addressLine1    The first address line of customer, typically includes house / unit number and street name
+     * @param addressLine2    The second address line of customer, typically includes the residential area
+     * @param postcode        The postcode of customer's address
+     * @param state           The state of customer's address (in terms of Malaysia)
+     * @param city            The city where the customer is located at
+     * @param email           The email of the customer
+     * @param password        The password of the customer
+     * @param confirmPassword The password retyped
+     * @return {@code 1} if the new account is created successfully<br>
+     * {@code -1} if the email is not in the correct format<br>
+     * {@code -2} if the email is not available<br>
+     * {@code -3} if the password does not meet requirement<br>
+     * {@code -4} if the password does not match with "confirm password"<br>
+     * {@code -5} if the contact number is not in the correct format<br>
+     * {@code -6} if the notification is created unsuccessfully
+     */
+    public int modifyCustomer(
+            String customerName,
+            String contactNumber,
+            String addressLine1,
+            String addressLine2,
+            String postcode,
+            String state,
+            String city,
+            String email,
+            char[] password,
+            char[] confirmPassword) {
+
+        // Check if email is in the correct format (-1)
+        if (!checkEmailFormat(email)) return -1;
+
+        // Check if email is available (for different email) (-2)
+        if (!email.equals(this.email) && !isEmailAvailable(email)) return -2;
+
+        // Check if password meets requirement (-3)
+        if (!validatePassword(
+                Utility.generateString(password)
+        )) return -3;
+
+        // Check if both passwords match (-4)
+        if (!Arrays.equals(password, confirmPassword)) return -4;
+
+        // Check if contact number is in the correct format (-5)
+        if (!checkContactNumberFormat(contactNumber)) return -5;
+
+        // Create address
+        Address newCustomerAddress = new Address(
+                addressLine1,
+                addressLine2,
+                postcode,
+                city,
+                Address.State.getFromString(state)
+        );
+
+        // Update every detail of the customer
+        this.setName(customerName);
+        this.setContactNumber(contactNumber);
+        this.setAddress(newCustomerAddress);
+        this.setEmail(email);
+        this.setPassword(
+                Utility.generateString(password)
+        );
+
+        // Create notification to update customer
+        boolean notificationCreated = CustomerNotification.createNewNotification(
+                "Updated Personal Information",
+                "The admin has updated your personal information successfully.",
+                this
+        );
+        if (!notificationCreated) return -6;
+
+        // Return 1 if modification is made successfully
         return 1;
     }
 
