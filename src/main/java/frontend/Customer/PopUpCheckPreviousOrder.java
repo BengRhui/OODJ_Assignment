@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package frontend.Customer;
 
@@ -8,7 +8,7 @@ package frontend.Customer;
  *
  * @author Lenovo
  */
-public class PopUpCheckPreviousOrder extends javax.swing.JPanel {
+public class PopUpCheckPreviousOrder extends javax.swing.JFrame {
 
     /**
      * Creates new form PopUpCheckPreviousOrder
@@ -26,78 +26,103 @@ public class PopUpCheckPreviousOrder extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        order_details_text = new javax.swing.JLabel();
-        order_detail_input = new javax.swing.JTextArea();
-        item_ordered_text = new javax.swing.JLabel();
-        item_detail = new javax.swing.JPanel();
-        quantity_text = new javax.swing.JLabel();
-        quantity_detail = new javax.swing.JPanel();
-        price_text = new javax.swing.JLabel();
-        price_detail = new javax.swing.JPanel();
-        total_amount_text = new javax.swing.JLabel();
-        total_amount_rm = new javax.swing.JLabel();
-        total_amount_value = new javax.swing.JTextArea();
-        dining_method_text = new javax.swing.JLabel();
-        delivery_button = new javax.swing.JButton();
-        additional_notes_text = new javax.swing.JLabel();
-        addtional_notes = new javax.swing.JTextField();
-        cancel_button = new javax.swing.JButton();
-        reorder_button = new javax.swing.JButton();
+        JPanel = new javax.swing.JPanel();
         provide_feedback_button = new javax.swing.JButton();
+        reorder_button = new javax.swing.JButton();
+        cancel_button = new javax.swing.JButton();
+        addtional_notes = new javax.swing.JTextField();
+        additional_notes_text = new javax.swing.JLabel();
+        delivery_button = new javax.swing.JButton();
+        dining_method_text = new javax.swing.JLabel();
+        total_amount_value = new javax.swing.JTextArea();
+        total_amount_rm = new javax.swing.JLabel();
+        total_amount_text = new javax.swing.JLabel();
+        price_detail = new javax.swing.JPanel();
+        price_text = new javax.swing.JLabel();
+        quantity_detail = new javax.swing.JPanel();
+        quantity_text = new javax.swing.JLabel();
+        item_detail = new javax.swing.JPanel();
+        item_ordered_text = new javax.swing.JLabel();
+        order_detail_input = new javax.swing.JTextArea();
+        order_details_text = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 251, 233));
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(227, 202, 165));
+        setMinimumSize(new java.awt.Dimension(1400, 800));
         setPreferredSize(new java.awt.Dimension(1400, 800));
+        getContentPane().setLayout(null);
 
-        order_details_text.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        order_details_text.setForeground(new java.awt.Color(0, 0, 0));
-        order_details_text.setText("Order Details - ORD");
+        JPanel.setBackground(new java.awt.Color(255, 251, 233));
+        JPanel.setMinimumSize(new java.awt.Dimension(1400, 800));
+        JPanel.setPreferredSize(new java.awt.Dimension(1400, 800));
 
-        order_detail_input.setBackground(new java.awt.Color(255, 251, 233));
-        order_detail_input.setColumns(1);
-        order_detail_input.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        order_detail_input.setForeground(new java.awt.Color(0, 0, 0));
-        order_detail_input.setRows(1);
-        order_detail_input.setText("\n");
+        provide_feedback_button.setBackground(new java.awt.Color(173, 139, 115));
+        provide_feedback_button.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        provide_feedback_button.setForeground(new java.awt.Color(255, 255, 255));
+        provide_feedback_button.setText("Provide Feedback");
+        provide_feedback_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                provide_feedback_buttonActionPerformed(evt);
+            }
+        });
 
-        item_ordered_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        item_ordered_text.setForeground(new java.awt.Color(0, 0, 0));
-        item_ordered_text.setText("Item Ordered");
+        reorder_button.setBackground(new java.awt.Color(173, 139, 115));
+        reorder_button.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        reorder_button.setForeground(new java.awt.Color(255, 255, 255));
+        reorder_button.setText("Reorder");
+        reorder_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reorder_buttonActionPerformed(evt);
+            }
+        });
 
-        item_detail.setBackground(new java.awt.Color(255, 251, 233));
-        item_detail.setPreferredSize(new java.awt.Dimension(470, 520));
+        cancel_button.setBackground(new java.awt.Color(227, 202, 165));
+        cancel_button.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        cancel_button.setForeground(new java.awt.Color(0, 0, 0));
+        cancel_button.setText("Cancel");
+        cancel_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancel_buttonActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout item_detailLayout = new javax.swing.GroupLayout(item_detail);
-        item_detail.setLayout(item_detailLayout);
-        item_detailLayout.setHorizontalGroup(
-            item_detailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
-        );
-        item_detailLayout.setVerticalGroup(
-            item_detailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 450, Short.MAX_VALUE)
-        );
+        addtional_notes.setBackground(new java.awt.Color(255, 255, 255));
+        addtional_notes.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
+        addtional_notes.setForeground(new java.awt.Color(0, 0, 0));
+        addtional_notes.setHorizontalAlignment(javax.swing.JTextField.LEFT);
 
-        quantity_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        quantity_text.setForeground(new java.awt.Color(0, 0, 0));
-        quantity_text.setText("Quantity");
+        additional_notes_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        additional_notes_text.setForeground(new java.awt.Color(0, 0, 0));
+        additional_notes_text.setText("Additional Notes");
 
-        quantity_detail.setBackground(new java.awt.Color(255, 251, 233));
-        quantity_detail.setPreferredSize(new java.awt.Dimension(470, 520));
+        delivery_button.setBackground(new java.awt.Color(206, 171, 147));
+        delivery_button.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        delivery_button.setForeground(new java.awt.Color(0, 0, 0));
+        delivery_button.setText("Delivery");
+        delivery_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                delivery_buttonActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout quantity_detailLayout = new javax.swing.GroupLayout(quantity_detail);
-        quantity_detail.setLayout(quantity_detailLayout);
-        quantity_detailLayout.setHorizontalGroup(
-            quantity_detailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 166, Short.MAX_VALUE)
-        );
-        quantity_detailLayout.setVerticalGroup(
-            quantity_detailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 450, Short.MAX_VALUE)
-        );
+        dining_method_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        dining_method_text.setForeground(new java.awt.Color(0, 0, 0));
+        dining_method_text.setText("Dining Method");
 
-        price_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        price_text.setForeground(new java.awt.Color(0, 0, 0));
-        price_text.setText("Price");
+        total_amount_value.setBackground(new java.awt.Color(255, 251, 233));
+        total_amount_value.setColumns(1);
+        total_amount_value.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        total_amount_value.setForeground(new java.awt.Color(0, 0, 0));
+        total_amount_value.setRows(1);
+        total_amount_value.setText("123, 123");
+
+        total_amount_rm.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        total_amount_rm.setForeground(new java.awt.Color(0, 0, 0));
+        total_amount_rm.setText("RM");
+
+        total_amount_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        total_amount_text.setForeground(new java.awt.Color(0, 0, 0));
+        total_amount_text.setText("Total Amount");
 
         price_detail.setBackground(new java.awt.Color(255, 251, 233));
         price_detail.setPreferredSize(new java.awt.Dimension(470, 520));
@@ -113,188 +138,209 @@ public class PopUpCheckPreviousOrder extends javax.swing.JPanel {
             .addGap(0, 450, Short.MAX_VALUE)
         );
 
-        total_amount_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        total_amount_text.setForeground(new java.awt.Color(0, 0, 0));
-        total_amount_text.setText("Total Amount");
+        price_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        price_text.setForeground(new java.awt.Color(0, 0, 0));
+        price_text.setText("Price");
 
-        total_amount_rm.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        total_amount_rm.setForeground(new java.awt.Color(0, 0, 0));
-        total_amount_rm.setText("RM");
+        quantity_detail.setBackground(new java.awt.Color(255, 251, 233));
+        quantity_detail.setPreferredSize(new java.awt.Dimension(470, 520));
 
-        total_amount_value.setBackground(new java.awt.Color(255, 251, 233));
-        total_amount_value.setColumns(1);
-        total_amount_value.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        total_amount_value.setForeground(new java.awt.Color(0, 0, 0));
-        total_amount_value.setRows(1);
-        total_amount_value.setText("123, 123");
-
-        dining_method_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        dining_method_text.setForeground(new java.awt.Color(0, 0, 0));
-        dining_method_text.setText("Dining Method");
-
-        delivery_button.setBackground(new java.awt.Color(206, 171, 147));
-        delivery_button.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        delivery_button.setForeground(new java.awt.Color(0, 0, 0));
-        delivery_button.setText("Delivery");
-        delivery_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                delivery_buttonActionPerformed(evt);
-            }
-        });
-
-        additional_notes_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        additional_notes_text.setForeground(new java.awt.Color(0, 0, 0));
-        additional_notes_text.setText("Additional Notes");
-
-        addtional_notes.setBackground(new java.awt.Color(255, 255, 255));
-        addtional_notes.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
-        addtional_notes.setForeground(new java.awt.Color(0, 0, 0));
-        addtional_notes.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-
-        cancel_button.setBackground(new java.awt.Color(227, 202, 165));
-        cancel_button.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        cancel_button.setForeground(new java.awt.Color(0, 0, 0));
-        cancel_button.setText("Cancel");
-        cancel_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancel_buttonActionPerformed(evt);
-            }
-        });
-
-        reorder_button.setBackground(new java.awt.Color(173, 139, 115));
-        reorder_button.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        reorder_button.setForeground(new java.awt.Color(255, 255, 255));
-        reorder_button.setText("Reorder");
-        reorder_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reorder_buttonActionPerformed(evt);
-            }
-        });
-
-        provide_feedback_button.setBackground(new java.awt.Color(173, 139, 115));
-        provide_feedback_button.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        provide_feedback_button.setForeground(new java.awt.Color(255, 255, 255));
-        provide_feedback_button.setText("Provide Feedback");
-        provide_feedback_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                provide_feedback_buttonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(cancel_button, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(reorder_button, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(order_details_text)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(order_detail_input, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(total_amount_text)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(item_detail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(item_ordered_text))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(quantity_detail, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(quantity_text)
-                                                .addGap(33, 33, 33)))))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(price_detail, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(total_amount_rm)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(total_amount_value, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(24, 24, 24)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(price_text)
-                                        .addGap(89, 89, 89)))))
-                        .addGap(0, 59, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(dining_method_text, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(additional_notes_text, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addtional_notes)
-                    .addComponent(delivery_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(provide_feedback_button, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(125, 125, 125))
+        javax.swing.GroupLayout quantity_detailLayout = new javax.swing.GroupLayout(quantity_detail);
+        quantity_detail.setLayout(quantity_detailLayout);
+        quantity_detailLayout.setHorizontalGroup(
+            quantity_detailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 166, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(order_details_text)
-                    .addComponent(order_detail_input, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(item_ordered_text)
-                    .addComponent(price_text)
-                    .addComponent(dining_method_text)
-                    .addComponent(quantity_text))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+        quantity_detailLayout.setVerticalGroup(
+            quantity_detailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 450, Short.MAX_VALUE)
+        );
+
+        quantity_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        quantity_text.setForeground(new java.awt.Color(0, 0, 0));
+        quantity_text.setText("Quantity");
+
+        item_detail.setBackground(new java.awt.Color(255, 251, 233));
+        item_detail.setPreferredSize(new java.awt.Dimension(470, 520));
+
+        javax.swing.GroupLayout item_detailLayout = new javax.swing.GroupLayout(item_detail);
+        item_detail.setLayout(item_detailLayout);
+        item_detailLayout.setHorizontalGroup(
+            item_detailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 470, Short.MAX_VALUE)
+        );
+        item_detailLayout.setVerticalGroup(
+            item_detailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 450, Short.MAX_VALUE)
+        );
+
+        item_ordered_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        item_ordered_text.setForeground(new java.awt.Color(0, 0, 0));
+        item_ordered_text.setText("Item Ordered");
+
+        order_detail_input.setBackground(new java.awt.Color(255, 251, 233));
+        order_detail_input.setColumns(1);
+        order_detail_input.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        order_detail_input.setForeground(new java.awt.Color(0, 0, 0));
+        order_detail_input.setRows(1);
+        order_detail_input.setText("\n");
+
+        order_details_text.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        order_details_text.setForeground(new java.awt.Color(0, 0, 0));
+        order_details_text.setText("Order Details - ORD");
+
+        javax.swing.GroupLayout JPanelLayout = new javax.swing.GroupLayout(JPanel);
+        JPanel.setLayout(JPanelLayout);
+        JPanelLayout.setHorizontalGroup(
+            JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1400, Short.MAX_VALUE)
+            .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(JPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(JPanelLayout.createSequentialGroup()
+                            .addComponent(order_details_text)
+                            .addGap(6, 6, 6)
+                            .addComponent(order_detail_input, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(JPanelLayout.createSequentialGroup()
+                            .addComponent(item_ordered_text)
+                            .addGap(376, 376, 376)
+                            .addComponent(quantity_text)
+                            .addGap(86, 86, 86)
+                            .addComponent(price_text)
+                            .addGap(125, 125, 125)
+                            .addComponent(dining_method_text, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(JPanelLayout.createSequentialGroup()
+                            .addComponent(item_detail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(quantity_detail, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, 0)
+                            .addComponent(price_detail, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(36, 36, 36)
+                            .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(delivery_button, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(additional_notes_text, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(addtional_notes, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(JPanelLayout.createSequentialGroup()
+                            .addComponent(total_amount_text)
+                            .addGap(514, 514, 514)
+                            .addComponent(total_amount_rm)
+                            .addGap(6, 6, 6)
+                            .addComponent(total_amount_value, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(JPanelLayout.createSequentialGroup()
+                            .addGap(304, 304, 304)
+                            .addComponent(cancel_button, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(reorder_button, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(provide_feedback_button, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        JPanelLayout.setVerticalGroup(
+            JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 820, Short.MAX_VALUE)
+            .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(JPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(order_details_text)
+                        .addComponent(order_detail_input, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(30, 30, 30)
+                    .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(item_ordered_text)
+                        .addComponent(quantity_text)
+                        .addComponent(price_text)
+                        .addComponent(dining_method_text))
+                    .addGap(18, 18, 18)
+                    .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(item_detail, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(total_amount_text)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(delivery_button, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(37, 37, 37)
-                                .addComponent(additional_notes_text)
-                                .addGap(17, 17, 17)
-                                .addComponent(addtional_notes, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(JPanelLayout.createSequentialGroup()
+                            .addComponent(delivery_button, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(37, 37, 37)
+                            .addComponent(additional_notes_text)
+                            .addGap(17, 17, 17)
+                            .addComponent(addtional_notes, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(JPanelLayout.createSequentialGroup()
+                            .addGap(2, 2, 2)
+                            .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(quantity_detail, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(price_detail, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(total_amount_value, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(price_detail, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGap(16, 16, 16)
+                    .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(total_amount_text)
+                        .addGroup(JPanelLayout.createSequentialGroup()
+                            .addGap(4, 4, 4)
                             .addComponent(total_amount_rm))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(provide_feedback_button, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(reorder_button, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cancel_button, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(50, 50, 50))))
+                        .addGroup(JPanelLayout.createSequentialGroup()
+                            .addGap(2, 2, 2)
+                            .addComponent(total_amount_value, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(11, 11, 11)
+                    .addGroup(JPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cancel_button, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(reorder_button, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(provide_feedback_button, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
+
+        getContentPane().add(JPanel);
+        JPanel.setBounds(0, -20, 1400, 820);
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void delivery_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delivery_buttonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_delivery_buttonActionPerformed
 
-    private void provide_feedback_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_provide_feedback_buttonActionPerformed
+    private void cancel_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancel_buttonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_provide_feedback_buttonActionPerformed
+    }//GEN-LAST:event_cancel_buttonActionPerformed
 
     private void reorder_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reorder_buttonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_reorder_buttonActionPerformed
 
-    private void cancel_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancel_buttonActionPerformed
+    private void provide_feedback_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_provide_feedback_buttonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cancel_buttonActionPerformed
+    }//GEN-LAST:event_provide_feedback_buttonActionPerformed
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(PopUpCheckPreviousOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(PopUpCheckPreviousOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(PopUpCheckPreviousOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(PopUpCheckPreviousOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new PopUpCheckPreviousOrder().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel JPanel;
     private javax.swing.JLabel additional_notes_text;
     private javax.swing.JTextField addtional_notes;
     private javax.swing.JButton cancel_button;
