@@ -1,5 +1,8 @@
 package backend.entity;
 
+import backend.file_io.CustomerFileIO;
+import backend.utility.Utility;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -119,6 +122,82 @@ public class Customer extends User {
             // Increment the index if there is a match
             index++;
         }
+    }
+
+    /**
+     * A method to create new customer accounts from the admin side.
+     *
+     * @return {@code 1} if the new account is created successfully<br>
+     * {@code -1} if the email is not in the correct format<br>
+     * {@code -2} if the email is not available<br>
+     * {@code -3} if the password does not meet requirement<br>
+     * {@code -4} if the password does not match with "confirm password"<br>
+     * {@code -5} if the contact number is not in the correct format
+     */
+    public static int createNewCustomer(
+            String customerID,
+            String customerName,
+            String contactNumber,
+            String addressLine1,
+            String addressLine2,
+            String postcode,
+            String state,
+            String city,
+            String email,
+            char[] password,
+            char[] confirmPassword) {
+
+        // Check if email is in the correct format (-1)
+        boolean isEmailFormatCorrect = checkEmailFormat(email);
+        if (!isEmailFormatCorrect) return -1;
+
+        // Check if email is used by other users (-2)
+        boolean isEmailUsed = isEmailAvailable(email);
+        if (!isEmailUsed) return -2;
+
+        // Check if password matches requirement (-3)
+        boolean isPasswordValid = validatePassword(
+                Utility.generateString(password)
+        );
+        if (!isPasswordValid) return -3;
+
+        // Check if password matches (-4)
+        if (!Arrays.equals(password, confirmPassword)) return -4;
+
+        // Check if contact number is in the correct format (-5)
+        boolean isContactNumberCorrect = checkContactNumberFormat(contactNumber);
+        if (!isContactNumberCorrect) return -5;
+
+        // Create address if all validation is passed
+        Address newCustomerAddress = new Address(
+                addressLine1,
+                addressLine2,
+                postcode,
+                city,
+                Address.State.getFromString(state)
+        );
+
+        // Create new customer object
+        Customer newCustomer = new Customer(
+                customerID,
+                email,
+                Utility.generateString(password),
+                customerName,
+                contactNumber,
+                newCustomerAddress,
+                0,
+                "-"
+        );
+
+        // Add the new customer into the customer array list
+        Customer.addToCustomerList(newCustomer);
+
+        // Write into file
+        CustomerFileIO customerIO = new CustomerFileIO();
+        customerIO.writeFile();
+
+        // Return 1 for successful creation
+        return 1;
     }
 
     /**
