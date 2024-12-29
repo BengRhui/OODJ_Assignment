@@ -144,6 +144,40 @@ public class User {
                 .noneMatch(user -> user.getEmail().equalsIgnoreCase(email));    // Check if there is a match for the inputted email
     }
 
+    public static boolean checkEmailFormat(String email) {
+
+        // Return false if the email is empty
+        if (email.isBlank()) return false;
+
+        // Get the index for "@" and "."
+        int indexForAt = email.indexOf('@');
+        int indexForDot = email.lastIndexOf('.');
+
+        // If both symbols are not found, return false
+        if (indexForAt == -1 || indexForDot == -1) return false;
+
+        // If "." is in front of "@", return false
+        if (indexForDot < indexForAt) return false;
+
+        // If "." is immediately after "@", return false (e.g. abc@.com is not valid)
+        if (email.contains("@.")) return false;
+
+        // If "@" appears for more than two times, return false
+        if (indexForAt != email.lastIndexOf('@')) return false;
+
+        // If there is no character in front of "@" or less than 2 characters behind of ".", return false
+        if (indexForAt == 0 || indexForDot >= email.length() - 2) return false;
+
+        // If there exist two dots and the dots are next to each other, return false
+        if (email.contains("..")) return false;
+
+        // If the part after "@" has special characters, return false
+        boolean partAfterAtHasSpecial = (email.split("@")[1].matches(".*[!#$%^&*(),?\":{}|<>_].*"));
+
+        // This marks the end of email validation
+        return !partAfterAtHasSpecial;
+    }
+
     /**
      * Getters and setters method for {@code User} class.<br>
      * The attributes involved include:<br>
