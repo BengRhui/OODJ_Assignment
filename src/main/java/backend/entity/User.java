@@ -1,5 +1,7 @@
 package backend.entity;
 
+import backend.file_io.*;
+
 import java.util.ArrayList;
 
 /**
@@ -24,8 +26,8 @@ public class User {
      * Constructor for {@code User} class.
      *
      * @param userID   The ID for user.
-     * @param email    The email for user that is used to login to the system.
-     * @param password The password for user that is used to login to the system.
+     * @param email    The email for user that is used to log into the system.
+     * @param password The password for user that is used to log into the system.
      * @param name     The real-world name for user.
      */
     public User(String userID, String email, String password, String name) {
@@ -180,5 +182,15 @@ public class User {
 
         // Return false if there is no matching email
         return false;
+    }
+
+    /**
+     * A method to check the availability of email.
+     * @param email The new email to be registered / updated
+     * @return {@code true} if the email can be used, {@code false} otherwise
+     */
+    public static boolean isEmailAvailable(String email) {
+        return getUserList().stream()                                           // Get overall user list
+                .noneMatch(user -> user.getEmail().equalsIgnoreCase(email));    // Check if there is a match for the inputted email
     }
 }
