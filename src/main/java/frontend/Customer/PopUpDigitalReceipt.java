@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package frontend.Customer;
 
@@ -8,10 +8,10 @@ package frontend.Customer;
  *
  * @author Lenovo
  */
-public class PopUpDigitalReceipt extends javax.swing.JPanel {
+public class PopUpDigitalReceipt extends javax.swing.JFrame {
 
     /**
-     * Creates new form PopUpCheckPreviousOrder
+     * Creates new form PopUpDigitalReceipt
      */
     public PopUpDigitalReceipt() {
         initComponents();
@@ -26,6 +26,7 @@ public class PopUpDigitalReceipt extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        JPanel = new javax.swing.JPanel();
         receipt_text = new javax.swing.JLabel();
         description_text = new javax.swing.JLabel();
         description_detail = new javax.swing.JPanel();
@@ -44,20 +45,24 @@ public class PopUpDigitalReceipt extends javax.swing.JPanel {
         payment_method_input = new javax.swing.JTextField();
         print_button = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 251, 233));
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1400, 800));
         setPreferredSize(new java.awt.Dimension(1400, 800));
-        setLayout(null);
+
+        JPanel.setBackground(new java.awt.Color(255, 251, 233));
+        JPanel.setPreferredSize(new java.awt.Dimension(1400, 800));
+        JPanel.setLayout(null);
 
         receipt_text.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         receipt_text.setForeground(new java.awt.Color(0, 0, 0));
         receipt_text.setText("Receipt");
-        add(receipt_text);
+        JPanel.add(receipt_text);
         receipt_text.setBounds(110, 42, 174, 56);
 
         description_text.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         description_text.setForeground(new java.awt.Color(0, 0, 0));
         description_text.setText("Description");
-        add(description_text);
+        JPanel.add(description_text);
         description_text.setBounds(110, 150, 220, 42);
 
         description_detail.setBackground(new java.awt.Color(255, 251, 233));
@@ -74,13 +79,13 @@ public class PopUpDigitalReceipt extends javax.swing.JPanel {
             .addGap(0, 450, Short.MAX_VALUE)
         );
 
-        add(description_detail);
+        JPanel.add(description_detail);
         description_detail.setBounds(110, 220, 470, 450);
 
         quantity_text.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         quantity_text.setForeground(new java.awt.Color(0, 0, 0));
         quantity_text.setText("Quantity");
-        add(quantity_text);
+        JPanel.add(quantity_text);
         quantity_text.setBounds(590, 150, 180, 42);
 
         quantity_detail.setBackground(new java.awt.Color(255, 251, 233));
@@ -97,13 +102,13 @@ public class PopUpDigitalReceipt extends javax.swing.JPanel {
             .addGap(0, 450, Short.MAX_VALUE)
         );
 
-        add(quantity_detail);
+        JPanel.add(quantity_detail);
         quantity_detail.setBounds(574, 220, 190, 450);
 
         price_text.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         price_text.setForeground(new java.awt.Color(0, 0, 0));
         price_text.setText("Price");
-        add(price_text);
+        JPanel.add(price_text);
         price_text.setBounds(820, 150, 150, 42);
 
         price_detail.setBackground(new java.awt.Color(255, 251, 233));
@@ -120,20 +125,20 @@ public class PopUpDigitalReceipt extends javax.swing.JPanel {
             .addGap(0, 450, Short.MAX_VALUE)
         );
 
-        add(price_detail);
+        JPanel.add(price_detail);
         price_detail.setBounds(764, 220, 200, 450);
 
         total_amount_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         total_amount_text.setForeground(new java.awt.Color(0, 0, 0));
         total_amount_text.setText("Total Amount");
-        add(total_amount_text);
-        total_amount_text.setBounds(110, 713, 156, 28);
+        JPanel.add(total_amount_text);
+        total_amount_text.setBounds(110, 690, 156, 28);
 
         total_amount_rm.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         total_amount_rm.setForeground(new java.awt.Color(0, 0, 0));
         total_amount_rm.setText("RM");
-        add(total_amount_rm);
-        total_amount_rm.setBounds(740, 710, 38, 28);
+        JPanel.add(total_amount_rm);
+        total_amount_rm.setBounds(740, 680, 38, 28);
 
         total_amount_value.setBackground(new java.awt.Color(255, 251, 233));
         total_amount_value.setColumns(1);
@@ -141,13 +146,13 @@ public class PopUpDigitalReceipt extends javax.swing.JPanel {
         total_amount_value.setForeground(new java.awt.Color(0, 0, 0));
         total_amount_value.setRows(1);
         total_amount_value.setText("123, 123");
-        add(total_amount_value);
-        total_amount_value.setBounds(786, 707, 170, 30);
+        JPanel.add(total_amount_value);
+        total_amount_value.setBounds(790, 680, 170, 30);
 
         receipt_reference_text.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         receipt_reference_text.setForeground(new java.awt.Color(0, 0, 0));
         receipt_reference_text.setText("Receipt Reference");
-        add(receipt_reference_text);
+        JPanel.add(receipt_reference_text);
         receipt_reference_text.setBounds(1000, 150, 330, 42);
 
         receipt_reference_input.setBackground(new java.awt.Color(255, 251, 233));
@@ -155,13 +160,13 @@ public class PopUpDigitalReceipt extends javax.swing.JPanel {
         receipt_reference_input.setForeground(new java.awt.Color(0, 0, 0));
         receipt_reference_input.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         receipt_reference_input.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        add(receipt_reference_input);
+        JPanel.add(receipt_reference_input);
         receipt_reference_input.setBounds(1000, 200, 320, 60);
 
         date_time_text.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         date_time_text.setForeground(new java.awt.Color(0, 0, 0));
         date_time_text.setText("Date / Time");
-        add(date_time_text);
+        JPanel.add(date_time_text);
         date_time_text.setBounds(1000, 320, 220, 42);
 
         date_time_input.setBackground(new java.awt.Color(255, 251, 233));
@@ -169,13 +174,13 @@ public class PopUpDigitalReceipt extends javax.swing.JPanel {
         date_time_input.setForeground(new java.awt.Color(0, 0, 0));
         date_time_input.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         date_time_input.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        add(date_time_input);
+        JPanel.add(date_time_input);
         date_time_input.setBounds(1000, 370, 330, 60);
 
         payment_method_text.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         payment_method_text.setForeground(new java.awt.Color(0, 0, 0));
         payment_method_text.setText("Payment Method");
-        add(payment_method_text);
+        JPanel.add(payment_method_text);
         payment_method_text.setBounds(1000, 490, 310, 42);
 
         payment_method_input.setBackground(new java.awt.Color(255, 251, 233));
@@ -183,7 +188,7 @@ public class PopUpDigitalReceipt extends javax.swing.JPanel {
         payment_method_input.setForeground(new java.awt.Color(0, 0, 0));
         payment_method_input.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         payment_method_input.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        add(payment_method_input);
+        JPanel.add(payment_method_input);
         payment_method_input.setBounds(1000, 540, 340, 60);
 
         print_button.setBackground(new java.awt.Color(173, 139, 115));
@@ -195,16 +200,66 @@ public class PopUpDigitalReceipt extends javax.swing.JPanel {
                 print_buttonActionPerformed(evt);
             }
         });
-        add(print_button);
-        print_button.setBounds(1000, 690, 275, 60);
+        JPanel.add(print_button);
+        print_button.setBounds(1000, 660, 275, 60);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(JPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(JPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void print_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_print_buttonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_print_buttonActionPerformed
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(PopUpDigitalReceipt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(PopUpDigitalReceipt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(PopUpDigitalReceipt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(PopUpDigitalReceipt.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new PopUpDigitalReceipt().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel JPanel;
     private javax.swing.JTextField date_time_input;
     private javax.swing.JLabel date_time_text;
     private javax.swing.JPanel description_detail;
