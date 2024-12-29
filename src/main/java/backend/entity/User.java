@@ -144,6 +144,12 @@ public class User {
                 .noneMatch(user -> user.getEmail().equalsIgnoreCase(email));    // Check if there is a match for the inputted email
     }
 
+    /**
+     * A method to check the format of an email to see if the email is valid.
+     *
+     * @param email The email to be checked
+     * @return {@code true} if the email format is valid, {@code false} otherwise
+     */
     public static boolean checkEmailFormat(String email) {
 
         // Return false if the email is empty
@@ -172,7 +178,7 @@ public class User {
         if (email.contains("..")) return false;
 
         // If the part after "@" has special characters, return false
-        boolean partAfterAtHasSpecial = (email.split("@")[1].matches(".*[!#$%^&*(),?\":{}|<>_].*"));
+        boolean partAfterAtHasSpecial = email.split("@")[1].matches(".*[!#$%^&*(),?\":{}|<>_].*");
 
         // This marks the end of email validation
         return !partAfterAtHasSpecial;
