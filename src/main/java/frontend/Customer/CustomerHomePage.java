@@ -181,7 +181,7 @@ public class CustomerHomePage extends javax.swing.JFrame {
         current_orders_text.setForeground(new java.awt.Color(0, 0, 0));
         current_orders_text.setText("Current Orders");
         bottom_panel.add(current_orders_text);
-        current_orders_text.setBounds(30, 19, 249, 48);
+        current_orders_text.setBounds(30, 19, 650, 48);
         bottom_panel.add(current_orders_panel);
         current_orders_panel.setBounds(30, 73, 650, 450);
 
@@ -189,7 +189,7 @@ public class CustomerHomePage extends javax.swing.JFrame {
         current_orders_text1.setForeground(new java.awt.Color(0, 0, 0));
         current_orders_text1.setText("Categories");
         bottom_panel.add(current_orders_text1);
-        current_orders_text1.setBounds(700, 20, 177, 48);
+        current_orders_text1.setBounds(700, 20, 650, 48);
         bottom_panel.add(categories_panel);
         categories_panel.setBounds(700, 70, 650, 450);
 
