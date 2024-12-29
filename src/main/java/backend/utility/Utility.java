@@ -2,9 +2,6 @@ package backend.utility;
 
 import backend.entity.DeliveryRunner;
 import backend.entity.Item;
-import backend.notification.CustomerNotification;
-import backend.notification.DeliveryRunnerNotification;
-import backend.notification.VendorNotification;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -86,6 +83,16 @@ public class Utility {
     }
 
     /**
+     * A method to convert password from char[] to string
+     *
+     * @param password The password in char[] format
+     * @return The password in string format
+     */
+    public static String generateString(char[] password) {
+        return new String(password);
+    }
+
+    /**
      * A method to generate the string representation of {@code HashMap} representing availability of delivery runners.
      *
      * @param map The HashMap consisting of {@code DeliveryRunner} as the key, {@code Boolean} as the value
@@ -158,16 +165,6 @@ public class Utility {
 
         // Return HashMap after everything is done
         return map;
-    }
-
-    /**
-     * A method to convert password from char[] to string
-     *
-     * @param password The password in char[] format
-     * @return The password in string format
-     */
-    public static String convertPasswordToString(char[] password) {
-        return new String(password);
     }
 
     /**
