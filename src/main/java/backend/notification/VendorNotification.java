@@ -124,7 +124,7 @@ public class VendorNotification implements Notification {
 
             // Create notification for each vendor
             VendorNotification newNotification = new VendorNotification(
-                    Utility.generateNewNotificationID(VendorNotification.class),
+                    Notification.generateNewNotificationID(VendorNotification.class),
                     vendor,
                     LocalDateTime.now(),
                     NotificationStatus.UNREAD,
