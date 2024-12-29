@@ -42,6 +42,7 @@ public class CustomerStoreInCategory extends javax.swing.JFrame {
         shops_of_fried_chicken_scrollpanel = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1400, 800));
         setSize(new java.awt.Dimension(1400, 800));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -178,7 +179,7 @@ public class CustomerStoreInCategory extends javax.swing.JFrame {
         shops_for_fried_chicken.setForeground(new java.awt.Color(0, 0, 0));
         shops_for_fried_chicken.setText("Shops for Fried Chicken");
         bottom_panel.add(shops_for_fried_chicken);
-        shops_for_fried_chicken.setBounds(100, 30, 450, 48);
+        shops_for_fried_chicken.setBounds(70, 30, 450, 48);
 
         shops_of_fried_chicken_scrollpanel.setBackground(new java.awt.Color(255, 251, 233));
         bottom_panel.add(shops_of_fried_chicken_scrollpanel);
