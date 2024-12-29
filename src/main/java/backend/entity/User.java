@@ -185,6 +185,18 @@ public class User {
     }
 
     /**
+     * A method to check the format of the contact number
+     *
+     * @param contactNumber The contact number to be checked
+     * @return {@code true} if the contact number is valid, else {@code false}
+     */
+    public static boolean checkContactNumberFormat(String contactNumber) {
+
+        // Checks if the contact number matches the format of "0_-_______" or "0__-________"
+        return contactNumber.matches("^0[0-9]{1,2}-[0-9]{7,8}$");
+    }
+
+    /**
      * Getters and setters method for {@code User} class.<br>
      * The attributes involved include:<br>
      * - {@code userID}<br>
