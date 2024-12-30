@@ -361,6 +361,15 @@ public class Customer extends User {
         );
         if (!createNotification) return false;
 
+        // Create transaction history for customer
+        boolean transactionRecordCreated = Transaction.createTransactionHistory(
+                this,
+                topUpAmount,
+                Transaction.TransactionType.CASH_IN,
+                wayToPay
+        );
+        if (!transactionRecordCreated) return false;
+
         // Set the new amount
         this.setEWalletAmount(initialAmount + topUpAmount);
 
