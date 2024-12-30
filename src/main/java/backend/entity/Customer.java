@@ -299,6 +299,25 @@ public class Customer extends User {
     }
 
     /**
+     * A method to delete a customer account from system.
+     *
+     * @return {@code true} if customer is deleted successfully, else {@code false}
+     */
+    public boolean deleteCustomer() {
+
+        // Delete user from list
+        boolean removeSuccessful = getCustomerList().remove(this);
+        if (!removeSuccessful) return false;
+
+        // Write to file
+        CustomerFileIO customerIO = new CustomerFileIO();
+        customerIO.writeFile();
+
+        // Return true if everything looks good
+        return true;
+    }
+
+    /**
      * Getters and setters for the {@code Customer} class
      */
     public String getContactNumber() {

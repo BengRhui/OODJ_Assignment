@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test class {@code AdminTest} focuses on the operations that an admin would perform.
@@ -19,7 +18,7 @@ public class AdminTest extends BaseTest {
      * This method focuses on the operation where an admin creates a customer
      */
     @Test
-    void testCreateCustomer() {
+    void testAdminCreateCustomer() {
 
         // Get initial customer list
         ArrayList<Customer> initialCustomerList = new ArrayList<>(Customer.getCustomerList());
@@ -108,7 +107,7 @@ public class AdminTest extends BaseTest {
     }
 
     @Test
-    void testUpdateCustomer() {
+    void testAdminUpdateCustomer() {
 
         // Get initial list of notifications
         ArrayList<Notification> initialCustomerList = TestUtility.convertToNotificationArray(
@@ -204,5 +203,28 @@ public class AdminTest extends BaseTest {
                 "The admin has updated your personal information successfully.",
                 createdNotification.getNotificationDetails()
         );
+    }
+
+    /**
+     * This test focuses on the operation where admin deletes a customer account.
+     */
+    @Test
+    void testAdminDeleteCustomer() {
+
+        // Make sure that customer 1 is in the list
+        boolean inList = Customer.getCustomerList().contains(customer1);
+        assertTrue(inList);
+
+        // Delete customer
+        boolean deleteSuccessful = customer1.deleteCustomer();
+        assertTrue(deleteSuccessful);
+
+        // Make sure that the customer is not in the list anymore
+        boolean getCustomer = Customer.getCustomerList().contains(customer1);
+        assertFalse(getCustomer);
+
+        // Make sure that the function cannot be used on customer who is not exist
+        boolean error = customer1.deleteCustomer();
+        assertFalse(error);
     }
 }
