@@ -208,6 +208,7 @@ public class Customer extends User {
         // Write into file
         CustomerFileIO customerIO = new CustomerFileIO();
         customerIO.writeFile();
+        CredentialsFileIO.writeCredentialsFile();
 
         // Return 1 for successful creation
         return 1;
@@ -292,6 +293,7 @@ public class Customer extends User {
         // Write into file (notification will be automatically written to file)
         CustomerFileIO customerIO = new CustomerFileIO();
         customerIO.writeFile();
+        CredentialsFileIO.writeCredentialsFile();
 
         // Return 1 if modification is made successfully
         return 1;
