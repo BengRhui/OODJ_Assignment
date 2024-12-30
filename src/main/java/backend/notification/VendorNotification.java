@@ -148,7 +148,7 @@ public class VendorNotification implements Notification {
      * @param vendorID The ID of vendor
      * @return {@code true} if the operation is successful, else {@code false}
      */
-    public static boolean deleteRunnerFromNotification(String vendorID) {
+    public static boolean deleteVendorFromNotification(String vendorID) {
 
         // Return false if the input is blank
         if (vendorID.isBlank()) return false;
