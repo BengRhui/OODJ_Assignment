@@ -128,6 +128,45 @@ public class Transaction {
     }
 
     /**
+     * A method to create records for a transaction
+     *
+     * @param customer          The customer involved
+     * @param transactionAmount The amount of transaction
+     * @param transactionType   The type of transaction
+     * @param paymentMethod     The way customer paid for the transaction
+     * @return {@code true} if the transaction is created successfully, else {@code false}
+     */
+    public static boolean createTransactionHistory(
+            Customer customer,
+            double transactionAmount,
+            TransactionType transactionType,
+            PaymentMethod paymentMethod) {
+
+        // If the details are null, return false
+        if (customer == null || transactionAmount <= 0 || transactionType == null || paymentMethod == null)
+            return false;
+
+        // Create a new transaction
+        Transaction newTransaction = new Transaction(
+                generateTransactionID(),
+                customer,
+                LocalDateTime.now(),
+                transactionAmount,
+                transactionType,
+                paymentMethod
+        );
+
+        // Add the transaction to list
+        addToList(newTransaction);
+
+        // Write to file
+        TransactionFileIO.writeFile();
+
+        // Return true for successful operation
+        return true;
+    }
+
+    /**
      * A method to delete all the transaction history of customers.
      *
      * @param customerID The ID of the customer
