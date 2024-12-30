@@ -320,13 +320,18 @@ public class Customer extends User {
     /**
      * A method to top up the e-wallet amount of customer.
      *
-     * @param amount The top-up value
+     * @param amount        The top-up value
+     * @param paymentMethod The way customer pay to admin
      * @return {@code true} if top-up is successful, else {@code false}
      */
-    public boolean topUpWallet(double amount) {
+    public boolean topUpWallet(double amount, String paymentMethod) {
 
         // Return false if amount is less than or equals to 0
         if (amount <= 0) return false;
+
+        // If payment method is not correct (should not happen but included for validation purpose)
+        Transaction.PaymentMethod wayToPay = Transaction.PaymentMethod.getType(paymentMethod);
+        if (wayToPay == null) return false;
 
         // Get the initial amount
         double initialAmount = this.getEWalletAmount();
@@ -337,7 +342,7 @@ public class Customer extends User {
         // Create notification to inform customer about top up
         boolean createNotification = CustomerNotification.createNewNotification(
                 "E-Wallet Top Up",
-                "RM" + topUpAmount + " has been successfully topped up to your e-wallet.",
+                "Thank you for paying using " + wayToPay + ". RM" + topUpAmount + " has been successfully topped up to your e-wallet.",
                 this
         );
         if (!createNotification) return false;

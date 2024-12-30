@@ -243,7 +243,7 @@ public class AdminTest extends BaseTest {
         );
 
         // Perform top up
-        boolean topUpStatus = customer1.topUpWallet(10.1264);
+        boolean topUpStatus = customer1.topUpWallet(10.1264, "QR Payment");
 
         // Check if top up is successful
         assertTrue(topUpStatus);
@@ -263,12 +263,16 @@ public class AdminTest extends BaseTest {
         // Check if the description is correct
         Notification newNotification = differentCustomerList.getFirst();
         assertEquals(
-                "RM10.13 has been successfully topped up to your e-wallet.",
+                "Thank you for paying using QR Payment. RM10.13 has been successfully topped up to your e-wallet.",
                 newNotification.getNotificationDetails()
         );
 
         // Erroneous input: wrong value inserted into method
-        boolean wrongInput = customer1.topUpWallet(-100);
+        boolean wrongInput = customer1.topUpWallet(-100, "Cash");
+        assertFalse(wrongInput);
+
+        // Erroneous input: wrong payment method passed into method
+        wrongInput = customer1.topUpWallet(100, "Wrong method");
         assertFalse(wrongInput);
     }
 }
