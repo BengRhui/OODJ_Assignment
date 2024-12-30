@@ -76,6 +76,34 @@ public class Transaction {
     }
 
     /**
+     * A method to generate a new transaction ID.
+     *
+     * @return A new transaction ID that is not in use currently
+     */
+    public static String generateTransactionID() {
+
+        // Declare a variable to store index
+        int index = 1;
+
+        // Start a loop
+        while (true) {
+
+            // Generate the transaction ID
+            String generatedID = String.format("TRANS%04d", index);
+
+            // Check if the ID is used
+            boolean isIdUsed = transactionList.stream()
+                    .anyMatch(transaction -> transaction.getTransactionID().equals(generatedID));
+
+            // If the ID is not used, return the ID
+            if (!isIdUsed) return generatedID;
+
+            // If the ID is used, increment index and proceed to the next iteration
+            index++;
+        }
+    }
+
+    /**
      * A method to obtain transaction based on ID
      *
      * @param ID The ID that related to a transaction
