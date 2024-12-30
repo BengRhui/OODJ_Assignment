@@ -77,13 +77,18 @@ public class FileIO {
         try {
 
             // Check if the size of both arrays are the same (if not there'll be a problem with the following code)
-            if (fileContents.getFirst().length != spacingSize.length) {
+            if (!fileContents.isEmpty() && fileContents.getFirst().length != spacingSize.length) {
                 throw new IllegalArgumentException();
             }
 
             // Creating objects to write files
             FileWriter file = new FileWriter(filePath);
             BufferedWriter writer = new BufferedWriter(file);
+
+            // If file content is null, then let the file be empty and not write anything
+            if (fileContents.isEmpty()) {
+                writer.close();
+            }
 
             // A local variable to store the line to be written
             StringBuilder inputLine = new StringBuilder();
