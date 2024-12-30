@@ -1,6 +1,5 @@
 package backend.entity;
 
-import backend.file_io.NotificationIO;
 import backend.file_io.OrderFileIO;
 import backend.notification.CustomerNotification;
 import backend.notification.DeliveryRunnerNotification;
@@ -117,6 +116,96 @@ public class Order {
 
         // Return null if no order ID matches
         return null;
+    }
+
+    /**
+     * A method to change the customer attributes of the associated orders to null.
+     *
+     * @param customerID The ID of the customer
+     * @return {@code true} if the operation is successful, else {@code false}
+     */
+    public static boolean changeCustomerToNull(String customerID) {
+
+        // Reject empty inputs
+        if (customerID == null || customerID.isBlank()) return false;
+
+        // Loop through each order
+        for (Order order : orderList) {
+
+            // If the customer attribute is not null and the ID matches
+            if (order.getOrderingCustomer() != null &&
+                    order.getOrderingCustomer().getUserID().equals(customerID)) {
+
+                // Set the customer attribute to null
+                order.setOrderingCustomer(null);
+            }
+        }
+
+        // Write to file
+        OrderFileIO.writeFile();
+
+        // Return true after successful operation
+        return true;
+    }
+
+    /**
+     * A method to change the stall attributes of the associated orders to null.
+     *
+     * @param stallID The ID of the stall
+     * @return {@code true} if the operation is successful, else {@code false}
+     */
+    public static boolean changeStallToNull(String stallID) {
+
+        // Reject empty inputs
+        if (stallID == null || stallID.isBlank()) return false;
+
+        // Loop through each order
+        for (Order order : orderList) {
+
+            // If the stall attribute is not null and the ID matches
+            if (order.getOrderedStall() != null &&
+                    order.getOrderedStall().getStallID().equals(stallID)) {
+
+                // Set the stall attribute to null
+                order.setOrderedStall(null);
+            }
+        }
+
+        // Write to file
+        OrderFileIO.writeFile();
+
+        // Return true after successful operation
+        return true;
+    }
+
+    /**
+     * A method to change the delivery runner attributes of the associated orders to null.
+     *
+     * @param runnerID The ID of the delivery runner
+     * @return {@code true} if the operation is successful, else {@code false}
+     */
+    public static boolean changeRunnerToNull(String runnerID) {
+
+        // Reject empty inputs
+        if (runnerID.isBlank()) return false;
+
+        // Loop through each order
+        for (Order order : orderList) {
+
+            // If the delivery runner attribute is not null and the ID matches
+            if (order.getRunnerInCharge() != null &&
+                    order.getRunnerInCharge().getUserID().equals(runnerID)) {
+
+                // Set the delivery runner attribute to null
+                order.setRunnerInCharge(null);
+            }
+        }
+
+        // Write to file
+        OrderFileIO.writeFile();
+
+        // Return true after successful operation
+        return true;
     }
 
     /**
@@ -704,13 +793,15 @@ public class Order {
 
     /**
      * A method for delivery runner to reject an order.
+     *
      * @return {@code true} if the order is rejected successfully, otherwise {@code false} if notification is not created successfully
      */
     public boolean runnerRejectOrder() {
 
         // Check if the correct type of order is implemented by the method
         if (this.getDiningType() != DiningType.DELIVERY) return false;
-        if (this.getOrderStatus() != OrderStatus.WAITING_VENDOR_AND_RUNNER && this.getOrderStatus() != OrderStatus.WAITING_RUNNER) return false;
+        if (this.getOrderStatus() != OrderStatus.WAITING_VENDOR_AND_RUNNER && this.getOrderStatus() != OrderStatus.WAITING_RUNNER)
+            return false;
 
         // Mark the current runner as unavailable
         boolean markAvailability = this.getRunnerInCharge().updateAvailability(false);
