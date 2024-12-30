@@ -172,6 +172,7 @@ public class Vendor extends User {
         addToVendorList(newVendor);
 
         // Write to file
+        CredentialsFileIO.writeCredentialsFile();
         VendorFileIO vendorIO = new VendorFileIO();
         vendorIO.writeFile();
 
@@ -238,6 +239,7 @@ public class Vendor extends User {
         );
 
         // Write to file
+        CredentialsFileIO.writeCredentialsFile();
         VendorFileIO vendorIO = new VendorFileIO();
         vendorIO.writeFile();
 
