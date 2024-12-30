@@ -2,6 +2,8 @@ import backend.entity.Customer;
 import backend.entity.Vendor;
 import backend.notification.CustomerNotification;
 import backend.notification.Notification;
+import backend.notification.VendorNotification;
+import backend.utility.Utility;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -354,5 +356,101 @@ public class AdminTest extends BaseTest {
         assertEquals(stall1, differentVendor.getFirst().getStall());
         assertEquals("jinyuan@mail.com.my", differentVendor.getFirst().getEmail());
         assertEquals("Abc@1234", differentVendor.getFirst().getPassword());
+    }
+
+    /**
+     * This test focuses on the operation where admin changes the details of a vendor account.
+     */
+    @Test
+    void testAdminModifyVendorAccount() {
+
+        // Get initial notification list
+        ArrayList<Notification> initialNotification = TestUtility.convertToNotificationArray(
+                VendorNotification.getVendorNotificationList()
+        );
+
+        // Prepare information to modify
+        String vendorName = vendor1.getName();
+        String stallName = "Not Available Store";
+        String email = "wrong_email";
+        char[] password = "incorrect_password".toCharArray();
+        char[] confirmPassword = "Abc@1234".toCharArray();
+
+        // Start the loop
+        for (int i = 0; i < 7; i++) {
+
+            // Perform modification
+            int modifyVendor = vendor1.modifyVendor(
+                    vendorName,
+                    stallName,
+                    email,
+                    password,
+                    confirmPassword
+            );
+
+            // Use switch statement to go through each case
+            switch (i) {
+
+                // Case 1: Email is not in correct format
+                case 0 -> {
+                    assertEquals(-1, modifyVendor);
+                    email = "firefly@hunters.abc";
+                }
+
+                // Case 2: Email is not available
+                case 1 -> {
+                    assertEquals(-2, modifyVendor);
+                    email = vendor1.getEmail();
+                }
+
+                // Case 3: The same email can be used
+                case 2 -> {
+                    assertNotEquals(-2, modifyVendor);
+                    email = "abc@123.com";
+                }
+
+                // Case 4: Password does not meet requirement
+                case 3 -> {
+                    assertEquals(-3, modifyVendor);
+                    password = "ABc@1234".toCharArray();
+                }
+
+                // Case 5: Passwords do not match with each other
+                case 4 -> {
+                    assertEquals(-4, modifyVendor);
+                    password = "Abc@1234".toCharArray();
+                }
+
+                // Case 6: Stall cannot be retrieved based on name
+                case 5 -> {
+                    assertEquals(-5, modifyVendor);
+                    stallName = stall1.getStallName();
+                }
+
+                // Finally, the details are modified successfully
+                case 6 -> assertEquals(1, modifyVendor);
+            }
+        }
+
+        // Check if the details are modified correctly
+        assertEquals(stall1, vendor1.getStall());
+        assertEquals(email, vendor1.getEmail());
+        assertEquals(Utility.generateString(password), vendor1.getPassword());
+
+        // Check if a new notification is produced
+        ArrayList<Notification> differentNotification = TestUtility.getDifferentNotification(
+                initialNotification,
+                TestUtility.convertToNotificationArray(
+                        VendorNotification.getVendorNotificationList()
+                )
+        );
+        assertEquals(1, differentNotification.size());
+
+        // Check if the vendor ID and description produced is correct
+        assertEquals(vendor1.getUserID(), differentNotification.getFirst().getEntityID());
+        assertEquals(
+                "Your personal information has been updated.",
+                differentNotification.getFirst().getNotificationDetails()
+        );
     }
 }
