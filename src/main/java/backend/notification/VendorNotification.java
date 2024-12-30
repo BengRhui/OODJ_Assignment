@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Class {@code VendorNotification} represents the notifications for vendors.
@@ -138,6 +139,32 @@ public class VendorNotification implements Notification {
         }
 
         // Return true if notification is created successfully
+        return true;
+    }
+
+    /**
+     * A method to delete the notifications associated with the vendor.
+     *
+     * @param vendorID The ID of vendor
+     * @return {@code true} if the operation is successful, else {@code false}
+     */
+    public static boolean deleteRunnerFromNotification(String vendorID) {
+
+        // Return false if the input is blank
+        if (vendorID.isBlank()) return false;
+
+        // Get the list of notifications associated with the vendor
+        ArrayList<VendorNotification> vendorNotification = VendorNotification.getVendorNotificationList().stream()
+                .filter(notification -> notification.getVendor().getUserID().equals(vendorID))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        // Remove the notifications from the list
+        vendorNotificationList.removeAll(vendorNotification);
+
+        // Write to file
+        NotificationIO.writeFile();
+
+        // Return true for successful operation
         return true;
     }
 
