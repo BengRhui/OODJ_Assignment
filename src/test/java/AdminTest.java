@@ -260,6 +260,9 @@ public class AdminTest extends BaseTest {
                 CustomerNotification.getCustomerNotificationList()
         );
 
+        // Get initial transaction list
+        ArrayList<Transaction> initialTransactionList = new ArrayList<>(Transaction.getTransactionList());
+
         // Perform top up
         boolean topUpStatus = customer1.topUpWallet(10.1264, "QR Payment");
 
@@ -283,6 +286,24 @@ public class AdminTest extends BaseTest {
         assertEquals(
                 "Thank you for paying using QR Payment. RM10.13 has been successfully topped up to your e-wallet.",
                 newNotification.getNotificationDetails()
+        );
+
+        // Retrieve the newly created transaction record
+        ArrayList<Transaction> newTransactionList = new ArrayList<>(Transaction.getTransactionList());
+        newTransactionList.removeAll(initialTransactionList);
+
+        // Check if transaction is created
+        assertEquals(1, newTransactionList.size());
+
+        // Check the contents of the transaction
+        assertEquals(
+                customer1,
+                newTransactionList.getFirst().getCustomer()
+        );
+
+        assertEquals(
+                Transaction.PaymentMethod.QR_PAYMENT,
+                newTransactionList.getFirst().getPaymentMethod()
         );
 
         // Erroneous input: wrong value inserted into method
