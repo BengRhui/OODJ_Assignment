@@ -1,4 +1,5 @@
 import backend.entity.Customer;
+import backend.entity.Vendor;
 import backend.notification.CustomerNotification;
 import backend.notification.Notification;
 import org.junit.jupiter.api.Test;
@@ -274,5 +275,84 @@ public class AdminTest extends BaseTest {
         // Erroneous input: wrong payment method passed into method
         wrongInput = customer1.topUpWallet(100, "Wrong method");
         assertFalse(wrongInput);
+    }
+
+    /**
+     * This test focuses on the operation where the admin creates an admin account.
+     */
+    @Test
+    void testAdminCreateVendor() {
+
+        // Get the initial list of vendors
+        ArrayList<Vendor> initialVendorList = new ArrayList<>(Vendor.getVendorList());
+
+        // Prepare information for new vendor (with erroneous information)
+        String vendorID = Vendor.generateNewID();
+        String vendorName = "General Jin Yuan";
+        String stallName = "Not Available Store";
+        String email = "jinyuan@123";
+        char[] password = "12345".toCharArray();
+        char[] confirmPassword = "Abc@1234".toCharArray();
+
+        // Start a loop
+        for (int i = 0; i < 6; i++) {
+
+            // Try to create a vendor account
+            int createAccountStatus = Vendor.createNewVendor(
+                    vendorID,
+                    vendorName,
+                    stallName,
+                    email,
+                    password,
+                    confirmPassword
+            );
+
+            // Use a switch statement to handle different cases
+            switch (i) {
+
+                // First case: Email is not in correct format
+                case 0 -> {
+                    assertEquals(-1, createAccountStatus);
+                    email = "firefly@hunters.abc";
+                }
+
+                // Second case: Email is used by other user
+                case 1 -> {
+                    assertEquals(-2, createAccountStatus);
+                    email = "jinyuan@mail.com.my";
+                }
+
+                // Third case: Password does not meet requirements
+                case 2 -> {
+                    assertEquals(-3, createAccountStatus);
+                    password = "ABc@1234".toCharArray();
+                }
+
+                // Fourth case: Passwords do not match
+                case 3 -> {
+                    assertEquals(-4, createAccountStatus);
+                    password = "Abc@1234".toCharArray();
+                }
+
+                // Fifth case: Store is not found
+                case 4 -> {
+                    assertEquals(-5, createAccountStatus);
+                    stallName = stall1.getStallName();
+                }
+
+                // Finally the account is created
+                case 5 -> assertEquals(1, createAccountStatus);
+            }
+        }
+
+        // Check if the new vendor is created
+        ArrayList<Vendor> differentVendor = Vendor.getVendorList();
+        differentVendor.removeAll(initialVendorList);
+        assertEquals(1, differentVendor.size());
+
+        // Check if the details are correct
+        assertEquals(stall1, differentVendor.getFirst().getStall());
+        assertEquals("jinyuan@mail.com.my", differentVendor.getFirst().getEmail());
+        assertEquals("Abc@1234", differentVendor.getFirst().getPassword());
     }
 }
