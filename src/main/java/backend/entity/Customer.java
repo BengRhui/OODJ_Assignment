@@ -284,7 +284,7 @@ public class Customer extends User {
         // Create notification to update customer
         boolean notificationCreated = CustomerNotification.createNewNotification(
                 "Updated Personal Information",
-                "The admin has updated your personal information successfully.",
+                "Your personal information has been updated successfully.",
                 this
         );
         if (!notificationCreated) return -6;
@@ -314,6 +314,38 @@ public class Customer extends User {
         customerIO.writeFile();
 
         // Return true if everything looks good
+        return true;
+    }
+
+    /**
+     * A method to top up the e-wallet amount of customer.
+     *
+     * @param amount The top-up value
+     * @return {@code true} if top-up is successful, else {@code false}
+     */
+    public boolean topUpWallet(double amount) {
+
+        // Return false if amount is less than or equals to 0
+        if (amount <= 0) return false;
+
+        // Get the initial amount
+        double initialAmount = this.getEWalletAmount();
+
+        // Calculate and set the new amount
+        double topUpAmount = Math.round(amount * 100) / 100.0;
+
+        // Create notification to inform customer about top up
+        boolean createNotification = CustomerNotification.createNewNotification(
+                "E-Wallet Top Up",
+                "RM" + topUpAmount + " has been successfully topped up to your e-wallet.",
+                this
+        );
+        if (!createNotification) return false;
+
+        // Set the new amount
+        this.setEWalletAmount(initialAmount + topUpAmount);
+
+        // Return true for successful operation
         return true;
     }
 

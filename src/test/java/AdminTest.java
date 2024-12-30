@@ -200,7 +200,7 @@ public class AdminTest extends BaseTest {
         // Check if the correct description is produced
         Notification createdNotification = differentNotification.getFirst();
         assertEquals(
-                "The admin has updated your personal information successfully.",
+                "Your personal information has been updated successfully.",
                 createdNotification.getNotificationDetails()
         );
     }
@@ -226,5 +226,49 @@ public class AdminTest extends BaseTest {
         // Make sure that the function cannot be used on customer who is not exist
         boolean error = customer1.deleteCustomer();
         assertFalse(error);
+    }
+
+    /**
+     * This test focuses on the operation where admin tops up the customer's e-wallet.
+     */
+    @Test
+    void testAdminTopUpCustomerWallet() {
+
+        // Get initial e-wallet amount
+        double initialAmount = customer1.getEWalletAmount();
+
+        // Get initial customer notification list
+        ArrayList<Notification> initialCustomerList = TestUtility.convertToNotificationArray(
+                CustomerNotification.getCustomerNotificationList()
+        );
+
+        // Perform top up
+        boolean topUpStatus = customer1.topUpWallet(10.1264);
+
+        // Check if top up is successful
+        assertTrue(topUpStatus);
+
+        // Check if top up amount tallies
+        assertEquals(initialAmount + 10.13, customer1.getEWalletAmount());
+
+        // Check if new notification is created
+        ArrayList<Notification> differentCustomerList = TestUtility.getDifferentNotification(
+                initialCustomerList,
+                TestUtility.convertToNotificationArray(
+                        CustomerNotification.getCustomerNotificationList()
+                )
+        );
+        assertEquals(1, differentCustomerList.size());
+
+        // Check if the description is correct
+        Notification newNotification = differentCustomerList.getFirst();
+        assertEquals(
+                "RM10.13 has been successfully topped up to your e-wallet.",
+                newNotification.getNotificationDetails()
+        );
+
+        // Erroneous input: wrong value inserted into method
+        boolean wrongInput = customer1.topUpWallet(-100);
+        assertFalse(wrongInput);
     }
 }
