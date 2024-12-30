@@ -203,7 +203,7 @@ public class Customer extends User {
         );
 
         // Add the new customer into the customer array list
-        Customer.addToCustomerList(newCustomer);
+        addToCustomerList(newCustomer);
 
         // Write into file
         CustomerFileIO customerIO = new CustomerFileIO();
