@@ -56,7 +56,7 @@ public class ItemFileIO extends FileIO {
         // Retrieve information from the string array
         String itemID = recordFromFile[0];
         String itemName = recordFromFile[1];
-        Stall stall = recordFromFile[2].equals("null") ? null : Stall.getStall(recordFromFile[2]);
+        Stall stall = recordFromFile[2].equals("null") ? null : Stall.getStallByID(recordFromFile[2]);
         double price = Double.parseDouble(recordFromFile[3]);
         String description = recordFromFile[4];
 

@@ -451,7 +451,7 @@ class ReadWriteFileTest extends BaseTest {
         assertEquals(stallListSize, Stall.getStallList().size(), "Expected one stall after reading file");
 
         // Check if the same objects can be retrieved from file
-        Stall retrievedStall = Stall.getStall(stall1.getStallID());
+        Stall retrievedStall = Stall.getStallByID(stall1.getStallID());
         assertNotNull(retrievedStall);
 
         // Check if the changes are reflected into file

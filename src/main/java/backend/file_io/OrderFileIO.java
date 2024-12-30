@@ -52,7 +52,7 @@ public class OrderFileIO extends FileIO {
         // Retrieve information from the string array
         String orderID = recordFromFile[0];
         Customer orderingCustomer = Customer.getCustomer(recordFromFile[1]);
-        Stall orderedStall = Stall.getStall(recordFromFile[2]);
+        Stall orderedStall = Stall.getStallByID(recordFromFile[2]);
         DeliveryRunner runnerInCharge = recordFromFile[3].equalsIgnoreCase("null") ? null : DeliveryRunner.getRunner(recordFromFile[3]);
         Order.DiningType diningType = Order.DiningType.getFromString(recordFromFile[4]);
         String tableNumber = recordFromFile[5].equalsIgnoreCase("null") ? null : recordFromFile[5];

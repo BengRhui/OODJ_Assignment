@@ -67,7 +67,7 @@ public class Stall {
      * @param stallID The ID of the stall
      * @return The {@code Stall} object associated with the ID
      */
-    public static Stall getStall(String stallID) {
+    public static Stall getStallByID(String stallID) {
 
         // Loop through the list of stores
         for (Stall stall : stallList) {
@@ -83,6 +83,20 @@ public class Stall {
 
         // Return null if no ID matches
         return null;
+    }
+
+    /**
+     * A method to retrieve the corresponding stall by stall name.
+     *
+     * @param stallName The name of the stall
+     * @return The {@code Stall} object associated, returns {@code null} if no stall is found
+     */
+    public static Stall getStallByName(String stallName) {
+
+        return stallList.stream()                                                   // Convert list into a stream
+                .filter(stall -> stall.stallName.equalsIgnoreCase(stallName))       // Filter the matching stall
+                .findFirst()                                                        // Get the stall
+                .orElse(null);                                                      // Returns null if stall is not found
     }
 
     /**
