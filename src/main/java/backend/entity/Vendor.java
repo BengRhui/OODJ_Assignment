@@ -1,5 +1,6 @@
 package backend.entity;
 
+import backend.file_io.CredentialsFileIO;
 import backend.file_io.VendorFileIO;
 import backend.notification.VendorNotification;
 import backend.utility.Utility;
@@ -242,6 +243,30 @@ public class Vendor extends User {
 
         // Return 1 to indicate successful modification
         return 1;
+    }
+
+    /**
+     * A method to delete a vendor account.
+     *
+     * @return {@code true} if the account is deleted successfully, else {@code false}
+     */
+    public boolean deleteVendor() {
+
+        // Delete related notifications
+        boolean notificationDeleted = VendorNotification.deleteVendorFromNotification(this.getUserID());
+        if (!notificationDeleted) return false;
+
+        // Delete vendor from list
+        boolean removeVendorFromList = vendorList.remove(this);
+        if (!removeVendorFromList) return false;
+
+        // Write to file
+        CredentialsFileIO.writeCredentialsFile();
+        VendorFileIO vendorIO = new VendorFileIO();
+        vendorIO.writeFile();
+
+        // Return true for successful modification
+        return true;
     }
 
     /**

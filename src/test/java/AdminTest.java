@@ -489,4 +489,45 @@ public class AdminTest extends BaseTest {
                 differentNotification.getFirst().getNotificationDetails()
         );
     }
+
+    /**
+     * The test focuses on the operation where the admin deletes a vendor account.
+     */
+    @Test
+    void testAdminDeleteVendor() {
+
+        // Get initial notification list
+        ArrayList<Notification> initialNotification = TestUtility.convertToNotificationArray(
+                VendorNotification.getVendorNotificationList()
+        );
+
+        // Make sure that the notification list contains the vendor
+        boolean notificationHasVendor = initialNotification.stream()
+                .anyMatch(notification -> notification.getEntityID().equals(vendor1.getUserID()));
+        assertTrue(notificationHasVendor);
+
+        // Make sure that the vendor is in the list
+        boolean vendorInList = Vendor.getVendorList().contains(vendor1);
+        assertTrue(vendorInList);
+
+        // Try to delete a vendor account and make sure that the operation is successful
+        boolean deleteVendor = vendor1.deleteVendor();
+        assertTrue(deleteVendor);
+
+        // Make sure that the vendor is not in the list anymore
+        vendorInList = Vendor.getVendorList().contains(vendor1);
+        assertFalse(vendorInList);
+
+        // Make sure that the notifications related to the vendor is deleted
+        ArrayList<Notification> newNotificationList = TestUtility.convertToNotificationArray(
+                VendorNotification.getVendorNotificationList()
+        );
+        notificationHasVendor = newNotificationList.stream()
+                .anyMatch(notification -> notification.getEntityID().equals(vendor1.getUserID()));
+        assertFalse(notificationHasVendor);
+
+        // Try to perform the method on the same vendor again
+        deleteVendor = vendor1.deleteVendor();
+        assertFalse(deleteVendor);
+    }
 }
