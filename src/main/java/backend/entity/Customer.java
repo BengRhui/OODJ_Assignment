@@ -315,7 +315,8 @@ public class Customer extends User {
         if (!changeOrder) return false;
 
         // Delete the associated transaction history
-        Transaction.deleteTransaction(this.getUserID());
+        boolean transactionDeleted = Transaction.deleteTransaction(this.getUserID());
+        if (!transactionDeleted) return false;
 
         // Delete user from list
         boolean removeSuccessful = getCustomerList().remove(this);
