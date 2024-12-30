@@ -1,6 +1,7 @@
 package backend.entity;
 
 import backend.file_io.CustomerFileIO;
+import backend.file_io.NotificationIO;
 import backend.notification.CustomerNotification;
 import backend.utility.Utility;
 
@@ -287,6 +288,11 @@ public class Customer extends User {
                 this
         );
         if (!notificationCreated) return -6;
+
+        // Write into file
+        CustomerFileIO customerIO = new CustomerFileIO();
+        customerIO.writeFile();
+        NotificationIO.writeFile();
 
         // Return 1 if modification is made successfully
         return 1;
