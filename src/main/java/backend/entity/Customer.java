@@ -226,7 +226,7 @@ public class Customer extends User {
      * @param email           The email of the customer
      * @param password        The password of the customer
      * @param confirmPassword The password retyped
-     * @return {@code 1} if the new account is created successfully<br>
+     * @return {@code 1} if the new account is modified successfully<br>
      * {@code -1} if the email is not in the correct format<br>
      * {@code -2} if the email is not available<br>
      * {@code -3} if the password does not meet requirement<br>
@@ -272,6 +272,14 @@ public class Customer extends User {
                 Address.State.getFromString(state)
         );
 
+        // Create notification to update customer
+        boolean notificationCreated = CustomerNotification.createNewNotification(
+                "Updated Personal Information",
+                "Your personal information has been updated successfully.",
+                this
+        );
+        if (!notificationCreated) return -6;
+
         // Update every detail of the customer
         this.setName(customerName);
         this.setContactNumber(contactNumber);
@@ -281,18 +289,9 @@ public class Customer extends User {
                 Utility.generateString(password)
         );
 
-        // Create notification to update customer
-        boolean notificationCreated = CustomerNotification.createNewNotification(
-                "Updated Personal Information",
-                "Your personal information has been updated successfully.",
-                this
-        );
-        if (!notificationCreated) return -6;
-
-        // Write into file
+        // Write into file (notification will be automatically written to file)
         CustomerFileIO customerIO = new CustomerFileIO();
         customerIO.writeFile();
-        NotificationIO.writeFile();
 
         // Return 1 if modification is made successfully
         return 1;

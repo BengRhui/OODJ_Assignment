@@ -295,7 +295,6 @@ public class Order {
 
             // Write into file
             OrderFileIO.writeFile();
-            NotificationIO.writeFile();
 
             // Return 1 to indicate success modification
             return 1;
@@ -324,7 +323,6 @@ public class Order {
 
             // Write into file
             OrderFileIO.writeFile();
-            NotificationIO.writeFile();
 
             // Return true to indicate success modification
             return 1;
@@ -382,7 +380,6 @@ public class Order {
 
         // Write into file
         OrderFileIO.writeFile();
-        NotificationIO.writeFile();
 
         // Return 1 for successful operation
         return 1;
@@ -439,7 +436,6 @@ public class Order {
 
             // Write into file
             OrderFileIO.writeFile();
-            NotificationIO.writeFile();
 
             // Return 1 to indicate successful modification
             return 1;
@@ -501,7 +497,6 @@ public class Order {
 
             // Write into file
             OrderFileIO.writeFile();
-            NotificationIO.writeFile();
 
             // Return 1 for successful modification
             return 1;
@@ -527,7 +522,6 @@ public class Order {
 
             // Write into file
             OrderFileIO.writeFile();
-            NotificationIO.writeFile();
 
             // Return 1 for successful modification
             return 1;
@@ -611,7 +605,6 @@ public class Order {
 
         // Write to file
         OrderFileIO.writeFile();
-        NotificationIO.writeFile();
 
         // Return true for successful operation
         return true;
@@ -667,7 +660,6 @@ public class Order {
 
             // Write to files
             OrderFileIO.writeFile();
-            NotificationIO.writeFile();
 
             // Return 1 for successful modification
             return 1;
@@ -701,7 +693,6 @@ public class Order {
 
             // Write to files
             OrderFileIO.writeFile();
-            NotificationIO.writeFile();
 
             // Return 1 for successful modification
             return 1;
@@ -767,7 +758,6 @@ public class Order {
 
         // Write into file
         OrderFileIO.writeFile();
-        NotificationIO.writeFile();
 
         // Return true for successful operation
         return true;
