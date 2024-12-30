@@ -1,11 +1,13 @@
 package backend.entity;
 
+import backend.file_io.TransactionFileIO;
 import backend.utility.Utility;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Class {@code Transaction} represents the transaction that occurs during purchasing items and topping up.
@@ -95,6 +97,30 @@ public class Transaction {
 
         // Return null if there is no matching ID
         return null;
+    }
+
+    /**
+     * A method to delete all the transaction history of customers.
+     *
+     * @param customerID The ID of the customer
+     * @return {@code true} if the operation is successful, else {@code false}
+     */
+    public static boolean deleteTransaction(String customerID) {
+
+        // Return false if customer ID is blank
+        if (customerID == null || customerID.isBlank()) return false;
+
+        // Get the list of the associated transaction
+        ArrayList<Transaction> customerTransaction = transactionList.stream()
+                .filter(transaction -> transaction.getCustomer().getUserID().equals(customerID))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        // Delete these transactions from the array
+        transactionList.removeAll(customerTransaction);
+
+        // Write to file and return true
+        TransactionFileIO.writeFile();
+        return true;
     }
 
     /**
