@@ -1,4 +1,6 @@
 import backend.entity.Customer;
+import backend.entity.Order;
+import backend.entity.Transaction;
 import backend.entity.Vendor;
 import backend.notification.CustomerNotification;
 import backend.notification.Notification;
@@ -225,6 +227,19 @@ public class AdminTest extends BaseTest {
         // Make sure that the customer is not in the list anymore
         boolean getCustomer = Customer.getCustomerList().contains(customer1);
         assertFalse(getCustomer);
+
+        // Make sure that the notification, order and transaction list does not have the customer anymore
+        boolean notificationListHasCustomer = CustomerNotification.getCustomerNotificationList().stream()
+                .anyMatch(notification -> notification.getCustomer().getUserID().equals(customer1.getUserID()));
+        assertFalse(notificationListHasCustomer);
+
+        boolean orderListHasCustomer = Order.getOrderList().stream()
+                .anyMatch(order -> order.getOrderingCustomer() != null && order.getOrderingCustomer().getUserID().equals(customer1.getUserID()));
+        assertFalse(orderListHasCustomer);
+
+        boolean transactionListHasCustomer = Transaction.getTransactionList().stream()
+                .anyMatch(transaction -> transaction.getCustomer().getUserID().equals(customer1.getUserID()));
+        assertFalse(transactionListHasCustomer);
 
         // Make sure that the function cannot be used on customer who is not exist
         boolean error = customer1.deleteCustomer();

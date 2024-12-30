@@ -1,7 +1,7 @@
 package backend.entity;
 
+import backend.file_io.CredentialsFileIO;
 import backend.file_io.CustomerFileIO;
-import backend.file_io.NotificationIO;
 import backend.notification.CustomerNotification;
 import backend.utility.Utility;
 
@@ -304,11 +304,23 @@ public class Customer extends User {
      */
     public boolean deleteCustomer() {
 
+        // Delete notifications associated with the customer
+        boolean deleteNotification = CustomerNotification.deleteCustomerFromNotification(this.getUserID());
+        if (!deleteNotification) return false;
+
+        // Change the customer associated with order to null (record is remained for dashboard purpose)
+        boolean changeOrder = Order.changeCustomerToNull(this.getUserID());
+        if (!changeOrder) return false;
+
+        // Delete the associated transaction history
+        Transaction.deleteTransaction(this.getUserID());
+
         // Delete user from list
         boolean removeSuccessful = getCustomerList().remove(this);
         if (!removeSuccessful) return false;
 
         // Write to file
+        CredentialsFileIO.writeCredentialsFile();
         CustomerFileIO customerIO = new CustomerFileIO();
         customerIO.writeFile();
 
