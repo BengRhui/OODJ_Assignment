@@ -1,5 +1,9 @@
 package backend.entity;
 
+import backend.file_io.CredentialsFileIO;
+import backend.file_io.DeliveryRunnerFileIO;
+import backend.utility.Utility;
+
 import java.util.*;
 
 /**
@@ -152,6 +156,68 @@ public class DeliveryRunner extends User {
             // Increment the index if there is a match
             index++;
         }
+    }
+
+    /**
+     * A method to create a new delivery runner account.
+     *
+     * @param runnerID        The ID of the runner
+     * @param name            The name of the runner
+     * @param contactNumber   The contact number of the runner
+     * @param email           The email of the runner
+     * @param password        The password of the runner
+     * @param confirmPassword The password retyped
+     * @return {@code 1} if the new account is created successfully<br>
+     * {@code -1} if the email is not in the correct format<br>
+     * {@code -2} if the email is not available<br>
+     * {@code -3} if the password does not meet requirement<br>
+     * {@code -4} if the password does not match with "confirm password"<br>
+     * {@code -5} if the contact number is not in the correct format
+     */
+    public static int createNewRunner(
+            String runnerID,
+            String name,
+            String contactNumber,
+            String email,
+            char[] password,
+            char[] confirmPassword) {
+
+        // Case 1: Check if the email format is correct (-1)
+        if (!checkEmailFormat(email)) return -1;
+
+        // Case 2: Check if the email is available (-2)
+        if (!isEmailAvailable(email)) return -2;
+
+        // Case 3: Check if password meets requirement (-3)
+        if (!validatePassword(
+                Utility.generateString(password))
+        ) return -3;
+
+        // Case 4: Check if both passwords match (-4)
+        if (!Arrays.equals(password, confirmPassword)) return -4;
+
+        // Case 5: Check if the format of contact number is correct (-5)
+        if (!checkContactNumberFormat(contactNumber)) return -5;
+
+        // Create the new runner
+        DeliveryRunner newRunner = new DeliveryRunner(
+                runnerID,
+                email,
+                Utility.generateString(password),
+                name,
+                contactNumber
+        );
+
+        // Add to list
+        addToRunnerList(newRunner);
+
+        // Write to file
+        CredentialsFileIO.writeCredentialsFile();
+        DeliveryRunnerFileIO runnerIO = new DeliveryRunnerFileIO();
+        runnerIO.writeFile();
+
+        // Return 1 for successful operation
+        return 1;
     }
 
     /**

@@ -1,7 +1,4 @@
-import backend.entity.Customer;
-import backend.entity.Order;
-import backend.entity.Transaction;
-import backend.entity.Vendor;
+import backend.entity.*;
 import backend.notification.CustomerNotification;
 import backend.notification.Notification;
 import backend.notification.VendorNotification;
@@ -529,5 +526,101 @@ public class AdminTest extends BaseTest {
         // Try to perform the method on the same vendor again
         deleteVendor = vendor1.deleteVendor();
         assertFalse(deleteVendor);
+    }
+
+    /**
+     * This test focuses on the operation where the admin adds a new delivery runner account.
+     */
+    @Test
+    void testAdminAddRunner() {
+
+        // Get the initial list of runners
+        ArrayList<DeliveryRunner> initialRunnerList = new ArrayList<>(DeliveryRunner.getDeliveryRunnerList());
+
+        // Prepare data for creating a new account
+        String runnerID = DeliveryRunner.generateNewID();
+        String name = "Master Yan Qin";
+        String contactNumber = "12-345";
+        String email = "yanqin@luofu";
+        char[] password = "12345".toCharArray();
+        char[] confirmPassword = "Abc@1234".toCharArray();
+
+        // Start a loop
+        for (int i = 0; i < 6; i++) {
+
+            // Try to add account
+            int createRunner = DeliveryRunner.createNewRunner(
+                    runnerID,
+                    name,
+                    contactNumber,
+                    email,
+                    password,
+                    confirmPassword
+            );
+
+            // Use a switch statement to handle different cases
+            switch (i) {
+
+                // Case 1: Email is not in correct format (-1)
+                case 0 -> {
+                    assertEquals(-1, createRunner);
+                    email = "firefly@hunters.abc";
+                }
+
+                // Case 2: Email is used by another user (-2)
+                case 1 -> {
+                    assertEquals(-2, createRunner);
+                    email = "yanqin@luofu.com";
+                }
+
+                // Case 3: Password does not meet requirement (-3)
+                case 2 -> {
+                    assertEquals(-3, createRunner);
+                    password = "ABc@1234".toCharArray();
+                }
+
+                // Case 4: Password does not match with confirm password (-4)
+                case 3 -> {
+                    assertEquals(-4, createRunner);
+                    password = "Abc@1234".toCharArray();
+                }
+
+                // Case 5: Contact number is not in correct format (-5)
+                case 4 -> {
+                    assertEquals(-5, createRunner);
+                    contactNumber = "012-8461045";
+                }
+
+                // Finally the account is created successfully
+                case 5 -> assertEquals(1, createRunner);
+            }
+        }
+
+        // Retrieve the list containing new runner
+        ArrayList<DeliveryRunner> differentRunner = new ArrayList<>(DeliveryRunner.getDeliveryRunnerList());
+        boolean ableToRemove = differentRunner.removeAll(initialRunnerList);
+        assertTrue(ableToRemove);
+
+        // Make sure that there is only one new runner created
+        assertEquals(1, differentRunner.size());
+
+        // Retrieve the newly added runner
+        DeliveryRunner newRunner = differentRunner.getFirst();
+
+        // Make sure that the details are correct
+        assertEquals(
+                "012-8461045",
+                newRunner.getContactNumber()
+        );
+
+        assertEquals(
+                "yanqin@luofu.com",
+                newRunner.getEmail()
+        );
+
+        assertEquals(
+                "Abc@1234",
+                newRunner.getPassword()
+        );
     }
 }
