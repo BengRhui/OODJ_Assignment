@@ -169,6 +169,7 @@ public class DeliveryRunner extends User {
      * @param password        The password of the runner
      * @param confirmPassword The password retyped
      * @return {@code 1} if the new account is created successfully<br>
+     * {@code 0} if there exist any empty values<br>
      * {@code -1} if the email is not in the correct format<br>
      * {@code -2} if the email is not available<br>
      * {@code -3} if the password does not meet requirement<br>
@@ -182,6 +183,13 @@ public class DeliveryRunner extends User {
             String email,
             char[] password,
             char[] confirmPassword) {
+
+        // Check if there is any empty values
+        if (name == null || name.isBlank() ||
+                contactNumber == null || contactNumber.isBlank() ||
+                email == null || email.isBlank() ||
+                password == null || password.length == 0
+        ) return 0;
 
         // Case 1: Check if the email format is correct (-1)
         if (!checkEmailFormat(email)) return -1;
@@ -230,6 +238,7 @@ public class DeliveryRunner extends User {
      * @param password        The password of the runner
      * @param confirmPassword The password retyped
      * @return {@code 1}  if the new account is created successfully<br>
+     * {@code 0} if there exist any empty values (except those that will be validated later)<br>
      * {@code -1} if the email is not in the correct format<br>
      * {@code -2} if the email is not available<br>
      * {@code -3} if the password does not meet requirement<br>
@@ -243,6 +252,9 @@ public class DeliveryRunner extends User {
             String email,
             char[] password,
             char[] confirmPassword) {
+
+        // Check if there is any empty values
+        if (name == null || name.isBlank()) return 0;
 
         // Check if email is in correct format
         if (!checkEmailFormat(email)) return -1;

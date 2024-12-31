@@ -141,6 +141,7 @@ public class Customer extends User {
      * @param password        The password of the customer
      * @param confirmPassword The password retyped
      * @return {@code 1} if the new account is created successfully<br>
+     * {@code 0} if there exist empty values (except those being checked later)<br>
      * {@code -1} if the email is not in the correct format<br>
      * {@code -2} if the email is not available<br>
      * {@code -3} if the password does not meet requirement<br>
@@ -159,6 +160,14 @@ public class Customer extends User {
             String email,
             char[] password,
             char[] confirmPassword) {
+
+        // Check if there is any empty values
+        if (customerName == null || customerName.isBlank() ||
+                addressLine1 == null || addressLine1.isBlank() ||
+                addressLine2 == null || addressLine2.isBlank() ||
+                postcode == null || postcode.isBlank() ||
+                city == null || city.isBlank()
+        ) return 0;
 
         // Check if email is in the correct format (-1)
         boolean isEmailFormatCorrect = checkEmailFormat(email);
@@ -228,6 +237,7 @@ public class Customer extends User {
      * @param password        The password of the customer
      * @param confirmPassword The password retyped
      * @return {@code 1} if the new account is modified successfully<br>
+     * {@code 0} if there exist any empty values (except the ones being checked later)<br>
      * {@code -1} if the email is not in the correct format<br>
      * {@code -2} if the email is not available<br>
      * {@code -3} if the password does not meet requirement<br>
@@ -246,6 +256,14 @@ public class Customer extends User {
             String email,
             char[] password,
             char[] confirmPassword) {
+
+        // Check if there is any empty values
+        if (customerName == null || customerName.isBlank() ||
+                addressLine1 == null || addressLine1.isBlank() ||
+                addressLine2 == null || addressLine2.isBlank() ||
+                postcode == null || postcode.isBlank() ||
+                city == null || city.isBlank()
+        ) return 0;
 
         // Check if email is in the correct format (-1)
         if (!checkEmailFormat(email)) return -1;

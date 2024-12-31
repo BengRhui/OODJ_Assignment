@@ -126,6 +126,7 @@ public class Vendor extends User {
      * @param password        The password of the vendor
      * @param confirmPassword The password retyped
      * @return {@code 1} if the new account is created successfully<br>
+     * {@code 0} if there exist any empty inputs (except those that will be validated later)<br>
      * {@code -1} if the email is not in the correct format<br>
      * {@code -2} if the email is not available<br>
      * {@code -3} if the password does not meet requirement<br>
@@ -140,6 +141,9 @@ public class Vendor extends User {
             char[] password,
             char[] confirmPassword
     ) {
+
+        // Check if there is any empty values
+        if (vendorName == null || vendorName.isBlank()) return 0;
 
         // Check if email matches the format (-1)
         if (!checkEmailFormat(email)) return -1;
@@ -189,6 +193,7 @@ public class Vendor extends User {
      * @param password        The password of the vendor
      * @param confirmPassword The retyped password
      * @return {@code 1} if the new account is modified successfully<br>
+     * {@code 0} if there is any empty values (except those that will be checked later)<br>
      * {@code -1} if the email is not in the correct format<br>
      * {@code -2} if the email is not available<br>
      * {@code -3} if the password does not meet requirement<br>
@@ -203,6 +208,9 @@ public class Vendor extends User {
             char[] password,
             char[] confirmPassword
     ) {
+
+        // Check if there is any empty values
+        if (vendorName == null || vendorName.isBlank()) return 0;
 
         // Email is not in correct format (-1)
         if (!checkEmailFormat(email)) return -1;
