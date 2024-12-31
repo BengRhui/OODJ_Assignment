@@ -320,8 +320,8 @@ public class Order {
     @Override
     public String toString() {
         return "Order ID: " + orderID + "\n" +
-                "Ordering Customer: " + "\n" +
-                orderingCustomer.toString() + "\n" +
+                "Ordering Customer: " +
+                (orderingCustomer == null ? "null" : "\n" + orderingCustomer) + "\n" +
                 "Ordered Stall: " + "\n" +
                 orderedStall.toString() + "\n" +
                 "Runner in Charge: " + (runnerInCharge == null ? "null" : "\n" + runnerInCharge) + "\n" +
