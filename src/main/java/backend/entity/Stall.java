@@ -144,11 +144,11 @@ public class Stall {
      * @param stallName The input name to be checked
      * @return {@code true} if the name is not used, else {@code false}
      */
-    public static boolean checkStallNameAvailability(String stallName) {
+    public static boolean checkIfStallNameIsUsed(String stallName) {
 
         // Check if the name exists in the list. Return true if it does not exist, otherwise false.
         return stallList.stream()
-                .noneMatch(stall -> stall.stallName.equalsIgnoreCase(stallName));
+                .anyMatch(stall -> stall.stallName.equalsIgnoreCase(stallName));
     }
 
     /**
@@ -201,7 +201,7 @@ public class Stall {
             return 0;
 
         // Check if the name has been used by another stall
-        if (!checkStallNameAvailability(stallName)) return -1;
+        if (checkIfStallNameIsUsed(stallName)) return -1;
 
         // Convert the categories into StallCategories type
         StallCategories[] addedCategories = Arrays.stream(stallCategories)
@@ -244,7 +244,7 @@ public class Stall {
             return 0;
 
         // Check if the stall name is used by other stalls (-1)
-        if (!stallName.equalsIgnoreCase(this.stallName) && !checkStallNameAvailability(stallName)) return -1;
+        if (!stallName.equalsIgnoreCase(this.stallName) && checkIfStallNameIsUsed(stallName)) return -1;
 
         // Convert categories into StallCategory type
         StallCategories[] categories = Arrays.stream(stallCategories)
