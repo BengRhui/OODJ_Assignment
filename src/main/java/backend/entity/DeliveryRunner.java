@@ -287,6 +287,34 @@ public class DeliveryRunner extends User {
     }
 
     /**
+     * A method to delete the current delivery runner account.
+     *
+     * @return {@code true} if the account is deleted successfully, else {@code false}
+     */
+    public boolean deleteRunner() {
+
+        // Delete the relevant notifications
+        boolean deleteNotification = DeliveryRunnerNotification.deleteRunnerFromNotification(this.getUserID());
+        if (!deleteNotification) return false;
+
+        // Change the relevant runner attributes in order to null
+        boolean changeToNull = Order.changeRunnerToNull(this.getUserID());
+        if (!changeToNull) return false;
+
+        // Remove from list
+        boolean removeFromList = deliveryRunnerList.remove(this);
+        if (!removeFromList) return false;
+
+        // Write to file
+        CredentialsFileIO.writeCredentialsFile();
+        DeliveryRunnerFileIO runnerIO = new DeliveryRunnerFileIO();
+        runnerIO.writeFile();
+
+        // Return true for successful operation
+        return true;
+    }
+
+    /**
      * A method to update the availability of runners (mainly used when runner rejects an order)
      *
      * @param status The status of the runner

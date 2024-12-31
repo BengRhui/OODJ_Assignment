@@ -737,4 +737,50 @@ public class AdminTest extends BaseTest {
                 differentNotification.getFirst().getEntityID()
         );
     }
+
+    /**
+     * This test focuses on the operation where the admin deletes a delivery runner account.
+     */
+    @Test
+    void testAdminDeleteRunner() {
+
+        // Get initial size of notifications
+        int initialNotificationSize = DeliveryRunnerNotification.getDeliveryRunnerNotificationList().size();
+
+        // Make sure that the notification list has notifications associated with runner
+        boolean runnerInNotification = DeliveryRunnerNotification.getDeliveryRunnerNotificationList().stream()
+                .anyMatch(notification -> notification.getRunner().getUserID().equals(runner1.getUserID()));
+        assertTrue(runnerInNotification);
+
+        // Make sure that there is at least an order associated with runner
+        boolean runnerInOrder = Order.getOrderList().stream()
+                .anyMatch(order -> order.getRunnerInCharge().getUserID().equals(runner1.getUserID()));
+        assertTrue(runnerInOrder);
+
+        // Make sure that the runner is in the list
+        boolean runnerInList = DeliveryRunner.getDeliveryRunnerList().contains(runner1);
+        assertTrue(runnerInList);
+
+        // Delete the runner
+        boolean deleteOperation = runner1.deleteRunner();
+        assertTrue(deleteOperation);
+
+        // Make sure that the runner is not in the list anymore
+        runnerInList = DeliveryRunner.getDeliveryRunnerList().contains(runner1);
+        assertFalse(runnerInList);
+
+        // Make sure that the size of the notification list decreases
+        int currentNotificationSize = DeliveryRunnerNotification.getDeliveryRunnerNotificationList().size();
+        assertTrue(currentNotificationSize < initialNotificationSize);
+
+        // Make sure that the notifications associated with the runners are not found anymore
+        runnerInNotification = DeliveryRunnerNotification.getDeliveryRunnerNotificationList().stream()
+                .anyMatch(notification -> notification.getRunner().getUserID().equals(runner1.getUserID()));
+        assertFalse(runnerInNotification);
+
+        // Make sure that the orders associated are turned to null
+        runnerInOrder = Order.getOrderList().stream()
+                .anyMatch(order -> order.getRunnerInCharge() != null && order.getRunnerInCharge().getUserID().equals(runner1.getUserID()));
+        assertFalse(runnerInOrder);
+    }
 }
