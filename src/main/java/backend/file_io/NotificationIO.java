@@ -2,7 +2,6 @@ package backend.file_io;
 
 import backend.entity.Customer;
 import backend.entity.DeliveryRunner;
-import backend.entity.Stall;
 import backend.entity.Vendor;
 import backend.notification.*;
 import backend.utility.Utility;
