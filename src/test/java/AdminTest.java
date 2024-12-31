@@ -851,4 +851,85 @@ public class AdminTest extends BaseTest {
         Arrays.sort(expectedCategories);
         assertArrayEquals(expectedCategories, differentStall.getFirst().getStallCategories());
     }
+
+    /**
+     * This test focuses on the operation where the admin updates the information of a stall.
+     */
+    @Test
+    void testAdminUpdateStall() {
+
+        // Create another stall so that we can test for the validation
+        Stall anotherStall = new Stall("S002", "A new stall", new Stall.StallCategories[]{Stall.StallCategories.INDIAN, Stall.StallCategories.LOCAL});
+        Stall.addStallToList(anotherStall);
+
+        // Get initial vendor notification list (Note: vendor 1 is in stall 1)
+        ArrayList<Notification> initialNotificationList = TestUtility.convertToNotificationArray(
+                VendorNotification.getVendorNotificationList()
+        );
+
+        // Get data to update stall
+        String name = "A new stall";
+        String[] category = {"Invalid category"};
+
+        // Start a loop
+        for (int i = 0; i < 4; i++) {
+
+            // Modify the stall
+            int modifyStall = stall1.modifyStall(
+                    name,
+                    category
+            );
+
+            // Use switch statement to go through each stage
+            switch (i) {
+
+                // Case 1: Name is used by other stalls
+                case 0 -> {
+                    assertEquals(-1, modifyStall);
+                    name = stall1.getStallName();
+                }
+
+                // Case 2: Own name can be used
+                case 1 -> {
+                    assertNotEquals(-1, modifyStall);
+                    name = "A unique name";
+                }
+
+                // Case 2: Invalid category exists
+                case 2 -> {
+                    assertEquals(-2, modifyStall);
+                    category = new String[]{"Malay"};
+                }
+
+                // Finally the information can be modified successfully
+                case 3 -> assertEquals(1, modifyStall);
+            }
+        }
+
+        // Check if the correct information is applied
+        assertEquals(
+                "A unique name",
+                stall1.getStallName()
+        );
+
+        assertArrayEquals(
+                new Stall.StallCategories[]{Stall.StallCategories.MALAY},
+                stall1.getStallCategories()
+        );
+
+        // Check if any new notification is created
+        ArrayList<Notification> differentNotification = TestUtility.getDifferentNotification(
+                initialNotificationList,
+                TestUtility.convertToNotificationArray(
+                        VendorNotification.getVendorNotificationList()
+                )
+        );
+        assertEquals(1, differentNotification.size());
+
+        // Check if the description of the new notification is correct
+        assertEquals(
+                "The stall information has been updated successfully.",
+                differentNotification.getFirst().getNotificationDetails()
+        );
+    }
 }

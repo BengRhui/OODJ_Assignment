@@ -1,6 +1,7 @@
 package backend.entity;
 
 import backend.file_io.StallFileIO;
+import backend.notification.VendorNotification;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -219,6 +220,58 @@ public class Stall {
         StallFileIO.writeFile();
 
         // Return true for successful operation
+        return 1;
+    }
+
+    /**
+     * A method to modify the details of a stall.
+     *
+     * @param stallName       The name of the stall
+     * @param stallCategories The category of the stall
+     * @return {@code 1} if the stall is created successfully<br>
+     * {@code 0} if there exist empty values
+     * {@code -1} if the name has been used by other stalls
+     * {@code -2} if there exists any invalid category (should not happen but included just in case)
+     * {@code -3} if the notification cannot be created
+     */
+    public int modifyStall(
+            String stallName,
+            String[] stallCategories
+    ) {
+
+        // Check if there exist any empty values (0)
+        if (stallName == null || stallName.isBlank() || stallCategories == null || stallCategories.length == 0)
+            return 0;
+
+        // Check if the stall name is used by other stalls (-1)
+        if (!stallName.equalsIgnoreCase(this.stallName) && !checkStallNameAvailability(stallName)) return -1;
+
+        // Convert categories into StallCategory type
+        StallCategories[] categories = Arrays.stream(stallCategories)
+                .map(StallCategories::generateFromString)
+                .toArray(StallCategories[]::new);
+
+        // Check if the categories are appropriate (-2)
+        boolean consistNull = Arrays.stream(categories)
+                .anyMatch(Objects::isNull);
+        if (consistNull) return -2;
+
+        // Create a notification to inform that the details have been changed
+        boolean createNotification = VendorNotification.createNewNotification(
+                "Stall Information Updated",
+                "The stall information has been updated successfully.",
+                this
+        );
+        if (!createNotification) return -3;
+
+        // Modify the attributes
+        this.setStallName(stallName);
+        this.setStallCategories(categories);
+
+        // Write to file
+        StallFileIO.writeFile();
+
+        // Return 1 to indicate successful modification
         return 1;
     }
 
