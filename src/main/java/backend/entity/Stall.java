@@ -91,7 +91,10 @@ public class Stall {
      * @param stallName The name of the stall
      * @return The {@code Stall} object associated, returns {@code null} if no stall is found
      */
-    public static Stall getStallByName(String stallName) {
+    public static Stall getStallByName(String stallName) throws IllegalArgumentException {
+
+        // Throw an exception if the input is erroneous
+        if (stallName == null || stallName.isBlank()) throw new IllegalArgumentException("Input should not be null or blank.");
 
         return stallList.stream()                                                   // Convert list into a stream
                 .filter(stall -> stall.stallName.equalsIgnoreCase(stallName))       // Filter the matching stall
