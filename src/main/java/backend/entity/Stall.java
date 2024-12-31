@@ -276,6 +276,36 @@ public class Stall {
     }
 
     /**
+     * A method to delete the current stall. If there are still vendors associated with the stall, the operation will not proceed.
+     * @return {@code true} if the stall is deleted successfully, else {@code false}
+     */
+    public boolean deleteStall() {
+
+        // Check if there is any vendors associated with the stall. If yes, the stall cannot be deleted
+        boolean stallHasVendors = Vendor.getVendorList().stream()
+                .anyMatch(vendor -> vendor.getStall().getStallID().equals(this.stallID));
+        if (stallHasVendors) return false;
+
+        // Remove all the items associated with the stall
+        boolean deleteItem = Item.deleteItem(this.stallID);
+        if (!deleteItem) return false;
+
+        // Change all the stall attribute to null for relevant orders
+        boolean changeStatus = Order.changeStallToNull(this.stallID);
+        if (!changeStatus) return false;
+
+        // Remove stall from list
+        boolean removeFromList = stallList.remove(this);
+        if (!removeFromList) return false;
+
+        // Write to file
+        StallFileIO.writeFile();
+
+        // Return true for successful deletion
+        return true;
+    }
+
+    /**
      * Getters and setters for {@code Stall} class.
      */
     public String getStallID() {

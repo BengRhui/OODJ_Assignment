@@ -932,4 +932,52 @@ public class AdminTest extends BaseTest {
                 differentNotification.getFirst().getNotificationDetails()
         );
     }
+
+    @Test
+    void testAdminDeleteStall() {
+
+        // Make sure that stall 1 is in the stall list
+        boolean stallInList = Stall.getStallList().contains(stall1);
+        assertTrue(stallInList);
+
+        // Make sure that there are items associated with the stall
+        boolean itemInList = Item.getItemList().stream()
+                .anyMatch(item -> item.getStall() != null && item.getStall().getStallID().equals(stall1.getStallID()));
+        assertTrue(itemInList);
+
+        // Make sure that at least one order is associated with the stall
+        boolean orderInList = Order.getOrderList().stream()
+                .anyMatch(order -> order.getOrderedStall().getStallID().equals(stall1.getStallID()));
+        assertTrue(orderInList);
+
+        // Try to remove stall 1 (fail coz vendor 1 is still associated with stall 1)
+        boolean deleteStall = stall1.deleteStall();
+        assertFalse(deleteStall);
+
+        // Remove the vendor
+        boolean deleteVendor = vendor1.deleteVendor();
+        assertTrue(deleteVendor);
+
+        // Try to remove stall 1 again
+        deleteStall = stall1.deleteStall();
+        assertTrue(deleteStall);
+
+        // Check if stall 1 is in the list
+        stallInList = Stall.getStallList().contains(stall1);
+        assertFalse(stallInList);
+
+        // Try to remove stall 1 once again (fail coz stall 1 is not in the list anymore)
+        deleteStall = stall1.deleteStall();
+        assertFalse(deleteStall);
+
+        // Check if the items associated with stall 1 still exists
+        itemInList = Item.getItemList().stream()
+                .anyMatch(item -> item.getStall() != null && item.getStall().getStallID().equals(stall1.getStallID()));
+        assertFalse(itemInList);
+
+        // Check if the stall attribute for orders is changed to null
+        orderInList = Order.getOrderList().stream()
+                .anyMatch(order -> order.getOrderedStall() != null && order.getOrderedStall().getStallID().equals(stall1.getStallID()));
+        assertFalse(orderInList);
+    }
 }
