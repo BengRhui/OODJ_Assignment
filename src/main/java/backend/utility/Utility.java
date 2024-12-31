@@ -63,6 +63,9 @@ public class Utility {
      */
     public static String generateString(HashMap<Item, Integer> map) {
 
+        // Check if there is null item in the map
+        if (map.containsKey(null)) return null;
+
         // Create a string builder to store string
         StringBuilder string = new StringBuilder();
 
