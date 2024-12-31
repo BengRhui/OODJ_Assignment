@@ -1,5 +1,6 @@
 import backend.entity.*;
 import backend.notification.CustomerNotification;
+import backend.notification.DeliveryRunnerNotification;
 import backend.notification.Notification;
 import backend.notification.VendorNotification;
 import backend.utility.Utility;
@@ -621,6 +622,119 @@ public class AdminTest extends BaseTest {
         assertEquals(
                 "Abc@1234",
                 newRunner.getPassword()
+        );
+    }
+
+    /**
+     * This method focuses on the operation where the admin modifies the delivery runner account.
+     */
+    @Test
+    void testAdminModifyRunner() {
+
+        // Get initial notification list
+        ArrayList<Notification> initialNotification = TestUtility.convertToNotificationArray(
+                DeliveryRunnerNotification.getDeliveryRunnerNotificationList()
+        );
+
+        // Prepare data to be modified
+        String name = runner1.getName();
+        String contactNumber = "12-345";
+        String email = "abc123";
+        char[] password = "12345".toCharArray();
+        char[] confirmPassword = "Abc@1234".toCharArray();
+
+        // Start a loop
+        for (int i = 0; i < 7; i++) {
+
+            // Perform modification
+            int modifyRunner = runner1.modifyRunner(
+                    name,
+                    contactNumber,
+                    email,
+                    password,
+                    confirmPassword
+            );
+
+            // Use a switch statement to handle different cases
+            switch (i) {
+
+                // Case 1: Email is not in the correct format
+                case 0 -> {
+                    assertEquals(-1, modifyRunner);
+                    email = "trailblazer@woohoo.my";
+                }
+
+                // Case 2: Email is not available
+                case 1 -> {
+                    assertEquals(-2, modifyRunner);
+                    email = runner1.getEmail();
+                }
+
+                // Case 3: Own email can be used
+                case 2 -> {
+                    assertNotEquals(-2, modifyRunner);
+                    email = "abc@123.com";
+                }
+
+                // Case 4: Password does not meet requirement
+                case 3 -> {
+                    assertEquals(-3, modifyRunner);
+                    password = "ABc@1234".toCharArray();
+                }
+
+                // Case 5: Password does not match with confirm password
+                case 4 -> {
+                    assertEquals(-4, modifyRunner);
+                    password = "Abc@1234".toCharArray();
+                }
+
+                // Case 6: Contact number does not match format
+                case 5 -> {
+                    assertEquals(-5, modifyRunner);
+                    contactNumber = "012-8461045";
+                }
+
+                // Finally the account is modified successfully
+                case 6 -> assertEquals(1, modifyRunner);
+            }
+        }
+
+        // Check if the information is modified correctly
+        assertEquals(
+                "012-8461045",
+                runner1.getContactNumber()
+        );
+
+        assertEquals(
+                "abc@123.com",
+                runner1.getEmail()
+        );
+
+        assertEquals(
+                "Abc@1234",
+                runner1.getPassword()
+        );
+
+        // Retrieve the created notification
+        ArrayList<Notification> differentNotification = TestUtility.getDifferentNotification(
+                initialNotification,
+                TestUtility.convertToNotificationArray(
+                        DeliveryRunnerNotification.getDeliveryRunnerNotificationList()
+                )
+        );
+
+        // Make sure that only one notification is created
+        assertEquals(1, differentNotification.size());
+
+        // Make sure that the notification is correct
+        assertEquals(
+                "Your personal information has been updated.",
+                differentNotification.getFirst().getNotificationDetails()
+        );
+
+        assertEquals(
+                runner1.getUserID(),
+                differentNotification.getFirst().getEntityID()
         );
     }
 }

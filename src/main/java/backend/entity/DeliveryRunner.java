@@ -2,6 +2,7 @@ package backend.entity;
 
 import backend.file_io.CredentialsFileIO;
 import backend.file_io.DeliveryRunnerFileIO;
+import backend.notification.DeliveryRunnerNotification;
 import backend.utility.Utility;
 
 import java.util.*;
@@ -217,6 +218,71 @@ public class DeliveryRunner extends User {
         runnerIO.writeFile();
 
         // Return 1 for successful operation
+        return 1;
+    }
+
+    /**
+     * A method to modify the details of the delivery runner account.
+     *
+     * @param name            The name of the runner
+     * @param contactNumber   The contact number of the runner
+     * @param email           The email of the runner
+     * @param password        The password of the runner
+     * @param confirmPassword The password retyped
+     * @return {@code 1}  if the new account is created successfully<br>
+     * {@code -1} if the email is not in the correct format<br>
+     * {@code -2} if the email is not available<br>
+     * {@code -3} if the password does not meet requirement<br>
+     * {@code -4} if the password does not match with "confirm password"<br>
+     * {@code -5} if the contact number is not in the correct format<br>
+     * {@code -6} if notification is unable to be created
+     */
+    public int modifyRunner(
+            String name,
+            String contactNumber,
+            String email,
+            char[] password,
+            char[] confirmPassword) {
+
+        // Check if email is in correct format
+        if (!checkEmailFormat(email)) return -1;
+
+        // Check if email is available
+        if (!this.email.equals(email) && !isEmailAvailable(email)) return -2;
+
+        // Check if password meets requirement
+        if (!validatePassword(
+                Utility.generateString(password))
+        ) return -3;
+
+        // Check if both passwords match
+        if (!Arrays.equals(password, confirmPassword)) return -4;
+
+        // Check if contact number is in correct format
+        if (!checkContactNumberFormat(contactNumber)) return -5;
+
+        // Create notification to inform that details is modified
+        boolean createNotification = DeliveryRunnerNotification.createNewNotification(
+                "Personal Information Updated",
+                "Your personal information has been updated.",
+                this
+        );
+        if (!createNotification) return -6;
+
+        // Change the details
+        this.setName(name);
+        this.setContactNumber(contactNumber);
+        this.setEmail(email);
+        this.setPassword(
+                Utility.generateString(password)
+        );
+
+        // Write to file
+        CredentialsFileIO.writeCredentialsFile();
+        DeliveryRunnerFileIO runnerIO = new DeliveryRunnerFileIO();
+        runnerIO.writeFile();
+
+        // Return 1 to indicate successful modification
         return 1;
     }
 
