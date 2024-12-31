@@ -1,5 +1,7 @@
 package backend.entity;
 
+import backend.file_io.StallFileIO;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -94,7 +96,8 @@ public class Stall {
     public static Stall getStallByName(String stallName) throws IllegalArgumentException {
 
         // Throw an exception if the input is erroneous
-        if (stallName == null || stallName.isBlank()) throw new IllegalArgumentException("Input should not be null or blank.");
+        if (stallName == null || stallName.isBlank())
+            throw new IllegalArgumentException("Input should not be null or blank.");
 
         return stallList.stream()                                                   // Convert list into a stream
                 .filter(stall -> stall.stallName.equalsIgnoreCase(stallName))       // Filter the matching stall
@@ -132,6 +135,19 @@ public class Stall {
 
         // Return the list of vendors
         return vendors;
+    }
+
+    /**
+     * A method to help check if the stall name has been used by another stall. This is critical as we have to ensure that the names are unique.
+     *
+     * @param stallName The input name to be checked
+     * @return {@code true} if the name is not used, else {@code false}
+     */
+    public static boolean checkStallNameAvailability(String stallName) {
+
+        // Check if the name exists in the list. Return true if it does not exist, otherwise false.
+        return stallList.stream()
+                .noneMatch(stall -> stall.stallName.equalsIgnoreCase(stallName));
     }
 
     /**
