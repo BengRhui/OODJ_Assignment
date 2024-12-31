@@ -7,6 +7,7 @@ import backend.utility.Utility;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -782,5 +783,72 @@ public class AdminTest extends BaseTest {
         runnerInOrder = Order.getOrderList().stream()
                 .anyMatch(order -> order.getRunnerInCharge() != null && order.getRunnerInCharge().getUserID().equals(runner1.getUserID()));
         assertFalse(runnerInOrder);
+    }
+
+    /**
+     * This test focuses on the operation where the admin creates a new stall.
+     */
+    @Test
+    void testAdminCreateStall() {
+
+        // Get initial list of stalls
+        ArrayList<Stall> initialStallList = new ArrayList<>(Stall.getStallList());
+
+        // Prepare data to create stall
+        String stallID = Stall.generateNewID();
+        String stallName = stall1.getStallName();
+        String[] stallCategories = new String[]{"Invalid category"};
+
+        // Start a loop
+        for (int i = 0; i < 3; i++) {
+
+            // Create the stall
+            int createStall = Stall.createNewStall(
+                    stallID,
+                    stallName,
+                    stallCategories
+            );
+
+            // Use a switch statement to handle different cases
+            switch (i) {
+
+                // Case 1: Name is used by other stalls
+                case 0 -> {
+                    assertEquals(-1, createStall);
+                    stallName = "A unique name";
+                }
+
+                // Case 2: Category is invalid
+                case 1 -> {
+                    assertEquals(-2, createStall);
+                    stallCategories = new String[]{"Western", "Local", "Halal"};
+                }
+
+                // Finally the store is created
+                case 2 -> assertEquals(1, createStall);
+            }
+        }
+
+        // Retrieve the stall
+        ArrayList<Stall> differentStall = new ArrayList<>(Stall.getStallList());
+        differentStall.removeAll(initialStallList);
+
+        // Check if the stall is added into list
+        assertEquals(1, differentStall.size());
+
+        // Check if the stall name is correct
+        assertEquals(
+                "A unique name",
+                differentStall.getFirst().getStallName()
+        );
+
+        // Check if the categories are correct
+        Stall.StallCategories[] expectedCategories = new Stall.StallCategories[]{
+                Stall.StallCategories.WESTERN,
+                Stall.StallCategories.LOCAL,
+                Stall.StallCategories.HALAL
+        };
+        Arrays.sort(expectedCategories);
+        assertArrayEquals(expectedCategories, differentStall.getFirst().getStallCategories());
     }
 }
