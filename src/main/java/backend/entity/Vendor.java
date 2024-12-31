@@ -81,6 +81,20 @@ public class Vendor extends User {
     }
 
     /**
+     * A method to get the relevant vendor list based on stall name.
+     *
+     * @param stallName The name of the stall
+     * @return The list of filtered vendors
+     */
+    public static ArrayList<Vendor> findVendorByStallName(String stallName) {
+
+        // Return the list (empty strings - return all values)
+        return vendorList.stream()
+                .filter(vendor -> vendor.getStall().getStallName().toLowerCase().contains(stallName.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
      * A method to retrieve {@code Vendor} object using vendor ID
      *
      * @param vendorID The ID of the vendor
