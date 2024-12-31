@@ -189,6 +189,33 @@ public class Item {
     }
 
     /**
+     * A method to delete all items related to the stall.
+     *
+     * @param stallID The ID of the stall
+     * @return {@code true} if items are deleted successfully, else {@code false}
+     */
+    public static boolean deleteItem(String stallID) throws IllegalArgumentException {
+
+        // Check if the stall ID is valid
+        if (stallID == null || stallID.isBlank())
+            throw new IllegalArgumentException("The stall ID cannot be empty or null.");
+
+        // Find if there exist any items associated with the stall ID
+        ArrayList<Item> itemsToBeRemoved = Item.getItemList().stream()
+                .filter(item -> item.getStall() != null && item.getStall().getStallID().equals(stallID))
+                .collect(Collectors.toCollection(ArrayList::new));
+        if (itemsToBeRemoved.isEmpty()) return false;
+
+        // Remove the items from the list
+        for (Item item : itemsToBeRemoved) {
+            if (!item.deleteItem()) return false;
+        }
+
+        // Return true for successful deletion
+        return true;
+    }
+
+    /**
      * A method for vendors to modify the details of an item.
      *
      * @param name        The name of the item
