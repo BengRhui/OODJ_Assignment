@@ -343,7 +343,7 @@ public class Order {
      *
      * @return {@code 1} if order is accepted by vendor and notification is created<br>
      * {@code 0} if order is not accepted and notification is not created<br>
-     * {@code -1} if order is accepted but notification fail to create
+     * {@code -1} if vendor accepts order but notification fails to be created
      */
     public int vendorAcceptOrder() {
 
@@ -428,7 +428,7 @@ public class Order {
      *
      * @return {@code 1} if order is cancelled successfully and notification is created<br>
      * {@code 0} if order is cancelled unsuccessfully and notification is not created<br>
-     * {@code -1} if order is cancelled successfully but notification is not created
+     * {@code -1} if vendor cancels order but notification fails to be created
      */
     public int vendorCancelOrder() {
 
@@ -707,7 +707,7 @@ public class Order {
      * @param status The new status to be updated
      * @return {@code 1} if status is updated and notification is created<br>
      * {@code 0} if status is not updated and notification is not created<br>
-     * {@code -1} if status is updated but notification is not created
+     * {@code -1} if status can be updated but notification fails to be created
      */
     public int runnerUpdateOrderStatus(OrderStatus status) {
 
