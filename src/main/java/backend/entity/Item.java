@@ -258,9 +258,7 @@ public class Item {
     public boolean deleteItem() {
 
         // Delete the picture of the item
-        if (!PictureIO.retrieveItemPicture(this).equals(PictureIO.getEmptyPicture())) {
-            if (!PictureIO.retrieveItemPicture(this).delete()) return false;
-        }
+        if (!PictureIO.deleteItemPicture(this)) return false;
 
         // Return false if the item was not found in the list (cannot be deleted)
         if (!Item.getItemList().remove(this)) return false;

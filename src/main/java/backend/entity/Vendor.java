@@ -1,6 +1,7 @@
 package backend.entity;
 
 import backend.file_io.CredentialsFileIO;
+import backend.file_io.PictureIO;
 import backend.file_io.VendorFileIO;
 import backend.notification.VendorNotification;
 import backend.utility.Utility;
@@ -265,6 +266,10 @@ public class Vendor extends User {
         // Delete related notifications
         boolean notificationDeleted = VendorNotification.deleteVendorFromNotification(this.getUserID());
         if (!notificationDeleted) return false;
+
+        // Delete the background picture of the vendor
+        boolean backgroundDeleted = PictureIO.deleteVendorBackgroundPicture(this);
+        if (!backgroundDeleted) return false;
 
         // Delete vendor from list
         boolean removeVendorFromList = vendorList.remove(this);
