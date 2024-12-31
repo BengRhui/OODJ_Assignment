@@ -175,17 +175,21 @@ public class Item {
                 description
         );
 
+        // If picture is uploaded successfully
+        if (PictureIO.uploadVendorItemPicture(picture, newItem)) {
+
+            // Add the item into list
+            Item.addItemToList(newItem);
+
+            // Write to file after modification
+            ItemFileIO.writeFile();
+
+            // Return true to indicate successfully adding a new item
+            return true;
+        }
+
         // Return false if the item picture could not be set
-        if (!PictureIO.uploadVendorItemPicture(picture, newItem)) return false;
-
-        // Add the item into list
-        Item.addItemToList(newItem);
-
-        // Write to file after modification
-        ItemFileIO.writeFile();
-
-        // Return true to indicate successfully adding a new item
-        return true;
+        return false;
     }
 
     /**
