@@ -9,6 +9,7 @@ import backend.utility.Utility;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Class {@code Vendor} represents the hawkers / sellers in the food court.
@@ -63,6 +64,20 @@ public class Vendor extends User {
         vendorList.addAll(
                 Arrays.asList(vendor)
         );
+    }
+
+    /**
+     * A method to search for vendor using their names.
+     *
+     * @param name The name of the vendor
+     * @return An array list consisting of the vendors fulfilling the condition
+     */
+    public static ArrayList<Vendor> findVendorByName(String name) {
+
+        // Return the list (for empty strings, return back all values)
+        return vendorList.stream()
+                .filter(vendor -> vendor.getName().toLowerCase().contains(name.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
