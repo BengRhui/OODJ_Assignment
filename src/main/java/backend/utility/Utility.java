@@ -204,4 +204,31 @@ public class Utility {
         // Return null if file is not found
         return null;
     }
+
+    /**
+     * A enum class that is used to filter the time range (especially when generating charts).
+     */
+    public enum TimeframeFilter {
+
+        /**
+         * Fields for time frame filters
+         */
+        TODAY, DAILY, MONTHLY, QUARTERLY, YEARLY;
+
+        /**
+         * A method to return the string representation of the status.
+         *
+         * @return The string representation of the current status
+         */
+        @Override
+        public String toString() {
+            return switch (this) {
+                case TODAY -> "Today";
+                case DAILY -> "Daily";
+                case MONTHLY -> "Monthly";
+                case QUARTERLY -> "Quarterly";
+                case YEARLY -> "Yearly";
+            };
+        }
+    }
 }
