@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Class {@code Order} represents the order placed by the customer via the system.
@@ -206,6 +207,24 @@ public class Order {
 
         // Return true after successful operation
         return true;
+    }
+
+    /**
+     * A method to retrieve the overall list of orders of a vendor.
+     *
+     * @param vendorID The ID of the vendor
+     * @return The overall list of orders
+     */
+    public static ArrayList<Order> getOverallOrderByVendor(String vendorID) {
+
+        // Check if vendor ID is empty or if the vendor ID is able to retrieve back the vendor
+        Vendor retrievedVendor = Vendor.getVendor(vendorID);
+        if (vendorID == null || vendorID.isBlank() || retrievedVendor == null) return null;
+
+        // If the vendor can be retrieved, calculate the total number of orders associated with the vendor
+        return orderList.stream()
+                .filter(order -> order.getOrderedStall().getStallID().equals(retrievedVendor.getStall().getStallID()))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
