@@ -221,31 +221,12 @@ public class Order {
     }
 
     /**
-     * A method to retrieve the overall list of orders of a vendor.
+     * A method to retrieve the overall list of orders.
      *
-     * @param vendorID The ID of the vendor
-     * @return The overall list of orders
+     * @param filter The timeframe used to filter the order
+     * @return The filtered list of orders
      */
-    public static ArrayList<Order> getOverallOrderByVendor(String vendorID) {
-
-        // Check if vendor ID is empty or if the vendor ID is able to retrieve back the vendor
-        Vendor retrievedVendor = Vendor.getVendor(vendorID);
-        if (vendorID == null || vendorID.isBlank() || retrievedVendor == null) return null;
-
-        // If the vendor can be retrieved, calculate the total number of orders associated with the vendor
-        return orderList.stream()
-                .filter(order -> order.getOrderedStall().getStallID().equals(retrievedVendor.getStall().getStallID()))
-                .collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    /**
-     * A method to retrieve the relevant vendor orders based on the vendor ID and the filter
-     *
-     * @param vendorID The ID of the vendor
-     * @param filter   The timeframe used
-     * @return An array list consisting of the filtered list of orders
-     */
-    public static ArrayList<Order> filterVendorOrder(String vendorID, Utility.TimeframeFilter filter) {
+    public static ArrayList<Order> filterOrder(Utility.TimeframeFilter filter) {
 
         // Define empty variables to hold the starting and ending time based on filter
         LocalDateTime startTime;
@@ -293,15 +274,33 @@ public class Order {
             }
         }
 
-        // Get overall orders by the vendor
-        ArrayList<Order> vendorOverallOrder = getOverallOrderByVendor(vendorID);
-        if (vendorOverallOrder == null) return null;
-
         // Filter the orders based on time
-        return vendorOverallOrder.stream()
+        return getOrderList().stream()
                 .filter(order ->
                         !order.getOrderedDate().isBefore(startTime) &&
                                 !order.getOrderedDate().isAfter(endTime))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * A method to retrieve the relevant vendor orders based on the vendor and the filter
+     *
+     * @param vendor The vendor object
+     * @param filter The timeframe used
+     * @return An array list consisting of the filtered list of orders
+     */
+    public static ArrayList<Order> filterOrder(Vendor vendor, Utility.TimeframeFilter filter) {
+
+        // Return null if the filter order without filters return null
+        ArrayList<Order> overallOrder = filterOrder(filter);
+        if (overallOrder == null) return null;
+
+        // Check if vendor is null
+        if (vendor == null) return null;
+
+        // If the vendor can be retrieved, calculate the total number of orders associated with the vendor
+        return overallOrder.stream()
+                .filter(order -> order.getOrderedStall().getStallID().equals(vendor.getStall().getStallID()))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
