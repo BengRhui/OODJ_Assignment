@@ -26,6 +26,7 @@ public class Order {
      * A list that collects all orders is included.
      */
     private final static ArrayList<Order> orderList = new ArrayList<>();
+    private static LocalDateTime currentTime = LocalDateTime.now();
     private String orderID;
     private Customer orderingCustomer;
     private Stall orderedStall;
@@ -67,6 +68,15 @@ public class Order {
         this.orderedDate = orderedDate;
         this.orderStatus = orderStatus;
         this.orderItem = orderItem;
+    }
+
+    /**
+     * A setter to set the current time (used in testing).
+     *
+     * @param time The time that will be set as current time
+     */
+    public static void setCurrentTime(LocalDateTime time) {
+        currentTime = time;
     }
 
     /**
@@ -242,9 +252,9 @@ public class Order {
         LocalDateTime endTime;
 
         // Based on current time, calculate the corresponding values
-        int year = LocalDateTime.now().getYear();
-        int month = LocalDateTime.now().getMonthValue();
-        int day = LocalDateTime.now().getDayOfMonth();
+        int year = currentTime.getYear();
+        int month = currentTime.getMonthValue();
+        int day = currentTime.getDayOfMonth();
 
         // YearMonth class is used to get the last day of the month (there are different days for different month)
         YearMonth currentMonth = YearMonth.of(year, month);
