@@ -7,7 +7,6 @@ import backend.notification.VendorNotification;
 import backend.utility.Utility;
 
 import java.time.LocalDateTime;
-import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -26,7 +25,6 @@ public class Order {
      * A list that collects all orders is included.
      */
     private final static ArrayList<Order> orderList = new ArrayList<>();
-    private static LocalDateTime currentTime = LocalDateTime.now();
     private String orderID;
     private Customer orderingCustomer;
     private Stall orderedStall;
@@ -68,15 +66,6 @@ public class Order {
         this.orderedDate = orderedDate;
         this.orderStatus = orderStatus;
         this.orderItem = orderItem;
-    }
-
-    /**
-     * A setter to set the current time (used in testing).
-     *
-     * @param time The time that will be set as current time
-     */
-    public static void setCurrentTime(LocalDateTime time) {
-        currentTime = time;
     }
 
     /**
@@ -221,58 +210,17 @@ public class Order {
     }
 
     /**
-     * A method to retrieve the overall list of orders.
+     * A method to retrieve the overall list of orders that falls within a timeframe.
      *
      * @param filter The timeframe used to filter the order
      * @return The filtered list of orders
      */
     public static ArrayList<Order> filterOrder(Utility.TimeframeFilter filter) {
 
-        // Define empty variables to hold the starting and ending time based on filter
-        LocalDateTime startTime;
-        LocalDateTime endTime;
-
-        // Based on current time, calculate the corresponding values
-        int year = currentTime.getYear();
-        int month = currentTime.getMonthValue();
-        int day = currentTime.getDayOfMonth();
-
-        // YearMonth class is used to get the last day of the month (there are different days for different month)
-        YearMonth currentMonth = YearMonth.of(year, month);
-        int lastDayOfMonth = currentMonth.lengthOfMonth();
-
-        // Get start time and end time based on different filters
-        switch (filter) {
-
-            // Today: 00:00:00 of today till 23:59:59 of today
-            case TODAY -> {
-                startTime = LocalDateTime.of(year, month, day, 0, 0, 0);
-                endTime = LocalDateTime.of(year, month, day, 23, 59, 59);
-            }
-
-            // Daily: 1st of this month (00:00:00) till last day of this month (23:59:59)
-            case DAILY -> {
-                startTime = LocalDateTime.of(year, month, 1, 0, 0, 0);
-                endTime = LocalDateTime.of(year, month, lastDayOfMonth, 23, 59, 59);
-            }
-
-            // Monthly and quarterly: 1 Jan of this year (00:00:00) till 31 Dec of this year (23:59:59)
-            case MONTHLY, QUARTERLY -> {
-                startTime = LocalDateTime.of(year, 1, 1, 0, 0, 0);
-                endTime = LocalDateTime.of(year, 12, 31, 23, 59, 59);
-            }
-
-            // Yearly: 1 Jan of 5 years before current year (00:00:00) till 31 Dec of this year (23:59:59)
-            case YEARLY -> {
-                startTime = LocalDateTime.of(year - 4, 1, 1, 0, 0, 0);
-                endTime = LocalDateTime.of(year, 12, 31, 23, 59, 59);
-            }
-
-            // If the filters do not match, return -1
-            default -> {
-                return null;
-            }
-        }
+        // Get the starting and ending time for the filter
+        LocalDateTime[] timeRange = Utility.getFilterStartAndEndTime(filter);
+        LocalDateTime startTime = timeRange[0];
+        LocalDateTime endTime = timeRange[1];
 
         // Filter the orders based on time
         return getOrderList().stream()
@@ -291,12 +239,11 @@ public class Order {
      */
     public static ArrayList<Order> filterOrder(Vendor vendor, Utility.TimeframeFilter filter) {
 
-        // Return null if the filter order without filters return null
-        ArrayList<Order> overallOrder = filterOrder(filter);
-        if (overallOrder == null) return null;
-
         // Check if vendor is null
         if (vendor == null) return null;
+
+        // Get the overall list of filters
+        ArrayList<Order> overallOrder = filterOrder(filter);
 
         // If the vendor can be retrieved, calculate the total number of orders associated with the vendor
         return overallOrder.stream()

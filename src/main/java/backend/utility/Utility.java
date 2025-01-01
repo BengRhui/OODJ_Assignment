@@ -5,6 +5,7 @@ import backend.entity.Item;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +17,20 @@ import java.util.HashMap;
  * @author Beng Rhui (TP068495)
  */
 public class Utility {
+
+    /**
+     * Static variables to be used in the methods.
+     */
+    private static LocalDateTime currentTime = LocalDateTime.now();
+
+    /**
+     * A setter to set the current time (used in testing).
+     *
+     * @param time The time that will be set as current time
+     */
+    public static void setCurrentTime(LocalDateTime time) {
+        currentTime = time;
+    }
 
     /**
      * A method to print time in a readable format.
@@ -203,6 +218,74 @@ public class Utility {
 
         // Return null if file is not found
         return null;
+    }
+
+    /**
+     * A method to determine the starting and ending time when filtering records.
+     *
+     * @param filter The timeframe used to filter records
+     * @return A list containing the starting and ending time
+     */
+    public static LocalDateTime[] getFilterStartAndEndTime(Utility.TimeframeFilter filter) {
+
+        // Define empty variables to hold the starting and ending time based on filter
+        LocalDateTime startTime;
+        LocalDateTime endTime;
+
+        // Based on current time, calculate the corresponding values
+        int year = currentTime.getYear();
+        int month = currentTime.getMonthValue();
+        int day = currentTime.getDayOfMonth();
+
+        // YearMonth class is used to get the last day of the month (there are different days for different month)
+        YearMonth currentMonth = YearMonth.of(year, month);
+        int lastDayOfMonth = currentMonth.lengthOfMonth();
+
+        // Get start time and end time based on different filters
+        switch (filter) {
+
+            // Today: 00:00:00 of today till 23:59:59 of today
+            case TODAY -> {
+                startTime = LocalDateTime.of(year, month, day, 0, 0, 0);
+                endTime = LocalDateTime.of(year, month, day, 23, 59, 59);
+            }
+
+            // Daily: 1st of this month (00:00:00) till last day of this month (23:59:59)
+            case DAILY -> {
+                startTime = LocalDateTime.of(year, month, 1, 0, 0, 0);
+                endTime = LocalDateTime.of(year, month, lastDayOfMonth, 23, 59, 59);
+            }
+
+            // Monthly and quarterly: Day 1 of 12 months before this month (00:00:00) till this month (23:59:59)
+            case MONTHLY, QUARTERLY -> {
+
+                // Calculate the starting month and year (January 2024 will have a start time of February 2023)
+                int startMonth = month + 1;
+                int startYear = year - 1;
+
+                // Evaluate the case when the current month is December (Dec 2024 will have a start time of Jan 2024)
+                if (startMonth == 13) {
+                    startMonth = 1;
+                    startYear = year;
+                }
+
+                // Get the starting and ending time
+                startTime = LocalDateTime.of(startYear, startMonth, 1, 0, 0, 0);
+                endTime = LocalDateTime.of(year, month, lastDayOfMonth, 23, 59, 59);
+            }
+
+            // Yearly: 1 Jan of 5 years before current year (00:00:00) till 31 Dec of this year (23:59:59)
+            case YEARLY -> {
+                startTime = LocalDateTime.of(year - 4, 1, 1, 0, 0, 0);
+                endTime = LocalDateTime.of(year, 12, 31, 23, 59, 59);
+            }
+
+            // If the filters do not match, return null
+            default -> throw new IllegalArgumentException("Invalid TimeframeFilter used.");
+        }
+
+        // Return the starting and ending time
+        return new LocalDateTime[]{startTime, endTime};
     }
 
     /**
