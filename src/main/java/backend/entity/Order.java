@@ -7,6 +7,7 @@ import backend.notification.VendorNotification;
 import backend.utility.Utility;
 
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -224,6 +225,73 @@ public class Order {
         // If the vendor can be retrieved, calculate the total number of orders associated with the vendor
         return orderList.stream()
                 .filter(order -> order.getOrderedStall().getStallID().equals(retrievedVendor.getStall().getStallID()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * A method to retrieve the relevant vendor orders based on the vendor ID and the filter
+     *
+     * @param vendorID The ID of the vendor
+     * @param filter   The timeframe used
+     * @return An array list consisting of the filtered list of orders
+     */
+    public static ArrayList<Order> filterVendorOrder(String vendorID, Utility.TimeframeFilter filter) {
+
+        // Define empty variables to hold the starting and ending time based on filter
+        LocalDateTime startTime;
+        LocalDateTime endTime;
+
+        // Based on current time, calculate the corresponding values
+        int year = LocalDateTime.now().getYear();
+        int month = LocalDateTime.now().getMonthValue();
+        int day = LocalDateTime.now().getDayOfMonth();
+
+        // YearMonth class is used to get the last day of the month (there are different days for different month)
+        YearMonth currentMonth = YearMonth.of(year, month);
+        int lastDayOfMonth = currentMonth.lengthOfMonth();
+
+        // Get start time and end time based on different filters
+        switch (filter) {
+
+            // Today: 00:00:00 of today till 23:59:59 of today
+            case TODAY -> {
+                startTime = LocalDateTime.of(year, month, day, 0, 0, 0);
+                endTime = LocalDateTime.of(year, month, day, 23, 59, 59);
+            }
+
+            // Daily: 1st of this month (00:00:00) till last day of this month (23:59:59)
+            case DAILY -> {
+                startTime = LocalDateTime.of(year, month, 1, 0, 0, 0);
+                endTime = LocalDateTime.of(year, month, lastDayOfMonth, 23, 59, 59);
+            }
+
+            // Monthly and quarterly: 1 Jan of this year (00:00:00) till 31 Dec of this year (23:59:59)
+            case MONTHLY, QUARTERLY -> {
+                startTime = LocalDateTime.of(year, 1, 1, 0, 0, 0);
+                endTime = LocalDateTime.of(year, 12, 31, 23, 59, 59);
+            }
+
+            // Yearly: 1 Jan of 5 years before current year (00:00:00) till 31 Dec of this year (23:59:59)
+            case YEARLY -> {
+                startTime = LocalDateTime.of(year - 4, 1, 1, 0, 0, 0);
+                endTime = LocalDateTime.of(year, 12, 31, 23, 59, 59);
+            }
+
+            // If the filters do not match, return -1
+            default -> {
+                return null;
+            }
+        }
+
+        // Get overall orders by the vendor
+        ArrayList<Order> vendorOverallOrder = getOverallOrderByVendor(vendorID);
+        if (vendorOverallOrder == null) return null;
+
+        // Filter the orders based on time
+        return vendorOverallOrder.stream()
+                .filter(order ->
+                        !order.getOrderedDate().isBefore(startTime) &&
+                                !order.getOrderedDate().isAfter(endTime))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
