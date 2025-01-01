@@ -242,12 +242,33 @@ public class Order {
         // Check if vendor is null
         if (vendor == null) return null;
 
-        // Get the overall list of filters
+        // Get the overall list of orders based on filters
         ArrayList<Order> overallOrder = filterOrder(filter);
 
-        // If the vendor can be retrieved, calculate the total number of orders associated with the vendor
+        // Get the list of orders associated to vendor
         return overallOrder.stream()
                 .filter(order -> order.getOrderedStall().getStallID().equals(vendor.getStall().getStallID()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * A method to retrieve the list of orders associated to the runner based on a timeframe.
+     *
+     * @param runner The runner involved
+     * @param filter The timeframe set
+     * @return A filtered list of orders
+     */
+    public static ArrayList<Order> filterOrder(DeliveryRunner runner, Utility.TimeframeFilter filter) {
+
+        // Check if runner is null
+        if (runner == null) return null;
+
+        // Get the overall list of orders based on filters
+        ArrayList<Order> overallOrder = filterOrder(filter);
+
+        // Get the list of orders associated to runner
+        return overallOrder.stream()
+                .filter(order -> order.getRunnerInCharge().getUserID().equals(runner.getUserID()))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
