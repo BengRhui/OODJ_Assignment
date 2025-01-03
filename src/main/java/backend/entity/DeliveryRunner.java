@@ -6,6 +6,7 @@ import backend.notification.DeliveryRunnerNotification;
 import backend.utility.Utility;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Class {@code DeliveryRunner} represents the delivery people who will use the system to update delivery progress.
@@ -87,6 +88,34 @@ public class DeliveryRunner extends User {
      */
     public static ArrayList<DeliveryRunner> getDeliveryRunnerList() {
         return deliveryRunnerList;
+    }
+
+    /**
+     * A method to retrieve the list of delivery runners based on their names.
+     *
+     * @param name The name of the runner
+     * @return The filtered list of runners
+     */
+    public static ArrayList<DeliveryRunner> searchRunnerByName(String name) {
+
+        // Filter the overall runner list using name as input
+        return getDeliveryRunnerList().stream()
+                .filter(runner -> runner.name.toLowerCase().contains(name.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * A method to retrieve the list of delivery runners based on their contact number.
+     *
+     * @param contactNumber The contact number of runner
+     * @return A filtered list of runners
+     */
+    public static ArrayList<DeliveryRunner> searchRunnerByContactNumber(String contactNumber) {
+
+        // Filter overall runner list based on contact number
+        return getDeliveryRunnerList().stream()
+                .filter(runner -> runner.contactNumber.contains(contactNumber))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
