@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -290,6 +291,7 @@ public class BaseTest {
                 "F001",
                 Feedback.Category.DELIVERY_RUNNER,
                 order1,
+                LocalDateTime.of(2021, 4, 6, 12, 32, 45),
                 4.5,
                 "Good feedback 1",
                 "Very good runner",
@@ -300,6 +302,7 @@ public class BaseTest {
                 "F002",
                 Feedback.Category.SYSTEM,
                 null,
+                LocalDateTime.of(2025, 1, 2, 14, 12, 52),
                 3.5,
                 "Moderate feedback 2",
                 "Moderate good system",
@@ -310,6 +313,7 @@ public class BaseTest {
                 "F003",
                 Feedback.Category.VENDOR,
                 order2,
+                LocalDateTime.of(2024, 8, 9, 19, 2, 5),
                 1.5,
                 "Bad feedback 3",
                 "Very bad vendor",

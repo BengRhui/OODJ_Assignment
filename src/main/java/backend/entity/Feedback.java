@@ -1,5 +1,6 @@
 package backend.entity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -20,6 +21,7 @@ public class Feedback {
     private String feedbackID;
     private Category feedbackCategory;
     private Order orderAssociated;
+    private LocalDateTime feedbackSubmissionTime;
     private double ratings;
     private String feedbackTitle;
     private String feedbackDetails;
@@ -36,10 +38,11 @@ public class Feedback {
      * @param feedbackDetails  The description of the feedback
      * @param replyFromManager The reply that the manager provides to the customer
      */
-    public Feedback(String feedbackID, Category feedbackCategory, Order orderAssociated, double ratings, String feedbackTitle, String feedbackDetails, String replyFromManager) {
+    public Feedback(String feedbackID, Category feedbackCategory, Order orderAssociated, LocalDateTime feedbackSubmissionTime, double ratings, String feedbackTitle, String feedbackDetails, String replyFromManager) {
         this.feedbackID = feedbackID;
         this.feedbackCategory = feedbackCategory;
         this.orderAssociated = orderAssociated;
+        this.feedbackSubmissionTime = feedbackSubmissionTime;
         this.ratings = ratings;
         this.feedbackTitle = feedbackTitle;
         this.feedbackDetails = feedbackDetails;
@@ -166,6 +169,14 @@ public class Feedback {
 
     public void setOrderAssociated(Order orderAssociated) {
         this.orderAssociated = orderAssociated;
+    }
+
+    public LocalDateTime getFeedbackSubmissionTime() {
+        return feedbackSubmissionTime;
+    }
+
+    public void setFeedbackSubmissionTime(LocalDateTime feedbackSubmissionTime) {
+        this.feedbackSubmissionTime = feedbackSubmissionTime;
     }
 
     public double getRatings() {
