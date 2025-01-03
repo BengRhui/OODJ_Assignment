@@ -1,5 +1,7 @@
 import backend.entity.*;
 import backend.file_io.OrderFileIO;
+import backend.notification.Notification;
+import backend.notification.VendorNotification;
 import backend.utility.Utility;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -218,5 +220,46 @@ public class ManagerTest extends BaseTest {
                 }
             }
         }
+    }
+
+    /**
+     * This test focuses on the operation where the manager deletes an item of the vendor.
+     */
+    @Test
+    void managerDeleteItem() {
+
+        // Make sure that item 1 is in the item list
+        boolean itemInList = Item.getItemList().contains(item1);
+        assertTrue(itemInList);
+
+        // Retrieve the notification list
+        ArrayList<Notification> initialNotification = TestUtility.convertToNotificationArray(
+                VendorNotification.getVendorNotificationList()
+        );
+
+        // Delete item 1
+        boolean deleteItem = item1.managerDeleteItem();
+
+        // Make sure that the deletion is successful
+        assertTrue(deleteItem);
+
+        // Make sure that item 1 is not found in the list anymore
+        itemInList = Item.getItemList().contains(item1);
+        assertFalse(itemInList);
+
+        // Retrieve the newly created notification
+        ArrayList<Notification> differentNotification = TestUtility.getDifferentNotification(
+                initialNotification,
+                TestUtility.convertToNotificationArray(VendorNotification.getVendorNotificationList())
+        );
+
+        // Make sure that there is only one notification created
+        assertEquals(1, differentNotification.size());
+
+        // Make sure that the description is correct
+        assertEquals(
+                "The item " + item1.getItemName() + " (" + item1.getItemID() + ") has been removed by the manager due to its inappropriate nature for sale on this platform.",
+                differentNotification.getFirst().getNotificationDetails()
+        );
     }
 }
