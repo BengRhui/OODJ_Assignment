@@ -262,4 +262,59 @@ public class ManagerTest extends BaseTest {
                 differentNotification.getFirst().getNotificationDetails()
         );
     }
+
+    /**
+     * This test focuses on the operation where the manager filters the feedback list.
+     */
+    @Test
+    void managerFilterFeedbackList() {
+
+        // Retrieve the relevant feedback based on category
+        ArrayList<Feedback> systemFeedback = Feedback.arrangeFeedbackList(Feedback.Category.SYSTEM, Feedback.Filter.LATEST_TO_OLDEST);
+        ArrayList<Feedback> vendorFeedback = Feedback.arrangeFeedbackList(Feedback.Category.VENDOR, Feedback.Filter.HIGH_TO_LOW_RATING);
+        ArrayList<Feedback> runnerFeedback = Feedback.arrangeFeedbackList(Feedback.Category.DELIVERY_RUNNER, Feedback.Filter.OLDEST_TO_LATEST);
+
+        // Make sure they are not empty
+        assertNotNull(systemFeedback);
+        assertNotNull(vendorFeedback);
+        assertNotNull(runnerFeedback);
+
+        // Check if the method is able to retrieve the associated categories (each should have one)
+        assertEquals(1, systemFeedback.size());
+        assertEquals(1, vendorFeedback.size());
+        assertEquals(1, runnerFeedback.size());
+
+        // Change the feedbacks to vendor category
+        feedback1.setFeedbackCategory(Feedback.Category.VENDOR);        // Feedback 1: Rating 4.5 at 6/4/2021
+        feedback2.setFeedbackCategory(Feedback.Category.VENDOR);        // Feedback 2: Rating 3.5 at 2/1/2025
+        feedback3.setFeedbackCategory(Feedback.Category.VENDOR);        // Feedback 3: Rating 1.5 at 9/8/2024
+
+        // Try to arrange based on different conditions
+        ArrayList<Feedback> arrangementOne = Feedback.arrangeFeedbackList(Feedback.Category.VENDOR, Feedback.Filter.LOW_TO_HIGH_RATING);
+        ArrayList<Feedback> arrangementTwo = Feedback.arrangeFeedbackList(Feedback.Category.VENDOR, Feedback.Filter.HIGH_TO_LOW_RATING);
+        ArrayList<Feedback> arrangementThree = Feedback.arrangeFeedbackList(Feedback.Category.VENDOR, Feedback.Filter.OLDEST_TO_LATEST);
+        ArrayList<Feedback> arrangementFour = Feedback.arrangeFeedbackList(Feedback.Category.VENDOR, Feedback.Filter.LATEST_TO_OLDEST);
+
+        // Make sure that the lists are not null for all
+        assertNotNull(arrangementOne);
+        assertNotNull(arrangementTwo);
+        assertNotNull(arrangementThree);
+        assertNotNull(arrangementFour);
+
+        // Test for lowest to highest rating
+        assertEquals(feedback3, arrangementOne.getFirst());
+        assertEquals(feedback1, arrangementOne.getLast());
+
+        // Test for highest to lowest rating
+        assertEquals(feedback1, arrangementTwo.getFirst());
+        assertEquals(feedback3, arrangementTwo.getLast());
+
+        // Test for oldest to latest
+        assertEquals(feedback1, arrangementThree.getFirst());
+        assertEquals(feedback2, arrangementThree.getLast());
+
+        // Test for latest to oldest
+        assertEquals(feedback2, arrangementFour.getFirst());
+        assertEquals(feedback1, arrangementFour.getLast());
+    }
 }

@@ -1,8 +1,11 @@
 package backend.entity;
 
+import backend.utility.Utility;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -142,6 +145,31 @@ public class Feedback {
         return getFeedbackList().stream()
                 .filter(feedback -> feedback.feedbackCategory == category)
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * A method to arrange and retrieve the list of feedbacks.
+     *
+     * @param category The feedback category involved
+     * @param filter   The filters involved while arranging the feedback
+     * @return A filtered list of feedbacks with the specific order
+     */
+    public static ArrayList<Feedback> arrangeFeedbackList(Category category, Filter filter) {
+
+        // Filter based on category
+        ArrayList<Feedback> feedbackList = getFeedbackList(category);
+        if (feedbackList == null) return null;
+
+        // Arrange list based on filter
+        switch (filter) {
+            case LATEST_TO_OLDEST -> feedbackList.sort(Comparator.comparing(Feedback::getFeedbackSubmissionTime).reversed());
+            case OLDEST_TO_LATEST -> feedbackList.sort(Comparator.comparing(Feedback::getFeedbackSubmissionTime));
+            case HIGH_TO_LOW_RATING -> feedbackList.sort(Comparator.comparing(Feedback::getRatings).reversed());
+            case LOW_TO_HIGH_RATING -> feedbackList.sort(Comparator.comparing(Feedback::getRatings));
+        }
+
+        // Return the sorted list
+        return feedbackList;
     }
 
     /**
