@@ -222,6 +222,7 @@ public class Feedback {
                 "Feedback Category: " + feedbackCategory.toString() + "\n" +
                 "Order Associated: " + "\n" +
                 orderAssociated + "\n" +
+                "Submitted Time: " + Utility.generateString(feedbackSubmissionTime) + "\n" +
                 "Ratings: " + ratings + "\n" +
                 "Feedback Title: " + feedbackTitle + "\n" +
                 "Feedback Details: " + feedbackDetails + "\n" +
