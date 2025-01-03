@@ -261,4 +261,18 @@ public class Feedback {
             };
         }
     }
+
+    /**
+     * An enum class used to store the types of filters used for filtering feedback.
+     */
+    public enum Filter {
+
+        /**
+         * Fields involved in the {@code Filter} enum.
+         */
+        LOW_TO_HIGH_RATING,
+        HIGH_TO_LOW_RATING,
+        LATEST_TO_OLDEST,
+        OLDEST_TO_LATEST
+    }
 }
