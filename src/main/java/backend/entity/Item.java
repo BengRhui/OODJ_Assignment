@@ -228,7 +228,7 @@ public class Item {
      */
     public static ArrayList<Item> getItemList(Vendor vendor) {
         return getItemList().stream()
-                .filter(item -> item.stall.getStallID().equals(vendor.getStall().getStallID()))
+                .filter(item -> item.stall != null && item.stall.getStallID().equals(vendor.getStall().getStallID()))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
