@@ -3,6 +3,7 @@ package backend.entity;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Class {@code Feedback} represents the feedback that customers provide to the system, vendor and delivery runner.
@@ -124,6 +125,20 @@ public class Feedback {
 
         // Return the average value of the reviews
         return totalRating / feedbackCount;
+    }
+
+    /**
+     * A method to filter the feedback list based on category.
+     *
+     * @param category The feedback category to be applied as a filter
+     * @return A filtered feedback list
+     */
+    public static ArrayList<Feedback> getFeedbackList(Category category) {
+
+        // Filter the feedback list based on the category
+        return getFeedbackList().stream()
+                .filter(feedback -> feedback.feedbackCategory == category)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
