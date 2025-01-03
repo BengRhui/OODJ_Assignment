@@ -221,6 +221,18 @@ public class Item {
     }
 
     /**
+     * A method to retrieve the list of items based on vendor.
+     *
+     * @param vendor The vendor object that has association with the items
+     * @return A list of filtered items
+     */
+    public static ArrayList<Item> getItemList(Vendor vendor) {
+        return getItemList().stream()
+                .filter(item -> item.stall.getStallID().equals(vendor.getStall().getStallID()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
      * A method for vendors to modify the details of an item.
      *
      * @param name        The name of the item
