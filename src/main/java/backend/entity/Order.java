@@ -273,6 +273,24 @@ public class Order {
     }
 
     /**
+     * A method to export the associated date to an Excel file.
+     *
+     * @param filter The timeframe set to export the Excel file
+     * @return {@code true} if the Excel file is created successfully, else {@code false}
+     */
+    public static boolean exportOrderDataToExcel(Utility.TimeframeFilter filter) {
+
+        // Get the data to be passed into the method to generate Excel file
+        ArrayList<Order> dataList = filterOrder(filter);
+
+        // Get the timeframe involved with the filer
+        LocalDateTime[] timeframe = Utility.getFilterStartAndEndTime(filter);
+
+        // Return the method that generates the Excel file
+        return Utility.writeDataToExcel(dataList, timeframe);
+    }
+
+    /**
      * Getters and setters for {@code Order} class
      */
     public String getOrderID() {

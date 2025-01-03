@@ -2,8 +2,15 @@ package backend.utility;
 
 import backend.entity.DeliveryRunner;
 import backend.entity.Item;
+import backend.entity.Order;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -289,7 +296,242 @@ public class Utility {
     }
 
     /**
-     * A enum class that is used to filter the time range (especially when generating charts).
+     * A method to generate an Excel file containing order data.
+     *
+     * @param data      The order data passed into the Excel file
+     * @param timeRange The time range obtained from Utility method
+     * @return {@code true} if the data is successfully written to Excel, else {@code false}
+     */
+    public static boolean writeDataToExcel(ArrayList<Order> data, LocalDateTime[] timeRange) {
+
+        // Table headers
+        String[] headerList = {
+                "Order ID",
+                "Order Time",
+                "Customer Name",
+                "Customer Contact No.",
+                "Stall Name",
+                "Delivery Runner Name",
+                "Table Number",
+                "Item Name",
+                "Price Per Unit (RM)",
+                "Quantity",
+                "Order Amount (RM)",
+                "Order Status",
+                "Delivery Notes"
+        };
+
+        // The width for each column (Note: A character has a length of 256 units in this library)
+        int[] columnWidth = {
+                256 * 15,
+                256 * 20,
+                256 * 25,
+                256 * 25,
+                256 * 25,
+                256 * 25,
+                256 * 15,
+                256 * 30,
+                256 * 20,
+                256 * 10,
+                256 * 20,
+                256 * 25,
+                256 * 40
+        };
+
+        try {
+
+            // Create a workbook and worksheet
+            Workbook excelFile = new XSSFWorkbook();
+            Sheet sheet = excelFile.createSheet("Order Records");
+
+            // Retrieve time range in string format (used to create title later)
+            DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+            String startingTime = timeRange[0].format(timeFormat);
+            String endingTime = timeRange[1].format(timeFormat);
+            String timeStringToDisplay = startingTime.equals(endingTime) ? startingTime : startingTime + " - " + endingTime;
+
+            // Generate file name with extension (the full file name will be used later)
+            String titleString = "Order Records (" + timeStringToDisplay + ")";
+            String fullFileName = titleString + ".xlsx";
+
+            // Create title row and set height (starts from the 2nd row)
+            Row titleRow = sheet.createRow(1);
+            titleRow.setHeight((short) 700);            // We have to times 20 with pts to get the height in Java
+
+            // Create a title cell from the title row
+            Cell titleCell = titleRow.createCell(0);
+            titleCell.setCellValue(titleString);
+
+            // Personalization for title cell - set font style for title
+            setCellFormat(excelFile, titleCell, 18, true, false, false);
+
+            // Merge the title row (from column A to L - column 0 to 11)
+            sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, headerList.length));
+
+            // Create a header row and set height
+            Row headerRow = sheet.createRow(3);
+            headerRow.setHeight((short) 600);
+
+            // Create a loop to write values to the row
+            for (int i = 0; i < headerList.length; i++) {
+
+                // Create a cell and write values into it
+                Cell headerCell = headerRow.createCell(i);
+                headerCell.setCellValue(headerList[i]);
+
+                // Personalize cell
+                setCellFormat(excelFile, headerCell, 12, false, true, true);
+
+                // Set the width of the cells
+                sheet.setColumnWidth(i, columnWidth[i]);
+            }
+
+            // Initialize the row index as 4 (the first row is at row 4)
+            int rowIndex = 4;
+
+            // Start looping through the data
+            for (Order order : data) {
+
+                // Find the number of items in an order (will be used to merge cells later)
+                int numOfItems = order.getOrderItem().size();
+
+                // A variable to record the row index for the current order
+                int rowIndexForCurrentOrder = 0;
+
+                // Loop through each pair of key-value
+                for (HashMap.Entry<Item, Integer> entry : order.getOrderItem().entrySet()) {
+
+                    // Create row based on row index and set height
+                    Row dataRow = sheet.createRow(rowIndex + rowIndexForCurrentOrder);
+                    dataRow.setHeight((short) 520);
+
+                    // Loop to write data into each column
+                    for (int i = 0; i < headerList.length; i++) {
+
+                        // Create cell for each column
+                        Cell dataCell = dataRow.createCell(i);
+
+                        // Write values into each column (for the first row)
+                        if (rowIndexForCurrentOrder == 0) {
+                            switch (i) {
+                                case 0 -> dataCell.setCellValue(order.getOrderID());
+                                case 1 -> dataCell.setCellValue(generateString(order.getOrderedDate()));
+                                case 2 ->
+                                        dataCell.setCellValue(order.getOrderingCustomer() == null ? "-" : order.getOrderingCustomer().getName());
+                                case 3 ->
+                                        dataCell.setCellValue(order.getOrderingCustomer() == null ? "-" : order.getOrderingCustomer().getContactNumber());
+                                case 4 ->
+                                        dataCell.setCellValue(order.getOrderedStall() == null ? "-" : order.getOrderedStall().getStallName());
+                                case 5 ->
+                                        dataCell.setCellValue(order.getRunnerInCharge() == null ? "-" : order.getRunnerInCharge().getName());
+                                case 6 ->
+                                        dataCell.setCellValue(order.getTableNumber() == null ? "-" : order.getTableNumber());
+                                case 10 -> dataCell.setCellValue(order.getOrderPrice());
+                                case 11 -> dataCell.setCellValue(order.getOrderStatus().toString());
+                                case 12 ->
+                                        dataCell.setCellValue(order.getNoteToVendor() == null ? "-" : order.getNoteToVendor());
+                            }
+                        }
+
+                        // Data for item (for all rows)
+                        switch (i) {
+                            case 7 -> dataCell.setCellValue(entry.getKey().getItemName());
+                            case 8 -> dataCell.setCellValue(entry.getKey().getPrice());
+                            case 9 -> dataCell.setCellValue(entry.getValue());
+                        }
+
+                        // Customize cell
+                        setCellFormat(excelFile, dataCell, 12, false, false, true);
+                    }
+
+                    // Done writing current row, continue to the next row of the same order
+                    rowIndexForCurrentOrder++;
+
+                }
+
+                // Merge cells (for all columns except the ones related to item)
+                for (int i = 0; i < headerList.length; i++) {
+
+                    // Skip the item-related columns
+                    if (6 < i && i < 10) continue;
+
+                    // Merge the rows
+                    sheet.addMergedRegion(new CellRangeAddress(rowIndex, rowIndex + numOfItems - 1, i, i));
+                }
+
+                // Increment row index to proceed to the next order
+                rowIndex += numOfItems;
+            }
+
+            // Retrieve path to user's downloads folder
+            String pathToDownload = Paths.get(System.getProperty("user.home"), "Downloads").toString();
+
+            // Create a file object at the path
+            File outputFile = new File(pathToDownload, fullFileName);
+
+            // Export the Excel file to the designated path
+            FileOutputStream fileOut = new FileOutputStream(outputFile);
+            excelFile.write(fileOut);
+
+            // Close file after finish modifying
+            excelFile.close();
+
+        } catch (IOException ex) {
+
+            // Print error and return false if errors occur
+            System.out.println("Unable to export data to Excel file.");
+            return false;
+        }
+
+        // Return true for successful operation
+        return true;
+    }
+
+    /**
+     * A private method that helps to set the format of cells for the method {@code writeDataToExcel()}.
+     *
+     * @param workbook     The workbook object created (required to customize font and styles)
+     * @param cell         The cell to be formatted
+     * @param fontSize     The font size to be set
+     * @param setUnderline Set to {@code true} if the text has to be underlined
+     * @param setGreyFill  Set to {@code true} if the cell has to be filled with grey
+     * @param setAllBorder Set to {@code true} if border is required for the cell
+     */
+    private static void setCellFormat(Workbook workbook, Cell cell, int fontSize, boolean setUnderline, boolean setGreyFill, boolean setAllBorder) {
+
+        // Personalize the cells - Font
+        Font cellFont = workbook.createFont();
+        cellFont.setBold(true);
+        cellFont.setFontHeightInPoints((short) fontSize);
+        if (setUnderline) cellFont.setUnderline(Font.U_SINGLE);
+
+        // Apply font, alignment and wrap for the cell
+        CellStyle cellStyle = workbook.createCellStyle();
+        cellStyle.setFont(cellFont);
+        cellStyle.setAlignment(HorizontalAlignment.CENTER);
+        cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+        cellStyle.setWrapText(true);
+
+        // Set fill colour
+        if (setGreyFill) {
+            cellStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+            cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        }
+
+        // Set border
+        if (setAllBorder) {
+            cellStyle.setBorderTop(BorderStyle.THIN);
+            cellStyle.setBorderBottom(BorderStyle.THIN);
+            cellStyle.setBorderLeft(BorderStyle.THIN);
+            cellStyle.setBorderRight(BorderStyle.THIN);
+        }
+
+        // Set the style to the cell
+        cell.setCellStyle(cellStyle);
+    }
+
+    /**
+     * An enum class that is used to filter the time range (especially when generating charts).
      */
     public enum TimeframeFilter {
 
