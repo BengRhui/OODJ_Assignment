@@ -227,6 +227,8 @@ public class Item {
      * @return A list of filtered items
      */
     public static ArrayList<Item> getItemList(Vendor vendor) {
+
+        // Filter the item list based on stall ID
         return getItemList().stream()
                 .filter(item -> item.stall != null && item.stall.getStallID().equals(vendor.getStall().getStallID()))
                 .collect(Collectors.toCollection(ArrayList::new));
