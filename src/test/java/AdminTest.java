@@ -227,7 +227,7 @@ public class AdminTest extends BaseTest {
         boolean getCustomer = Customer.getCustomerList().contains(customer1);
         assertFalse(getCustomer);
 
-        // Make sure that the notification, order and transaction list does not have the customer anymore
+        // Make sure that the notification, order, transaction and feedback list does not have the customer anymore
         boolean notificationListHasCustomer = CustomerNotification.getCustomerNotificationList().stream()
                 .anyMatch(notification -> notification.getCustomer().getUserID().equals(customer1.getUserID()));
         assertFalse(notificationListHasCustomer);
@@ -239,6 +239,10 @@ public class AdminTest extends BaseTest {
         boolean transactionListHasCustomer = Transaction.getTransactionList().stream()
                 .anyMatch(transaction -> transaction.getCustomer().getUserID().equals(customer1.getUserID()));
         assertFalse(transactionListHasCustomer);
+
+        boolean feedbackListHasCustomer = Feedback.getFeedbackList().stream()
+                .anyMatch(feedback -> feedback.getCustomerAssociated() != null && feedback.getCustomerAssociated().getUserID().equals(customer1.getUserID()));
+        assertFalse(feedbackListHasCustomer);
 
         // Make sure that the function cannot be used on customer who is not exist
         boolean error = customer1.deleteCustomer();

@@ -1,6 +1,6 @@
 package backend.entity;
 
-import backend.file_io.*;
+import backend.file_io.FeedbackFileIO;
 import backend.notification.CustomerNotification;
 import backend.utility.Utility;
 
@@ -54,6 +54,32 @@ public class Feedback {
         this.feedbackTitle = feedbackTitle;
         this.feedbackDetails = feedbackDetails;
         this.replyFromManager = replyFromManager;
+    }
+
+    /**
+     * A method to change the customer attribute of associated customer to null if a customer is deleted.
+     *
+     * @param customerID The ID of the associated customer
+     * @return {@code true} if the operation is successful, else {@code false}
+     */
+    public static boolean changeCustomerToNull(String customerID) {
+
+        // Return false if the customer ID is null or empty
+        if (customerID == null || customerID.isBlank()) return false;
+
+        // Loop through each feedback in the feedback list
+        for (Feedback feedback : feedbackList) {
+
+            // Make sure that the customer is not null and it matches the ID
+            if (feedback.customerAssociated != null && feedback.customerAssociated.userID.equals(customerID))
+
+                // Set the customer to null if condition meets
+                feedback.customerAssociated = null;
+        }
+
+        // Write into file and return true for successful operation
+        FeedbackFileIO.writeFile();
+        return true;
     }
 
     /**
