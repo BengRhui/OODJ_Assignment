@@ -134,36 +134,6 @@ public class Feedback {
     }
 
     /**
-     * A method to obtain the overall ratings of a stall
-     *
-     * @param stall The stall where the ratings belong to
-     * @return A double value representing the average ratings of a stall.<br>
-     * {@code 0} represents the stall does not have a rating
-     */
-    public static double getOverallRating(Stall stall) {
-
-        // Declare variables to store data to calculate average
-        double totalRating = 0;
-        int feedbackCount = 0;
-
-        // Loop through the list of feedbacks
-        for (Feedback feedback : feedbackList) {
-
-            // Record the rating if the feedback is vendor type and the stall matches
-            if (feedback.feedbackCategory == Category.VENDOR && feedback.orderAssociated.getOrderedStall().equals(stall)) {
-                totalRating += feedback.ratings;
-                feedbackCount++;
-            }
-        }
-
-        // Return 0 if feedback count is 0, indicating no review is given
-        if (feedbackCount == 0) return 0;
-
-        // Return the average value of the reviews
-        return totalRating / feedbackCount;
-    }
-
-    /**
      * A method to filter the feedback list based on category.
      *
      * @param category The feedback category to be applied as a filter

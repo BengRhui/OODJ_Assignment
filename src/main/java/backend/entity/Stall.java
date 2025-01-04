@@ -224,6 +224,35 @@ public class Stall {
     }
 
     /**
+     * A method to obtain the overall ratings of a stall.
+     *
+     * @return A double value representing the average ratings of a stall.<br>
+     * {@code 0} represents the stall does not have a rating
+     */
+    public double getOverallRating() {
+
+        // Declare variables to store data to calculate average
+        double totalRating = 0;
+        int feedbackCount = 0;
+
+        // Loop through the list of feedbacks
+        for (Feedback feedback : Feedback.getFeedbackList()) {
+
+            // Record the rating if the feedback is vendor type and the stall matches
+            if (feedback.getFeedbackCategory() == Feedback.Category.VENDOR && feedback.getOrderAssociated().getOrderedStall().equals(this)) {
+                totalRating += feedback.getRatings();
+                feedbackCount++;
+            }
+        }
+
+        // Return 0 if feedback count is 0, indicating no review is given
+        if (feedbackCount == 0) return 0;
+
+        // Return the average value of the reviews
+        return totalRating / feedbackCount;
+    }
+
+    /**
      * A method to modify the details of a stall.
      *
      * @param stallName       The name of the stall
