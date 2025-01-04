@@ -298,6 +298,36 @@ public class Feedback {
     }
 
     /**
+     * A method to update the response from manager regarding the feedback received.
+     *
+     * @param reply The reply from manager
+     * @return {@code true} if the reply is set successfully, else {@code false}
+     */
+    public boolean managerProvideReply(String reply) {
+
+        // Check if reply is empty or null
+        if (reply == null || reply.isBlank()) return false;
+
+        // Check if the correct feedback is passed into the method
+        if (this.getReplyFromManager() != null || this.getCustomerAssociated() == null) return false;
+
+        // Set the reply
+        this.setReplyFromManager(reply);
+
+        // Create notification
+        boolean createNotification = CustomerNotification.createNewNotification(
+                "Response to Feedback",
+                "Thank you for reaching out! Our team has reviewed your feedback " + this.getFeedbackID() + " and provided some response. Please check it out for more details.",
+                this.customerAssociated
+        );
+        if (!createNotification) return false;
+
+        // Write to file and return true
+        FeedbackFileIO.writeFile();
+        return true;
+    }
+
+    /**
      * Enum {@code Category} contains the different {@code Feedback} types.
      */
     public enum Category {

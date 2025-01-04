@@ -1,5 +1,6 @@
 import backend.entity.*;
 import backend.file_io.OrderFileIO;
+import backend.notification.CustomerNotification;
 import backend.notification.Notification;
 import backend.notification.VendorNotification;
 import backend.utility.Utility;
@@ -316,5 +317,60 @@ public class ManagerTest extends BaseTest {
         // Test for latest to oldest
         assertEquals(feedback2, arrangementFour.getFirst());
         assertEquals(feedback1, arrangementFour.getLast());
+    }
+
+    /**
+     * This test focuses on the operation where manager provides a reply for a feedback.
+     */
+    @Test
+    void testManagerProvideFeedback() {
+
+        // Get the initial notification list for customer
+        ArrayList<Notification> initialNotification = TestUtility.convertToNotificationArray(
+                CustomerNotification.getCustomerNotificationList()
+        );
+
+        // Take feedback 2 (without feedback) and provide an empty reply
+        boolean replySuccess = feedback2.managerProvideReply("  ");
+
+        // Check if the operation is successful
+        assertFalse(replySuccess);
+
+        // Provide a proper reply this time
+        String reply = "Sorry for the inconvenience.";
+        replySuccess = feedback2.managerProvideReply(reply);
+
+        // CHeck if the operation is successful
+        assertTrue(replySuccess);
+
+        // Check if the correct content is written to feedback 2
+        assertEquals(reply, feedback2.getReplyFromManager());
+
+        // Retrieve the newly created notification
+        ArrayList<Notification> differentNotification = TestUtility.getDifferentNotification(
+                initialNotification,
+                TestUtility.convertToNotificationArray(
+                        CustomerNotification.getCustomerNotificationList()
+                )
+        );
+
+        // Make sure that only one notification is created
+        assertEquals(1, differentNotification.size());
+
+        // Check if the notification is sent to the correct user
+        assertEquals(
+                feedback2.getCustomerAssociated().getUserID(),
+                differentNotification.getFirst().getEntityID()
+        );
+
+        // Make sure that the description of the notification is correct
+        assertEquals(
+                "Thank you for reaching out! Our team has reviewed your feedback " + feedback2.getFeedbackID() + " and provided some response. Please check it out for more details.",
+                differentNotification.getFirst().getNotificationDetails()
+        );
+
+        // Erroneous input: feedback 1 (already has a reply)
+        boolean errorFeedback = feedback1.managerProvideReply("Hello!");
+        assertFalse(errorFeedback);
     }
 }
