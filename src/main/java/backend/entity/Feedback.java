@@ -134,6 +134,25 @@ public class Feedback {
     }
 
     /**
+     * A method to filter the overall feedback list based on a timeframe.
+     * @param filter The type of filter used to filter the feedback
+     * @return An array list consisting of the filtered list of feedbacks
+     */
+    public static ArrayList<Feedback> filterFeedback(Utility.TimeframeFilter filter) {
+
+        // Get the starting and ending time for the selected filter
+        LocalDateTime[] timeframe = Utility.getFilterStartAndEndTime(filter);
+        LocalDateTime startingTime = timeframe[0];
+        LocalDateTime endingTime = timeframe[1];
+
+        // Filter the feedback list based on the timeframe
+        return feedbackList.stream()
+                .filter(feedback -> !feedback.feedbackSubmissionTime.isBefore(startingTime)
+                        && !feedback.feedbackSubmissionTime.isAfter(endingTime))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
      * A method to filter the feedback list based on category.
      *
      * @param category The feedback category to be applied as a filter

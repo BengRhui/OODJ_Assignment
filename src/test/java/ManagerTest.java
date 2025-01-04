@@ -176,10 +176,11 @@ public class ManagerTest extends BaseTest {
         // Test if the information can be obtained correctly
         for (Utility.TimeframeFilter filter : Utility.TimeframeFilter.values()) {
 
-            // Without any filter - Get the size for each filter
+            // (Order and feedback) Get the size for each filter
             int filteredOrderSize = Order.filterOrder(filter).size();
+            int filteredFeedbackSize = Feedback.filterFeedback(filter).size();
 
-            // Filter vendor 1 - Get the size for each filter
+            // (Order) Filter vendor 1 - Get the size for each filter
             ArrayList<Order> vendorOrder = Order.filterOrder(vendor1, filter);
             assertNotNull(vendorOrder);
             int vendorOrderSize = vendorOrder.size();
@@ -197,6 +198,7 @@ public class ManagerTest extends BaseTest {
                     assertEquals(15, filteredOrderSize);
                     assertEquals(7, vendorOrderSize);
                     assertEquals(9, runnerOrderSize);
+                    assertEquals(1, filteredFeedbackSize);
                 }
 
                 // For entire January
@@ -204,6 +206,7 @@ public class ManagerTest extends BaseTest {
                     assertEquals(17, filteredOrderSize);
                     assertEquals(7, vendorOrderSize);
                     assertEquals(10, runnerOrderSize);
+                    assertEquals(1, filteredFeedbackSize);
                 }
 
                 // For Feb 2024 - Jan 2025
@@ -211,6 +214,7 @@ public class ManagerTest extends BaseTest {
                     assertEquals(61, filteredOrderSize);
                     assertEquals(26, vendorOrderSize);
                     assertEquals(30, runnerOrderSize);
+                    assertEquals(2, filteredFeedbackSize);
                 }
 
                 // For 2021 - 2025
@@ -218,6 +222,7 @@ public class ManagerTest extends BaseTest {
                     assertEquals(100, filteredOrderSize);
                     assertEquals(48, vendorOrderSize);
                     assertEquals(52, runnerOrderSize);
+                    assertEquals(3, filteredFeedbackSize);
                 }
             }
         }
