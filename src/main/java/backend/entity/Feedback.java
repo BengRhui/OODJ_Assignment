@@ -1,5 +1,7 @@
 package backend.entity;
 
+import backend.file_io.*;
+import backend.notification.CustomerNotification;
 import backend.utility.Utility;
 
 import java.time.LocalDateTime;
@@ -23,6 +25,7 @@ public class Feedback {
     private final static ArrayList<Feedback> feedbackList = new ArrayList<>();
     private String feedbackID;
     private Category feedbackCategory;
+    private Customer customerAssociated;
     private Order orderAssociated;
     private LocalDateTime feedbackSubmissionTime;
     private double ratings;
@@ -41,9 +44,10 @@ public class Feedback {
      * @param feedbackDetails  The description of the feedback
      * @param replyFromManager The reply that the manager provides to the customer
      */
-    public Feedback(String feedbackID, Category feedbackCategory, Order orderAssociated, LocalDateTime feedbackSubmissionTime, double ratings, String feedbackTitle, String feedbackDetails, String replyFromManager) {
+    public Feedback(String feedbackID, Category feedbackCategory, Customer customerAssociated, Order orderAssociated, LocalDateTime feedbackSubmissionTime, double ratings, String feedbackTitle, String feedbackDetails, String replyFromManager) {
         this.feedbackID = feedbackID;
         this.feedbackCategory = feedbackCategory;
+        this.customerAssociated = customerAssociated;
         this.orderAssociated = orderAssociated;
         this.feedbackSubmissionTime = feedbackSubmissionTime;
         this.ratings = ratings;
@@ -162,7 +166,8 @@ public class Feedback {
 
         // Arrange list based on filter
         switch (filter) {
-            case LATEST_TO_OLDEST -> feedbackList.sort(Comparator.comparing(Feedback::getFeedbackSubmissionTime).reversed());
+            case LATEST_TO_OLDEST ->
+                    feedbackList.sort(Comparator.comparing(Feedback::getFeedbackSubmissionTime).reversed());
             case OLDEST_TO_LATEST -> feedbackList.sort(Comparator.comparing(Feedback::getFeedbackSubmissionTime));
             case HIGH_TO_LOW_RATING -> feedbackList.sort(Comparator.comparing(Feedback::getRatings).reversed());
             case LOW_TO_HIGH_RATING -> feedbackList.sort(Comparator.comparing(Feedback::getRatings));
@@ -189,6 +194,14 @@ public class Feedback {
 
     public void setFeedbackCategory(Category feedbackCategory) {
         this.feedbackCategory = feedbackCategory;
+    }
+
+    public Customer getCustomerAssociated() {
+        return customerAssociated;
+    }
+
+    public void setCustomerAssociated(Customer customerAssociated) {
+        this.customerAssociated = customerAssociated;
     }
 
     public Order getOrderAssociated() {
@@ -248,6 +261,7 @@ public class Feedback {
     public String toString() {
         return "Feedback ID: " + feedbackID + "\n" +
                 "Feedback Category: " + feedbackCategory.toString() + "\n" +
+                "Customer Associated: " + customerAssociated.toString() + "\n" +
                 "Order Associated: " + "\n" +
                 orderAssociated + "\n" +
                 "Submitted Time: " + Utility.generateString(feedbackSubmissionTime) + "\n" +

@@ -290,6 +290,7 @@ public class BaseTest {
         feedback1 = new Feedback(
                 "F001",
                 Feedback.Category.DELIVERY_RUNNER,
+                customer1,
                 order1,
                 LocalDateTime.of(2021, 4, 6, 12, 32, 45),
                 4.5,
@@ -301,6 +302,7 @@ public class BaseTest {
         feedback2 = new Feedback(
                 "F002",
                 Feedback.Category.SYSTEM,
+                customer1,
                 null,
                 LocalDateTime.of(2025, 1, 2, 14, 12, 52),
                 3.5,
@@ -312,6 +314,7 @@ public class BaseTest {
         feedback3 = new Feedback(
                 "F003",
                 Feedback.Category.VENDOR,
+                customer1,
                 order2,
                 LocalDateTime.of(2024, 8, 9, 19, 2, 5),
                 1.5,
