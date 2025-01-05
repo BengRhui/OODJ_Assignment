@@ -331,6 +331,29 @@ public class Vendor extends User {
     }
 
     /**
+     * A method to calculate the total earnings of a vendor.
+     *
+     * @return The total earnings of vendor
+     */
+    public double getTotalEarnings() {
+
+        // Declare a variable to store earnings
+        double earnings = 0;
+
+        // Retrieve the list of orders
+        ArrayList<Order> orderList = Order.filterOrder(this);
+
+        // Return -1 if the list is null
+        if (orderList == null) return -1;
+
+        // Loop through each order list to calculate earnings
+        for (Order order : orderList) earnings += order.getOrderPrice();
+
+        // Return the earnings
+        return earnings;
+    }
+
+    /**
      * Getter and setter for additional attributes.
      */
     public Stall getStall() {
