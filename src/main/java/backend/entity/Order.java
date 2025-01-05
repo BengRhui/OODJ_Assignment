@@ -301,7 +301,7 @@ public class Order {
 
         // Get the list of orders associated to runner
         return overallOrder.stream()
-                .filter(order -> order.getRunnerInCharge().getUserID().equals(runner.getUserID()))
+                .filter(order -> order.getRunnerInCharge() != null && order.getRunnerInCharge().getUserID().equals(runner.getUserID()))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 

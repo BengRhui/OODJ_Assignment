@@ -4,6 +4,7 @@ import backend.notification.CustomerNotification;
 import backend.notification.DeliveryRunnerNotification;
 import backend.notification.Notification;
 import backend.notification.VendorNotification;
+import backend.utility.Utility;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -395,5 +396,24 @@ public class RunnerTest extends BaseTest {
         // Erroneous order: the method should not be used here
         boolean errorOrder = order2.runnerRejectOrder();
         assertFalse(errorOrder);
+    }
+
+    /**
+     * This method focuses on whether the correct statistics will be displayed to delivery runners.
+     */
+    @Test
+    void testRunnerGetStatistics() {
+
+        // Calculate the statistics for runner 1 based on yearly filter
+        int deliveryCount = runner1.getDeliveryCount(Utility.TimeframeFilter.YEARLY);
+        double tipsAmount = runner1.getTipsAmount(Utility.TimeframeFilter.YEARLY);
+        double overallRatings = runner1.getRatings(Utility.TimeframeFilter.YEARLY);
+        int feedbackCount = runner1.getFeedbackCount(Utility.TimeframeFilter.YEARLY);
+
+        // Check whether if the amount tally (only order 1 and feedback 1 is involved)
+        assertEquals(1, deliveryCount);
+        assertEquals(order1.getTipsForRunner(), tipsAmount);
+        assertEquals(1, feedbackCount);
+        assertEquals(feedback1.getRatings(), overallRatings);
     }
 }

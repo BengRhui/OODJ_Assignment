@@ -719,6 +719,9 @@ public class VendorTest extends BaseTest {
         assertNull(itemPicture);
     }
 
+    /**
+     * This test focuses on whether the correct statistics are obtained for the vendor.
+     */
     @Test
     void testVendorGetStatistics() {
 
