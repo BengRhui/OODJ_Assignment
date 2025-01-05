@@ -22,9 +22,40 @@ public class Order {
 
     /**
      * Attributes for the {@code Order} object.<br>
-     * A list that collects all orders is included.
+     * A list that collects all orders and the lists used to write Excel files are included.
      */
     private final static ArrayList<Order> orderList = new ArrayList<>();
+    private final static String[] orderHeaderList = {
+            "Order ID",
+            "Order Time",
+            "Customer Name",
+            "Customer Contact No.",
+            "Stall Name",
+            "Delivery Runner Name",
+            "Table Number",
+            "Item Name",
+            "Price Per Unit (RM)",
+            "Quantity",
+            "Order Amount (RM)",
+            "Order Status",
+            "Delivery Notes"
+    };
+    private final static int[] orderColumnWidth = {
+            256 * 15,
+            256 * 25,
+            256 * 25,
+            256 * 25,
+            256 * 25,
+            256 * 25,
+            256 * 15,
+            256 * 30,
+            256 * 20,
+            256 * 10,
+            256 * 20,
+            256 * 25,
+            256 * 40
+    };
+
     private String orderID;
     private Customer orderingCustomer;
     private Stall orderedStall;
@@ -278,7 +309,7 @@ public class Order {
      * @param filter The timeframe set to export the Excel file
      * @return {@code true} if the Excel file is created successfully, else {@code false}
      */
-    public static boolean exportOrderDataToExcel(Utility.TimeframeFilter filter) {
+    public static boolean exportDataToExcel(Utility.TimeframeFilter filter) {
 
         // Get the data to be passed into the method to generate Excel file
         ArrayList<Order> dataList = filterOrder(filter);
@@ -287,7 +318,7 @@ public class Order {
         LocalDateTime[] timeframe = Utility.getFilterStartAndEndTime(filter);
 
         // Return the method that generates the Excel file
-        return Utility.writeDataToExcel(dataList, timeframe);
+        return Utility.downloadAsExcel(orderHeaderList, orderColumnWidth, "Order Records", dataList, timeframe);
     }
 
     /**

@@ -20,9 +20,38 @@ public class Feedback {
 
     /**
      * Attributes for {@code Feedback} objects.<br>
-     * A list containing all {@code Feedback} objects is also included.
+     * A list containing all {@code Feedback} objects and lists used to write to Excel file is also included.
      */
     private final static ArrayList<Feedback> feedbackList = new ArrayList<>();
+    private final static String[] headerList = {
+            "Feedback ID",
+            "Feedback Type",
+            "Order ID",
+            "Customer Name",
+            "Customer Contact No.",
+            "Stall Name (if applicable)",
+            "Delivery Runner Name (if applicable)",
+            "Feedback Submission Time",
+            "Ratings",
+            "Feedback Title",
+            "Feedback Description",
+            "Response to Feedback"
+    };
+    private final static int[] columnWidth = {
+            256 * 15,
+            256 * 20,
+            256 * 20,
+            256 * 30,
+            256 * 25,
+            256 * 35,
+            256 * 40,
+            256 * 30,
+            256 * 10,
+            256 * 30,
+            256 * 50,
+            256 * 50
+    };
+
     private String feedbackID;
     private Category feedbackCategory;
     private Customer customerAssociated;
@@ -135,6 +164,7 @@ public class Feedback {
 
     /**
      * A method to filter the overall feedback list based on a timeframe.
+     *
      * @param filter The type of filter used to filter the feedback
      * @return An array list consisting of the filtered list of feedbacks
      */
@@ -190,6 +220,24 @@ public class Feedback {
 
         // Return the sorted list
         return feedbackList;
+    }
+
+    /**
+     * A method to export Feedback data to Excel file based on filter provided.
+     *
+     * @param filter The timeframe used to filter the Feedback data
+     * @return {@code true} if the Excel file is exported successfully, else {@code false}
+     */
+    public static boolean exportDataToExcel(Utility.TimeframeFilter filter) {
+
+        // Get feedback list
+        ArrayList<Feedback> feedbackList = filterFeedback(filter);
+
+        // Get timeframe
+        LocalDateTime[] timeframe = Utility.getFilterStartAndEndTime(filter);
+
+        // Pass to method for exporting to Excel and return the boolean associated
+        return Utility.downloadAsExcel(headerList, columnWidth, "Feedback Records", feedbackList, timeframe);
     }
 
     /**
