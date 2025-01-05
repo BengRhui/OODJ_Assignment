@@ -364,7 +364,21 @@ public class Vendor extends User {
         Stall associatedStall = this.getStall();
 
         // Return the ratings of the stall
-        return associatedStall.getOverallRating();
+        return associatedStall.getOverallRating()[0];
+    }
+
+    /**
+     * A method to get the feedback count of a vendor based on the store associated.
+     *
+     * @return The feedback count of vendor
+     */
+    public int getFeedbackCount() {
+
+        // Get the stall associated with the vendor
+        Stall associatedStall = this.getStall();
+
+        // Return the feedback count of the stall
+        return (int) associatedStall.getOverallRating()[1];
     }
 
     /**

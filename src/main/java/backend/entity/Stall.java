@@ -226,10 +226,10 @@ public class Stall {
     /**
      * A method to obtain the overall ratings of a stall.
      *
-     * @return A double value representing the average ratings of a stall.<br>
+     * @return A double list representing the average ratings of a stall with the number of feedback received.<br>
      * {@code 0} represents the stall does not have a rating
      */
-    public double getOverallRating() {
+    public double[] getOverallRating() {
 
         // Declare variables to store data to calculate average
         double totalRating = 0;
@@ -246,10 +246,13 @@ public class Stall {
         }
 
         // Return 0 if feedback count is 0, indicating no review is given
-        if (feedbackCount == 0) return 0;
+        if (feedbackCount == 0) return null;
 
-        // Return the average value of the reviews
-        return totalRating / feedbackCount;
+        // Calculate the average value of the reviews
+        double overallRating = totalRating / feedbackCount;
+
+        // Return the ratings and the feedback count
+        return new double[]{overallRating, feedbackCount};
     }
 
     /**
