@@ -1000,6 +1000,55 @@ public class Order {
     }
 
     /**
+     * A method for customers to cancel an order (before the vendors and runners accept it)
+     * @return {@code true} if the order is cancelled successfully, else {@code false}
+     */
+    public boolean customerCancelOrder() {
+
+        // Make sure that the correct order is passed into the method (reject methods other than waiting ones)
+        if (this.getOrderStatus() != OrderStatus.WAITING_VENDOR_AND_RUNNER &&
+                this.getOrderStatus() != OrderStatus.WAITING_VENDOR &&
+                this.getOrderStatus() != OrderStatus.WAITING_RUNNER) return false;
+
+        // Change the status of order to "cancelled"
+        this.setOrderStatus(OrderStatus.CANCELLED);
+
+        // Create notifications for customers themselves
+        boolean customerNotification = CustomerNotification.createNewNotification(
+                "Order Cancellation Successful",
+                "Your order " + this.getOrderID() + " has been cancelled successfully. The order records can be found in the Order History page.",
+                this.getOrderingCustomer()
+        );
+        if (!customerNotification) return false;
+
+        // Create notifications to inform vendors
+        boolean vendorNotification = VendorNotification.createNewNotification(
+                "Order Cancelled by Customer",
+                "Order " + this.getOrderID() + " has been cancelled by the customer.",
+                this.getOrderedStall()
+        );
+        if (!vendorNotification) return false;
+
+        // Check if the order already has a runner
+        if (this.getRunnerInCharge() != null) {
+
+            // Create notification for the runner
+            boolean runnerNotification = DeliveryRunnerNotification.createNewNotification(
+                    "Order Cancelled by Customer",
+                    "The customer has cancelled the order " + this.getOrderID() + ".",
+                    this.getRunnerInCharge()
+            );
+            if (!runnerNotification) return false;
+        }
+
+        // Write to file
+        OrderFileIO.writeFile();
+
+        // Return true for successful modification
+        return true;
+    }
+
+    /**
      * Enum {@code DiningType} represents the different types of dining methods a customer can choose.
      */
     public enum DiningType {
