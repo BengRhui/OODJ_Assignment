@@ -1,4 +1,7 @@
-package backend;
+package backend.notification;
+
+import backend.entity.Customer;
+import backend.utility.Utility;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,7 +16,7 @@ public class CustomerNotification implements Notification {
     private final static ArrayList<Notification> customerNotificationList = new ArrayList<>();
     /**
      * Attributes for {@code CustomerNotification} class.<br>
-     * An overall list containing all {@code CustomerNotification} objects is included.<br>
+     * An overall list containing all {@code CustomerNotification} objects is included.
      */
     private String notificationID;
     private Customer customer;
@@ -40,7 +43,6 @@ public class CustomerNotification implements Notification {
         this.readStatus = readStatus;
         this.notificationTitle = notificationTitle;
         this.notificationDetails = notificationDetails;
-        addToList(this);
     }
 
     /**
@@ -122,7 +124,7 @@ public class CustomerNotification implements Notification {
         return "Notification ID: " + notificationID + "\n" +
                 "Customer Involved: " + "\n" +
                 customer.toString() + "\n" +
-                "Notification Time: " + Utility.printTime(notificationTime) + "\n" +
+                "Notification Time: " + Utility.generateString(notificationTime) + "\n" +
                 "Notification Status: " + readStatus.toString() + "\n" +
                 "Notification Title: " + notificationTitle + "\n" +
                 "Notification Details: " + notificationDetails;

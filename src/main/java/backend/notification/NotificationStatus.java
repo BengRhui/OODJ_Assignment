@@ -1,4 +1,4 @@
-package backend;
+package backend.notification;
 
 /**
  * Enum {@code NotificationStatus} represents the different types of status in a notification.

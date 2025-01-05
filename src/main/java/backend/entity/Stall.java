@@ -1,4 +1,4 @@
-package backend;
+package backend.entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +30,6 @@ public class Stall {
         this.storeID = storeID;
         this.storeName = storeName;
         this.storeCategories = storeCategories;
-        addStallToList(this);
     }
 
     /**
@@ -88,5 +87,20 @@ public class Stall {
         return "Store ID: " + storeID + "\n" +
                 "Store Name: " + storeName + "\n" +
                 "Store Categories: " + Arrays.toString(storeCategories);
+    }
+
+    /**
+     * A method to retrieve the associated {@code Store} object based on store ID.
+     * @param stallID The ID of the stall
+     * @return The {@code Stall} object associated with the ID
+     */
+    public static Stall getStall(String stallID) {
+        for (Stall stall : stallList) {
+            if (!stall.getStoreID().equals(stallID)) {
+                continue;
+            }
+            return stall;
+        }
+        return null;
     }
 }

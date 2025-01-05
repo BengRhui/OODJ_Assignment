@@ -1,4 +1,4 @@
-package backend;
+package backend.entity;
 
 import java.util.ArrayList;
 
@@ -35,7 +35,6 @@ public class Item {
         this.stall = stall;
         this.price = price;
         this.description = description;
-        addItemToList(this);
     }
 
     /**

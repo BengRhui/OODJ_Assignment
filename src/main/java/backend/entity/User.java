@@ -1,4 +1,4 @@
-package backend;
+package backend.entity;
 
 import java.util.ArrayList;
 
@@ -40,7 +40,7 @@ public class User {
      *
      * @param user The {@code User} object to be added into the ArrayList
      */
-    public static void addUser(User user) {
+    public static void addUserToList(User user) {
         userList.add(user);
     }
 
@@ -50,6 +50,16 @@ public class User {
      * @return An ArrayList containing all instances of {@code User} objects.
      */
     public static ArrayList<User> getUserList() {
+
+        // Clear the user list
+        userList.clear();
+        
+        // Add all the users into user list and return it
+        userList.addAll(Admin.getAdminList());
+        userList.addAll(Customer.getCustomerList());
+        userList.addAll(DeliveryRunner.getDeliveryRunnerList());
+        userList.addAll(Manager.getManagerList());
+        userList.addAll(Vendor.getVendorList());
         return userList;
     }
 

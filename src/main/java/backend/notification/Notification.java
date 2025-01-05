@@ -1,4 +1,4 @@
-package backend;
+package backend.notification;
 
 /**
  * Interface {@code Notification} includes the basic methods that a notification should have.

@@ -1,4 +1,4 @@
-package backend;
+package backend.entity;
 
 import java.util.ArrayList;
 
@@ -39,7 +39,6 @@ public class Feedback {
         this.feedbackTitle = feedbackTitle;
         this.feedbackDetails = feedbackDetails;
         this.replyFromManager = responseFromManager;
-        addToFeedbackList(this);
     }
 
     /**

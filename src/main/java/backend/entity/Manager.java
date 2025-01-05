@@ -1,4 +1,4 @@
-package backend;
+package backend.entity;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,6 @@ public class Manager extends User {
      */
     public Manager(String userID, String email, String password, String name) {
         super(userID, email, password, name);
-        addManager(this);
     }
 
     /**
@@ -41,7 +40,7 @@ public class Manager extends User {
      *
      * @param manager The {@code Manager} that will be added into a list
      */
-    public static void addManager(Manager manager) {
+    public static void addManagerToList(Manager manager) {
         managerList.add(manager);
     }
 

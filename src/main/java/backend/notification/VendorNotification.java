@@ -1,4 +1,7 @@
-package backend;
+package backend.notification;
+
+import backend.entity.Stall;
+import backend.utility.Utility;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,7 +15,7 @@ public class VendorNotification implements Notification {
 
     private final static ArrayList<Notification> vendorNotificationList = new ArrayList<>();
     /**
-     * Attributes for {@code VendorNotification} objects.
+     * Attributes for {@code VendorNotification} objects.<br>
      * An overall list that records all vendor notifications is also included.
      */
     private String notificationID;
@@ -40,7 +43,6 @@ public class VendorNotification implements Notification {
         this.readStatus = readStatus;
         this.notificationTitle = notificationTitle;
         this.notificationDetails = notificationDetails;
-        addToList(this);
     }
 
     /**
@@ -141,7 +143,7 @@ public class VendorNotification implements Notification {
         return "Notification ID: " + notificationID + "\n" +
                 "Stall Involved: " + "\n" +
                 stall.toString() + "\n" +
-                "Notification Time: " + Utility.printTime(notificationTime) + "\n" +
+                "Notification Time: " + Utility.generateString(notificationTime) + "\n" +
                 "Notification Status: " + readStatus.toString() + "\n" +
                 "Notification Title: " + notificationTitle + "\n" +
                 "Notification Details: " + notificationDetails;

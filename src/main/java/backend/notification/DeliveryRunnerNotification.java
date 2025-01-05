@@ -1,4 +1,7 @@
-package backend;
+package backend.notification;
+
+import backend.entity.DeliveryRunner;
+import backend.utility.Utility;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -41,7 +44,6 @@ public class DeliveryRunnerNotification implements Notification {
         this.readStatus = readStatus;
         this.notificationTitle = notificationTitle;
         this.notificationDetails = notificationDetails;
-        addToList(this);
     }
 
     /**
@@ -123,7 +125,7 @@ public class DeliveryRunnerNotification implements Notification {
         return "Notification ID: " + notificationID + "\n" +
                 "Runner Involved: " + "\n" +
                 runner.toString() + "\n" +
-                "Notification Time: " + Utility.printTime(notificationTime) + "\n" +
+                "Notification Time: " + Utility.generateString(notificationTime) + "\n" +
                 "Notification Status: " + readStatus.toString() + "\n" +
                 "Notification Title: " + notificationTitle + "\n" +
                 "Notification Details: " + notificationDetails;
