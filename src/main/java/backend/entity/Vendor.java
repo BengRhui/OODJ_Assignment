@@ -354,6 +354,20 @@ public class Vendor extends User {
     }
 
     /**
+     * A method to get the overall ratings for a vendor (same as the associated stall).
+     *
+     * @return The overall ratings of vendor
+     */
+    public double getOverallRatings() {
+
+        // Get the stall associated with the vendor
+        Stall associatedStall = this.getStall();
+
+        // Return the ratings of the stall
+        return associatedStall.getOverallRating();
+    }
+
+    /**
      * Getter and setter for additional attributes.
      */
     public Stall getStall() {
