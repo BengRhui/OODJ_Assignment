@@ -304,6 +304,40 @@ public class Order {
     }
 
     /**
+     * A method to return a filtered order list based on vendor.
+     *
+     * @param vendor The vendor associated with the order
+     * @return A filtered array list based on stall associated with vendor
+     */
+    public static ArrayList<Order> filterOrder(Vendor vendor) {
+
+        // Return null if the vendor is null
+        if (vendor == null) return null;
+
+        // Filter order list based on the associated stall ID
+        return getOrderList().stream()
+                .filter(order -> order.getOrderedStall() != null && order.getOrderedStall().getStallID().equals(vendor.getStall().getStallID()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * A method to filter order list based on the delivery runner.
+     *
+     * @param runner The delivery runner associated with the order
+     * @return A filtered list of orders based on delivery runner
+     */
+    public static ArrayList<Order> filterOrder(DeliveryRunner runner) {
+
+        // Return null if the input is null
+        if (runner == null) return null;
+
+        // Filter order list based on runner
+        return getOrderList().stream()
+                .filter(order -> order.getRunnerInCharge() != null && order.getRunnerInCharge().getUserID().equals(runner.getUserID()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
      * A method to export the associated date to an Excel file.
      *
      * @param filter The timeframe set to export the Excel file
@@ -629,7 +663,7 @@ public class Order {
             // Return 1 to indicate successful modification
             return 1;
 
-        // Notification if status updated to ready for pickup
+            // Notification if status updated to ready for pickup
         } else if (status == OrderStatus.READY_FOR_PICK_UP) {
 
             // Vendor notification for all orders
@@ -690,7 +724,7 @@ public class Order {
             // Return 1 for successful modification
             return 1;
 
-        // When the status is marked as complete (only applicable for dine in and takeaway orders)
+            // When the status is marked as complete (only applicable for dine in and takeaway orders)
         } else if (status == OrderStatus.COMPLETED && (this.getDiningType() == DiningType.DINE_IN || this.getDiningType() == DiningType.TAKEAWAY)) {
 
             // Customer notification for complete order
