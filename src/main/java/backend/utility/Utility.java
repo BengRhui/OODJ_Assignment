@@ -17,6 +17,7 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 
 /**
@@ -93,11 +94,11 @@ public class Utility {
         StringBuilder string = new StringBuilder();
 
         // Append each pair of item and quantity to the string builder
-        map.forEach(
-                (item, quantity) ->
-                        string.append(item.getItemID())
+        map.entrySet().stream()                                                         // Convert map to stream
+                .sorted(Comparator.comparing(item -> item.getKey().getItemID()))        // Sort the map based on item ID
+                .forEach(entry -> string.append(entry.getKey().getItemID())             // Convert each pair to string
                                 .append(" - ")
-                                .append(quantity)
+                                .append(entry.getValue())
                                 .append(", ")
         );
 
@@ -168,6 +169,9 @@ public class Utility {
      * @return The key-value pair in {@code HashMap}
      */
     public static HashMap<Item, Integer> changeStringToHashMap(String itemSet) {
+
+        // If input is null, return null
+        if (itemSet == null || itemSet.isEmpty()) return null;
 
         // Create a new HashMap to store information
         HashMap<Item, Integer> map = new HashMap<>();

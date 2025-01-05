@@ -60,6 +60,7 @@ public class Order {
     private Customer orderingCustomer;
     private Stall orderedStall;
     private DeliveryRunner runnerInCharge;
+    private Double tipsForRunner;
     private DiningType diningType;
     private String tableNumber;
     private String noteToVendor;
@@ -84,12 +85,13 @@ public class Order {
      * @param orderItem        The list of items ordered by customer
      */
     public Order(String orderID, Customer orderingCustomer, Stall orderedStall, DeliveryRunner runnerInCharge,
-                 DiningType diningType, String tableNumber, String noteToVendor, double orderPrice,
+                 Double tipsForRunner, DiningType diningType, String tableNumber, String noteToVendor, double orderPrice,
                  LocalDateTime orderedDate, OrderStatus orderStatus, HashMap<Item, Integer> orderItem) {
         this.orderID = orderID;
         this.orderingCustomer = orderingCustomer;
         this.orderedStall = orderedStall;
         this.runnerInCharge = runnerInCharge;
+        this.tipsForRunner = tipsForRunner;
         this.diningType = diningType;
         this.tableNumber = tableNumber;
         this.noteToVendor = noteToVendor;
@@ -390,6 +392,14 @@ public class Order {
         this.runnerInCharge = runnerInCharge;
     }
 
+    public Double getTipsForRunner() {
+        return tipsForRunner;
+    }
+
+    public void setTipsForRunner(Double tipsForRunner) {
+        this.tipsForRunner = tipsForRunner;
+    }
+
     public DiningType getDiningType() {
         return diningType;
     }
@@ -459,6 +469,7 @@ public class Order {
                 "Ordered Stall: " + "\n" +
                 orderedStall.toString() + "\n" +
                 "Runner in Charge: " + (runnerInCharge == null ? "null" : "\n" + runnerInCharge) + "\n" +
+                "Tips for Runner: " + tipsForRunner + "\n" +
                 "Dining Type: " + diningType.toString() + "\n" +
                 "Table Number: " + tableNumber + "\n" +
                 "Delivery Note: " + noteToVendor + "\n" +
