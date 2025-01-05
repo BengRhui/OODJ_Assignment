@@ -39,32 +39,31 @@ public class ResetPassword extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1400, 800));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 204));
         jPanel1.setPreferredSize(new java.awt.Dimension(1400, 800));
-        jPanel1.setSize(new java.awt.Dimension(1400, 800));
         jPanel1.setLayout(null);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("/Users/jack/Downloads/JAVA DESIGN 2/forgot_password_vector.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/forgot_password_vector.png"))); // NOI18N
         jPanel1.add(jLabel1);
         jLabel1.setBounds(120, 160, 620, 540);
 
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 48)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Password Reset");
         jPanel1.add(jLabel2);
         jLabel2.setBounds(800, 210, 400, 50);
 
         jLabel3.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Retype Password:");
         jPanel1.add(jLabel3);
         jLabel3.setBounds(1010, 400, 200, 23);
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -73,7 +72,6 @@ public class ResetPassword extends javax.swing.JFrame {
         jPanel1.add(jTextField1);
         jTextField1.setBounds(1010, 440, 240, 40);
 
-        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
@@ -83,36 +81,29 @@ public class ResetPassword extends javax.swing.JFrame {
         jTextField2.setBounds(720, 330, 530, 40);
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Email Address:");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(720, 290, 180, 23);
-
-        jTextField3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jTextField3);
         jTextField3.setBounds(720, 440, 240, 40);
 
         jLabel5.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("New Password:");
         jPanel1.add(jLabel5);
         jLabel5.setBounds(720, 400, 200, 23);
 
         jLabel6.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("2) Password should have at least one special characters (#, @, $, etc.)");
+        jLabel6.setText("3) Password should have at least one special characters (#, @, $, etc.)");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(780, 520, 430, 40);
+        jLabel6.setBounds(780, 550, 460, 40);
 
         jLabel7.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Note:");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(720, 500, 50, 23);
+        jLabel7.setBounds(720, 490, 50, 23);
 
         jLabel8.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel8.setText("1) Password should consist of 6 to 12 characters");
+        jLabel8.setText("1) Password should consist of 8 to 20 characters");
         jPanel1.add(jLabel8);
         jLabel8.setBounds(780, 490, 320, 40);
 
@@ -121,7 +112,22 @@ public class ResetPassword extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText(" Reset Password");
         jPanel1.add(jButton1);
-        jButton1.setBounds(720, 570, 540, 60);
+        jButton1.setBounds(720, 590, 540, 60);
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logo_dark.png"))); // NOI18N
+        jPanel1.add(jLabel10);
+        jLabel10.setBounds(50, 30, 150, 110);
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/cancel.png"))); // NOI18N
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jPanel1.add(jButton2);
+        jButton2.setBounds(1340, 10, 40, 50);
+
+        jLabel9.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        jLabel9.setText("2) Password should have at least one number and one alphabet");
+        jPanel1.add(jLabel9);
+        jLabel9.setBounds(780, 520, 460, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -173,6 +179,7 @@ public class ResetPassword extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ResetPassword.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -184,7 +191,9 @@ public class ResetPassword extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -192,6 +201,7 @@ public class ResetPassword extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;

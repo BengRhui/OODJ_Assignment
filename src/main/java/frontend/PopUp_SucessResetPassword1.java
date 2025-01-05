@@ -35,30 +35,27 @@ public class PopUp_SucessResetPassword1 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(565, 365));
-        setPreferredSize(new java.awt.Dimension(565, 315));
+        setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 204));
         jPanel2.setPreferredSize(new java.awt.Dimension(565, 315));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Reset Sucessful");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, -1, -1));
 
-        jButton1.setBackground(new java.awt.Color(145, 105, 65));
+        jButton1.setBackground(new java.awt.Color(159, 122, 84));
         jButton1.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("OK");
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 170, -1));
 
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("    Your password has been successfully reset. ");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 450, -1));
 
         jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText(" You will be redirected back to the login page.");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, -1));
 
@@ -105,6 +102,8 @@ public class PopUp_SucessResetPassword1 extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(PopUp_SucessResetPassword1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
