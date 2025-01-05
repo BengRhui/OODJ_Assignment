@@ -314,6 +314,23 @@ public class Vendor extends User {
     }
 
     /**
+     * A method to retrieve the order count for a vendor.
+     *
+     * @return The order count
+     */
+    public int getOrderCount() {
+
+        // Retrieve the list of orders
+        ArrayList<Order> orderList = Order.filterOrder(this);
+
+        // Return -1 if the retrieved list is null
+        if (orderList == null) return -1;
+
+        // Return the size of the order list as order count
+        return orderList.size();
+    }
+
+    /**
      * Getter and setter for additional attributes.
      */
     public Stall getStall() {
