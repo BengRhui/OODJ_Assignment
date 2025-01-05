@@ -13,14 +13,14 @@ import java.util.HashMap;
  */
 public class Order {
 
-    private final static ArrayList<Order> orderList = new ArrayList<>();
-    public final String[] DINING_TYPES = {"Dine in", "Takeaway", "Delivery"};
-    public final String[] ORDER_STATUS = {"Waiting for Vendor and Delivery", "Waiting for Vendor", "Waiting for Delivery"};
     /**
      * Attributes for the {@code Order} object.<br>
      * A list that collects all orders is included.<br>
      * Two lists containing delivery types and order status are also included.
      */
+    private final static ArrayList<Order> orderList = new ArrayList<>();
+    public final String[] DINING_TYPES = {"Dine in", "Takeaway", "Delivery"};
+    public final String[] ORDER_STATUS = {"Waiting for Vendor and Delivery", "Waiting for Vendor", "Waiting for Delivery"};
     private String orderID;
     private Customer orderingCustomer;
     private Stall orderedStall;
@@ -32,7 +32,7 @@ public class Order {
     private LocalDateTime orderedDate;
     private double tipsForRunner;
     private String orderStatus;
-    private HashMap<String, Integer> orderItem;
+    private HashMap<Item, Integer> orderItem;
 
     /**
      * Constructor to instantiate {@code Order} objects.
@@ -52,7 +52,7 @@ public class Order {
      */
     public Order(String orderID, Customer orderingCustomer, Stall orderedStall, DeliveryRunner runnerInCharge,
                  String diningType, String tableNumber, String deliveryNote, double orderPrice, LocalDateTime orderedDate,
-                 double tipsForRunner, String orderStatus, HashMap<String, Integer> orderItem) {
+                 double tipsForRunner, String orderStatus, HashMap<Item, Integer> orderItem) {
         this.orderID = orderID;
         this.orderingCustomer = orderingCustomer;
         this.orderedStall = orderedStall;
@@ -83,6 +83,30 @@ public class Order {
      */
     public static void addToOrderList(Order order) {
         orderList.add(order);
+    }
+
+    /**
+     * A method to retrieve {@code Order} object based on order ID.
+     *
+     * @param orderID The ID of the order
+     * @return {@code Order} object associated with the ID
+     */
+    public static Order getOrder(String orderID) {
+
+        // Loop through the list of order objects
+        for (Order order : orderList) {
+
+            // Continue the loop if order ID does not match
+            if (!order.orderID.equals(orderID)) {
+                continue;
+            }
+
+            // Return the associated order object if order ID matches
+            return order;
+        }
+
+        // Return null if no order ID matches
+        return null;
     }
 
     /**
@@ -176,23 +200,21 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    public HashMap<String, Integer> getOrderItem() {
+    public HashMap<Item, Integer> getOrderItem() {
         return orderItem;
     }
 
-    public void setOrderItem(HashMap<String, Integer> orderItem) {
+    public void setOrderItem(HashMap<Item, Integer> orderItem) {
         this.orderItem = orderItem;
     }
 
+    /**
+     * A method to return the {@code Order} object in string format.
+     *
+     * @return The string representation of the {@code Order} object
+     */
     @Override
     public String toString() {
-
-        StringBuilder itemString = new StringBuilder();
-        for (HashMap.Entry<String, Integer> entry : orderItem.entrySet()) {
-            String currentItem = "- " + entry.getKey() + " x " + entry.getValue() + "\n";
-            itemString.append(currentItem);
-        }
-
         return "Order ID: " + orderID + "\n" +
                 "Ordering Customer: " + "\n" +
                 orderingCustomer.toString() + "\n" +
@@ -207,6 +229,6 @@ public class Order {
                 "Ordered Date: " + Utility.generateString(orderedDate) + "\n" +
                 "Tips for Runner: " + tipsForRunner + "\n" +
                 "Order Status: " + orderStatus + "\n" +
-                "Order Items: " + itemString;
+                "Order Items: " + Utility.generateString(orderItem);
     }
 }

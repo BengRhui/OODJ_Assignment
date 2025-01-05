@@ -1,5 +1,7 @@
 package backend.notification;
 
+import java.time.LocalDateTime;
+
 /**
  * Interface {@code Notification} includes the basic methods that a notification should have.
  */
@@ -12,4 +14,15 @@ public interface Notification {
 
     void markAsRead();
 
+    String getNotificationID();
+
+    String getEntityID();
+
+    LocalDateTime getNotificationTime();
+
+    NotificationStatus getReadStatus();
+
+    String getNotificationTitle();
+
+    String getNotificationDetails();
 }

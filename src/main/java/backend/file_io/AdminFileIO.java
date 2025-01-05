@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 /**
  * Class {@code AdminFileIO} consists of methods to read and write files related to admin users.
+ *
  * @author Beng Rhui (TP068495)
  */
 public class AdminFileIO extends UserFileIO {
@@ -18,27 +19,8 @@ public class AdminFileIO extends UserFileIO {
     private static final int[] SPACING_SIZE = {5, 30};
 
     /**
-     * A method to read both admin and credential files to create {@code Admin} objects.
-     */
-    @Override
-    public void readFile() {
-        
-        // Retrieve information from admin file
-        ArrayList<String[]> adminDataList = getListFromFile(ADMIN_FILE_NAME);
-
-        // Loop through each admin record
-        for (String[] data : adminDataList) {
-            
-            // Create an Admin object
-            Admin newAdmin = createAdminObject(data);
-
-            // Add the object to Admin list
-            Admin.addToAdminList(newAdmin);
-        }
-    }
-
-    /**
      * A method to create {@code Admin} object by getting information from login credentials file
+     *
      * @param individualStringRecord String array consisting of admins' individual information
      * @return An {@code Admin} object
      */
@@ -55,6 +37,26 @@ public class AdminFileIO extends UserFileIO {
 
         // Create and return the Admin object
         return new Admin(userID, email, password, name);
+    }
+
+    /**
+     * A method to read both admin and credential files to create {@code Admin} objects.
+     */
+    @Override
+    public void readFile() {
+
+        // Retrieve information from admin file
+        ArrayList<String[]> adminDataList = getListFromFile(ADMIN_FILE_NAME);
+
+        // Loop through each admin record
+        for (String[] data : adminDataList) {
+
+            // Create an Admin object
+            Admin newAdmin = createAdminObject(data);
+
+            // Add the object to Admin list
+            Admin.addToAdminList(newAdmin);
+        }
     }
 
     /**

@@ -13,11 +13,11 @@ import java.util.ArrayList;
  */
 public class DeliveryRunnerNotification implements Notification {
 
-    private final static ArrayList<Notification> deliveryRunnerNotificationList = new ArrayList<>();
     /**
      * Attributes for the {@code DeliveryRunnerNotification} objects.<br>
      * A list containing all notifications for delivery runners is included.
      */
+    private final static ArrayList<Notification> deliveryRunnerNotificationList = new ArrayList<>();
     private String notificationID;
     private DeliveryRunner runner;
     private LocalDateTime notificationTime;
@@ -67,6 +67,7 @@ public class DeliveryRunnerNotification implements Notification {
     /**
      * Getters and setters for the {@code DeliveryRunnerNotification} class.
      */
+    @Override
     public String getNotificationID() {
         return notificationID;
     }
@@ -83,6 +84,7 @@ public class DeliveryRunnerNotification implements Notification {
         this.runner = runner;
     }
 
+    @Override
     public LocalDateTime getNotificationTime() {
         return notificationTime;
     }
@@ -91,6 +93,7 @@ public class DeliveryRunnerNotification implements Notification {
         this.notificationTime = notificationTime;
     }
 
+    @Override
     public NotificationStatus getReadStatus() {
         return readStatus;
     }
@@ -99,6 +102,7 @@ public class DeliveryRunnerNotification implements Notification {
         this.readStatus = readStatus;
     }
 
+    @Override
     public String getNotificationTitle() {
         return notificationTitle;
     }
@@ -107,12 +111,23 @@ public class DeliveryRunnerNotification implements Notification {
         this.notificationTitle = notificationTitle;
     }
 
+    @Override
     public String getNotificationDetails() {
         return notificationDetails;
     }
 
     public void setNotificationDetails(String notificationDetails) {
         this.notificationDetails = notificationDetails;
+    }
+
+    /**
+     * A method to return the ID related to the associated entity
+     *
+     * @return The ID of the entity
+     */
+    @Override
+    public String getEntityID() {
+        return runner.getUserID();
     }
 
     /**

@@ -1,1 +1,1 @@
-NV001 ; V001 ; 8 December 2024 01:10:03 AM   ; UNREAD    ; Order Accepted      ; You have accepted order ORD001 (item: char kuey teow x 1)
+NV001 ; S001 ; 08/12/2024 01:10:03   ; UNREAD    ; Order Accepted      ; You have accepted order ORD001 (item: char kuey teow x 1)

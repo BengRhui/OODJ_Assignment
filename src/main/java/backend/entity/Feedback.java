@@ -4,14 +4,16 @@ import java.util.ArrayList;
 
 /**
  * Class {@code Feedback} represents the feedback that customers provide to the system, vendor and delivery runner.
+ *
+ * @author Beng Rhui (TP068495)
  */
 public class Feedback {
 
-    private final static ArrayList<Feedback> feedbackList = new ArrayList<Feedback>();
     /**
      * Attributes for {@code Feedback} objects.<br>
      * A list containing all {@code Feedback} objects is also included.
      */
+    private final static ArrayList<Feedback> feedbackList = new ArrayList<Feedback>();
     private String feedbackID;
     private String feedbackCategory;
     private Order orderAssociated;
@@ -23,22 +25,22 @@ public class Feedback {
     /**
      * Constructor to instantiate {@code Feedback} objects.
      *
-     * @param feedbackID          The ID of feedback
-     * @param feedbackCategory    The categories of feedback, i.e. system, vendor and delivery runner
-     * @param orderAssociated     The Order item associated with the feedback
-     * @param ratings             The ratings provided by the customer in the feedback
-     * @param feedbackTitle       The title of the feedback
-     * @param feedbackDetails     The description of the feedback
-     * @param responseFromManager The reply that the manager provides to the customer
+     * @param feedbackID       The ID of feedback
+     * @param feedbackCategory The categories of feedback, i.e. system, vendor and delivery runner
+     * @param orderAssociated  The Order item associated with the feedback
+     * @param ratings          The ratings provided by the customer in the feedback
+     * @param feedbackTitle    The title of the feedback
+     * @param feedbackDetails  The description of the feedback
+     * @param replyFromManager The reply that the manager provides to the customer
      */
-    public Feedback(String feedbackID, String feedbackCategory, Order orderAssociated, double ratings, String feedbackTitle, String feedbackDetails, String responseFromManager) {
+    public Feedback(String feedbackID, String feedbackCategory, Order orderAssociated, double ratings, String feedbackTitle, String feedbackDetails, String replyFromManager) {
         this.feedbackID = feedbackID;
         this.feedbackCategory = feedbackCategory;
         this.orderAssociated = orderAssociated;
         this.ratings = ratings;
         this.feedbackTitle = feedbackTitle;
         this.feedbackDetails = feedbackDetails;
-        this.replyFromManager = responseFromManager;
+        this.replyFromManager = replyFromManager;
     }
 
     /**
@@ -48,6 +50,15 @@ public class Feedback {
      */
     public static ArrayList<Feedback> getFeedbackList() {
         return feedbackList;
+    }
+
+    /**
+     * A method to add {@code Feedback} objects to the overall list.
+     *
+     * @param feedback The {@code Feedback} object to be added to list
+     */
+    public static void addToFeedbackList(Feedback feedback) {
+        feedbackList.add(feedback);
     }
 
     /**
@@ -107,15 +118,6 @@ public class Feedback {
 
     public void setReplyFromManager(String replyFromManager) {
         this.replyFromManager = replyFromManager;
-    }
-
-    /**
-     * A method to add {@code Feedback} objects to the overall list.
-     *
-     * @param feedback The {@code Feedback} object to be added to list
-     */
-    public void addToFeedbackList(Feedback feedback) {
-        feedbackList.add(feedback);
     }
 
     /**

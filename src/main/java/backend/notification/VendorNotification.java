@@ -13,11 +13,11 @@ import java.util.ArrayList;
  */
 public class VendorNotification implements Notification {
 
-    private final static ArrayList<Notification> vendorNotificationList = new ArrayList<>();
     /**
      * Attributes for {@code VendorNotification} objects.<br>
      * An overall list that records all vendor notifications is also included.
      */
+    private final static ArrayList<Notification> vendorNotificationList = new ArrayList<>();
     private String notificationID;
     private Stall stall;
     private LocalDateTime notificationTime;
@@ -66,6 +66,7 @@ public class VendorNotification implements Notification {
     /**
      * Getters and setters associated with the {@code VendorNotification} class.
      */
+    @Override
     public String getNotificationID() {
         return notificationID;
     }
@@ -82,6 +83,7 @@ public class VendorNotification implements Notification {
         this.stall = stall;
     }
 
+    @Override
     public LocalDateTime getNotificationTime() {
         return notificationTime;
     }
@@ -90,6 +92,7 @@ public class VendorNotification implements Notification {
         this.notificationTime = notificationTime;
     }
 
+    @Override
     public NotificationStatus getReadStatus() {
         return readStatus;
     }
@@ -98,6 +101,7 @@ public class VendorNotification implements Notification {
         this.readStatus = readStatus;
     }
 
+    @Override
     public String getNotificationTitle() {
         return notificationTitle;
     }
@@ -106,12 +110,23 @@ public class VendorNotification implements Notification {
         this.notificationTitle = notificationTitle;
     }
 
+    @Override
     public String getNotificationDetails() {
         return notificationDetails;
     }
 
     public void setNotificationDetails(String notificationDetails) {
         this.notificationDetails = notificationDetails;
+    }
+
+    /**
+     * A method to return the ID related to the associated entity
+     *
+     * @return The ID of the entity
+     */
+    @Override
+    public String getEntityID() {
+        return stall.getStallID();
     }
 
     /**

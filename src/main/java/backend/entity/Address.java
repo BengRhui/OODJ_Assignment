@@ -9,6 +9,10 @@ package backend.entity;
  */
 public class Address {
 
+    /**
+     * Attributes involved in address (Malaysian ones). <br>
+     * A list containing all states in Malaysia is also provided.
+     */
     public final String[] STATE_OPTIONS = {
             "Perlis",
             "Penang",
@@ -27,10 +31,6 @@ public class Address {
             "WP Putrajaya",
             "WP Labuan"
     };
-    /**
-     * Attributes involved in address (Malaysian ones). <br>
-     * A list containing all states in Malaysia is also provided.
-     */
     private String addressLine1;
     private String addressLine2;
     private String postcode;

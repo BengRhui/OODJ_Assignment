@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 /**
  * Class {@code VendorFileIO} contains methods to help read and write vendor files.
+ *
  * @author Beng Rhui (TP068495)
  */
 public class VendorFileIO extends UserFileIO {
@@ -19,25 +20,8 @@ public class VendorFileIO extends UserFileIO {
     public final static int[] SPACING_SIZE = {5, 50, 5};
 
     /**
-     * A method to read from vendor file and instantiate {@code Vendor} objects.
-     */
-    @Override
-    public void readFile() {
-
-        // Retrieve vendor information from text file
-        ArrayList<String[]> vendorList = getListFromFile(VENDOR_FILE_NAME);
-
-        // Loop through the records
-        for (String[] record : vendorList) {
-
-            // Create vendor object and add to list
-            Vendor newVendor = createVendorObject(record);
-            Vendor.addToVendorList(newVendor);
-        }
-    }
-
-    /**
      * A method to create vendor object based on a string record.
+     *
      * @param vendorRecord The string record from text file
      * @return The {@code Vendor} object being created
      */
@@ -61,6 +45,24 @@ public class VendorFileIO extends UserFileIO {
     }
 
     /**
+     * A method to read from vendor file and instantiate {@code Vendor} objects.
+     */
+    @Override
+    public void readFile() {
+
+        // Retrieve vendor information from text file
+        ArrayList<String[]> vendorList = getListFromFile(VENDOR_FILE_NAME);
+
+        // Loop through the records
+        for (String[] record : vendorList) {
+
+            // Create vendor object and add to list
+            Vendor newVendor = createVendorObject(record);
+            Vendor.addToVendorList(newVendor);
+        }
+    }
+
+    /**
      * A method to write vendor object into files.
      */
     @Override
@@ -79,7 +81,7 @@ public class VendorFileIO extends UserFileIO {
             String[] singleLine = new String[NUMBER_OF_INFORMATION_IN_FILE];
             singleLine[0] = vendor.getUserID();
             singleLine[1] = vendor.getName();
-            singleLine[2] = vendor.getStall().getStoreID();
+            singleLine[2] = vendor.getStall().getStallID();
             information.add(singleLine);
         }
 

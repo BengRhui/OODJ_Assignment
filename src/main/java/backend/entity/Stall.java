@@ -10,26 +10,26 @@ import java.util.Arrays;
  */
 public class Stall {
 
-    private final static ArrayList<Stall> stallList = new ArrayList<>();
     /**
      * Attributes of a {@code Stall} object.<br>
      * A list that consists of all {@code Stall} object is also included.
      */
-    private String storeID;
-    private String storeName;
-    private String[] storeCategories;
+    private final static ArrayList<Stall> stallList = new ArrayList<>();
+    private String stallID;
+    private String stallName;
+    private String[] stallCategories;
 
     /**
      * Constructor to instantiate {@code Stall} object.
      *
-     * @param storeID         The ID of the store
-     * @param storeName       The name of the store
-     * @param storeCategories The categories of food associated with the store
+     * @param stallID         The ID of the store
+     * @param stallName       The name of the store
+     * @param stallCategories The categories of food associated with the store
      */
-    public Stall(String storeID, String storeName, String[] storeCategories) {
-        this.storeID = storeID;
-        this.storeName = storeName;
-        this.storeCategories = storeCategories;
+    public Stall(String stallID, String stallName, String[] stallCategories) {
+        this.stallID = stallID;
+        this.stallName = stallName;
+        this.stallCategories = stallCategories;
     }
 
     /**
@@ -51,30 +51,54 @@ public class Stall {
     }
 
     /**
+     * A method to retrieve the associated {@code Store} object based on store ID.
+     *
+     * @param stallID The ID of the stall
+     * @return The {@code Stall} object associated with the ID
+     */
+    public static Stall getStall(String stallID) {
+
+        // Loop through the list of stores
+        for (Stall stall : stallList) {
+
+            // Continue loop if stall ID does not match
+            if (!stall.getStallID().equals(stallID)) {
+                continue;
+            }
+
+            // Return the associated stall object if ID matches
+            return stall;
+        }
+
+        // Return null if no ID matches
+        return null;
+    }
+
+    /**
      * Getters and setters for {@code Stall} class.
      */
-    public String getStoreID() {
-        return storeID;
+    public String getStallID() {
+        return stallID;
     }
 
-    public void setStoreID(String storeID) {
-        this.storeID = storeID;
+    public void setStallID(String stallID) {
+        this.stallID = stallID;
     }
 
-    public String getStoreName() {
-        return storeName;
+    public String getStallName() {
+        return stallName;
     }
 
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
+    public void setStallName(String stallName) {
+        this.stallName = stallName;
     }
 
-    public String[] getStoreCategories() {
-        return storeCategories;
+    public String[] getStallCategories() {
+        return stallCategories;
     }
 
-    public void setStoreCategories(String[] storeCategories) {
-        this.storeCategories = storeCategories;
+    public void setStallCategories(String[] stallCategories) {
+        this.stallCategories = stallCategories;
     }
 
     /**
@@ -84,23 +108,8 @@ public class Stall {
      */
     @Override
     public String toString() {
-        return "Store ID: " + storeID + "\n" +
-                "Store Name: " + storeName + "\n" +
-                "Store Categories: " + Arrays.toString(storeCategories);
-    }
-
-    /**
-     * A method to retrieve the associated {@code Store} object based on store ID.
-     * @param stallID The ID of the stall
-     * @return The {@code Stall} object associated with the ID
-     */
-    public static Stall getStall(String stallID) {
-        for (Stall stall : stallList) {
-            if (!stall.getStoreID().equals(stallID)) {
-                continue;
-            }
-            return stall;
-        }
-        return null;
+        return "Stall ID: " + stallID + "\n" +
+                "Stall Name: " + stallName + "\n" +
+                "Stall Categories: " + Arrays.toString(stallCategories);
     }
 }

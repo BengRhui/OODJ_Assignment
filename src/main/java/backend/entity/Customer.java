@@ -9,11 +9,11 @@ import java.util.ArrayList;
  */
 public class Customer extends User {
 
-    private final static ArrayList<Customer> customerList = new ArrayList<>();
     /**
      * Attributes of the {@code Customer} class.<br>
      * An ArrayList that contains all instances of {@code Customer} is also included.
      */
+    private final static ArrayList<Customer> customerList = new ArrayList<>();
     private String contactNumber;
     private Address address;
     private double eWalletAmount;
@@ -56,6 +56,30 @@ public class Customer extends User {
      */
     public static void addToCustomerList(Customer customer) {
         customerList.add(customer);
+    }
+
+    /**
+     * A method to retrieve {@code Customer} based on customer ID.
+     *
+     * @param customerID The ID of the customer
+     * @return The {@code Customer} object associated with the ID
+     */
+    public static Customer getCustomer(String customerID) {
+
+        // Loop through the list of customers
+        for (Customer customer : customerList) {
+
+            // Continue the loop if the ID does not match
+            if (!customer.userID.equals(customerID)) {
+                continue;
+            }
+
+            // Return customer object if the ID matches
+            return customer;
+        }
+
+        // If no ID matches, return null
+        return null;
     }
 
     /**
