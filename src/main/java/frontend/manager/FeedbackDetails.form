@@ -58,11 +58,11 @@
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="complaintTitle" max="32767" attributes="0"/>
+                                          <Component id="feedbackTitle" max="32767" attributes="0"/>
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="complaintIdLabel" pref="250" max="32767" attributes="0"/>
-                                                  <Component id="complaintId" max="32767" attributes="0"/>
+                                                  <Component id="feedbackIdLabel" pref="250" max="32767" attributes="0"/>
+                                                  <Component id="feedbackId" max="32767" attributes="0"/>
                                               </Group>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -71,7 +71,7 @@
                                               </Group>
                                           </Group>
                                           <Component id="contentLabel" alignment="0" pref="568" max="32767" attributes="0"/>
-                                          <Component id="complaintTitleLabel" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="feedbackTitleLabel" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                       <Component id="content" alignment="0" min="-2" pref="566" max="-2" attributes="0"/>
                                   </Group>
@@ -101,7 +101,7 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="complaintIdLabel" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="feedbackIdLabel" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                       <Component id="categoryLabel" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                       <Component id="responseLabel" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                   </Group>
@@ -109,13 +109,13 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="complaintId" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                              <Component id="feedbackId" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                               <Component id="category" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="complaintTitleLabel" min="-2" pref="45" max="-2" attributes="0"/>
+                          <Component id="feedbackTitleLabel" min="-2" pref="45" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="complaintTitle" min="-2" pref="45" max="-2" attributes="0"/>
+                          <Component id="feedbackTitle" min="-2" pref="45" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="contentLabel" min="-2" pref="45" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -140,21 +140,26 @@
               <Image iconType="3" name="/asset/system/close_icon.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="closeMouseClicked"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="closeMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="closeMouseExited"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="title">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="48" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Complaint Details"/>
+            <Property name="text" type="java.lang.String" value="Feedback Details"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="complaintIdLabel">
+        <Component class="javax.swing.JLabel" name="feedbackIdLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Complaint ID"/>
+            <Property name="text" type="java.lang.String" value="Feedback ID"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="categoryLabel">
@@ -165,7 +170,7 @@
             <Property name="text" type="java.lang.String" value="Category"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="complaintId">
+        <Component class="javax.swing.JTextField" name="feedbackId">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="18" style="0"/>
@@ -193,15 +198,15 @@
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="complaintTitleLabel">
+        <Component class="javax.swing.JLabel" name="feedbackTitleLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Complaint Title"/>
+            <Property name="text" type="java.lang.String" value="Feedback Title"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="complaintTitle">
+        <Component class="javax.swing.JTextField" name="feedbackTitle">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="18" style="0"/>
@@ -220,7 +225,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Complaint Content"/>
+            <Property name="text" type="java.lang.String" value="Description"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextArea" name="content">

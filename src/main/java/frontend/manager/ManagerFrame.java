@@ -21,7 +21,7 @@ public class ManagerFrame extends javax.swing.JFrame {
     private TimeFilter filter;
     private CheckVendor checkVendorPage;
     private CheckRunner checkRunnerPage;
-    private ComplaintsPane complaintsPage;
+    private FeedbackPane complaintsPage;
 
     public ManagerFrame() {
         cardLayout = new CardLayout();
@@ -37,7 +37,7 @@ public class ManagerFrame extends javax.swing.JFrame {
 
         checkVendorPage = new CheckVendor();
         checkRunnerPage = new CheckRunner();
-        complaintsPage = new ComplaintsPane();
+        complaintsPage = new FeedbackPane();
         header.setBackground(new java.awt.Color(0, 0, 0, 220));
         contentHolder.setBackground(new java.awt.Color(255, 251, 233, 240));
         dashboardLabel.setText("<html><b><u>Dashboard</b></u></html>");
@@ -100,17 +100,17 @@ public class ManagerFrame extends javax.swing.JFrame {
         revenueExcel = new javax.swing.JLabel();
         revenueFilter = new javax.swing.JLabel();
         revenueChartHolder = new javax.swing.JPanel();
-        complaints = new javax.swing.JLabel();
-        complaintsExcel = new javax.swing.JLabel();
-        complaintsFilter = new javax.swing.JLabel();
-        complaintsChartHolder = new javax.swing.JPanel();
+        feedbacks = new javax.swing.JLabel();
+        feedbackExcel = new javax.swing.JLabel();
+        feedbackFilter = new javax.swing.JLabel();
+        feedbacksChartHolder = new javax.swing.JPanel();
         bottomBackground = new javax.swing.JLabel();
         header = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
         dashboardLabel = new javax.swing.JLabel();
         vendorLabel = new javax.swing.JLabel();
         runnerLabel = new javax.swing.JLabel();
-        complaintsLabel = new javax.swing.JLabel();
+        feedbacksLabel = new javax.swing.JLabel();
         logout = new javax.swing.JLabel();
         background = new javax.swing.JLabel();
 
@@ -179,54 +179,54 @@ public class ManagerFrame extends javax.swing.JFrame {
         dashboardContent.add(revenueChartHolder);
         revenueChartHolder.setBounds(42, 128, 671, 480);
 
-        complaints.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        complaints.setText("Complaints");
-        dashboardContent.add(complaints);
-        complaints.setBounds(749, 50, 280, 56);
+        feedbacks.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        feedbacks.setText("Feedbacks");
+        dashboardContent.add(feedbacks);
+        feedbacks.setBounds(749, 50, 280, 56);
 
-        complaintsExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/excel_icon.png"))); // NOI18N
-        complaintsExcel.addMouseListener(new java.awt.event.MouseAdapter() {
+        feedbackExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/excel_icon.png"))); // NOI18N
+        feedbackExcel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                complaintsExcelMouseClicked(evt);
+                feedbackExcelMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                complaintsExcelMouseEntered(evt);
+                feedbackExcelMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                complaintsExcelMouseExited(evt);
+                feedbackExcelMouseExited(evt);
             }
         });
-        dashboardContent.add(complaintsExcel);
-        complaintsExcel.setBounds(1220, 50, 61, 60);
+        dashboardContent.add(feedbackExcel);
+        feedbackExcel.setBounds(1220, 50, 61, 60);
 
-        complaintsFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/filter_icon.png"))); // NOI18N
-        complaintsFilter.addMouseListener(new java.awt.event.MouseAdapter() {
+        feedbackFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/filter_icon.png"))); // NOI18N
+        feedbackFilter.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                complaintsFilterMouseClicked(evt);
+                feedbackFilterMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                complaintsFilterMouseEntered(evt);
+                feedbackFilterMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                complaintsFilterMouseExited(evt);
+                feedbackFilterMouseExited(evt);
             }
         });
-        dashboardContent.add(complaintsFilter);
-        complaintsFilter.setBounds(1300, 50, 68, 60);
+        dashboardContent.add(feedbackFilter);
+        feedbackFilter.setBounds(1300, 50, 68, 60);
 
-        javax.swing.GroupLayout complaintsChartHolderLayout = new javax.swing.GroupLayout(complaintsChartHolder);
-        complaintsChartHolder.setLayout(complaintsChartHolderLayout);
-        complaintsChartHolderLayout.setHorizontalGroup(
-            complaintsChartHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout feedbacksChartHolderLayout = new javax.swing.GroupLayout(feedbacksChartHolder);
+        feedbacksChartHolder.setLayout(feedbacksChartHolderLayout);
+        feedbacksChartHolderLayout.setHorizontalGroup(
+            feedbacksChartHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 619, Short.MAX_VALUE)
         );
-        complaintsChartHolderLayout.setVerticalGroup(
-            complaintsChartHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        feedbacksChartHolderLayout.setVerticalGroup(
+            feedbacksChartHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        dashboardContent.add(complaintsChartHolder);
-        complaintsChartHolder.setBounds(749, 128, 619, 480);
+        dashboardContent.add(feedbacksChartHolder);
+        feedbacksChartHolder.setBounds(749, 128, 619, 480);
 
         dashboard.add(dashboardContent);
         dashboardContent.setBounds(0, 0, 1400, 650);
@@ -303,23 +303,23 @@ public class ManagerFrame extends javax.swing.JFrame {
         header.add(runnerLabel);
         runnerLabel.setBounds(680, 50, 250, 40);
 
-        complaintsLabel.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        complaintsLabel.setForeground(new java.awt.Color(255, 255, 255));
-        complaintsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        complaintsLabel.setText("Complaints");
-        complaintsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+        feedbacksLabel.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        feedbacksLabel.setForeground(new java.awt.Color(255, 255, 255));
+        feedbacksLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        feedbacksLabel.setText("Feedbacks");
+        feedbacksLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                complaintsLabelMouseClicked(evt);
+                feedbacksLabelMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                complaintsLabelMouseEntered(evt);
+                feedbacksLabelMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                complaintsLabelMouseExited(evt);
+                feedbacksLabelMouseExited(evt);
             }
         });
-        header.add(complaintsLabel);
-        complaintsLabel.setBounds(980, 50, 170, 40);
+        header.add(feedbacksLabel);
+        feedbacksLabel.setBounds(980, 50, 170, 40);
 
         logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logout_icon.png"))); // NOI18N
         logout.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -370,7 +370,7 @@ public class ManagerFrame extends javax.swing.JFrame {
     private void dashboardLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboardLabelMouseClicked
         cardLayout.show(contentHolder,"managerDashboard");
         currentPage = "dashboard";
-        labelFormat(dashboardLabel, vendorLabel, runnerLabel, complaintsLabel);
+        labelFormat(dashboardLabel, vendorLabel, runnerLabel, feedbacksLabel);
     }//GEN-LAST:event_dashboardLabelMouseClicked
 
     private void dashboardLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashboardLabelMouseEntered
@@ -384,7 +384,7 @@ public class ManagerFrame extends javax.swing.JFrame {
     private void vendorLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vendorLabelMouseClicked
         cardLayout.show(contentHolder,"checkVendor");
         currentPage = "vendor";
-        labelFormat(dashboardLabel, vendorLabel, runnerLabel, complaintsLabel);
+        labelFormat(dashboardLabel, vendorLabel, runnerLabel, feedbacksLabel);
     }//GEN-LAST:event_vendorLabelMouseClicked
 
     private void vendorLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vendorLabelMouseEntered
@@ -398,7 +398,7 @@ public class ManagerFrame extends javax.swing.JFrame {
     private void runnerLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_runnerLabelMouseClicked
         cardLayout.show(contentHolder, "checkRunner");
         currentPage = "runner";
-        labelFormat(dashboardLabel, vendorLabel, runnerLabel, complaintsLabel);
+        labelFormat(dashboardLabel, vendorLabel, runnerLabel, feedbacksLabel);
     }//GEN-LAST:event_runnerLabelMouseClicked
 
     private void runnerLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_runnerLabelMouseEntered
@@ -409,19 +409,19 @@ public class ManagerFrame extends javax.swing.JFrame {
         runnerLabel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_runnerLabelMouseExited
 
-    private void complaintsLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_complaintsLabelMouseClicked
+    private void feedbacksLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_feedbacksLabelMouseClicked
         cardLayout.show(contentHolder, "checkComplaints");
         currentPage = "complaints";
-        labelFormat(dashboardLabel, vendorLabel, runnerLabel, complaintsLabel);
-    }//GEN-LAST:event_complaintsLabelMouseClicked
+        labelFormat(dashboardLabel, vendorLabel, runnerLabel, feedbacksLabel);
+    }//GEN-LAST:event_feedbacksLabelMouseClicked
 
-    private void complaintsLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_complaintsLabelMouseEntered
-        complaintsLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_complaintsLabelMouseEntered
+    private void feedbacksLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_feedbacksLabelMouseEntered
+        feedbacksLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_feedbacksLabelMouseEntered
 
-    private void complaintsLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_complaintsLabelMouseExited
-        complaintsLabel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_complaintsLabelMouseExited
+    private void feedbacksLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_feedbacksLabelMouseExited
+        feedbacksLabel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_feedbacksLabelMouseExited
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
         // TODO add your handling code here:
@@ -461,31 +461,31 @@ public class ManagerFrame extends javax.swing.JFrame {
         revenueFilter.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_revenueFilterMouseExited
 
-    private void complaintsExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_complaintsExcelMouseClicked
+    private void feedbackExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_feedbackExcelMouseClicked
         notificationPopUp.managerExportPopUp(this);
         this.setEnabled(false);
-    }//GEN-LAST:event_complaintsExcelMouseClicked
+    }//GEN-LAST:event_feedbackExcelMouseClicked
 
-    private void complaintsExcelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_complaintsExcelMouseEntered
-        complaintsExcel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_complaintsExcelMouseEntered
+    private void feedbackExcelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_feedbackExcelMouseEntered
+        feedbackExcel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_feedbackExcelMouseEntered
 
-    private void complaintsExcelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_complaintsExcelMouseExited
-        complaintsExcel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_complaintsExcelMouseExited
+    private void feedbackExcelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_feedbackExcelMouseExited
+        feedbackExcel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_feedbackExcelMouseExited
 
-    private void complaintsFilterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_complaintsFilterMouseClicked
+    private void feedbackFilterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_feedbackFilterMouseClicked
         filter = new TimeFilter(this);
         this.setEnabled(false);
-    }//GEN-LAST:event_complaintsFilterMouseClicked
+    }//GEN-LAST:event_feedbackFilterMouseClicked
 
-    private void complaintsFilterMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_complaintsFilterMouseEntered
-        complaintsFilter.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_complaintsFilterMouseEntered
+    private void feedbackFilterMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_feedbackFilterMouseEntered
+        feedbackFilter.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_feedbackFilterMouseEntered
 
-    private void complaintsFilterMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_complaintsFilterMouseExited
-        complaintsFilter.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_complaintsFilterMouseExited
+    private void feedbackFilterMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_feedbackFilterMouseExited
+        feedbackFilter.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_feedbackFilterMouseExited
 
 
     public static void main(String args[]) {
@@ -523,15 +523,15 @@ public class ManagerFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
     private javax.swing.JLabel bottomBackground;
-    private javax.swing.JLabel complaints;
-    private javax.swing.JPanel complaintsChartHolder;
-    private javax.swing.JLabel complaintsExcel;
-    private javax.swing.JLabel complaintsFilter;
-    private javax.swing.JLabel complaintsLabel;
     private javax.swing.JPanel contentHolder;
     private javax.swing.JPanel dashboard;
     private javax.swing.JPanel dashboardContent;
     private javax.swing.JLabel dashboardLabel;
+    private javax.swing.JLabel feedbackExcel;
+    private javax.swing.JLabel feedbackFilter;
+    private javax.swing.JLabel feedbacks;
+    private javax.swing.JPanel feedbacksChartHolder;
+    private javax.swing.JLabel feedbacksLabel;
     private javax.swing.JPanel header;
     private javax.swing.JLabel logo;
     private javax.swing.JLabel logout;

@@ -11,11 +11,11 @@ import java.awt.Cursor;
  *
  * @author Chun Ming
  */
-public class ComplaintDetails extends javax.swing.JFrame {
+public class FeedbackDetails extends javax.swing.JFrame {
 
     private JFrame mainFrame;
 
-    public ComplaintDetails(JFrame frame) {
+    public FeedbackDetails(JFrame frame) {
         mainFrame = frame;
         initComponents();
         this.setLocationRelativeTo(null);
@@ -30,12 +30,12 @@ public class ComplaintDetails extends javax.swing.JFrame {
         pageHolder = new javax.swing.JPanel();
         close = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
-        complaintIdLabel = new javax.swing.JLabel();
+        feedbackIdLabel = new javax.swing.JLabel();
         categoryLabel = new javax.swing.JLabel();
-        complaintId = new javax.swing.JTextField();
+        feedbackId = new javax.swing.JTextField();
         category = new javax.swing.JTextField();
-        complaintTitleLabel = new javax.swing.JLabel();
-        complaintTitle = new javax.swing.JTextField();
+        feedbackTitleLabel = new javax.swing.JLabel();
+        feedbackTitle = new javax.swing.JTextField();
         contentLabel = new javax.swing.JLabel();
         content = new javax.swing.JTextArea();
         responseLabel = new javax.swing.JLabel();
@@ -49,36 +49,47 @@ public class ComplaintDetails extends javax.swing.JFrame {
         pageHolder.setBackground(new java.awt.Color(255, 251, 233));
 
         close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/close_icon.png"))); // NOI18N
+        close.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                closeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                closeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                closeMouseExited(evt);
+            }
+        });
 
         title.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        title.setText("Complaint Details");
+        title.setText("Feedback Details");
 
-        complaintIdLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        complaintIdLabel.setText("Complaint ID");
+        feedbackIdLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        feedbackIdLabel.setText("Feedback ID");
 
         categoryLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         categoryLabel.setText("Category");
 
-        complaintId.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        complaintId.setText("C001");
-        complaintId.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
-        complaintId.setEnabled(false);
+        feedbackId.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        feedbackId.setText("C001");
+        feedbackId.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        feedbackId.setEnabled(false);
 
         category.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         category.setText("System");
         category.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         category.setEnabled(false);
 
-        complaintTitleLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        complaintTitleLabel.setText("Complaint Title");
+        feedbackTitleLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        feedbackTitleLabel.setText("Feedback Title");
 
-        complaintTitle.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        complaintTitle.setText("title");
-        complaintTitle.setToolTipText("Title");
-        complaintTitle.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        feedbackTitle.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        feedbackTitle.setText("title");
+        feedbackTitle.setToolTipText("Title");
+        feedbackTitle.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
         contentLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        contentLabel.setText("Complaint Content");
+        contentLabel.setText("Description");
 
         content.setColumns(20);
         content.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -158,17 +169,17 @@ public class ComplaintDetails extends javax.swing.JFrame {
                             .addGroup(pageHolderLayout.createSequentialGroup()
                                 .addGroup(pageHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pageHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(complaintTitle)
+                                        .addComponent(feedbackTitle)
                                         .addGroup(pageHolderLayout.createSequentialGroup()
                                             .addGroup(pageHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(complaintIdLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                                                .addComponent(complaintId))
+                                                .addComponent(feedbackIdLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                                                .addComponent(feedbackId))
                                             .addGap(18, 18, 18)
                                             .addGroup(pageHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addComponent(category)
                                                 .addComponent(categoryLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)))
                                         .addComponent(contentLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
-                                        .addComponent(complaintTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(feedbackTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(55, 55, 55)
                                 .addGroup(pageHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,19 +198,19 @@ public class ComplaintDetails extends javax.swing.JFrame {
                     .addComponent(close, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pageHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(complaintIdLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(feedbackIdLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(categoryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(responseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pageHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pageHolderLayout.createSequentialGroup()
                         .addGroup(pageHolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(complaintId, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(feedbackId, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(category, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(complaintTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(feedbackTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(complaintTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(feedbackTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(contentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -246,17 +257,30 @@ public class ComplaintDetails extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
+    private void closeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseEntered
+        close.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_closeMouseEntered
+
+    private void closeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseExited
+        close.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_closeMouseExited
+
+    private void closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseClicked
+        mainFrame.setEnabled(true);
+        this.dispose();
+    }//GEN-LAST:event_closeMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JTextField category;
     private javax.swing.JLabel categoryLabel;
     private javax.swing.JLabel close;
-    private javax.swing.JTextField complaintId;
-    private javax.swing.JLabel complaintIdLabel;
-    private javax.swing.JTextField complaintTitle;
-    private javax.swing.JLabel complaintTitleLabel;
     private javax.swing.JTextArea content;
     private javax.swing.JLabel contentLabel;
+    private javax.swing.JTextField feedbackId;
+    private javax.swing.JLabel feedbackIdLabel;
+    private javax.swing.JTextField feedbackTitle;
+    private javax.swing.JLabel feedbackTitleLabel;
     private javax.swing.JPanel pageHolder;
     private javax.swing.JTextArea response;
     private javax.swing.JLabel responseLabel;

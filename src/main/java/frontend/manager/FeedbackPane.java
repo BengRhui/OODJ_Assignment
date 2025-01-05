@@ -8,12 +8,12 @@ package frontend.manager;
  *
  * @author Chun Ming
  */
-public class ComplaintsPane extends javax.swing.JPanel {
+public class FeedbackPane extends javax.swing.JPanel {
 
     public ManagerFrame mainFrame;
-    private ComplaintDetails complaintDetails;
+    private FeedbackDetails complaintDetails;
 
-    public ComplaintsPane() {
+    public FeedbackPane() {
         initComponents();
         initLayout();
     }
@@ -86,7 +86,7 @@ public class ComplaintsPane extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void complaintDetailsTestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_complaintDetailsTestMouseClicked
-        complaintDetails = new ComplaintDetails(mainFrame);
+        complaintDetails = new FeedbackDetails(mainFrame);
         mainFrame.setEnabled(false);
     }//GEN-LAST:event_complaintDetailsTestMouseClicked
 
