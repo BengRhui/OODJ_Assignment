@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static backend.entity.Order.OrderStatus.CANCELLED;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -46,7 +45,7 @@ public class CustomerTest extends BaseTest {
         assertTrue(order1Cancelled);
 
         // Check if the status of the order is changed to "cancelled"
-        assertEquals(CANCELLED, order1.getOrderStatus());
+        assertEquals(Order.OrderStatus.CANCELLED, order1.getOrderStatus());
 
         // Retrieve the newly created notifications
         ArrayList<Notification> differentCustomer = TestUtility.getDifferentNotification(
@@ -149,5 +148,132 @@ public class CustomerTest extends BaseTest {
         // Erroneous order 3 (status does not match)
         boolean errorOrder = order3.customerCancelOrder();
         assertFalse(errorOrder);
+    }
+
+    /**
+     * This test focuses on the operation where the customer changes the dining method due to insufficient delivery runners.
+     */
+    @Test
+    void testCustomerChangeDiningMethod() {
+
+        // Get the initial list of notifications
+        ArrayList<Notification> initialCustomer = TestUtility.convertToNotificationArray(
+                CustomerNotification.getCustomerNotificationList()
+        );
+
+        ArrayList<Notification> initialVendor = TestUtility.convertToNotificationArray(
+                VendorNotification.getVendorNotificationList()
+        );
+
+        ArrayList<Notification> initialRunner = TestUtility.convertToNotificationArray(
+                DeliveryRunnerNotification.getDeliveryRunnerNotificationList()
+        );
+
+        // Prepare order 2 - used to cancel the order
+        order2.setDiningType(Order.DiningType.DELIVERY);
+        order2.setOrderStatus(Order.OrderStatus.PENDING_CHANGE);
+
+        // Cancel the order for order 2
+        boolean cancelOrder = order2.customerChangeDiningStatus(Order.DiningType.DELIVERY);
+
+        // Make sure that the operation is successful
+        assertTrue(cancelOrder);
+
+        // Make sure that the information is changed correctly
+        assertEquals(Order.OrderStatus.CANCELLED, order2.getOrderStatus());
+
+        // Retrieve the newly created notification
+        ArrayList<Notification> differentCustomer = TestUtility.getDifferentNotification(
+                initialCustomer,
+                TestUtility.convertToNotificationArray(
+                        CustomerNotification.getCustomerNotificationList()
+                )
+        );
+
+        ArrayList<Notification> differentVendor = TestUtility.getDifferentNotification(
+                initialVendor,
+                TestUtility.convertToNotificationArray(
+                        VendorNotification.getVendorNotificationList()
+                )
+        );
+
+        ArrayList<Notification> differentRunner = TestUtility.getDifferentNotification(
+                initialRunner,
+                TestUtility.convertToNotificationArray(
+                        DeliveryRunnerNotification.getDeliveryRunnerNotificationList()
+                )
+        );
+
+        // Make sure that the relevant notifications are created
+        assertEquals(1, differentCustomer.size());
+        assertEquals(1, differentVendor.size());
+        assertEquals(0, differentRunner.size());
+
+        // Make sure that the description produced is correct
+        assertEquals(
+                "Your order " + order2.getOrderID() + " has been cancelled successfully. The order records can be found in the Order History page.",
+                differentCustomer.getFirst().getNotificationDetails()
+        );
+
+        assertEquals(
+                "Order " + order2.getOrderID() + " has been cancelled by the customer.",
+                differentVendor.getFirst().getNotificationDetails()
+        );
+
+        // Initialize the initial notification list for another test
+        initialCustomer.add(differentCustomer.getFirst());
+        initialVendor.add(differentVendor.getFirst());
+
+        // Prepare order 3 - used to change the dining method
+        order3.setDiningType(Order.DiningType.DELIVERY);
+        order3.setOrderStatus(Order.OrderStatus.PENDING_CHANGE);
+
+        // Change the dining type to dine in (a pop-up should be displayed to ask user to key in table number)
+        order3.setTableNumber("T003");
+        boolean changeToDineIn = order3.customerChangeDiningStatus(Order.DiningType.DINE_IN);
+
+        // Make sure that the operation is performed successfully
+        assertTrue(changeToDineIn);
+
+        // Make sure that the correct details are modified
+        assertEquals(Order.DiningType.DINE_IN, order3.getDiningType());
+
+        // Retrieve the newly created notification
+        differentCustomer = TestUtility.getDifferentNotification(
+                initialCustomer,
+                TestUtility.convertToNotificationArray(
+                        CustomerNotification.getCustomerNotificationList()
+                )
+        );
+
+        differentVendor = TestUtility.getDifferentNotification(
+                initialVendor,
+                TestUtility.convertToNotificationArray(
+                        VendorNotification.getVendorNotificationList()
+                )
+        );
+
+        differentRunner = TestUtility.getDifferentNotification(
+                initialRunner,
+                TestUtility.convertToNotificationArray(
+                        DeliveryRunnerNotification.getDeliveryRunnerNotificationList()
+                )
+        );
+
+        // Check if the correct number of notification is produced
+        assertEquals(1, differentCustomer.size());
+        assertEquals(1, differentVendor.size());
+        assertEquals(0, differentRunner.size());
+
+        // Make sure that the contents of the notification is correct
+        assertEquals(
+                "You have changed the dining method for order " + order3.getOrderID() + " to " + order3.getOrderStatus() + ". Please wait for the vendor to accept your order.",
+                differentCustomer.getFirst().getNotificationDetails()
+        );
+
+        assertEquals(
+                "The dining method for order " + order3.getOrderID() + " has been changed. Please return to the main page to re-accept the order if you wish to proceed with the order.",
+                differentVendor.getFirst().getNotificationDetails()
+        );
     }
 }

@@ -255,7 +255,7 @@ public class BaseTest {
                 "Less spicy please.",
                 120,
                 Utility.changeStringToTime("16/12/2024 23:03:10"),
-                Order.OrderStatus.RUNNER_DELIVERY,
+                Order.OrderStatus.COMPLETED,
                 itemCollection
         );
 

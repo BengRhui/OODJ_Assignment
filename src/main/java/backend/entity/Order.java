@@ -1008,7 +1008,8 @@ public class Order {
         // Make sure that the correct order is passed into the method (reject methods other than waiting ones)
         if (this.getOrderStatus() != OrderStatus.WAITING_VENDOR_AND_RUNNER &&
                 this.getOrderStatus() != OrderStatus.WAITING_VENDOR &&
-                this.getOrderStatus() != OrderStatus.WAITING_RUNNER) return false;
+                this.getOrderStatus() != OrderStatus.WAITING_RUNNER &&
+                this.getOrderStatus() != OrderStatus.PENDING_CHANGE) return false;
 
         // Change the status of order to "cancelled"
         this.setOrderStatus(OrderStatus.CANCELLED);
@@ -1045,6 +1046,60 @@ public class Order {
         OrderFileIO.writeFile();
 
         // Return true for successful modification
+        return true;
+    }
+
+    /**
+     * A method to let customer change the order to their preferred dining type due to the lack of delivery runner.
+     * @param type The dining type that the customer wishes to change their order to
+     * @return {@code true} if changes are applied successfully, else {@code false}
+     */
+    public boolean customerChangeDiningStatus(DiningType type) {
+
+        // Make sure that the correct order is passed to this method
+        if (this.getDiningType() != DiningType.DELIVERY || this.getOrderStatus() != OrderStatus.PENDING_CHANGE) return false;
+
+        // Perform different operations based on different types
+        switch (type) {
+
+            // If the user chooses to cancel order (Delivery type is used here since technically the dining type still remains)
+            case DELIVERY -> {
+
+                // Perform the cancel order method
+                boolean cancelOrder = this.customerCancelOrder();
+                if (!cancelOrder) return false;
+            }
+
+            // If the user chooses to change either to dine in or takeaway
+            case DINE_IN, TAKEAWAY -> {
+
+                // Change the dining type
+                this.setDiningType(type);
+
+                // Change the status to waiting vendor
+                this.setOrderStatus(OrderStatus.WAITING_VENDOR);
+
+                // Create customer notification to indicate successful change
+                boolean customerNotification = CustomerNotification.createNewNotification(
+                        "Dining Method Changed Successful",
+                        "You have changed the dining method for order " + this.getOrderID() + " to " + this.getOrderStatus() + ". Please wait for the vendor to accept your order.",
+                        this.getOrderingCustomer()
+                );
+                if (!customerNotification) return false;
+
+                boolean vendorNotification = VendorNotification.createNewNotification(
+                        "Order Update: Dining Method Changed",
+                        "The dining method for order " + this.getOrderID() + " has been changed. Please return to the main page to re-accept the order if you wish to proceed with the order.",
+                        this.getOrderedStall()
+                );
+                if (!vendorNotification) return false;
+            }
+        }
+
+        // Write to file
+        OrderFileIO.writeFile();
+
+        // Return true for successful operation
         return true;
     }
 
