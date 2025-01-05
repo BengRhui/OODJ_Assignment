@@ -318,10 +318,10 @@ public class Vendor extends User {
      *
      * @return The order count
      */
-    public int getOrderCount() {
+    public int getOrderCount(Utility.TimeframeFilter filter) {
 
         // Retrieve the list of orders
-        ArrayList<Order> orderList = Order.filterOrder(this);
+        ArrayList<Order> orderList = Order.filterOrder(this, filter);
 
         // Return -1 if the retrieved list is null
         if (orderList == null) return -1;
@@ -335,13 +335,13 @@ public class Vendor extends User {
      *
      * @return The total earnings of vendor
      */
-    public double getTotalEarnings() {
+    public double getTotalEarnings(Utility.TimeframeFilter filter) {
 
         // Declare a variable to store earnings
         double earnings = 0;
 
         // Retrieve the list of orders
-        ArrayList<Order> orderList = Order.filterOrder(this);
+        ArrayList<Order> orderList = Order.filterOrder(this, filter);
 
         // Return -1 if the list is null
         if (orderList == null) return -1;
@@ -358,13 +358,13 @@ public class Vendor extends User {
      *
      * @return The overall ratings of vendor
      */
-    public double getOverallRatings() {
+    public double getOverallRatings(Utility.TimeframeFilter filter) {
 
         // Get the stall associated with the vendor
         Stall associatedStall = this.getStall();
 
         // Return the ratings of the stall
-        return associatedStall.getOverallRating()[0];
+        return associatedStall.getOverallRating(filter)[0];
     }
 
     /**
@@ -372,13 +372,13 @@ public class Vendor extends User {
      *
      * @return The feedback count of vendor
      */
-    public int getFeedbackCount() {
+    public int getFeedbackCount(Utility.TimeframeFilter filter) {
 
         // Get the stall associated with the vendor
         Stall associatedStall = this.getStall();
 
         // Return the feedback count of the stall
-        return (int) associatedStall.getOverallRating()[1];
+        return (int) associatedStall.getOverallRating(filter)[1];
     }
 
     /**

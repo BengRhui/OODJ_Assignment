@@ -2,6 +2,7 @@ package backend.entity;
 
 import backend.file_io.StallFileIO;
 import backend.notification.VendorNotification;
+import backend.utility.Utility;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -229,14 +230,17 @@ public class Stall {
      * @return A double list representing the average ratings of a stall with the number of feedback received.<br>
      * {@code 0} represents the stall does not have a rating
      */
-    public double[] getOverallRating() {
+    public double[] getOverallRating(Utility.TimeframeFilter filter) {
 
         // Declare variables to store data to calculate average
         double totalRating = 0;
         int feedbackCount = 0;
 
+        // Filter the feedback list based on filter
+        ArrayList<Feedback> feedbackList = Feedback.filterFeedback(filter);
+
         // Loop through the list of feedbacks
-        for (Feedback feedback : Feedback.getFeedbackList()) {
+        for (Feedback feedback : feedbackList) {
 
             // Record the rating if the feedback is vendor type and the stall matches
             if (feedback.getFeedbackCategory() == Feedback.Category.VENDOR && feedback.getOrderAssociated().getOrderedStall().equals(this)) {
