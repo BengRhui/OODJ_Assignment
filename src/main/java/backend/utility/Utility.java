@@ -1,6 +1,7 @@
 package backend.utility;
 
 import backend.entity.DeliveryRunner;
+import backend.entity.Feedback;
 import backend.entity.Item;
 import backend.entity.Order;
 import org.apache.poi.ss.usermodel.*;
@@ -296,182 +297,43 @@ public class Utility {
     }
 
     /**
-     * A method to generate an Excel file containing order data.
+     * A method to export data into Excel files.
      *
-     * @param data      The order data passed into the Excel file
-     * @param timeRange The time range obtained from Utility method
-     * @return {@code true} if the data is successfully written to Excel, else {@code false}
+     * @param headerList    The header list for the table in Excel
+     * @param columnWidth   The width for each table column
+     * @param worksheetName The name of the worksheet
+     * @param data          The data to be written to Excel
+     * @param timeRange     The time range that the data falls within
+     * @param <T>           A generic class to allow method to receive different types of data
+     * @return {@code true} if the Excel file is created successfully, else {@code false}
      */
-    public static boolean writeDataToExcel(ArrayList<Order> data, LocalDateTime[] timeRange) {
+    public static <T> boolean downloadAsExcel(String[] headerList, int[] columnWidth, String worksheetName, ArrayList<T> data, LocalDateTime[] timeRange) {
 
-        // Table headers
-        String[] headerList = {
-                "Order ID",
-                "Order Time",
-                "Customer Name",
-                "Customer Contact No.",
-                "Stall Name",
-                "Delivery Runner Name",
-                "Table Number",
-                "Item Name",
-                "Price Per Unit (RM)",
-                "Quantity",
-                "Order Amount (RM)",
-                "Order Status",
-                "Delivery Notes"
-        };
+        // Check the type of data involved
+        Object classInvolved = data.getFirst().getClass();
 
-        // The width for each column (Note: A character has a length of 256 units in this library)
-        int[] columnWidth = {
-                256 * 15,
-                256 * 20,
-                256 * 25,
-                256 * 25,
-                256 * 25,
-                256 * 25,
-                256 * 15,
-                256 * 30,
-                256 * 20,
-                256 * 10,
-                256 * 20,
-                256 * 25,
-                256 * 40
-        };
+        // Currently we only accept order and feedback data, the rest are rejected
+        if (classInvolved != Order.class && classInvolved != Feedback.class) return false;
 
+        // Start creating the Excel file
         try {
 
             // Create a workbook and worksheet
             Workbook excelFile = new XSSFWorkbook();
-            Sheet sheet = excelFile.createSheet("Order Records");
+            Sheet sheet = excelFile.createSheet(worksheetName);
 
-            // Retrieve time range in string format (used to create title later)
-            DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("dd MMMM yyyy");
-            String startingTime = timeRange[0].format(timeFormat);
-            String endingTime = timeRange[1].format(timeFormat);
-            String timeStringToDisplay = startingTime.equals(endingTime) ? startingTime : startingTime + " - " + endingTime;
+            // Generate a title to be placed inside the worksheet (will be used as file name too)
+            String titleAndFileName = generateTitleForExcel(worksheetName, timeRange);
 
-            // Generate file name with extension (the full file name will be used later)
-            String titleString = "Order Records (" + timeStringToDisplay + ")";
-            String fullFileName = titleString + ".xlsx";
+            // Create title and header rows
+            createTitleRow(excelFile, sheet, titleAndFileName, headerList);
+            createHeaderRow(excelFile, sheet, headerList, columnWidth);
 
-            // Create title row and set height (starts from the 2nd row)
-            Row titleRow = sheet.createRow(1);
-            titleRow.setHeight((short) 700);            // We have to times 20 with pts to get the height in Java
+            // Place the data into the worksheet
+            convertDataIntoCell(excelFile, sheet, data, headerList);
 
-            // Create a title cell from the title row
-            Cell titleCell = titleRow.createCell(0);
-            titleCell.setCellValue(titleString);
-
-            // Personalization for title cell - set font style for title
-            setCellFormat(excelFile, titleCell, 18, true, false, false);
-
-            // Merge the title row (from column A to L - column 0 to 11)
-            sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, headerList.length));
-
-            // Create a header row and set height
-            Row headerRow = sheet.createRow(3);
-            headerRow.setHeight((short) 600);
-
-            // Create a loop to write values to the row
-            for (int i = 0; i < headerList.length; i++) {
-
-                // Create a cell and write values into it
-                Cell headerCell = headerRow.createCell(i);
-                headerCell.setCellValue(headerList[i]);
-
-                // Personalize cell
-                setCellFormat(excelFile, headerCell, 12, false, true, true);
-
-                // Set the width of the cells
-                sheet.setColumnWidth(i, columnWidth[i]);
-            }
-
-            // Initialize the row index as 4 (the first row is at row 4)
-            int rowIndex = 4;
-
-            // Start looping through the data
-            for (Order order : data) {
-
-                // Find the number of items in an order (will be used to merge cells later)
-                int numOfItems = order.getOrderItem().size();
-
-                // A variable to record the row index for the current order
-                int rowIndexForCurrentOrder = 0;
-
-                // Loop through each pair of key-value
-                for (HashMap.Entry<Item, Integer> entry : order.getOrderItem().entrySet()) {
-
-                    // Create row based on row index and set height
-                    Row dataRow = sheet.createRow(rowIndex + rowIndexForCurrentOrder);
-                    dataRow.setHeight((short) 520);
-
-                    // Loop to write data into each column
-                    for (int i = 0; i < headerList.length; i++) {
-
-                        // Create cell for each column
-                        Cell dataCell = dataRow.createCell(i);
-
-                        // Write values into each column (for the first row)
-                        if (rowIndexForCurrentOrder == 0) {
-                            switch (i) {
-                                case 0 -> dataCell.setCellValue(order.getOrderID());
-                                case 1 -> dataCell.setCellValue(generateString(order.getOrderedDate()));
-                                case 2 ->
-                                        dataCell.setCellValue(order.getOrderingCustomer() == null ? "-" : order.getOrderingCustomer().getName());
-                                case 3 ->
-                                        dataCell.setCellValue(order.getOrderingCustomer() == null ? "-" : order.getOrderingCustomer().getContactNumber());
-                                case 4 ->
-                                        dataCell.setCellValue(order.getOrderedStall() == null ? "-" : order.getOrderedStall().getStallName());
-                                case 5 ->
-                                        dataCell.setCellValue(order.getRunnerInCharge() == null ? "-" : order.getRunnerInCharge().getName());
-                                case 6 ->
-                                        dataCell.setCellValue(order.getTableNumber() == null ? "-" : order.getTableNumber());
-                                case 10 -> dataCell.setCellValue(order.getOrderPrice());
-                                case 11 -> dataCell.setCellValue(order.getOrderStatus().toString());
-                                case 12 ->
-                                        dataCell.setCellValue(order.getNoteToVendor() == null ? "-" : order.getNoteToVendor());
-                            }
-                        }
-
-                        // Data for item (for all rows)
-                        switch (i) {
-                            case 7 -> dataCell.setCellValue(entry.getKey().getItemName());
-                            case 8 -> dataCell.setCellValue(entry.getKey().getPrice());
-                            case 9 -> dataCell.setCellValue(entry.getValue());
-                        }
-
-                        // Customize cell
-                        setCellFormat(excelFile, dataCell, 12, false, false, true);
-                    }
-
-                    // Done writing current row, continue to the next row of the same order
-                    rowIndexForCurrentOrder++;
-
-                }
-
-                // Merge cells (for all columns except the ones related to item)
-                for (int i = 0; i < headerList.length; i++) {
-
-                    // Skip the item-related columns
-                    if (6 < i && i < 10) continue;
-
-                    // Merge the rows
-                    sheet.addMergedRegion(new CellRangeAddress(rowIndex, rowIndex + numOfItems - 1, i, i));
-                }
-
-                // Increment row index to proceed to the next order
-                rowIndex += numOfItems;
-            }
-
-            // Retrieve path to user's downloads folder
-            String pathToDownload = Paths.get(System.getProperty("user.home"), "Downloads").toString();
-
-            // Create a file object at the path
-            File outputFile = new File(pathToDownload, fullFileName);
-
-            // Export the Excel file to the designated path
-            FileOutputStream fileOut = new FileOutputStream(outputFile);
-            excelFile.write(fileOut);
+            // Save the Excel file to Downloads folder
+            exportExcelToDownloads(excelFile, titleAndFileName);
 
             // Close file after finish modifying
             excelFile.close();
@@ -479,7 +341,7 @@ public class Utility {
         } catch (IOException ex) {
 
             // Print error and return false if errors occur
-            System.out.println("Unable to export data to Excel file.");
+            System.out.println("Unable to export feedback data to Excel file.");
             return false;
         }
 
@@ -488,7 +350,380 @@ public class Utility {
     }
 
     /**
-     * A private method that helps to set the format of cells for the method {@code writeDataToExcel()}.
+     * A private method to generate a title string for an Excel file (will also be used as file name), with the format {@code WorksheetName (Date Involved)}.
+     *
+     * @param worksheetName The name of the worksheet
+     * @param timeRange     The time range where the data falls
+     * @return A string that represents the generated title
+     */
+    private static String generateTitleForExcel(String worksheetName, LocalDateTime[] timeRange) {
+
+        // Retrieve starting and ending time
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+        String startingTime = timeRange[0].format(timeFormat);
+        String endingTime = timeRange[1].format(timeFormat);
+
+        // Check if the starting and ending time matches, if yes use only one of them
+        String timeStringToDisplay = startingTime.equals(endingTime) ? startingTime : startingTime + " - " + endingTime;
+
+        // Generate the name
+        return worksheetName + " (" + timeStringToDisplay + ")";
+    }
+
+    /**
+     * A private method to create a title row for an Excel file (at row 2, spanning across the header columns)
+     *
+     * @param workbook   The Excel workbook object created
+     * @param sheet      The Excel sheet object created
+     * @param title      The title that will be placed
+     * @param headerList The header list (to determine the column that the title should merge until)
+     */
+    private static void createTitleRow(Workbook workbook, Sheet sheet, String title, String[] headerList) {
+
+        // Create title row and set height (starts from the 2nd row)
+        Row titleRow = sheet.createRow(1);
+        titleRow.setHeight((short) 700);            // We have to times 20 with pts in Excel (e.g. 35 pts = 700 units)
+
+        // Create a title cell from the title row
+        Cell titleCell = titleRow.createCell(0);
+        titleCell.setCellValue(title);
+
+        // Personalization for title cell - set font style for title
+        setCellFormat(workbook, titleCell, 18, true, false, false);
+
+        // Merge the title cell with the other cells (up till the last column for header)
+        sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, headerList.length));
+    }
+
+    /**
+     * A private method to create a header row for tables in Excel.
+     *
+     * @param workbook    The Excel workbook object created
+     * @param sheet       The Excel sheet object created
+     * @param headerList  The list of headers to be inputted
+     * @param columnWidth The width for each column
+     */
+    private static void createHeaderRow(Workbook workbook, Sheet sheet, String[] headerList, int[] columnWidth) {
+
+        // Create a header row and set height
+        Row headerRow = sheet.createRow(3);
+        headerRow.setHeight((short) 600);                   // 30 pts = 600 units
+
+        // Create a loop to write values to the row
+        for (int i = 0; i < headerList.length; i++) {
+
+            // Create a cell and write values into it
+            Cell headerCell = headerRow.createCell(i);
+            headerCell.setCellValue(headerList[i]);
+
+            // Personalize cell
+            setCellFormat(workbook, headerCell, 12, false, true, true);
+
+            // Set the width of the cells
+            sheet.setColumnWidth(i, columnWidth[i]);
+        }
+    }
+
+    /**
+     * A private method to write data into each cell. This method will be complemented with other methods that details the logic for writing each different type of data.
+     *
+     * @param workbook   The Excel workbook object created
+     * @param sheet      The Excel sheet object created
+     * @param data       The data to be written into Excel
+     * @param headerList The list of headers (will be passed to the complement methods for determining the logic to write data)
+     * @param <T>        A generic class that allows different types of data to be passed into the method
+     */
+    private static <T> void convertDataIntoCell(Workbook workbook, Sheet sheet, ArrayList<T> data, String[] headerList) {
+
+        // Get an object from the data
+        T element = data.getFirst();
+
+        // Check if the object is from Order class
+        if (element instanceof Order) {
+
+            // Direct casting data to Order type might yield problem, but since we are sure that there will not be a mix of data types so annotation is used
+            @SuppressWarnings("unchecked")
+            ArrayList<Order> orderList = (ArrayList<Order>) data;
+
+            // Pass the converted list to complement method for writing Order data
+            writeOrderAsData(workbook, sheet, headerList, orderList);
+        }
+
+        // Check if the object is from Feedback class
+        if (element instanceof Feedback) {
+
+            // Case data into Feedback type
+            @SuppressWarnings("unchecked")
+            ArrayList<Feedback> feedbackList = (ArrayList<Feedback>) data;
+
+            // Pass converted list into complement method for writing Feedback data
+            writeFeedbackAsData(workbook, sheet, headerList, feedbackList);
+        }
+    }
+
+    /**
+     * A private method that details the logic to write Order data.
+     *
+     * @param workbook   The Excel workbook object created
+     * @param sheet      The Excel sheet object created
+     * @param headerList The header list of the data (used to determine the number of attributes to be written)
+     * @param orderList  The list of orders (the data / records to be written)
+     */
+    private static void writeOrderAsData(Workbook workbook, Sheet sheet, String[] headerList, ArrayList<Order> orderList) {
+
+        // Initialize the row index as 4 (the first row is at row 5 - header at row 4)
+        int rowIndex = 4;
+
+        // Start looping through the data
+        for (Order order : orderList) {
+
+            // Find the number of items in an order (to determine the number of rows that the order will occupy)
+            int numOfItems = order.getOrderItem().size();
+
+            // A variable to record the row index for the current order
+            int rowIndexForCurrentOrder = 0;
+
+            // Loop through each pair of key-value of the items involved in an order
+            for (HashMap.Entry<Item, Integer> entry : order.getOrderItem().entrySet()) {
+
+                // Create row based on row index and set height
+                Row dataRow = sheet.createRow(rowIndex + rowIndexForCurrentOrder);
+                dataRow.setHeight((short) 520);             // 26 pts = 520 units
+
+                // Loop to write data into each column
+                for (int colIndex = 0; colIndex < headerList.length; colIndex++) {
+
+                    // Create cell for each column
+                    Cell dataCell = dataRow.createCell(colIndex);
+
+                    // Check if the current row is the first row
+                    boolean isFirstRow = (rowIndexForCurrentOrder == 0);
+
+                    // Pass the boolean into a method to set values for the cell
+                    setCellValues(dataCell, colIndex, order, entry, isFirstRow);
+
+                    // Customize cell
+                    setCellFormat(workbook, dataCell, 12, false, false, true);
+                }
+
+                // Done writing current row, continue to the next row of the same order
+                rowIndexForCurrentOrder++;
+            }
+
+            // After the current order is written, merge cells (for all columns except the ones related to item)
+            for (int i = 0; i < headerList.length; i++) {
+
+                // Skip the item-related columns (column 8, 9 and 10, minus 1 for index)
+                if (6 < i && i < 10) continue;
+
+                // Merge the rows
+                sheet.addMergedRegion(
+                        new CellRangeAddress(rowIndex, rowIndex + numOfItems - 1, i, i)
+                );
+            }
+
+            // Increment row index to proceed to the next order
+            rowIndex += numOfItems;
+        }
+    }
+
+    /**
+     * A private method to write Feedback data into cells.
+     *
+     * @param workbook     The Excel workbook object created
+     * @param sheet        The Excel sheet object created
+     * @param headerList   The header list (used to determine the column indices)
+     * @param feedbackList The list of feedback (the data to be written to)
+     */
+    private static void writeFeedbackAsData(Workbook workbook, Sheet sheet, String[] headerList, ArrayList<Feedback> feedbackList) {
+
+        // Initialize the row index as 4 (start from 5th row)
+        int rowIndex = 4;
+
+        // Start looping through the data
+        for (Feedback feedback : feedbackList) {
+
+            // Create a row and set height
+            Row dataRow = sheet.createRow(rowIndex);
+            dataRow.setHeight((short) 520);
+
+            // Start looping through each column
+            for (int col = 0; col < headerList.length; col++) {
+
+                // Create a cell
+                Cell dataCell = dataRow.createCell(col);
+
+                // Set values for the cell
+                setCellValues(dataCell, col, feedback);
+
+                // Customize cell
+                setCellFormat(workbook, dataCell, 12, false, false, true);
+            }
+
+            // Increment row index after writing each feedback
+            rowIndex++;
+        }
+    }
+
+    /**
+     * A private method to set the values of a cell for Order data
+     *
+     * @param cell       The cell to be written
+     * @param column     The column index
+     * @param order      The Order item
+     * @param entry      The {@code item} attribute in {@code Order} object that contains the item ID and quantity
+     * @param isFirstRow Check if the current row is the first row
+     */
+    public static void setCellValues(Cell cell, int column, Order order, HashMap.Entry<Item, Integer> entry, boolean isFirstRow) {
+
+        // Write data based on the column index
+        switch (column) {
+
+            // For order ID (first row only)
+            case 0 -> {
+                if (isFirstRow) cell.setCellValue(order.getOrderID());
+            }
+
+            // For order date (first row only)
+            case 1 -> {
+                if (isFirstRow) cell.setCellValue(generateString(order.getOrderedDate()));
+            }
+
+            // For customer name (first row only)
+            case 2 -> {
+                if (isFirstRow)
+                    cell.setCellValue(order.getOrderingCustomer() == null ? "-" : order.getOrderingCustomer().getName());
+            }
+
+            // For customer contact number (first row only)
+            case 3 -> {
+                if (isFirstRow)
+                    cell.setCellValue(order.getOrderingCustomer() == null ? "-" : order.getOrderingCustomer().getContactNumber());
+            }
+
+            // For stall name (first row only)
+            case 4 -> {
+                if (isFirstRow)
+                    cell.setCellValue(order.getOrderedStall() == null ? "-" : order.getOrderedStall().getStallName());
+            }
+
+            // For runner name (first row only)
+            case 5 -> {
+                if (isFirstRow)
+                    cell.setCellValue(order.getRunnerInCharge() == null ? "-" : order.getRunnerInCharge().getName());
+            }
+
+            // For table number (first row only)
+            case 6 -> {
+                if (isFirstRow) cell.setCellValue(order.getTableNumber() == null ? "-" : order.getTableNumber());
+            }
+
+            // For item name
+            case 7 -> cell.setCellValue(entry.getKey().getItemName());
+
+            // For item price
+            case 8 -> cell.setCellValue(entry.getKey().getPrice());
+
+            // For item quantity
+            case 9 -> cell.setCellValue(entry.getValue());
+
+            // For total order price
+            case 10 -> {
+                if (isFirstRow) cell.setCellValue(order.getOrderPrice());
+            }
+
+            // For order status
+            case 11 -> {
+                if (isFirstRow) cell.setCellValue(order.getOrderStatus().toString());
+            }
+
+            // For customer note to vendor
+            case 12 -> {
+                if (isFirstRow) cell.setCellValue(order.getNoteToVendor() == null ? "-" : order.getNoteToVendor());
+            }
+        }
+    }
+
+    /**
+     * A private method to set values for cells when writing data from {@code Feedback} class.
+     *
+     * @param cell     The cell to be written
+     * @param column   The column index
+     * @param feedback The Feedback item
+     */
+    public static void setCellValues(Cell cell, int column, Feedback feedback) {
+
+        // Write data based on column index
+        switch (column) {
+
+            // For feedback ID
+            case 0 -> cell.setCellValue(feedback.getFeedbackID());
+
+            // For feedback category
+            case 1 -> cell.setCellValue(feedback.getFeedbackCategory().toString());
+
+            // For order ID
+            case 2 ->
+                    cell.setCellValue(feedback.getOrderAssociated() == null ? "-" : feedback.getOrderAssociated().getOrderID());
+
+            // For customer name
+            case 3 ->
+                    cell.setCellValue(feedback.getCustomerAssociated() == null ? "-" : feedback.getCustomerAssociated().getName());
+
+            // For customer contact number
+            case 4 ->
+                    cell.setCellValue(feedback.getCustomerAssociated() == null ? "-" : feedback.getCustomerAssociated().getContactNumber());
+
+            // For stall name
+            case 5 ->
+                    cell.setCellValue(feedback.getFeedbackCategory() == Feedback.Category.VENDOR && feedback.getOrderAssociated().getOrderedStall() != null ? feedback.getOrderAssociated().getOrderedStall().getStallName() : "-");
+
+            // For runner name
+            case 6 ->
+                    cell.setCellValue(feedback.getFeedbackCategory() == Feedback.Category.DELIVERY_RUNNER && feedback.getOrderAssociated().getRunnerInCharge() != null ? feedback.getOrderAssociated().getRunnerInCharge().getName() : "-");
+
+            // For feedback submission time
+            case 7 -> cell.setCellValue(Utility.generateString(feedback.getFeedbackSubmissionTime()));
+
+            // For ratings
+            case 8 -> cell.setCellValue(feedback.getRatings());
+
+            // For feedback title
+            case 9 -> cell.setCellValue(feedback.getFeedbackTitle());
+
+            // For feedback details
+            case 10 -> cell.setCellValue(feedback.getFeedbackDetails());
+
+            // For manager response
+            case 11 -> cell.setCellValue(feedback.getReplyFromManager() == null ? "-" : feedback.getReplyFromManager());
+        }
+    }
+
+    /**
+     * A private method to export Excel file to user's Downloads folder.
+     *
+     * @param workbook The Excel workbook created
+     * @param fileName The name for the Excel file to be saved as
+     * @throws IOException Thrown if the file could not been exported successfully
+     */
+    private static void exportExcelToDownloads(Workbook workbook, String fileName) throws IOException {
+
+        // Get the name of the file with XLSX extension
+        String fullFileName = fileName + ".xlsx";
+
+        // Retrieve path to user's downloads folder
+        String pathToDownload = Paths.get(System.getProperty("user.home"), "Downloads").toString();
+
+        // Create a file object at the path
+        File outputFile = new File(pathToDownload, fullFileName);
+
+        // Export the Excel file to the designated path
+        FileOutputStream fileOut = new FileOutputStream(outputFile);
+        workbook.write(fileOut);
+    }
+
+    /**
+     * A private method that helps to set the format of cells for the method {@code writeOrderDataToExcel()}.
      *
      * @param workbook     The workbook object created (required to customize font and styles)
      * @param cell         The cell to be formatted
