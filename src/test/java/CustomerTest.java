@@ -412,4 +412,41 @@ public class CustomerTest extends BaseTest {
                 customer1.getTotalAmountForCart()
         );
     }
+
+    /**
+     * This test focuses on the operation where customer changes the dining methods in cart.
+     */
+    @Test
+    void testCustomerChangingDiningMethodsInCart() {
+
+        // Initialize cart - does not contain delivery fees (default is dine-in)
+        Map<String, Integer> cart = new HashMap<>();
+        cart.put(item1.getItemID(), 3);
+        customer1.setCart(cart);
+
+        // Change to takeaway
+        boolean changeToTakeaway = customer1.setDiningMethodInCart(Order.DiningType.TAKEAWAY);
+        assertTrue(changeToTakeaway);
+
+        // Make sure that the content does not change
+        assertEquals(1, customer1.getCart().size());
+        assertEquals(3, customer1.getCart().get(item1.getItemID()));
+
+        // Change to delivery
+        boolean changeToDelivery = customer1.setDiningMethodInCart(Order.DiningType.DELIVERY);
+        assertTrue(changeToDelivery);
+
+        // Make sure that delivery fees is added
+        assertEquals(2, customer1.getCart().size());
+        assertEquals(3, customer1.getCart().get(item1.getItemID()));
+        assertNotNull(customer1.getCart().get(Item.deliveryFees.getItemID()));
+
+        // Change back to dine-in
+        boolean changeToDineIn = customer1.setDiningMethodInCart(Order.DiningType.DINE_IN);
+        assertTrue(changeToDineIn);
+
+        // Make sure that delivery fees is removed
+        assertEquals(1, customer1.getCart().size());
+        assertEquals(3, customer1.getCart().get(item1.getItemID()));
+    }
 }

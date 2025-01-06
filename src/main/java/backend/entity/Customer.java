@@ -519,6 +519,33 @@ public class Customer extends User {
     }
 
     /**
+     * A method for customers to update cart based on the chosen dining method.
+     *
+     * @param diningType The dining type preferred by customers
+     * @return {@code true} if the cart is updated, else {@code false}
+     */
+    public boolean setDiningMethodInCart(Order.DiningType diningType) {
+
+        // If the input is null, return false
+        if (diningType == null) return false;
+
+        // Compute based on different dining type
+        switch (diningType) {
+
+            // If the dining type is delivery, then the delivery fees has to be included
+            case DELIVERY -> cart.putIfAbsent(Item.deliveryFees.getItemID(), 1);
+
+            // If the dining type is dine-in ot takeaway, delivery fees should not be there
+            case DINE_IN, TAKEAWAY -> {
+                if (cart.get(Item.deliveryFees.getItemID()) != null) cart.remove(Item.deliveryFees.getItemID());
+            }
+        }
+
+        // Return true for successful operation
+        return true;
+    }
+
+    /**
      * A method to print out the information of {@code Customer} instances.
      *
      * @return String representation of {@code Customer} object
