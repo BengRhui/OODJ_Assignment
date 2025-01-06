@@ -182,50 +182,6 @@ public class Stall {
     }
 
     /**
-     * A method to create a new stall.
-     *
-     * @param stallID         The ID of the stall
-     * @param stallName       The name of the stall
-     * @param stallCategories The categories of the stall
-     * @return {@code 1} if the stall is created successfully<br>
-     * {@code 0} if there exist empty values
-     * {@code -1} if the name has been used by other stalls
-     * {@code -2} if there exists any invalid category (should not happen but included just in case)
-     */
-    public static int createNewStall(
-            String stallID,
-            String stallName,
-            String[] stallCategories
-    ) {
-
-        // Check if there is any empty values
-        if (stallID == null || stallID.isBlank() || stallName == null || stallName.isBlank() || stallCategories == null || stallCategories.length == 0)
-            return 0;
-
-        // Check if the name has been used by another stall
-        if (checkIfStallNameIsUsed(stallName)) return -1;
-
-        // Convert the categories into StallCategories type
-        StallCategories[] addedCategories = Arrays.stream(stallCategories)
-                .map(StallCategories::generateFromString)
-                .toArray(StallCategories[]::new);
-
-        // Check if there is any invalid categories
-        boolean invalidCategory = Arrays.stream(addedCategories).anyMatch(Objects::isNull);
-        if (invalidCategory) return -2;
-
-        // Create a new stall and add to list
-        Stall newStall = new Stall(stallID, stallName, addedCategories);
-        addStallToList(newStall);
-
-        // Write to file
-        StallFileIO.writeFile();
-
-        // Return true for successful operation
-        return 1;
-    }
-
-    /**
      * A method to filter the list of stalls based on a specific category
      *
      * @param category The category to be filtered
@@ -273,6 +229,50 @@ public class Stall {
 
         // Return the ratings and the feedback count
         return new double[]{overallRating, feedbackCount};
+    }
+
+    /**
+     * A method to create a new stall.
+     *
+     * @param stallID         The ID of the stall
+     * @param stallName       The name of the stall
+     * @param stallCategories The categories of the stall
+     * @return {@code 1} if the stall is created successfully<br>
+     * {@code 0} if there exist empty values
+     * {@code -1} if the name has been used by other stalls
+     * {@code -2} if there exists any invalid category (should not happen but included just in case)
+     */
+    public static int createNewStall(
+            String stallID,
+            String stallName,
+            String[] stallCategories
+    ) {
+
+        // Check if there is any empty values
+        if (stallID == null || stallID.isBlank() || stallName == null || stallName.isBlank() || stallCategories == null || stallCategories.length == 0)
+            return 0;
+
+        // Check if the name has been used by another stall
+        if (checkIfStallNameIsUsed(stallName)) return -1;
+
+        // Convert the categories into StallCategories type
+        StallCategories[] addedCategories = Arrays.stream(stallCategories)
+                .map(StallCategories::generateFromString)
+                .toArray(StallCategories[]::new);
+
+        // Check if there is any invalid categories
+        boolean invalidCategory = Arrays.stream(addedCategories).anyMatch(Objects::isNull);
+        if (invalidCategory) return -2;
+
+        // Create a new stall and add to list
+        Stall newStall = new Stall(stallID, stallName, addedCategories);
+        addStallToList(newStall);
+
+        // Write to file
+        StallFileIO.writeFile();
+
+        // Return true for successful operation
+        return 1;
     }
 
     /**
