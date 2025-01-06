@@ -126,6 +126,33 @@ public class Order {
     }
 
     /**
+     * A method to generate a new ID for orders.
+     * @return The new ID in string form
+     */
+    public static String generateNewID() {
+
+        // Create an index to record number count
+        int index = 1;
+
+        // Star a while loop
+        while (true) {
+
+            // Get the format of the ID
+            String generatedID = String.format("%s%05d", "ORD", index);
+
+            // Check if the ID is available
+            boolean isIdAvailable = orderList.stream()
+                    .noneMatch(order -> order.orderID.equals(generatedID));
+
+            // If ID is available, then the generated ID is returned
+            if (isIdAvailable) return generatedID;
+
+            // If not, then increment index and start the loop again
+            index ++;
+        }
+    }
+
+    /**
      * A method to retrieve {@code Order} object based on order ID.
      *
      * @param orderID The ID of the order
