@@ -15,10 +15,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Class {@code Utility} includes a couple of methods that brings convenient to coding.
@@ -80,12 +77,12 @@ public class Utility {
     }
 
     /**
-     * A method to generate string from {@code HashMap} with {@code Item} and {@code Integer} key and value
+     * A method to generate string from {@code Map} with {@code Item} and {@code Integer} key and value
      *
-     * @param map HashMap with {@code Item} object as key and {@code Integer} object as value
-     * @return The string representation of the {@code HashMap}
+     * @param map Map with {@code Item} object as key and {@code Integer} object as value
+     * @return The string representation of the {@code Map}
      */
-    public static String generateString(HashMap<Item, Integer> map) {
+    public static String generateString(Map<Item, Integer> map) {
 
         // Check if there is null item in the map
         if (map.containsKey(null)) return null;
@@ -120,30 +117,22 @@ public class Utility {
     }
 
     /**
-     * A method to generate the string representation of {@code HashMap} representing availability of delivery runners.
-     *
-     * @param map The HashMap consisting of {@code DeliveryRunner} as the key, {@code Boolean} as the value
-     * @return The string representation of the HashMap
+     * A method to print out the availability list (used for testing purposes, maybe will be removed if not used later)
      */
-    public static String generateRunnerString(HashMap<DeliveryRunner, Boolean> map) {
+    public static void printAvailabilityList() throws NullPointerException {
 
-        // Create a string builder to store string
-        StringBuilder string = new StringBuilder();
+        // Loop through the map
+        for (Map.Entry<String, Boolean> entry : DeliveryRunner.getAvailabilityList().entrySet()) {
 
-        // Append each pair of item and quantity to the string builder
-        map.forEach(
-                (runner, status) ->
-                        string.append(runner.getUserID())
-                                .append(" - ")
-                                .append(status)
-                                .append(", ")
-        );
+            // Retrieve the runner object
+            DeliveryRunner runnerRetrieved = DeliveryRunner.getRunner(entry.getKey());
 
-        // Remove the extra ", " at the end of the string builder
-        string.delete(string.length() - 2, string.length());
+            // If the runner is null, throw a null pointer exception
+            if (runnerRetrieved == null) throw new NullPointerException(entry.getKey());
 
-        // Return the string builder
-        return string.toString();
+            // If runner is found, print the runner
+            System.out.println(runnerRetrieved.getName() + ": " + entry.getValue());
+        }
     }
 
     /**
@@ -162,19 +151,19 @@ public class Utility {
     }
 
     /**
-     * A method to change a string containing the pair of item and quantity into {@code HashMap}.<br>
+     * A method to change a string containing the pair of item and quantity into {@code Map}.<br>
      * The string is parsed in the format of "I001 - 1, I002 - 2, ..."
      *
      * @param itemSet The string that contains the key-value pair of item and quantity
-     * @return The key-value pair in {@code HashMap}
+     * @return The key-value pair in {@code Map}
      */
-    public static HashMap<Item, Integer> changeStringToHashMap(String itemSet) {
+    public static Map<Item, Integer> changeStringToHashMap(String itemSet) {
 
         // If input is null, return null
         if (itemSet == null || itemSet.isEmpty()) return null;
 
-        // Create a new HashMap to store information
-        HashMap<Item, Integer> map = new HashMap<>();
+        // Create a new Map to store information
+        Map<Item, Integer> map = new HashMap<>();
 
         // Split each item pair
         String[] itemPairs = itemSet.split(", ");
@@ -189,11 +178,11 @@ public class Utility {
             Item item = Item.getItem(itemAndQuantity[0].strip());
             int quantity = Integer.parseInt(itemAndQuantity[1].strip());
 
-            // Add the item and quantity into HashMap
+            // Add the item and quantity into Map
             map.put(item, quantity);
         }
 
-        // Return HashMap after everything is done
+        // Return Map after everything is done
         return map;
     }
 
@@ -488,7 +477,7 @@ public class Utility {
             int rowIndexForCurrentOrder = 0;
 
             // Loop through each pair of key-value of the items involved in an order
-            for (HashMap.Entry<Item, Integer> entry : order.getOrderItem().entrySet()) {
+            for (Map.Entry<Item, Integer> entry : order.getOrderItem().entrySet()) {
 
                 // Create row based on row index and set height
                 Row dataRow = sheet.createRow(rowIndex + rowIndexForCurrentOrder);
@@ -578,7 +567,7 @@ public class Utility {
      * @param entry      The {@code item} attribute in {@code Order} object that contains the item ID and quantity
      * @param isFirstRow Check if the current row is the first row
      */
-    public static void setCellValues(Cell cell, int column, Order order, HashMap.Entry<Item, Integer> entry, boolean isFirstRow) {
+    public static void setCellValues(Cell cell, int column, Order order, Map.Entry<Item, Integer> entry, boolean isFirstRow) {
 
         // Write data based on the column index
         switch (column) {

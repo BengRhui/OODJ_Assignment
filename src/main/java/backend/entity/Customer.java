@@ -7,6 +7,7 @@ import backend.utility.Utility;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -25,6 +26,7 @@ public class Customer extends User {
     private Address address;
     private double eWalletAmount;
     private String deliveryNote;
+    private Map<Item, Integer> cart;
 
     /**
      * Constructor used to instantiate the {@code Customer} class.

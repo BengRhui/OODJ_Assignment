@@ -20,7 +20,7 @@ public class DeliveryRunner extends User {
      * A list that contains all delivery runners is also included.
      */
     private final static ArrayList<DeliveryRunner> deliveryRunnerList = new ArrayList<>();
-    private final static HashMap<String, Boolean> availabilityList = new HashMap<>();
+    private final static Map<String, Boolean> availabilityList = new HashMap<>();
     private String contactNumber;
 
     /**
@@ -76,7 +76,7 @@ public class DeliveryRunner extends User {
             // Check for the runner availability
             boolean availability = runner.checkAvailability();
 
-            // Add runner and the corresponding availability into the HashMap
+            // Add runner and the corresponding availability into the Map
             availabilityList.put(runner.userID, availability);
         }
     }
@@ -92,19 +92,10 @@ public class DeliveryRunner extends User {
 
     /**
      * A method to get the availability list for the current system.
-     * @return A HashMap consisting of the runner ID, with a boolean representing availability
+     * @return A Map consisting of the runner ID, with a boolean representing availability
      */
-    public static HashMap<String, Boolean> getAvailabilityList() {
+    public static Map<String, Boolean> getAvailabilityList() {
         return availabilityList;
-    }
-
-    /**
-     * A method to print out the availability list (used for testing purposes, maybe will be removed if not used later)
-     */
-    public static void printAvailabilityList() {
-        for (HashMap.Entry<String, Boolean> entry : availabilityList.entrySet()) {
-            System.out.println(getRunner(entry.getKey()).getName() + ": " + entry.getValue());
-        }
     }
 
     /**
@@ -483,11 +474,11 @@ public class DeliveryRunner extends User {
      * A method to update the availability of runners (mainly used when runner rejects an order)
      *
      * @param status The status of the runner
-     * @return Status whether if the availability is updated successfully. If not, the {@code HashMap} has to be initialized again.
+     * @return Status whether if the availability is updated successfully. If not, the {@code Map} has to be initialized again.
      */
     public boolean updateAvailability(boolean status) {
 
-        // Replace the status in the HashMap with the new status
+        // Replace the status in the Map with the new status
         Boolean state = availabilityList.replace(this.userID, status);
 
         // Return false if the runner is not found, else return true
