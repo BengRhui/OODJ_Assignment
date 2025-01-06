@@ -5,10 +5,7 @@ import backend.file_io.CustomerFileIO;
 import backend.notification.CustomerNotification;
 import backend.utility.Utility;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Class {@code Customer} represents the customers of the food stall who uses the system.
@@ -26,7 +23,7 @@ public class Customer extends User {
     private Address address;
     private double eWalletAmount;
     private String deliveryNote;
-    private Map<Item, Integer> cart;
+    private Map<Item, Integer> cart = new HashMap<>();
 
     /**
      * Constructor used to instantiate the {@code Customer} class.
@@ -434,6 +431,14 @@ public class Customer extends User {
 
     public void setDeliveryNote(String deliveryNote) {
         this.deliveryNote = deliveryNote;
+    }
+
+    public Map<Item, Integer> getCart() {
+        return cart;
+    }
+
+    public void setCart(Map<Item, Integer> cart) {
+        this.cart = cart;
     }
 
     /**
