@@ -23,7 +23,7 @@ public class Customer extends User {
     private Address address;
     private double eWalletAmount;
     private String deliveryNote;
-    private Map<Item, Integer> cart = new HashMap<>();
+    private Map<String, Integer> cart = new HashMap<>();
 
     /**
      * Constructor used to instantiate the {@code Customer} class.
@@ -433,12 +433,43 @@ public class Customer extends User {
         this.deliveryNote = deliveryNote;
     }
 
-    public Map<Item, Integer> getCart() {
+    public Map<String, Integer> getCart() {
         return cart;
     }
 
-    public void setCart(Map<Item, Integer> cart) {
+    public void setCart(Map<String, Integer> cart) {
         this.cart = cart;
+    }
+
+    /**
+     * A method to update the items in the cart.
+     * @param item The item object that is added to cart
+     * @param quantity The quantity of items
+     * @return {@code true} if the cart is updated successfully, else {@code false}
+     */
+    public boolean addItemToCart(Item item, int quantity) {
+
+        // Return false if the inputs are null
+        if (item == null || quantity <= 0) return false;
+
+        // Get the ID of the item
+        String itemID = item.getItemID();
+
+        // If the item ID is already in the list, add the quantity
+        if (cart.containsKey(itemID)) {
+
+            // Get the initial quantity and replace the existing value
+            int newQuantity = cart.get(itemID) + quantity;
+            cart.replace(itemID, newQuantity);
+
+        } else {
+
+            // If the ID is not in list, add the new key value to the map
+            cart.put(item.getItemID(), quantity);
+        }
+
+        // Return true for successful operation
+        return true;
     }
 
     /**

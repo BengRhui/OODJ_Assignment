@@ -2,6 +2,7 @@ import backend.entity.Feedback;
 import backend.entity.Item;
 import backend.entity.Order;
 import backend.entity.Stall;
+import backend.file_io.ItemFileIO;
 import backend.notification.CustomerNotification;
 import backend.notification.DeliveryRunnerNotification;
 import backend.notification.Notification;
@@ -9,6 +10,7 @@ import backend.notification.VendorNotification;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -320,5 +322,48 @@ public class CustomerTest extends BaseTest {
         // Check if the ratings detail are correct
         assertEquals(1, stall1.getFeedbackCount());
         assertEquals(feedback3.getRatings(), stall1.getOverallRatings());
+    }
+
+    /**
+     * This test focuses on the operation where the customer adds item into cart.
+     */
+    @Test
+    void testCustomerAddingToCart() {
+
+        // Get the initial cart and make sure that there is nothing inside
+        Map<String, Integer> customerCart = customer1.getCart();
+        assertEquals(0, customerCart.size());
+
+        // Add an item into the cart
+        boolean addToCart1 = customer1.addItemToCart(item1, 2);
+        assertTrue(addToCart1);
+
+        // Check if the correct item is added to cart
+        Integer quantityOfItem = customer1.getCart().get(item1.getItemID());
+        assertNotNull(quantityOfItem);
+        assertEquals(2, quantityOfItem);
+
+        // Create another item to be used for testing
+        Item item2 = new Item(Item.generateItemID(), "Milk tea", stall1, 7.00, "Healthy milk tea for children");
+        Item.addItemToList(item2);
+        ItemFileIO.writeFile();
+
+        // Add the item to cart
+        boolean addToCart2 = customer1.addItemToCart(item2, 5);
+        assertTrue(addToCart2);
+
+        // Check if the items in cart are correct
+        assertEquals(2, customer1.getCart().size());
+        assertEquals(2, customer1.getCart().get(item1.getItemID()));
+        assertEquals(5, customer1.getCart().get(item2.getItemID()));
+
+        // Add item 1 again
+        boolean addToCart3 = customer1.addItemToCart(item1, 10);
+        assertTrue(addToCart3);
+
+        // Check if the items in cart are correct
+        assertEquals(2, customer1.getCart().size());
+        assertEquals(12, customer1.getCart().get(item1.getItemID()));
+        assertEquals(5, customer1.getCart().get(item2.getItemID()));
     }
 }
