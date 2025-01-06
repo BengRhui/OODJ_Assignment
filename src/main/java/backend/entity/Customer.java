@@ -1,6 +1,8 @@
 package backend.entity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Class {@code Customer} represents the customers of the food stall who uses the system.
@@ -50,12 +52,21 @@ public class Customer extends User {
     }
 
     /**
-     * A method to add a {@code Customer} object to an overall list
+     * A method to add {@code Customer} objects to an overall list
      *
-     * @param customer {@code Customer} object to be added to the list
+     * @param customer {@code Customer} objects to be added to the list
      */
-    public static void addToCustomerList(Customer customer) {
-        customerList.add(customer);
+    public static void addToCustomerList(Customer... customer) {
+
+        // Throws an error if there is no customer passed into the argument, or a null customer is passed into argument
+        if (customer.length == 0 || Arrays.stream(customer).anyMatch(Objects::isNull)) {
+            throw new IllegalArgumentException("Arguments should contain at least one Customer object");
+        }
+
+        // Add all the customers from the arguments into the list
+        customerList.addAll(
+                Arrays.asList(customer)
+        );
     }
 
     /**

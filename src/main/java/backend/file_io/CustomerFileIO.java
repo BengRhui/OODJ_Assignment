@@ -35,7 +35,7 @@ public class CustomerFileIO extends UserFileIO {
         String addressLine2 = individualRecords[4];
         String postcode = individualRecords[5];
         String city = individualRecords[6];
-        String state = individualRecords[7];
+        Address.State state = Address.State.getFromString(individualRecords[7]);
         double eWalletAmount = Double.parseDouble(individualRecords[8]);
         String deliveryNote = individualRecords[9];
 
@@ -93,7 +93,7 @@ public class CustomerFileIO extends UserFileIO {
             record[4] = customer.getAddress().getAddressLine2();
             record[5] = customer.getAddress().getPostcode();
             record[6] = customer.getAddress().getCity();
-            record[7] = customer.getAddress().getState();
+            record[7] = customer.getAddress().getState().toString();
             record[8] = String.valueOf(customer.getEWalletAmount());
             record[9] = customer.getDeliveryNote();
 

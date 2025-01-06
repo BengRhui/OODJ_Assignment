@@ -4,7 +4,9 @@ import backend.utility.Utility;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * Class {@code Order} represents the order placed by the customer via the system.
@@ -15,23 +17,20 @@ public class Order {
 
     /**
      * Attributes for the {@code Order} object.<br>
-     * A list that collects all orders is included.<br>
-     * Two lists containing delivery types and order status are also included.
+     * A list that collects all orders is included.
      */
     private final static ArrayList<Order> orderList = new ArrayList<>();
-    public final String[] DINING_TYPES = {"Dine in", "Takeaway", "Delivery"};
-    public final String[] ORDER_STATUS = {"Waiting for Vendor and Delivery", "Waiting for Vendor", "Waiting for Delivery"};
     private String orderID;
     private Customer orderingCustomer;
     private Stall orderedStall;
     private DeliveryRunner runnerInCharge;
-    private String diningType;
+    private DiningType diningType;
     private String tableNumber;
     private String deliveryNote;
     private double orderPrice;
     private LocalDateTime orderedDate;
     private double tipsForRunner;
-    private String orderStatus;
+    private OrderStatus orderStatus;
     private HashMap<Item, Integer> orderItem;
 
     /**
@@ -51,8 +50,8 @@ public class Order {
      * @param orderItem        The list of items ordered by customer
      */
     public Order(String orderID, Customer orderingCustomer, Stall orderedStall, DeliveryRunner runnerInCharge,
-                 String diningType, String tableNumber, String deliveryNote, double orderPrice, LocalDateTime orderedDate,
-                 double tipsForRunner, String orderStatus, HashMap<Item, Integer> orderItem) {
+                 DiningType diningType, String tableNumber, String deliveryNote, double orderPrice, LocalDateTime orderedDate,
+                 double tipsForRunner, OrderStatus orderStatus, HashMap<Item, Integer> orderItem) {
         this.orderID = orderID;
         this.orderingCustomer = orderingCustomer;
         this.orderedStall = orderedStall;
@@ -79,10 +78,19 @@ public class Order {
     /**
      * A method to add {@code Order} objects into the overall list.
      *
-     * @param order The {@code Order} object to be added into list.
+     * @param order The {@code Order} objectS to be added into list.
      */
-    public static void addToOrderList(Order order) {
-        orderList.add(order);
+    public static void addToOrderList(Order... order) {
+
+        // Throws an error if there is no order passed into the argument, or a null order is passed into argument
+        if (order.length == 0 || Arrays.stream(order).anyMatch(Objects::isNull)) {
+            throw new IllegalArgumentException("Arguments should contain at least one Order object");
+        }
+
+        // Add all the orders from the arguments into the list
+        orderList.addAll(
+                Arrays.asList(order)
+        );
     }
 
     /**
@@ -144,11 +152,11 @@ public class Order {
         this.runnerInCharge = runnerInCharge;
     }
 
-    public String getDiningType() {
+    public DiningType getDiningType() {
         return diningType;
     }
 
-    public void setDiningType(String diningType) {
+    public void setDiningType(DiningType diningType) {
         this.diningType = diningType;
     }
 
@@ -192,11 +200,11 @@ public class Order {
         this.tipsForRunner = tipsForRunner;
     }
 
-    public String getOrderStatus() {
+    public OrderStatus getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(String orderStatus) {
+    public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
 
@@ -222,13 +230,118 @@ public class Order {
                 orderedStall.toString() + "\n" +
                 "Runner in Charge: " + "\n" +
                 runnerInCharge.toString() + "\n" +
-                "Dining Type: " + diningType + "\n" +
+                "Dining Type: " + diningType.toString() + "\n" +
                 "Table Number: " + tableNumber + "\n" +
                 "Delivery Note: " + deliveryNote + "\n" +
                 "Order Price: " + orderPrice + "\n" +
                 "Ordered Date: " + Utility.generateString(orderedDate) + "\n" +
                 "Tips for Runner: " + tipsForRunner + "\n" +
-                "Order Status: " + orderStatus + "\n" +
+                "Order Status: " + orderStatus.toString() + "\n" +
                 "Order Items: " + Utility.generateString(orderItem);
+    }
+
+    /**
+     * Enum {@code DiningType} represents the different types of dining methods a customer can choose.
+     */
+    public enum DiningType {
+
+        /**
+         * Fields available in {@code DiningType}.
+         */
+        DINE_IN, TAKEAWAY, DELIVERY;
+
+        /**
+         * A variable that stores the list of available dining options.
+         */
+        public final static String[] DINING_OPTIONS = Arrays.stream(DiningType.values())   // Get fields
+                .map(DiningType::toString)                                                 // Convert to string
+                .toArray(String[]::new);                                                   // Make it as String[]
+
+        /**
+         * A method to get {@code DiningType} from string input.
+         *
+         * @param input The string input representing dining types
+         * @return The {@code DiningType} field corresponding to the input
+         */
+        public static DiningType getFromString(String input) {
+            return Arrays.stream(DiningType.values())                          // Retrieve the values of enum
+                    .filter(field -> field.toString().equalsIgnoreCase(input))  // Filter the values based on input
+                    .findFirst()                                                // Find the first occurrence
+                    .orElse(null);                                              // Return null if nothing matches
+        }
+
+        /**
+         * A method that returns the corresponding string value of {@code DiningType}.
+         *
+         * @return The string representation of {@code DiningType}
+         */
+        @Override
+        public String toString() {
+            return switch (this) {
+                case DINE_IN -> "Dine In";
+                case TAKEAWAY -> "Takeaway";
+                case DELIVERY -> "Delivery";
+            };
+        }
+    }
+
+    /**
+     * Enum {@code OrderStatus} represents the different types of status an order can have.
+     */
+    public enum OrderStatus {
+
+        /**
+         * Fields for order status
+         */
+        WAITING_VENDOR_AND_RUNNER, WAITING_VENDOR, WAITING_RUNNER, VENDOR_PREPARING,
+        READY_FOR_PICK_UP, RUNNER_DELIVERY, COMPLETED;
+
+        /**
+         * Variables containing different types of options for an order
+         */
+        public final static String[] OPTIONS_FOR_DINE_IN = Arrays.stream(OrderStatus.values())   // Get the fields
+                .map(OrderStatus::toString)                                                      // Convert to string
+                .filter(string -> !string.contains("Deliver") && !string.contains("Pick Up"))    // Remove delivery and pickup
+                .toArray(String[]::new);                                                         // Return string array
+
+        public final static String[] OPTIONS_FOR_TAKEAWAY = Arrays.stream(OrderStatus.values())  // Get the fields
+                .map(OrderStatus::toString)                                                      // Convert to string
+                .filter(string -> !string.contains("Deliver"))                                   // Remove delivery ones
+                .toArray(String[]::new);                                                         // Return string array
+
+        public final static String[] OPTIONS_FOR_DELIVERY = Arrays.stream(OrderStatus.values())  // Get the fields
+                .map(OrderStatus::toString)                                                      // Convert to string
+                .toArray(String[]::new);                                                         // Return string array
+
+        /**
+         * A method to get the corresponding {@code OrderStatus} from string input.
+         *
+         * @param input The string input provided by user
+         * @return The {@code OrderStatus} corresponding to the string input
+         */
+        public static OrderStatus getFromString(String input) {
+            return Arrays.stream(OrderStatus.values())                           // Get the values of enum
+                    .filter(field -> field.toString().equalsIgnoreCase(input))   // Filter with input
+                    .findFirst()                                                 // Find the first occurrence
+                    .orElse(null);                                               // Return null if not found
+        }
+
+        /**
+         * A method to return the string value of {@code OrderStatus}.
+         *
+         * @return The string representation of the fields of {@code OrderStatus}
+         */
+        @Override
+        public String toString() {
+            return switch (this) {
+                case WAITING_VENDOR_AND_RUNNER -> "Waiting for Vendor and Delivery Confirmation";
+                case WAITING_VENDOR -> "Waiting for Vendor Confirmation";
+                case WAITING_RUNNER -> "Waiting for Delivery Confirmation";
+                case VENDOR_PREPARING -> "Vendor Preparing";
+                case READY_FOR_PICK_UP -> "Ready for Pick Up";
+                case RUNNER_DELIVERY -> "Delivering by Runner";
+                case COMPLETED -> "Completed";
+            };
+        }
     }
 }

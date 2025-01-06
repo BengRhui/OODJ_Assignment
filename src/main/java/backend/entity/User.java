@@ -36,15 +36,6 @@ public class User {
     }
 
     /**
-     * A method to add instances of the {@code User} class into the {@code userList} array.
-     *
-     * @param user The {@code User} object to be added into the ArrayList
-     */
-    public static void addUserToList(User user) {
-        userList.add(user);
-    }
-
-    /**
      * A method to return the list containing all {@code User} objects.
      *
      * @return An ArrayList containing all instances of {@code User} objects.

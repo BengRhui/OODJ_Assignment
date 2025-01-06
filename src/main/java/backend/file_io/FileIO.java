@@ -11,7 +11,7 @@ public class FileIO {
     /**
      * The PARENT_PATH_TO_FILE variable contains the file path to the folder containing the text files
      */
-    private final static String PARENT_PATH_TO_FILE = "src/main/resources/text_file/";
+    private static String PARENT_PATH_TO_FILE = "src/main/resources/text_file/";
 
     /**
      * A method to read text files from directory
@@ -127,6 +127,14 @@ public class FileIO {
             System.out.println("Error: The size of content array does not match with the size of spacing array.");
             System.exit(1);
         }
+    }
 
+    /**
+     * A method to set the parent path to another value.
+     *
+     * @param parentPath The new parent path
+     */
+    public static void setParentPathToFile(String parentPath) {
+        PARENT_PATH_TO_FILE = parentPath;
     }
 }

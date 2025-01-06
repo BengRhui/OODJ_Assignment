@@ -51,13 +51,13 @@ public class OrderFileIO extends FileIO {
         Customer orderingCustomer = Customer.getCustomer(recordFromFile[1]);
         Stall orderedStall = Stall.getStall(recordFromFile[2]);
         DeliveryRunner runnerInCharge = DeliveryRunner.getRunner(recordFromFile[3]);
-        String diningType = recordFromFile[4];
+        Order.DiningType diningType = Order.DiningType.getFromString(recordFromFile[4]);
         String tableNumber = recordFromFile[5];
         String deliveryNote = recordFromFile[6];
         double orderPrice = Double.parseDouble(recordFromFile[7]);
         LocalDateTime orderedDate = Utility.changeStringToTime(recordFromFile[8]);
         double tipsForRunner = Double.parseDouble(recordFromFile[9]);
-        String orderStatus = recordFromFile[10];
+        Order.OrderStatus orderStatus = Order.OrderStatus.getFromString(recordFromFile[10]);
         HashMap<Item, Integer> orderItem = Utility.changeStringToHashMap(recordFromFile[11]);
 
         // Create and return a new item object
@@ -99,13 +99,13 @@ public class OrderFileIO extends FileIO {
             record[1] = order.getOrderingCustomer().getUserID();
             record[2] = order.getOrderedStall().getStallID();
             record[3] = order.getRunnerInCharge().getUserID();
-            record[4] = order.getDiningType();
+            record[4] = order.getDiningType().toString();
             record[5] = order.getTableNumber();
             record[6] = order.getDeliveryNote();
             record[7] = String.valueOf(order.getOrderPrice());
             record[8] = Utility.generateString(order.getOrderedDate());
             record[9] = String.valueOf(order.getTipsForRunner());
-            record[10] = order.getOrderStatus();
+            record[10] = order.getOrderStatus().toString();
             record[11] = Utility.generateString(order.getOrderItem());
 
             // Add the record into list

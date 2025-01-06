@@ -1,5 +1,7 @@
 package backend.entity;
 
+import java.util.Arrays;
+
 /**
  * Class {@code Address} is used to represent addresses of:<br>
  * - Customer's delivery address<br>
@@ -10,32 +12,13 @@ package backend.entity;
 public class Address {
 
     /**
-     * Attributes involved in address (Malaysian ones). <br>
-     * A list containing all states in Malaysia is also provided.
+     * Attributes involved in address (Malaysian ones).
      */
-    public final String[] STATE_OPTIONS = {
-            "Perlis",
-            "Penang",
-            "Kelantan",
-            "Kedah",
-            "Terengganu",
-            "Pahang",
-            "Perak",
-            "Negeri Sembilan",
-            "Melaka",
-            "Johor",
-            "Selangor",
-            "Sabah",
-            "Sarawak",
-            "WP Kuala Lumpur",
-            "WP Putrajaya",
-            "WP Labuan"
-    };
     private String addressLine1;
     private String addressLine2;
     private String postcode;
     private String city;
-    private String state;
+    private State state;
 
     /**
      * Constructor used to create an instance of {@code Address}
@@ -46,7 +29,7 @@ public class Address {
      * @param city         The city of the residence
      * @param state        The state of the residence
      */
-    public Address(String addressLine1, String addressLine2, String postcode, String city, String state) {
+    public Address(String addressLine1, String addressLine2, String postcode, String city, State state) {
         this.addressLine1 = addressLine1;
         this.addressLine2 = addressLine2;
         this.postcode = postcode;
@@ -89,11 +72,11 @@ public class Address {
         this.city = city;
     }
 
-    public String getState() {
+    public State getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(State state) {
         this.state = state;
     }
 
@@ -106,6 +89,65 @@ public class Address {
     public String toString() {
         return addressLine1 + ",\n" +
                 addressLine2 + ",\n" +
-                postcode + " " + city + ", " + state;
+                postcode + " " + city + ", " + state.toString();
+    }
+
+    /**
+     * Enum {@code State} represents all the possible states in Malaysia.
+     */
+    public enum State {
+
+        /**
+         * The 13 states in Malaysia, including three federal territories.
+         */
+        PERLIS, PENANG, KELANTAN, KEDAH, TERENGGANU, PAHANG, PERAK, NEGERI_SEMBILAN, MELAKA, JOHOR, SELANGOR, SABAH,
+        SARAWAK, WP_KL, WP_PUTRAJAYA, WP_LABUAN;
+
+        /**
+         * A variable that represents the list of all the state options in string array.
+         */
+        public final static String[] STATE_OPTIONS = Arrays.stream(State.values())  // Obtain the values of State
+                .map(State::toString)                                               // Map it to the output of toString
+                .toArray(String[]::new);                                            // Output as a new String array
+
+        /**
+         * A method to get the respective State fields from the string input.
+         *
+         * @param state String input that represents state
+         * @return The state field corresponding to input
+         */
+        public static State getFromString(String state) {
+            return Arrays.stream(State.values())                                          // Get values of State
+                    .filter(itemInList -> itemInList.toString().equalsIgnoreCase(state))  // Filter based on input
+                    .findFirst()                                                          // Find the first occurrence
+                    .orElse(null);                                                        // Returns null if not match
+        }
+
+        /**
+         * A method to return the string value of the states.
+         *
+         * @return The string representation of states
+         */
+        @Override
+        public String toString() {
+            return switch (this) {
+                case PERLIS -> "Perlis";
+                case PENANG -> "Penang";
+                case KELANTAN -> "Kelantan";
+                case KEDAH -> "Kedah";
+                case TERENGGANU -> "Terengganu";
+                case PAHANG -> "Pahang";
+                case PERAK -> "Perak";
+                case NEGERI_SEMBILAN -> "Negeri Sembilan";
+                case MELAKA -> "Melaka";
+                case JOHOR -> "Johor";
+                case SELANGOR -> "Selangor";
+                case SABAH -> "Sabah";
+                case SARAWAK -> "Sarawak";
+                case WP_KL -> "WP Kuala Lumpur";
+                case WP_PUTRAJAYA -> "WP Putrajaya";
+                case WP_LABUAN -> "WP Labuan";
+            };
+        }
     }
 }
