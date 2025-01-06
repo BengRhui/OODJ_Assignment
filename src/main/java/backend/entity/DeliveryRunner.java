@@ -91,6 +91,23 @@ public class DeliveryRunner extends User {
     }
 
     /**
+     * A method to get the availability list for the current system.
+     * @return A HashMap consisting of the runner ID, with a boolean representing availability
+     */
+    public static HashMap<String, Boolean> getAvailabilityList() {
+        return availabilityList;
+    }
+
+    /**
+     * A method to print out the availability list (used for testing purposes, maybe will be removed if not used later)
+     */
+    public static void printAvailabilityList() {
+        for (HashMap.Entry<String, Boolean> entry : availabilityList.entrySet()) {
+            System.out.println(getRunner(entry.getKey()).getName() + ": " + entry.getValue());
+        }
+    }
+
+    /**
      * A method to retrieve the list of delivery runners based on their names.
      *
      * @param name The name of the runner
@@ -337,6 +354,9 @@ public class DeliveryRunner extends User {
         // Delete the relevant notifications
         boolean deleteNotification = DeliveryRunnerNotification.deleteRunnerFromNotification(this.getUserID());
         if (!deleteNotification) return false;
+
+        // Delete runner from availability list
+        availabilityList.remove(this.userID);
 
         // Change the relevant runner attributes in order to null
         boolean changeToNull = Order.changeRunnerToNull(this.getUserID());

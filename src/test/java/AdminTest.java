@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -749,6 +750,14 @@ public class AdminTest extends BaseTest {
     @Test
     void testAdminDeleteRunner() {
 
+        // Initialize the availability list for runner
+        DeliveryRunner.initializeAvailabilityList();
+
+        // Make sure that the runner is in the availability list
+        HashMap<String, Boolean> initialAvailabilityList = DeliveryRunner.getAvailabilityList();
+        Boolean isRunnerInAvailability = initialAvailabilityList.get(runner1.getUserID());
+        assertNotNull(isRunnerInAvailability);
+
         // Get initial size of notifications
         int initialNotificationSize = DeliveryRunnerNotification.getDeliveryRunnerNotificationList().size();
 
@@ -787,6 +796,11 @@ public class AdminTest extends BaseTest {
         runnerInOrder = Order.getOrderList().stream()
                 .anyMatch(order -> order.getRunnerInCharge() != null && order.getRunnerInCharge().getUserID().equals(runner1.getUserID()));
         assertFalse(runnerInOrder);
+
+        // Make sure that the availability list is also updated, where the runner is not in the list anymore
+        HashMap<String, Boolean> currentAvailabilityList = DeliveryRunner.getAvailabilityList();
+        isRunnerInAvailability = currentAvailabilityList.get(runner1.getUserID());
+        assertNull(isRunnerInAvailability);
     }
 
     /**
