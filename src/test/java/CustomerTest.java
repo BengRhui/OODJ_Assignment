@@ -1,3 +1,4 @@
+import backend.entity.Feedback;
 import backend.entity.Item;
 import backend.entity.Order;
 import backend.entity.Stall;
@@ -310,5 +311,14 @@ public class CustomerTest extends BaseTest {
 
         // Make sure that the item retrieved is item 1
         assertEquals(item1, itemList.getFirst());
+
+        // Part 3: Check if the ratings obtained are accurate (feedback 3: rating of 1.5)
+        // Check if the correct feedback can be retrieved - feedback 3
+        assertEquals(1, Feedback.getFeedbackList(stall1).size());
+        assertEquals(feedback3, Feedback.getFeedbackList(stall1).getFirst());
+
+        // Check if the ratings detail are correct
+        assertEquals(1, stall1.getFeedbackCount());
+        assertEquals(feedback3.getRatings(), stall1.getOverallRatings());
     }
 }

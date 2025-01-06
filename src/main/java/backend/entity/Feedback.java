@@ -190,9 +190,27 @@ public class Feedback {
      */
     public static ArrayList<Feedback> getFeedbackList(Category category) {
 
-        // Filter the feedback list based on the category
+        // Filter the feedback list based on the category and sort from latest to oldest
         return getFeedbackList().stream()
                 .filter(feedback -> feedback.feedbackCategory == category)
+                .sorted(Comparator.comparing(Feedback::getFeedbackSubmissionTime).reversed())
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * A method to filter the feedback list based on stall.
+     *
+     * @param stall The stall that associates with the feedback
+     * @return A filtered feedback list
+     */
+    public static ArrayList<Feedback> getFeedbackList(Stall stall) {
+
+        // Filter and sort the feedback list from latest to oldest based on the stall
+        return getFeedbackList().stream()
+                .filter(feedback -> feedback.feedbackCategory == Category.VENDOR &&
+                        feedback.orderAssociated.getOrderedStall() != null &&
+                        feedback.orderAssociated.getOrderedStall().getStallID().equals(stall.getStallID()))
+                .sorted(Comparator.comparing(Feedback::getFeedbackSubmissionTime).reversed())
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 

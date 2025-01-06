@@ -301,8 +301,11 @@ public class Stall {
      */
     public double getOverallRatings() {
 
+        // Get the feedback list required
+        ArrayList<Feedback> feedbackList = Feedback.getFeedbackList(this);
+
         // Get the rating details
-        double[] ratingDetails = this.calculateRating(Feedback.getFeedbackList());
+        double[] ratingDetails = this.calculateRating(feedbackList);
 
         // Return -1 if the rating details is null (no feedback)
         if (ratingDetails == null) return -1;
@@ -339,8 +342,11 @@ public class Stall {
      */
     public int getFeedbackCount() {
 
+        // Get the feedback list required
+        ArrayList<Feedback> feedbackList = Feedback.getFeedbackList(this);
+
         // Get the rating details
-        double[] ratingDetails = this.calculateRating(Feedback.getFeedbackList());
+        double[] ratingDetails = this.calculateRating(feedbackList);
 
         // Return -1 if the rating details is null
         if (ratingDetails == null) return -1;
