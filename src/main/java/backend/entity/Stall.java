@@ -34,7 +34,7 @@ public class Stall {
     public Stall(String stallID, String stallName, StallCategories[] stallCategories) {
         this.stallID = stallID;
         this.stallName = stallName;
-        Arrays.sort(stallCategories);
+        Arrays.sort(stallCategories);               // Sort categories before adding them
         this.stallCategories = stallCategories;
     }
 
@@ -313,6 +313,7 @@ public class Stall {
 
     /**
      * A method to delete the current stall. If there are still vendors associated with the stall, the operation will not proceed.
+     *
      * @return {@code true} if the stall is deleted successfully, else {@code false}
      */
     public boolean deleteStall() {
@@ -365,7 +366,7 @@ public class Stall {
     }
 
     public void setStallCategories(StallCategories[] stallCategories) {
-        Arrays.sort(stallCategories);               // Sort before added as attributes
+        Arrays.sort(stallCategories);               // Sort categories before adding
         this.stallCategories = stallCategories;
     }
 
