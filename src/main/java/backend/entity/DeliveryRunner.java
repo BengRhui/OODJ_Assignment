@@ -20,7 +20,7 @@ public class DeliveryRunner extends User {
      * A list that contains all delivery runners is also included.
      */
     private final static ArrayList<DeliveryRunner> deliveryRunnerList = new ArrayList<>();
-    private final static HashMap<DeliveryRunner, Boolean> availabilityList = new HashMap<>();
+    private final static HashMap<String, Boolean> availabilityList = new HashMap<>();
     private String contactNumber;
 
     /**
@@ -49,8 +49,8 @@ public class DeliveryRunner extends User {
 
         // From the availability list, get the available runners
         availabilityList.forEach(
-                (runner, availability) -> {
-                    if (availability) availableRunners.add(runner);
+                (runnerID, availability) -> {
+                    if (availability) availableRunners.add(getRunner(runnerID));
                 }
         );
 
@@ -77,7 +77,7 @@ public class DeliveryRunner extends User {
             boolean availability = runner.checkAvailability();
 
             // Add runner and the corresponding availability into the HashMap
-            availabilityList.put(runner, availability);
+            availabilityList.put(runner.userID, availability);
         }
     }
 
@@ -468,7 +468,7 @@ public class DeliveryRunner extends User {
     public boolean updateAvailability(boolean status) {
 
         // Replace the status in the HashMap with the new status
-        Boolean state = availabilityList.replace(this, status);
+        Boolean state = availabilityList.replace(this.userID, status);
 
         // Return false if the runner is not found, else return true
         return state != null;
