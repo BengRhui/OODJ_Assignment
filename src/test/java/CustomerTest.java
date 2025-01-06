@@ -10,6 +10,7 @@ import backend.notification.VendorNotification;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -365,5 +366,32 @@ public class CustomerTest extends BaseTest {
         assertEquals(2, customer1.getCart().size());
         assertEquals(12, customer1.getCart().get(item1.getItemID()));
         assertEquals(5, customer1.getCart().get(item2.getItemID()));
+    }
+
+    /**
+     * This test focuses on the operation where the customer removes an item from the cart
+     */
+    @Test
+    void testCustomerRemovingFromCart() {
+
+        // Create an additional item to be used for testing
+        Item item2 = new Item(Item.generateItemID(), "Milk tea", stall1, 7.00, "Healthy milk tea for children");
+        Item.addItemToList(item2);
+        ItemFileIO.writeFile();
+
+        // Initialize the cart
+        Map<String, Integer> initialCart = new HashMap<>();
+        initialCart.put(item1.getItemID(), 3);
+        initialCart.put(item2.getItemID(), 2);
+        customer1.setCart(initialCart);
+
+        // Customer remove the additional item from the cart
+        boolean removeFromCart = customer1.removeItemFromCart(item2);
+        assertTrue(removeFromCart);
+
+        // Check if the cart contents are correct
+        assertEquals(1, customer1.getCart().size());
+        assertEquals(3, customer1.getCart().get(item1.getItemID()));
+        assertNull(customer1.getCart().get(item2.getItemID()));
     }
 }

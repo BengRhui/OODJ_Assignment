@@ -443,7 +443,8 @@ public class Customer extends User {
 
     /**
      * A method to update the items in the cart.
-     * @param item The item object that is added to cart
+     *
+     * @param item     The item object that is added to cart
      * @param quantity The quantity of items
      * @return {@code true} if the cart is updated successfully, else {@code false}
      */
@@ -470,6 +471,24 @@ public class Customer extends User {
 
         // Return true for successful operation
         return true;
+    }
+
+    /**
+     * A method to allow customers to remove an item from their cart.
+     *
+     * @param item The item to be removed
+     * @return {@code true} if the item is removed successfully, else false
+     */
+    public boolean removeItemFromCart(Item item) {
+
+        // Return false if the input is null
+        if (item == null || cart.isEmpty()) return false;
+
+        // Get the ID of the item
+        String itemID = item.getItemID();
+
+        // Remove the item from the cart and return true for successful operation
+        return cart.remove(itemID) != null;
     }
 
     /**
