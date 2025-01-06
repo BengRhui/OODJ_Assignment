@@ -492,6 +492,33 @@ public class Customer extends User {
     }
 
     /**
+     * A method to return the total price for the cart.
+     *
+     * @return The total price
+     */
+    public double getTotalAmountForCart() {
+
+        // Declare a variable to store price
+        double price = 0;
+
+        // Loop through each item in the cart
+        for (Map.Entry<String, Integer> entry : cart.entrySet()) {
+
+            // Get the item from the item list
+            Item item = Item.getItem(entry.getKey());
+
+            // If the item cannot be retrieved, continue the loop
+            if (item == null) continue;
+
+            // Add the calculated price to variable
+            price += item.getPrice(entry.getValue());
+        }
+
+        // Return the variable as overall price for the cart
+        return price;
+    }
+
+    /**
      * A method to print out the information of {@code Customer} instances.
      *
      * @return String representation of {@code Customer} object

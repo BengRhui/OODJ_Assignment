@@ -358,6 +358,12 @@ public class CustomerTest extends BaseTest {
         assertEquals(2, customer1.getCart().get(item1.getItemID()));
         assertEquals(5, customer1.getCart().get(item2.getItemID()));
 
+        // Check if the price is calculated correctly
+        assertEquals(
+                item1.getPrice(2) + item2.getPrice(5),
+                customer1.getTotalAmountForCart()
+        );
+
         // Add item 1 again
         boolean addToCart3 = customer1.addItemToCart(item1, 10);
         assertTrue(addToCart3);
@@ -366,6 +372,12 @@ public class CustomerTest extends BaseTest {
         assertEquals(2, customer1.getCart().size());
         assertEquals(12, customer1.getCart().get(item1.getItemID()));
         assertEquals(5, customer1.getCart().get(item2.getItemID()));
+
+        // Check if the price is calculated correctly
+        assertEquals(
+                item1.getPrice(12) + item2.getPrice(5),
+                customer1.getTotalAmountForCart()
+        );
     }
 
     /**
@@ -393,5 +405,11 @@ public class CustomerTest extends BaseTest {
         assertEquals(1, customer1.getCart().size());
         assertEquals(3, customer1.getCart().get(item1.getItemID()));
         assertNull(customer1.getCart().get(item2.getItemID()));
+
+        // Check if the price is calculated correctly
+        assertEquals(
+                item1.getPrice(3),
+                customer1.getTotalAmountForCart()
+        );
     }
 }

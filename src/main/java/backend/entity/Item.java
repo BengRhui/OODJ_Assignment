@@ -326,6 +326,22 @@ public class Item {
     }
 
     /**
+     * A method to calculate the price of an item according to their quantities,
+     *
+     * @param quantity The number of item involved
+     * @return The calculated price of an item
+     * @throws IllegalArgumentException Occurs when the amount for quantity is less than or equals to 0
+     */
+    public double getPrice(int quantity) throws IllegalArgumentException {
+
+        // Throw an exception if quantity is wrong
+        if (quantity <= 0) throw new IllegalArgumentException("The quantity cannot be less than or equal to 0.");
+
+        // Return the unit price multiplied with quantity
+        return this.getPrice() * quantity;
+    }
+
+    /**
      * Getters and setters for the {@code Item} class.
      */
     public String getItemID() {
