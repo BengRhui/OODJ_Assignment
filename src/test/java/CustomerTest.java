@@ -1,3 +1,4 @@
+import backend.entity.Item;
 import backend.entity.Order;
 import backend.entity.Stall;
 import backend.notification.CustomerNotification;
@@ -282,8 +283,9 @@ public class CustomerTest extends BaseTest {
      * This method focuses on whether the system would display the correct stalls when customer select stall categories.
      */
     @Test
-    void testCustomerGetStallWithCategories() {
+    void testCustomerGetInformation() {
 
+        // Part 1: Test if the stall can be retrieved based on category
         // Stall 1 is Chinese and Local. Trying to retrieve the stall
         ArrayList<Stall> stallList = Stall.filterStall(Stall.StallCategories.CHINESE);
 
@@ -298,5 +300,15 @@ public class CustomerTest extends BaseTest {
 
         // Make sure that no store is retrieved
         assertEquals(0, stallList.size());
+
+        // Part 2: Test if the items of a selected stall can be displayed
+        // Item 1 is in stall 1. Try to retrieve the item
+        ArrayList<Item> itemList = Item.getItemList(stall1);
+
+        // Make sure that there is only one item retrieved
+        assertEquals(1, itemList.size());
+
+        // Make sure that the item retrieved is item 1
+        assertEquals(item1, itemList.getFirst());
     }
 }
