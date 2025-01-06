@@ -7,6 +7,7 @@ import backend.utility.Utility;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Class {@code Stall} is used to represent the different types of stalls in the food court.
@@ -222,6 +223,21 @@ public class Stall {
 
         // Return true for successful operation
         return 1;
+    }
+
+    /**
+     * A method to filter the list of stalls based on a specific category
+     *
+     * @param category The category to be filtered
+     * @return The filtered list of stalls
+     */
+    public static ArrayList<Stall> filterStall(StallCategories category) {
+
+        // Filter the stall list based on categories
+        return getStallList().stream()                                              // Convert to stream
+                .filter(stall -> Arrays.stream(stall.stallCategories)               // Get the stall category list and convert to stream also
+                        .anyMatch(categoryInList -> categoryInList == category))    // Determine if the category is inside the list
+                .collect(Collectors.toCollection(ArrayList::new));                  // Return the list as ArrayList
     }
 
     /**

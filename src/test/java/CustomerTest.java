@@ -1,4 +1,5 @@
 import backend.entity.Order;
+import backend.entity.Stall;
 import backend.notification.CustomerNotification;
 import backend.notification.DeliveryRunnerNotification;
 import backend.notification.Notification;
@@ -275,5 +276,27 @@ public class CustomerTest extends BaseTest {
                 "The dining method for order " + order3.getOrderID() + " has been changed. Please return to the main page to re-accept the order if you wish to proceed with the order.",
                 differentVendor.getFirst().getNotificationDetails()
         );
+    }
+
+    /**
+     * This method focuses on whether the system would display the correct stalls when customer select stall categories.
+     */
+    @Test
+    void testCustomerGetStallWithCategories() {
+
+        // Stall 1 is Chinese and Local. Trying to retrieve the stall
+        ArrayList<Stall> stallList = Stall.filterStall(Stall.StallCategories.CHINESE);
+
+        // Make sure that only one stall is retrieved
+        assertEquals(1, stallList.size());
+
+        // Make sure that the retrieved stall is stall 1
+        assertEquals(stall1, stallList.getFirst());
+
+        // Now try to retrieve a stall that is not relevant
+        stallList = Stall.filterStall(Stall.StallCategories.HALAL);
+
+        // Make sure that no store is retrieved
+        assertEquals(0, stallList.size());
     }
 }
