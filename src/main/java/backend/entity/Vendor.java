@@ -364,7 +364,7 @@ public class Vendor extends User {
         Stall associatedStall = this.getStall();
 
         // Return the ratings of the stall
-        return associatedStall.getOverallRating(filter)[0];
+        return associatedStall.getOverallRatings(filter);
     }
 
     /**
@@ -378,7 +378,7 @@ public class Vendor extends User {
         Stall associatedStall = this.getStall();
 
         // Return the feedback count of the stall
-        return (int) associatedStall.getOverallRating(filter)[1];
+        return associatedStall.getFeedbackCount(filter);
     }
 
     /**
