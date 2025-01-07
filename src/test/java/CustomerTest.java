@@ -5,6 +5,7 @@ import backend.notification.CustomerNotification;
 import backend.notification.DeliveryRunnerNotification;
 import backend.notification.Notification;
 import backend.notification.VendorNotification;
+import backend.utility.Utility;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -359,7 +360,7 @@ public class CustomerTest extends BaseTest {
         // Check if the price is calculated correctly
         assertEquals(
                 item1.getPrice(2) + item2.getPrice(5),
-                customer1.getTotalAmountForCart()
+                Utility.getTotalAmountForCart(customer1.getCart())
         );
 
         // Add item 1 again
@@ -374,7 +375,7 @@ public class CustomerTest extends BaseTest {
         // Check if the price is calculated correctly
         assertEquals(
                 item1.getPrice(12) + item2.getPrice(5),
-                customer1.getTotalAmountForCart()
+                Utility.getTotalAmountForCart(customer1.getCart())
         );
     }
 
@@ -407,7 +408,7 @@ public class CustomerTest extends BaseTest {
         // Check if the price is calculated correctly
         assertEquals(
                 item1.getPrice(3),
-                customer1.getTotalAmountForCart()
+                Utility.getTotalAmountForCart(customer1.getCart())
         );
     }
 
@@ -478,7 +479,7 @@ public class CustomerTest extends BaseTest {
 
         // Get the initial e-wallet amount
         double initialWalletAmount = customer1.getEWalletAmount();
-        double cartAmount = customer1.getTotalAmountForCart();
+        double cartAmount = Utility.getTotalAmountForCart(customer1.getCart());
 
         // Place order - dine-in
         boolean placeOrderOne = customer1.placeOrder(
@@ -574,7 +575,7 @@ public class CustomerTest extends BaseTest {
 
         // Get the price of the order
         initialWalletAmount = customer1.getEWalletAmount();
-        cartAmount = customer1.getTotalAmountForCart();
+        cartAmount = Utility.getTotalAmountForCart(customer1.getCart());
 
         // Place order - delivery
         boolean placeOrderTwo = customer1.placeOrder(

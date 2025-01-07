@@ -794,6 +794,41 @@ public class Utility {
     }
 
     /**
+     * A method to return the total price for the cart.
+     *
+     * @param cart The cart consisting of item and quantity
+     * @return The total price
+     */
+    public static double getTotalAmountForCart(Map<?, Integer> cart) {
+
+        // Declare a variable to store price
+        double price = 0;
+
+        // Loop through each item in the cart
+        for (Map.Entry<?, Integer> entry : cart.entrySet()) {
+
+            // Get the object
+            Object key = entry.getKey();
+
+            // Declare a variable to store item object
+            Item item = null;
+
+            // Retrieve item object based on key
+            if (key instanceof String) item = Item.getItem((String) key);
+            else if (key instanceof Item) item = (Item) key;
+
+            // If the item cannot be retrieved, continue the loop
+            if (item == null) continue;
+
+            // Add the calculated price to variable
+            price += item.getPrice(entry.getValue());
+        }
+
+        // Return the variable as overall price for the cart
+        return price;
+    }
+
+    /**
      * An enum class that is used to filter the time range (especially when generating charts).
      */
     public enum TimeframeFilter {

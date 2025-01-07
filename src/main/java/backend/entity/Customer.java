@@ -496,33 +496,6 @@ public class Customer extends User {
     }
 
     /**
-     * A method to return the total price for the cart.
-     *
-     * @return The total price
-     */
-    public double getTotalAmountForCart() {
-
-        // Declare a variable to store price
-        double price = 0;
-
-        // Loop through each item in the cart
-        for (Map.Entry<String, Integer> entry : cart.entrySet()) {
-
-            // Get the item from the item list
-            Item item = Item.getItem(entry.getKey());
-
-            // If the item cannot be retrieved, continue the loop
-            if (item == null) continue;
-
-            // Add the calculated price to variable
-            price += item.getPrice(entry.getValue());
-        }
-
-        // Return the variable as overall price for the cart
-        return price;
-    }
-
-    /**
      * A method for customers to update cart based on the chosen dining method.
      *
      * @param diningType The dining type preferred by customers
@@ -565,7 +538,7 @@ public class Customer extends User {
         if (cart.isEmpty()) return false;
 
         // If the wallet balance is less than the order amount, return false
-        if (this.getTotalAmountForCart() > this.eWalletAmount) return false;
+        if (Utility.getTotalAmountForCart(cart) > this.eWalletAmount) return false;
 
         // Declare a variable to store runner involved (for delivery)
         DeliveryRunner runnerGenerated = null;
@@ -590,7 +563,7 @@ public class Customer extends User {
                 diningType,
                 tableNumber,
                 notesToVendor,
-                this.getTotalAmountForCart(),
+                Utility.getTotalAmountForCart(cart),
                 LocalDateTime.now(),
                 Order.OrderStatus.WAITING_VENDOR,
                 Utility.convertItemMap(cart)
@@ -600,7 +573,7 @@ public class Customer extends User {
         boolean createCustomerNotification = CustomerNotification.createNewNotification(
                 "Order Placed Successfully",
                 "Your order " + newOrder.getOrderID() + " has been created successfully. " +
-                        "An amount of RM" + String.format("%.2f", this.getTotalAmountForCart()) + " is deducted from your wallet. " +
+                        "An amount of RM" + String.format("%.2f", Utility.getTotalAmountForCart(cart)) + " is deducted from your wallet. " +
                         "Please wait for the vendor and runner (if applicable) to accept your order.",
                 this
         );
@@ -625,13 +598,13 @@ public class Customer extends User {
         }
 
         // Remove the money from the customer's account
-        double remainingWalletAmount = this.getEWalletAmount() - this.getTotalAmountForCart();
+        double remainingWalletAmount = this.getEWalletAmount() - Utility.getTotalAmountForCart(cart);
         this.setEWalletAmount(remainingWalletAmount);
 
         // Create a transaction history to record the money spent on order
         boolean createTransactionHistory = Transaction.createTransactionHistory(
                 this,
-                this.getTotalAmountForCart(),
+                Utility.getTotalAmountForCart(cart),
                 Transaction.TransactionType.CASH_OUT,
                 Transaction.PaymentMethod.E_WALLET
         );
