@@ -86,6 +86,34 @@ public class Feedback {
     }
 
     /**
+     * A method to automatically generate the ID for a new feedback.
+     *
+     * @return The ID string of the feedback
+     */
+    public static String generateNewID() {
+
+        // Create a variable to record index
+        int index = 1;
+
+        // Start an infinity loop
+        while (true) {
+
+            // Generate an ID
+            String generatedID = String.format("F%03d", index);
+
+            // Check if the ID is used by another feedback
+            boolean isAvailable = feedbackList.stream()
+                    .noneMatch(feedback -> feedback.getFeedbackID().equals(generatedID));
+
+            // If not used by others, return the ID
+            if (isAvailable) return generatedID;
+
+            // If yes, increase index and try again
+            index++;
+        }
+    }
+
+    /**
      * A method to change the customer attribute of associated customer to null if a customer is deleted.
      *
      * @param customerID The ID of the associated customer
