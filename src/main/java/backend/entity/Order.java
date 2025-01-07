@@ -7,7 +7,10 @@ import backend.notification.VendorNotification;
 import backend.utility.Utility;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -110,7 +113,7 @@ public class Order {
     /**
      * A method to add {@code Order} objects into the overall list.
      *
-     * @param order The {@code Order} objectS to be added into list.
+     * @param order The {@code Order} objects to be added into list.
      */
     public static void addToOrderList(Order... order) {
 
@@ -127,6 +130,7 @@ public class Order {
 
     /**
      * A method to generate a new ID for orders.
+     *
      * @return The new ID in string form
      */
     public static String generateNewID() {
@@ -148,7 +152,7 @@ public class Order {
             if (isIdAvailable) return generatedID;
 
             // If not, then increment index and start the loop again
-            index ++;
+            index++;
         }
     }
 
@@ -1025,6 +1029,7 @@ public class Order {
 
     /**
      * A method for customers to cancel an order (before the vendors and runners accept it)
+     *
      * @return {@code true} if the order is cancelled successfully, else {@code false}
      */
     public boolean customerCancelOrder() {
@@ -1075,13 +1080,15 @@ public class Order {
 
     /**
      * A method to let customer change the order to their preferred dining type due to the lack of delivery runner.
+     *
      * @param type The dining type that the customer wishes to change their order to
      * @return {@code true} if changes are applied successfully, else {@code false}
      */
     public boolean customerChangeDiningStatus(DiningType type) {
 
         // Make sure that the correct order is passed to this method
-        if (this.getDiningType() != DiningType.DELIVERY || this.getOrderStatus() != OrderStatus.PENDING_CHANGE) return false;
+        if (this.getDiningType() != DiningType.DELIVERY || this.getOrderStatus() != OrderStatus.PENDING_CHANGE)
+            return false;
 
         // Perform different operations based on different types
         switch (type) {

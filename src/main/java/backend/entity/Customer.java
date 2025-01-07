@@ -2,9 +2,13 @@ package backend.entity;
 
 import backend.file_io.CredentialsFileIO;
 import backend.file_io.CustomerFileIO;
+import backend.file_io.OrderFileIO;
 import backend.notification.CustomerNotification;
+import backend.notification.DeliveryRunnerNotification;
+import backend.notification.VendorNotification;
 import backend.utility.Utility;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -540,6 +544,132 @@ public class Customer extends User {
                 if (cart.get(Item.deliveryFees.getItemID()) != null) cart.remove(Item.deliveryFees.getItemID());
             }
         }
+
+        // Return true for successful operation
+        return true;
+    }
+
+    /**
+     * A method to create delivery and takeaway orders from cart.
+     *
+     * @param stall         The stall associated when proceed with the cart
+     * @param cart          The items in the cart
+     * @param diningType    The dining type chosen
+     * @param notesToVendor The additional notes that customer provides to vendor
+     * @return {@code true} if the order is created successfully, else {@code false}
+     */
+    public boolean createOrder(Stall stall, Map<String, Integer> cart, Order.DiningType diningType, String notesToVendor) {
+
+        // This method is only for delivery and takeaway (dine-in requires a table number)
+        if (diningType == Order.DiningType.DINE_IN) return false;
+
+        // If dining type is delivery, get delivery runner, else set the value as null
+        DeliveryRunner runner = diningType == Order.DiningType.DELIVERY ? DeliveryRunner.getAvailableRunner() : null;
+
+        // Create order object
+        Order newOrder = new Order(
+                Order.generateNewID(),
+                this,
+                stall,
+                runner,
+                null,
+                diningType,
+                null,
+                notesToVendor,
+                this.getTotalAmountForCart(),
+                LocalDateTime.now(),
+                diningType == Order.DiningType.DELIVERY ? Order.OrderStatus.WAITING_VENDOR_AND_RUNNER : Order.OrderStatus.WAITING_VENDOR,
+                Utility.convertItemMap(cart)
+        );
+
+        // Create customer notification for new order
+        boolean createCustomerNotification = CustomerNotification.createNewNotification(
+                "Order Placed Successfully",
+                "Your order " + newOrder.getOrderID() + " has been created successfully. Please wait for the vendor and runner (if applicable) to accept your order.",
+                this
+        );
+        if (!createCustomerNotification) return false;
+
+        // Create vendor notification for new order
+        boolean createVendorNotification = VendorNotification.createNewNotification(
+                "New Order Available",
+                "A new order with ID " + newOrder.getOrderID() + " is available. You may return to the main menu to check the details.",
+                stall
+        );
+        if (!createVendorNotification) return false;
+
+        // Create runner notification for new order (if applicable)
+        if (runner != null) {
+            boolean createRunnerNotification = DeliveryRunnerNotification.createNewNotification(
+                    "New Order Available",
+                    "A new order with ID " + newOrder.getOrderID() + " is available. You may return to main menu to check the details.",
+                    runner
+            );
+            if (!createRunnerNotification) return false;
+        }
+
+        // Add to order list
+        Order.addToOrderList(newOrder);
+
+        // Write to file
+        OrderFileIO.writeFile();
+
+        // Return true for successful operation
+        return true;
+    }
+
+    /**
+     * A method to create orders for dine-in orders (where table number is involved).
+     *
+     * @param stall         The stall associated with the cart
+     * @param cart          The items inside the cart
+     * @param diningType    The dining method chosen by customer
+     * @param notesToVendor The additional notes provided to vendor
+     * @param tableNumber   The table number inputted by customer
+     * @return {@code true} if the order is created successfully, else {@code false}
+     */
+    public boolean createOrder(Stall stall, Map<String, Integer> cart, Order.DiningType diningType, String notesToVendor, String tableNumber) {
+
+        // The method is only for dine-in
+        if (diningType == Order.DiningType.DINE_IN) return false;
+
+        // Create new order
+        Order newOrder = new Order(
+                Order.generateNewID(),
+                this,
+                stall,
+                null,
+                null,
+                diningType,
+                tableNumber,
+                notesToVendor,
+                this.getTotalAmountForCart(),
+                LocalDateTime.now(),
+                Order.OrderStatus.WAITING_VENDOR,
+                Utility.convertItemMap(cart)
+        );
+
+        // Create vendor notification for new order
+        boolean createVendorNotification = VendorNotification.createNewNotification(
+                "New Order Available",
+                "A new order with ID " + newOrder.getOrderID() + " is available. You may return to the main menu to check the details.",
+                stall
+        );
+        if (!createVendorNotification) return false;
+
+        // Create customer notification for new order
+        boolean createCustomerNotification = CustomerNotification.createNewNotification(
+                "Order Placed Successfully",
+                "Your order " + newOrder.getOrderID() + " has been created successfully. Please wait for the vendor and runner (if applicable) to accept your order.",
+                this
+        );
+        if (!createCustomerNotification) return false;
+
+        // Add to order list
+        Order.addToOrderList(newOrder);
+
+        // Write to file
+        OrderFileIO.writeFile();
 
         // Return true for successful operation
         return true;

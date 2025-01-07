@@ -94,10 +94,10 @@ public class Utility {
         map.entrySet().stream()                                                         // Convert map to stream
                 .sorted(Comparator.comparing(item -> item.getKey().getItemID()))        // Sort the map based on item ID
                 .forEach(entry -> string.append(entry.getKey().getItemID())             // Convert each pair to string
-                                .append(" - ")
-                                .append(entry.getValue())
-                                .append(", ")
-        );
+                        .append(" - ")
+                        .append(entry.getValue())
+                        .append(", ")
+                );
 
         // Remove the extra ", " at the end of the string builder
         string.delete(string.length() - 2, string.length());
@@ -756,6 +756,41 @@ public class Utility {
 
         // Set the style to the cell
         cell.setCellStyle(cellStyle);
+    }
+
+    /**
+     * A method to convert map consisting of item ID to the item object.
+     *
+     * @param map The map with item ID as key, quantity as value
+     * @return Map with item object as key, quantity as value
+     */
+    public static Map<Item, Integer> convertItemMap(Map<String, Integer> map) {
+
+        // Return null if the map is empty
+        if (map == null) return null;
+
+        // Create a map to store values to output
+        Map<Item, Integer> outputMap = new HashMap<>();
+
+        // Loop through each entry
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+
+            // Get the item ID and retrieve the associated item
+            String itemID = entry.getKey();
+            Item item = Item.getItem(itemID);
+
+            // If the retrieved item is null, return null
+            if (item == null) return null;
+
+            // Get the quantity of the item
+            int quantity = entry.getValue();
+
+            // Put them into the map
+            outputMap.put(item, quantity);
+        }
+
+        // Return the map
+        return outputMap;
     }
 
     /**
