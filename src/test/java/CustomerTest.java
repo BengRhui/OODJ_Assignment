@@ -1,7 +1,5 @@
-import backend.entity.Feedback;
-import backend.entity.Item;
-import backend.entity.Order;
-import backend.entity.Stall;
+import backend.entity.*;
+import backend.file_io.DeliveryRunnerFileIO;
 import backend.file_io.ItemFileIO;
 import backend.notification.CustomerNotification;
 import backend.notification.DeliveryRunnerNotification;
@@ -456,8 +454,9 @@ public class CustomerTest extends BaseTest {
     @Test
     void testCustomerPlaceOrder() {
 
-        // Get initial list of orders
+        // Get initial list of orders and transactions
         ArrayList<Order> initialOrderList = new ArrayList<>(Order.getOrderList());
+        ArrayList<Transaction> initialTransactionList = new ArrayList<>(Transaction.getTransactionList());
 
         // Get initial list of notifications
         ArrayList<Notification> initialCustomerNotification = TestUtility.convertToNotificationArray(
@@ -476,6 +475,10 @@ public class CustomerTest extends BaseTest {
         Map<String, Integer> cart = new HashMap<>();
         cart.put(item1.getItemID(), 3);
         customer1.setCart(cart);
+
+        // Get the initial e-wallet amount
+        double initialWalletAmount = customer1.getEWalletAmount();
+        double cartAmount = customer1.getTotalAmountForCart();
 
         // Place order - dine-in
         boolean placeOrderOne = customer1.placeOrder(
@@ -531,7 +534,9 @@ public class CustomerTest extends BaseTest {
 
         // Check if notification descriptions correct
         assertEquals(
-                "Your order " + differentOrder.getFirst().getOrderID() + " has been created successfully. Please wait for the vendor and runner (if applicable) to accept your order.",
+                "Your order " + differentOrder.getFirst().getOrderID() + " has been created successfully. " +
+                        "An amount of RM" + String.format("%.2f", cartAmount) + " is deducted from your wallet. " +
+                        "Please wait for the vendor and runner (if applicable) to accept your order.",
                 differentCustomerNotification.getFirst().getNotificationDetails()
         );
 
@@ -540,19 +545,46 @@ public class CustomerTest extends BaseTest {
                 differentVendorNotification.getFirst().getNotificationDetails()
         );
 
-        // Initialize carts, initial order and notification lists
+        // Check if the e-wallet amount is updated
+        assertEquals(
+                initialWalletAmount - cartAmount,
+                customer1.getEWalletAmount()
+        );
+
+        // Retrieve the newly created transaction
+        ArrayList<Transaction> differentTransaction = new ArrayList<>(Transaction.getTransactionList());
+        differentTransaction.removeAll(initialTransactionList);
+
+        // Check if transaction list is updated
+        assertEquals(1, differentTransaction.size());
+
+        // Check if the transaction details are correct
+        assertEquals(Transaction.TransactionType.CASH_OUT, differentTransaction.getFirst().getTransactionType());
+        assertEquals(Transaction.PaymentMethod.E_WALLET, differentTransaction.getFirst().getPaymentMethod());
+
+        // Initialize carts
         cart.put(item1.getItemID(), 2);
+        customer1.setCart(cart);
+
+        // Initialize order, notification and transaction lists
         initialOrderList = new ArrayList<>(Order.getOrderList());
         initialCustomerNotification.add(differentCustomerNotification.getFirst());
         initialVendorNotification.add(differentVendorNotification.getFirst());
+        initialTransactionList.add(differentTransaction.getFirst());
+
+        // Get the price of the order
+        initialWalletAmount = customer1.getEWalletAmount();
+        cartAmount = customer1.getTotalAmountForCart();
 
         // Place order - delivery
-        customer1.placeOrder(
+        boolean placeOrderTwo = customer1.placeOrder(
                 stall1,
                 cart,
                 Order.DiningType.DELIVERY,
-                "No spicy please"
+                "No spicy please",
+                null
         );
+        assertTrue(placeOrderTwo);
 
         // Retrieve the newly created order
         differentOrder = new ArrayList<>(Order.getOrderList());
@@ -563,6 +595,7 @@ public class CustomerTest extends BaseTest {
 
         // Check if the order details are correct
         assertEquals(Order.DiningType.DELIVERY, differentOrder.getFirst().getDiningType());
+        assertEquals(runner1.getUserID(), differentOrder.getFirst().getRunnerInCharge().getUserID());
         assertEquals(2, differentOrder.getFirst().getOrderItem().get(item1));
 
         // Get the newly created notifications
@@ -594,7 +627,9 @@ public class CustomerTest extends BaseTest {
 
         // Make sure that the description tallies
         assertEquals(
-                "Your order " + differentOrder.getFirst().getOrderID() + " has been created successfully. Please wait for the vendor and runner (if applicable) to accept your order.",
+                "Your order " + differentOrder.getFirst().getOrderID() + " has been created successfully. " +
+                        "An amount of RM" + String.format("%.2f", cartAmount) + " is deducted from your wallet. " +
+                        "Please wait for the vendor and runner (if applicable) to accept your order.",
                 differentCustomerNotification.getFirst().getNotificationDetails()
         );
 
@@ -608,12 +643,30 @@ public class CustomerTest extends BaseTest {
                 differentRunnerNotification.getFirst().getNotificationDetails()
         );
 
-        // Erroneous order
+        // Make sure that the e-wallet amount is updated
+        assertEquals(
+                initialWalletAmount - cartAmount,
+                customer1.getEWalletAmount()
+        );
+
+        // Retrieve the new transaction history
+        differentTransaction = new ArrayList<>(Transaction.getTransactionList());
+        differentTransaction.removeAll(initialTransactionList);
+
+        // Check if transaction list is updated
+        assertEquals(1, differentTransaction.size());
+
+        // Check if the transaction details are correct
+        assertEquals(Transaction.TransactionType.CASH_OUT, differentTransaction.getFirst().getTransactionType());
+        assertEquals(Transaction.PaymentMethod.E_WALLET, differentTransaction.getFirst().getPaymentMethod());
+
+        // Erroneous order - empty cart
         boolean errorOrder = customer1.placeOrder(
                 stall1,
                 customer1.getCart(),
                 Order.DiningType.DELIVERY,
-                "Hello"
+                "Hello",
+                null
         );
         assertFalse(errorOrder);
     }

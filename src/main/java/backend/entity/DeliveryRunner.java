@@ -257,6 +257,9 @@ public class DeliveryRunner extends User {
         // Add to list
         addToRunnerList(newRunner);
 
+        // Update the availability list
+        availabilityList.put(newRunner.userID, true);
+
         // Write to file
         CredentialsFileIO.writeCredentialsFile();
         DeliveryRunnerFileIO runnerIO = new DeliveryRunnerFileIO();

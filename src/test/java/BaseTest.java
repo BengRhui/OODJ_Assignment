@@ -205,7 +205,7 @@ public class BaseTest {
                 "Customer Trailblazer",
                 "012-3456789",
                 address1,
-                102.70,
+                1002.70,
                 "I'm a baseball bat!"
         );
         Customer.addToCustomerList(customer1);

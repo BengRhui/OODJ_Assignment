@@ -550,104 +550,42 @@ public class Customer extends User {
     }
 
     /**
-     * A method to create delivery and takeaway orders from cart.
-     *
-     * @param stall         The stall associated when proceed with the cart
-     * @param cart          The items in the cart
-     * @param diningType    The dining type chosen
-     * @param notesToVendor The additional notes that customer provides to vendor
-     * @return {@code true} if the order is created successfully, else {@code false}
-     */
-    public boolean placeOrder(Stall stall, Map<String, Integer> cart, Order.DiningType diningType, String notesToVendor) {
-
-        // This method is only for delivery and takeaway (dine-in requires a table number)
-        if (diningType == Order.DiningType.DINE_IN) return false;
-
-        // If the cart is empty, reject placing order
-        if (cart.isEmpty()) return false;
-
-        // If dining type is delivery, get delivery runner, else set the value as null
-        DeliveryRunner runner = diningType == Order.DiningType.DELIVERY ? DeliveryRunner.getAvailableRunner() : null;
-
-        // Create order object
-        Order newOrder = new Order(
-                Order.generateNewID(),
-                this,
-                stall,
-                runner,
-                null,
-                diningType,
-                null,
-                notesToVendor,
-                this.getTotalAmountForCart(),
-                LocalDateTime.now(),
-                diningType == Order.DiningType.DELIVERY ? Order.OrderStatus.WAITING_VENDOR_AND_RUNNER : Order.OrderStatus.WAITING_VENDOR,
-                Utility.convertItemMap(cart)
-        );
-
-        // Create customer notification for new order
-        boolean createCustomerNotification = CustomerNotification.createNewNotification(
-                "Order Placed Successfully",
-                "Your order " + newOrder.getOrderID() + " has been created successfully. Please wait for the vendor and runner (if applicable) to accept your order.",
-                this
-        );
-        if (!createCustomerNotification) return false;
-
-        // Create vendor notification for new order
-        boolean createVendorNotification = VendorNotification.createNewNotification(
-                "New Order Available",
-                "A new order with ID " + newOrder.getOrderID() + " is available. You may return to the main menu to check the details.",
-                stall
-        );
-        if (!createVendorNotification) return false;
-
-        // Create runner notification for new order (if applicable)
-        if (runner != null) {
-            boolean createRunnerNotification = DeliveryRunnerNotification.createNewNotification(
-                    "New Order Available",
-                    "A new order with ID " + newOrder.getOrderID() + " is available. You may return to the main menu to check the details.",
-                    runner
-            );
-            if (!createRunnerNotification) return false;
-        }
-
-        // Add to order list
-        Order.addToOrderList(newOrder);
-
-        // Write to file
-        OrderFileIO.writeFile();
-
-        // Reset cart
-        this.setCart(new HashMap<>());
-
-        // Return true for successful operation
-        return true;
-    }
-
-    /**
-     * A method to create orders for dine-in orders (where table number is involved).
+     * A method for customers to place an order.
      *
      * @param stall         The stall associated with the cart
      * @param cart          The items inside the cart
      * @param diningType    The dining method chosen by customer
      * @param notesToVendor The additional notes provided to vendor
-     * @param tableNumber   The table number inputted by customer
+     * @param tableNumber   The table number inputted by customer (only for dine-in)
      * @return {@code true} if the order is created successfully, else {@code false}
      */
     public boolean placeOrder(Stall stall, Map<String, Integer> cart, Order.DiningType diningType, String notesToVendor, String tableNumber) {
 
-        // The method is only for dine-in
-        if (diningType != Order.DiningType.DINE_IN) return false;
-
         // If the cart is empty, reject placing order
         if (cart.isEmpty()) return false;
+
+        // If the wallet balance is less than the order amount, return false
+        if (this.getTotalAmountForCart() > this.eWalletAmount) return false;
+
+        // Declare a variable to store runner involved (for delivery)
+        DeliveryRunner runnerGenerated = null;
+
+        // Check if dining type is delivery
+        if (diningType == Order.DiningType.DELIVERY) {
+
+            // Try to get an available runner if possible
+            runnerGenerated = DeliveryRunner.getAvailableRunner();
+
+            // If there is no runner available, reject the order
+            if (runnerGenerated == null) return false;
+        }
 
         // Create new order
         Order newOrder = new Order(
                 Order.generateNewID(),
                 this,
                 stall,
-                null,
+                runnerGenerated,
                 null,
                 diningType,
                 tableNumber,
@@ -658,6 +596,16 @@ public class Customer extends User {
                 Utility.convertItemMap(cart)
         );
 
+        // Create customer notification for new order
+        boolean createCustomerNotification = CustomerNotification.createNewNotification(
+                "Order Placed Successfully",
+                "Your order " + newOrder.getOrderID() + " has been created successfully. " +
+                        "An amount of RM" + String.format("%.2f", this.getTotalAmountForCart()) + " is deducted from your wallet. " +
+                        "Please wait for the vendor and runner (if applicable) to accept your order.",
+                this
+        );
+        if (!createCustomerNotification) return false;
+
         // Create vendor notification for new order
         boolean createVendorNotification = VendorNotification.createNewNotification(
                 "New Order Available",
@@ -666,13 +614,28 @@ public class Customer extends User {
         );
         if (!createVendorNotification) return false;
 
-        // Create customer notification for new order
-        boolean createCustomerNotification = CustomerNotification.createNewNotification(
-                "Order Placed Successfully",
-                "Your order " + newOrder.getOrderID() + " has been created successfully. Please wait for the vendor and runner (if applicable) to accept your order.",
-                this
+        // Create runner notification for new order (if involved)
+        if (runnerGenerated != null) {
+            boolean createRunnerNotification = DeliveryRunnerNotification.createNewNotification(
+                    "New Order Available",
+                    "A new order with ID " + newOrder.getOrderID() + " is available. You may return to the main menu to check the details.",
+                    runnerGenerated
+            );
+            if (!createRunnerNotification) return false;
+        }
+
+        // Remove the money from the customer's account
+        double remainingWalletAmount = this.getEWalletAmount() - this.getTotalAmountForCart();
+        this.setEWalletAmount(remainingWalletAmount);
+
+        // Create a transaction history to record the money spent on order
+        boolean createTransactionHistory = Transaction.createTransactionHistory(
+                this,
+                this.getTotalAmountForCart(),
+                Transaction.TransactionType.CASH_OUT,
+                Transaction.PaymentMethod.E_WALLET
         );
-        if (!createCustomerNotification) return false;
+        if (!createTransactionHistory) return false;
 
         // Add to order list
         Order.addToOrderList(newOrder);
