@@ -293,7 +293,7 @@ public class BaseTest {
                 customer1,
                 order1,
                 LocalDateTime.of(2021, 4, 6, 12, 32, 45),
-                4.5,
+                4,
                 "Good feedback 1",
                 "Very good runner",
                 "Thank you sir"
@@ -305,7 +305,7 @@ public class BaseTest {
                 customer1,
                 null,
                 LocalDateTime.of(2025, 1, 2, 14, 12, 52),
-                3.5,
+                3,
                 "Moderate feedback 2",
                 "Moderate good system",
                 null
@@ -317,7 +317,7 @@ public class BaseTest {
                 customer1,
                 order2,
                 LocalDateTime.of(2024, 8, 9, 19, 2, 5),
-                1.5,
+                1,
                 "Bad feedback 3",
                 "Very bad vendor",
                 "Sorry, but I can't do anything though."

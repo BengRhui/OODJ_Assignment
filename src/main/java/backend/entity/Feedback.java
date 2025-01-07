@@ -57,7 +57,7 @@ public class Feedback {
     private Customer customerAssociated;
     private Order orderAssociated;
     private LocalDateTime feedbackSubmissionTime;
-    private double ratings;
+    private int ratings;
     private String feedbackTitle;
     private String feedbackDetails;
     private String replyFromManager;
@@ -73,7 +73,7 @@ public class Feedback {
      * @param feedbackDetails  The description of the feedback
      * @param replyFromManager The reply that the manager provides to the customer
      */
-    public Feedback(String feedbackID, Category feedbackCategory, Customer customerAssociated, Order orderAssociated, LocalDateTime feedbackSubmissionTime, double ratings, String feedbackTitle, String feedbackDetails, String replyFromManager) {
+    public Feedback(String feedbackID, Category feedbackCategory, Customer customerAssociated, Order orderAssociated, LocalDateTime feedbackSubmissionTime, int ratings, String feedbackTitle, String feedbackDetails, String replyFromManager) {
         this.feedbackID = feedbackID;
         this.feedbackCategory = feedbackCategory;
         this.customerAssociated = customerAssociated;
@@ -240,6 +240,21 @@ public class Feedback {
         return feedbackList;
     }
 
+    public static boolean customerProvideFeedback(
+            Category category,
+            int score,
+            String title,
+            String description,
+            Double tips
+    ) {
+        // String feedbackID, Category feedbackCategory, Customer customerAssociated, Order orderAssociated, LocalDateTime feedbackSubmissionTime, double ratings, String feedbackTitle, String feedbackDetails, String replyFromManager) {
+        // Check if the input is correct
+        if (category != Category.DELIVERY_RUNNER && tips != null) return false;
+
+        //
+        return true;
+    }
+
     /**
      * A method to export Feedback data to Excel file based on filter provided.
      *
@@ -301,11 +316,11 @@ public class Feedback {
         this.feedbackSubmissionTime = feedbackSubmissionTime;
     }
 
-    public double getRatings() {
+    public int getRatings() {
         return ratings;
     }
 
-    public void setRatings(double ratings) {
+    public void setRatings(int ratings) {
         this.ratings = ratings;
     }
 
