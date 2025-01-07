@@ -558,10 +558,13 @@ public class Customer extends User {
      * @param notesToVendor The additional notes that customer provides to vendor
      * @return {@code true} if the order is created successfully, else {@code false}
      */
-    public boolean createOrder(Stall stall, Map<String, Integer> cart, Order.DiningType diningType, String notesToVendor) {
+    public boolean placeOrder(Stall stall, Map<String, Integer> cart, Order.DiningType diningType, String notesToVendor) {
 
         // This method is only for delivery and takeaway (dine-in requires a table number)
         if (diningType == Order.DiningType.DINE_IN) return false;
+
+        // If the cart is empty, reject placing order
+        if (cart.isEmpty()) return false;
 
         // If dining type is delivery, get delivery runner, else set the value as null
         DeliveryRunner runner = diningType == Order.DiningType.DELIVERY ? DeliveryRunner.getAvailableRunner() : null;
@@ -602,7 +605,7 @@ public class Customer extends User {
         if (runner != null) {
             boolean createRunnerNotification = DeliveryRunnerNotification.createNewNotification(
                     "New Order Available",
-                    "A new order with ID " + newOrder.getOrderID() + " is available. You may return to main menu to check the details.",
+                    "A new order with ID " + newOrder.getOrderID() + " is available. You may return to the main menu to check the details.",
                     runner
             );
             if (!createRunnerNotification) return false;
@@ -631,10 +634,13 @@ public class Customer extends User {
      * @param tableNumber   The table number inputted by customer
      * @return {@code true} if the order is created successfully, else {@code false}
      */
-    public boolean createOrder(Stall stall, Map<String, Integer> cart, Order.DiningType diningType, String notesToVendor, String tableNumber) {
+    public boolean placeOrder(Stall stall, Map<String, Integer> cart, Order.DiningType diningType, String notesToVendor, String tableNumber) {
 
         // The method is only for dine-in
-        if (diningType == Order.DiningType.DINE_IN) return false;
+        if (diningType != Order.DiningType.DINE_IN) return false;
+
+        // If the cart is empty, reject placing order
+        if (cart.isEmpty()) return false;
 
         // Create new order
         Order newOrder = new Order(

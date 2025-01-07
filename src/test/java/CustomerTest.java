@@ -449,4 +449,172 @@ public class CustomerTest extends BaseTest {
         assertEquals(1, customer1.getCart().size());
         assertEquals(3, customer1.getCart().get(item1.getItemID()));
     }
+
+    /**
+     * This test focuses on the operation where the customer places order from the cart.
+     */
+    @Test
+    void testCustomerPlaceOrder() {
+
+        // Get initial list of orders
+        ArrayList<Order> initialOrderList = new ArrayList<>(Order.getOrderList());
+
+        // Get initial list of notifications
+        ArrayList<Notification> initialCustomerNotification = TestUtility.convertToNotificationArray(
+                CustomerNotification.getCustomerNotificationList()
+        );
+
+        ArrayList<Notification> initialVendorNotification = TestUtility.convertToNotificationArray(
+                VendorNotification.getVendorNotificationList()
+        );
+
+        ArrayList<Notification> initialRunnerNotification = TestUtility.convertToNotificationArray(
+                DeliveryRunnerNotification.getDeliveryRunnerNotificationList()
+        );
+
+        // Initialize carts
+        Map<String, Integer> cart = new HashMap<>();
+        cart.put(item1.getItemID(), 3);
+        customer1.setCart(cart);
+
+        // Place order - dine-in
+        boolean placeOrderOne = customer1.placeOrder(
+                item1.getStall(),
+                cart,
+                Order.DiningType.DINE_IN,
+                "Anything would do",
+                "T031"
+        );
+        assertTrue(placeOrderOne);
+
+        // Retrieve the order associated
+        ArrayList<Order> differentOrder = new ArrayList<>(Order.getOrderList());
+        differentOrder.removeAll(initialOrderList);
+
+        // Make sure that only one order is created
+        assertEquals(1, differentOrder.size());
+
+        // Make sure the items in the added order is correct
+        assertEquals(Order.DiningType.DINE_IN, differentOrder.getFirst().getDiningType());
+        assertEquals("T031", differentOrder.getFirst().getTableNumber());
+        assertEquals(3, differentOrder.getFirst().getOrderItem().get(item1));
+
+        // Make sure that the cart is cleared after order is placed
+        assertTrue(customer1.getCart().isEmpty());
+
+        // Retrieve the newly created notifications
+        ArrayList<Notification> differentCustomerNotification = TestUtility.getDifferentNotification(
+                initialCustomerNotification,
+                TestUtility.convertToNotificationArray(
+                        CustomerNotification.getCustomerNotificationList()
+                )
+        );
+
+        ArrayList<Notification> differentVendorNotification = TestUtility.getDifferentNotification(
+                initialVendorNotification,
+                TestUtility.convertToNotificationArray(
+                        VendorNotification.getVendorNotificationList()
+                )
+        );
+
+        ArrayList<Notification> differentRunnerNotification = TestUtility.getDifferentNotification(
+                initialRunnerNotification,
+                TestUtility.convertToNotificationArray(
+                        DeliveryRunnerNotification.getDeliveryRunnerNotificationList()
+                )
+        );
+
+        // Check if notifications were created
+        assertEquals(1, differentCustomerNotification.size());
+        assertEquals(1, differentVendorNotification.size());
+        assertEquals(0, differentRunnerNotification.size());
+
+        // Check if notification descriptions correct
+        assertEquals(
+                "Your order " + differentOrder.getFirst().getOrderID() + " has been created successfully. Please wait for the vendor and runner (if applicable) to accept your order.",
+                differentCustomerNotification.getFirst().getNotificationDetails()
+        );
+
+        assertEquals(
+                "A new order with ID " + differentOrder.getFirst().getOrderID() + " is available. You may return to the main menu to check the details.",
+                differentVendorNotification.getFirst().getNotificationDetails()
+        );
+
+        // Initialize carts, initial order and notification lists
+        cart.put(item1.getItemID(), 2);
+        initialOrderList = new ArrayList<>(Order.getOrderList());
+        initialCustomerNotification.add(differentCustomerNotification.getFirst());
+        initialVendorNotification.add(differentVendorNotification.getFirst());
+
+        // Place order - delivery
+        customer1.placeOrder(
+                stall1,
+                cart,
+                Order.DiningType.DELIVERY,
+                "No spicy please"
+        );
+
+        // Retrieve the newly created order
+        differentOrder = new ArrayList<>(Order.getOrderList());
+        differentOrder.removeAll(initialOrderList);
+
+        // Check if a new order is created
+        assertEquals(1, differentOrder.size());
+
+        // Check if the order details are correct
+        assertEquals(Order.DiningType.DELIVERY, differentOrder.getFirst().getDiningType());
+        assertEquals(2, differentOrder.getFirst().getOrderItem().get(item1));
+
+        // Get the newly created notifications
+        differentCustomerNotification = TestUtility.getDifferentNotification(
+                initialCustomerNotification,
+                TestUtility.convertToNotificationArray(
+                        CustomerNotification.getCustomerNotificationList()
+                )
+        );
+
+        differentVendorNotification = TestUtility.getDifferentNotification(
+                initialVendorNotification,
+                TestUtility.convertToNotificationArray(
+                        VendorNotification.getVendorNotificationList()
+                )
+        );
+
+        differentRunnerNotification = TestUtility.getDifferentNotification(
+                initialRunnerNotification,
+                TestUtility.convertToNotificationArray(
+                        DeliveryRunnerNotification.getDeliveryRunnerNotificationList()
+                )
+        );
+
+        // Make sure that the notifications are created
+        assertEquals(1, differentCustomerNotification.size());
+        assertEquals(1, differentVendorNotification.size());
+        assertEquals(1, differentRunnerNotification.size());
+
+        // Make sure that the description tallies
+        assertEquals(
+                "Your order " + differentOrder.getFirst().getOrderID() + " has been created successfully. Please wait for the vendor and runner (if applicable) to accept your order.",
+                differentCustomerNotification.getFirst().getNotificationDetails()
+        );
+
+        assertEquals(
+                "A new order with ID " + differentOrder.getFirst().getOrderID() + " is available. You may return to the main menu to check the details.",
+                differentVendorNotification.getFirst().getNotificationDetails()
+        );
+
+        assertEquals(
+                "A new order with ID " + differentOrder.getFirst().getOrderID() + " is available. You may return to the main menu to check the details.",
+                differentRunnerNotification.getFirst().getNotificationDetails()
+        );
+
+        // Erroneous order
+        boolean errorOrder = customer1.placeOrder(
+                stall1,
+                customer1.getCart(),
+                Order.DiningType.DELIVERY,
+                "Hello"
+        );
+        assertFalse(errorOrder);
+    }
 }
