@@ -953,6 +953,9 @@ public class Order {
             );
             if (!runnerNotification) return -1;
 
+            // Update availability of runners to true
+            this.getRunnerInCharge().updateAvailability(true);
+
             // Write to files
             OrderFileIO.writeFile();
 
