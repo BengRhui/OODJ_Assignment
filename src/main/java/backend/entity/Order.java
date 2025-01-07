@@ -1,5 +1,6 @@
 package backend.entity;
 
+import backend.file_io.CustomerFileIO;
 import backend.file_io.OrderFileIO;
 import backend.notification.CustomerNotification;
 import backend.notification.DeliveryRunnerNotification;
@@ -601,7 +602,8 @@ public class Order {
      *
      * @return {@code 1} if order is cancelled successfully and notification is created<br>
      * {@code 0} if order is cancelled unsuccessfully and notification is not created<br>
-     * {@code -1} if vendor cancels order but notification fails to be created
+     * {@code -1} if vendor cancels order but notification fails to be created<br>
+     * {@code -2} if vendor cancels order, system creates notification but the transaction history cannot generate
      */
     public int vendorCancelOrder() {
 
@@ -640,8 +642,23 @@ public class Order {
         );
         if (!vendorNotification) return -1;
 
+        // Return money back to users
+        double walletBalanceAfterReturn = this.getOrderingCustomer().getEWalletAmount() + this.getOrderPrice();
+        this.getOrderingCustomer().setEWalletAmount(walletBalanceAfterReturn);
+
+        // Create a transaction history
+        boolean generateTransactionHistory = Transaction.createTransactionHistory(
+                this.orderingCustomer,
+                this.orderPrice,
+                Transaction.TransactionType.CASH_IN,
+                Transaction.PaymentMethod.E_WALLET
+        );
+        if (!generateTransactionHistory) return -2;
+
         // Write into file
         OrderFileIO.writeFile();
+        CustomerFileIO customerFileIO = new CustomerFileIO();
+        customerFileIO.writeFile();
 
         // Return 1 for successful operation
         return 1;
@@ -1074,8 +1091,23 @@ public class Order {
             if (!runnerNotification) return false;
         }
 
+        // Return money back to users
+        double walletAmountAfterReturn = this.orderingCustomer.getEWalletAmount() + this.orderPrice;
+        this.orderingCustomer.setEWalletAmount(walletAmountAfterReturn);
+
+        // Create a transaction history
+        boolean generateTransactionHistory = Transaction.createTransactionHistory(
+                this.orderingCustomer,
+                this.orderPrice,
+                Transaction.TransactionType.CASH_IN,
+                Transaction.PaymentMethod.E_WALLET
+        );
+        if (!generateTransactionHistory) return false;
+
         // Write to file
         OrderFileIO.writeFile();
+        CustomerFileIO customerFileIO = new CustomerFileIO();
+        customerFileIO.writeFile();
 
         // Return true for successful modification
         return true;
