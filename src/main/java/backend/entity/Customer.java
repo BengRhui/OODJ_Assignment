@@ -614,6 +614,9 @@ public class Customer extends User {
         // Write to file
         OrderFileIO.writeFile();
 
+        // Reset cart
+        this.setCart(new HashMap<>());
+
         // Return true for successful operation
         return true;
     }
@@ -670,6 +673,9 @@ public class Customer extends User {
 
         // Write to file
         OrderFileIO.writeFile();
+
+        // Reset cart
+        this.setCart(new HashMap<>());
 
         // Return true for successful operation
         return true;
