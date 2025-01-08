@@ -767,4 +767,39 @@ public class CustomerTest extends BaseTest {
         );
         assertFalse(errorFeedback);
     }
+
+    /**
+     * This test focuses on the operation where customers update delivery address and notes.
+     */
+    @Test
+    void testCustomerUpdateAddressAndDeliveryNote() {
+
+        // Change address and delivery notes
+        boolean modification = customer1.modifyAddressAndDeliveryNotes(
+                "No. 1, Street 2",
+                "Area 3,",
+                "12345",
+                Address.State.PAHANG,
+                "California",
+                "Hi, nice to meet you."
+        );
+
+        // Make sure that the modification is successful
+        assertTrue(modification);
+
+        // Make sure that the details are replaced
+        assertEquals(Address.State.PAHANG, customer1.getAddress().getState());
+        assertEquals("Hi, nice to meet you.", customer1.getDeliveryNote());
+
+        // Erroneous input
+        boolean error = customer1.modifyAddressAndDeliveryNotes(
+                "123",
+                "456",
+                "6789",
+                Address.State.PERAK,
+                null,
+                ""
+        );
+        assertFalse(error);
+    }
 }

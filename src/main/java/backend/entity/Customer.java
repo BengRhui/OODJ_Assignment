@@ -624,6 +624,56 @@ public class Customer extends User {
     }
 
     /**
+     * A method to set the address and delivery notes for customers.
+     *
+     * @param addressLine1 The new address line 1 for customer
+     * @param addressLine2 The new address line 2 for customer
+     * @param postcode     The postcode for the address
+     * @param state        The state for the address
+     * @param city         The city for the address
+     * @param deliveryNote The delivery note that customer wishes to tell to runner
+     * @return {@code true} if the address is updated sccessfully, else {@code false}
+     */
+    public boolean modifyAddressAndDeliveryNotes(
+            String addressLine1,
+            String addressLine2,
+            String postcode,
+            Address.State state,
+            String city,
+            String deliveryNote
+    ) {
+
+        // If inputs are null or empty, then reject
+        if (addressLine1 == null || addressLine1.isBlank() ||
+                addressLine2 == null || addressLine2.isBlank() ||
+                postcode == null || postcode.isBlank() ||
+                state == null ||
+                city == null || city.isBlank()) return false;
+
+        // Create a new address object
+        Address newAddress = new Address(
+                addressLine1,
+                addressLine2,
+                postcode,
+                city,
+                state
+        );
+
+        // Update address to customer
+        this.setAddress(newAddress);
+
+        // Update delivery note for customer
+        this.setDeliveryNote(deliveryNote);
+
+        // Update into file
+        CustomerFileIO customerIO = new CustomerFileIO();
+        customerIO.writeFile();
+
+        // Return true for successful operation
+        return true;
+    }
+
+    /**
      * A method to print out the information of {@code Customer} instances.
      *
      * @return String representation of {@code Customer} object
