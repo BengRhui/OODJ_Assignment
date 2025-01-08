@@ -174,7 +174,7 @@ public class NotificationPopUp extends javax.swing.JFrame {
         contentHolder.add(title);
         title.setBounds(35, 18, 430, 42);
 
-        description.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        description.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         description.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         description.setText("Description");
         contentHolder.add(description);
