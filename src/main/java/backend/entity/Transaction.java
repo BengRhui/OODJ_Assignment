@@ -6,6 +6,7 @@ import backend.utility.Utility;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -54,8 +55,29 @@ public class Transaction {
      * @return ArrayList containing all {@code Transaction} objects
      */
     public static ArrayList<Transaction> getTransactionList() {
+
+        // Sort transaction list in descending order based on time
+        transactionList.sort(Comparator.comparing(Transaction::getTransactionTime).reversed());
+
+        // Return transaction list
         return transactionList;
     }
+
+    /**
+     * A method to get transaction list after filtered using customer.
+     *
+     * @param customer The customer that will be used for filter
+     * @return The filtered transaction list
+     */
+    public static ArrayList<Transaction> getTransactionList(Customer customer) {
+
+        // Filter transaction based on customer ID, then sort them descending based on transaction time
+        return transactionList.stream()
+                .filter(transaction -> transaction.customer.userID.equals(customer.userID))
+                .sorted(Comparator.comparing(Transaction::getTransactionTime).reversed())
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
 
     /**
      * A method to add transactions into an overall list.

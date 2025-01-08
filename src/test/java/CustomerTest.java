@@ -321,6 +321,10 @@ public class CustomerTest extends BaseTest {
         // Check if the ratings detail are correct
         assertEquals(1, stall1.getFeedbackCount());
         assertEquals(feedback3.getRatings(), stall1.getOverallRatings());
+
+        // Part 4: Check if the amount for cash in and out can be retrieved correctly
+        assertEquals(100, customer1.calculateTotalCashIn());
+        assertEquals(12, customer1.calculateTotalCashOut());
     }
 
     /**

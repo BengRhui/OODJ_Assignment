@@ -10,6 +10,7 @@ import backend.utility.Utility;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Class {@code Customer} represents the customers of the food stall who uses the system.
@@ -671,6 +672,56 @@ public class Customer extends User {
 
         // Return true for successful operation
         return true;
+    }
+
+    /**
+     * A method to calculate the total cash in for a customer.
+     *
+     * @return The total cash in amount
+     */
+    public double calculateTotalCashIn() {
+
+        // Get the list of transactions
+        ArrayList<Transaction> transactionList = Transaction.getTransactionList(this);
+
+        // Filter the transaction list so that only cash in transactions are involved
+        transactionList = transactionList.stream()
+                .filter(transaction -> transaction.getTransactionType() == Transaction.TransactionType.CASH_IN)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        // Declare an empty variable to store cash in
+        double cashInAmount = 0;
+
+        // Loop through the transaction list
+        for (Transaction transaction : transactionList) cashInAmount += transaction.getTransactionAmount();
+
+        // Return the cash in amount
+        return cashInAmount;
+    }
+
+    /**
+     * A method to calculate the total cash out for a customer.
+     *
+     * @return The total cash out amount
+     */
+    public double calculateTotalCashOut() {
+
+        // Get the list of transactions
+        ArrayList<Transaction> transactionList = Transaction.getTransactionList(this);
+
+        // Filter the transaction list so that only cash in transactions are involved
+        transactionList = transactionList.stream()
+                .filter(transaction -> transaction.getTransactionType() == Transaction.TransactionType.CASH_OUT)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        // Declare an empty variable to store cash out
+        double cashOutAmount = 0;
+
+        // Loop through the transaction list
+        for (Transaction transaction : transactionList) cashOutAmount += transaction.getTransactionAmount();
+
+        // Return the cash in amount
+        return cashOutAmount;
     }
 
     /**
