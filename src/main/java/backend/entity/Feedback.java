@@ -268,7 +268,18 @@ public class Feedback {
         return feedbackList;
     }
 
-
+    /**
+     * A method to allow customers to provide feedback for system, vendor and runner.
+     *
+     * @param category    The category for the feedback
+     * @param customer    The customer involved
+     * @param order       The order related to the feedback (if available)
+     * @param score       The ratings provided to feedback
+     * @param title       The title of the feedback
+     * @param description The description of feedback
+     * @param tips        The tips for runner (if applicable)
+     * @return {@code true} if the feedback is created successfully, else {@code false}
+     */
     public static boolean customerProvideFeedback(
             Category category,
             Customer customer,
@@ -340,6 +351,7 @@ public class Feedback {
 
     /**
      * A method to check if vendor feedback has been created by the customer
+     *
      * @param customer The customer that will be checked
      * @return {@code true} if vendor feedback is filled, else {@code false}
      */
@@ -354,6 +366,7 @@ public class Feedback {
 
     /**
      * A method to check if runner feedback has been created by the customer
+     *
      * @param customer The customer that will be checked
      * @return {@code true} if runner feedback is filled, else {@code false}
      */
