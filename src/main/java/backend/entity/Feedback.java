@@ -280,16 +280,15 @@ public class Feedback {
     ) {
 
         // Avoid null values for some parameters
-        if (customer == null &&
-                score <= 0 &&
-                (title == null || title.isBlank()) &&
-                (description == null || description.isBlank())) return false;
+        if (customer == null ||
+                score <= 0 ||
+                title == null || title.isBlank() ||
+                description == null || description.isBlank()) return false;
 
         // Check if the input is correct
         if (category != Category.DELIVERY_RUNNER && tips != null) return false;
         if (category == Category.SYSTEM && order != null) return false;
-        if (order != null && customer != null &&
-                order.getOrderingCustomer() != null &&
+        if (order != null && order.getOrderingCustomer() != null &&
                 !order.getOrderingCustomer().getUserID().equals(customer.getUserID())) return false;
 
         // Check if the input is valid
@@ -337,6 +336,34 @@ public class Feedback {
 
         // Return true for successful operation
         return true;
+    }
+
+    /**
+     * A method to check if vendor feedback has been created by the customer
+     * @param customer The customer that will be checked
+     * @return {@code true} if vendor feedback is filled, else {@code false}
+     */
+    public static boolean checkNeedToFillVendorFeedback(Customer customer) {
+
+        // Find if there is any matching vendor feedback from the customer
+        return feedbackList.stream()
+                .noneMatch(feedback -> feedback.feedbackCategory == Category.VENDOR &&
+                        feedback.customerAssociated != null &&
+                        feedback.customerAssociated.userID.equals(customer.userID));
+    }
+
+    /**
+     * A method to check if runner feedback has been created by the customer
+     * @param customer The customer that will be checked
+     * @return {@code true} if runner feedback is filled, else {@code false}
+     */
+    public static boolean checkNeedToFillRunnerFeedback(Customer customer) {
+
+        // Find if there is any matching vendor feedback from the customer
+        return feedbackList.stream()
+                .noneMatch(feedback -> feedback.feedbackCategory == Category.DELIVERY_RUNNER &&
+                        feedback.customerAssociated != null &&
+                        feedback.customerAssociated.userID.equals(customer.userID));
     }
 
     /**
