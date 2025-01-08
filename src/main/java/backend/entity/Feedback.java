@@ -268,18 +268,74 @@ public class Feedback {
         return feedbackList;
     }
 
+
     public static boolean customerProvideFeedback(
             Category category,
+            Customer customer,
+            Order order,
             int score,
             String title,
             String description,
             Double tips
     ) {
-        // String feedbackID, Category feedbackCategory, Customer customerAssociated, Order orderAssociated, LocalDateTime feedbackSubmissionTime, double ratings, String feedbackTitle, String feedbackDetails, String replyFromManager) {
+
+        // Avoid null values for some parameters
+        if (customer == null &&
+                score <= 0 &&
+                (title == null || title.isBlank()) &&
+                (description == null || description.isBlank())) return false;
+
         // Check if the input is correct
         if (category != Category.DELIVERY_RUNNER && tips != null) return false;
+        if (category == Category.SYSTEM && order != null) return false;
+        if (order != null && customer != null &&
+                order.getOrderingCustomer() != null &&
+                !order.getOrderingCustomer().getUserID().equals(customer.getUserID())) return false;
 
-        //
+        // Check if the input is valid
+        if (tips != null && tips < 0) return false;
+
+        // Create feedback object
+        Feedback submittedFeedback = new Feedback(
+                generateNewID(),
+                category,
+                customer,
+                order,
+                LocalDateTime.now(),
+                score,
+                title,
+                description,
+                null
+        );
+
+        // Check if there is any tips
+        if (category == Category.DELIVERY_RUNNER && (tips != null && tips > 0)) {
+
+            // Reject if the tips is more than the customer's e-wallet amount
+            if (customer.getEWalletAmount() < tips) return false;
+
+            // Subtract tips from customer's e-wallet
+            double walletAmountAfterDelivery = customer.getEWalletAmount() - tips;
+            customer.setEWalletAmount(walletAmountAfterDelivery);
+
+            // Create transaction history
+            boolean createTransaction = Transaction.createTransactionHistory(
+                    customer,
+                    tips,
+                    Transaction.TransactionType.CASH_IN,
+                    Transaction.PaymentMethod.E_WALLET
+            );
+            if (!createTransaction) return false;
+
+        }
+
+        // Add to list
+        addToFeedbackList(submittedFeedback);
+
+        // Write to file
+        FeedbackFileIO.writeFile();
+
+        // Return true for successful operation
         return true;
     }
 

@@ -1,5 +1,4 @@
 import backend.entity.*;
-import backend.file_io.DeliveryRunnerFileIO;
 import backend.file_io.ItemFileIO;
 import backend.notification.CustomerNotification;
 import backend.notification.DeliveryRunnerNotification;
@@ -670,5 +669,102 @@ public class CustomerTest extends BaseTest {
                 null
         );
         assertFalse(errorOrder);
+    }
+
+    /**
+     * This test focuses on the operation where customers provide feedback for system, vendor and runner.
+     */
+    @Test
+    void testCustomerProvideFeedback() {
+
+        // Get the initial feedback list
+        ArrayList<Feedback> initialFeedback = new ArrayList<>(Feedback.getFeedbackList());
+
+        // Feedback 1 - provide system feedback
+        boolean createFeedback = Feedback.customerProvideFeedback(
+                Feedback.Category.SYSTEM,
+                customer1,
+                null,
+                3,
+                "Good System",
+                "Everything looks good.",
+                null
+        );
+        assertTrue(createFeedback);
+
+        // Retrieve the created feedback
+        ArrayList<Feedback> differentFeedback = new ArrayList<>(Feedback.getFeedbackList());
+        differentFeedback.removeAll(initialFeedback);
+
+        // Make sure that only one feedback is created
+        assertEquals(1, differentFeedback.size());
+
+        // Make sure that the feedback created is correct
+        assertEquals(Feedback.Category.SYSTEM, differentFeedback.getFirst().getFeedbackCategory());
+        assertEquals("Everything looks good.", differentFeedback.getFirst().getFeedbackDetails());
+
+        // Initialize feedback list again
+        initialFeedback = new ArrayList<>(Feedback.getFeedbackList());
+
+        // Feedback 2 - provide vendor feedback
+        createFeedback = Feedback.customerProvideFeedback(
+                Feedback.Category.VENDOR,
+                customer1,
+                order1,
+                2,
+                "Vendor still not bad",
+                "Service good but not up to par.",
+                null
+        );
+        assertTrue(createFeedback);
+
+        // Retrieve the created feedback
+        differentFeedback = new ArrayList<>(Feedback.getFeedbackList());
+        differentFeedback.removeAll(initialFeedback);
+
+        // Check if only one feedback is created
+        assertEquals(1, differentFeedback.size());
+
+        // Check the details of the feedback
+        assertEquals(Feedback.Category.VENDOR, differentFeedback.getFirst().getFeedbackCategory());
+        assertEquals("Service good but not up to par.", differentFeedback.getFirst().getFeedbackDetails());
+
+        // Initialize feedback list again
+        initialFeedback = new ArrayList<>(Feedback.getFeedbackList());
+
+        // Feedback 3 - provide runner feedback
+        createFeedback = Feedback.customerProvideFeedback(
+                Feedback.Category.DELIVERY_RUNNER,
+                customer1,
+                order1,
+                4,
+                "Good runner",
+                "Runner is very kind.",
+                2.50
+        );
+        assertTrue(createFeedback);
+
+        // Retrieve the newly created feedback
+        differentFeedback = new ArrayList<>(Feedback.getFeedbackList());
+        differentFeedback.removeAll(initialFeedback);
+
+        // Check if only one feedback is created
+        assertEquals(1, differentFeedback.size());
+
+        // Check if the details of the feedback are correct
+        assertEquals(Feedback.Category.DELIVERY_RUNNER, differentFeedback.getFirst().getFeedbackCategory());
+        assertEquals("Runner is very kind.", differentFeedback.getFirst().getFeedbackDetails());
+
+        // Erroneous feedback
+        boolean errorFeedback = Feedback.customerProvideFeedback(
+                Feedback.Category.VENDOR,
+                customer1,
+                order1,
+                2,
+                "An error feedback",
+                "This feedback should not be added coz tips is not null",
+                3.50
+        );
+        assertFalse(errorFeedback);
     }
 }
