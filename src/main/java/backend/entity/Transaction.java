@@ -78,6 +78,22 @@ public class Transaction {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    /**
+     * A method to filter transaction list based on transaction type (cash in and cash out).
+     *
+     * @param customer        The customer involved
+     * @param transactionType The transaction type used for filter
+     * @return The filtered transaction list
+     */
+    public static ArrayList<Transaction> getTransactionList(Customer customer, TransactionType transactionType) {
+
+        // Filter transaction list based on transaction type, and sort descending based on transaction time
+        return getTransactionList(customer).stream()
+                .filter(transaction -> transaction.getTransactionType() == transactionType)
+                .sorted(Comparator.comparing(Transaction::getTransactionTime).reversed())
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
 
     /**
      * A method to add transactions into an overall list.
