@@ -2,7 +2,20 @@ package backend.entity;
 
 import backend.file_io.TransactionFileIO;
 import backend.utility.Utility;
+import com.itextpdf.io.font.constants.StandardFonts;
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.Paragraph;
 
+import java.awt.*;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +35,8 @@ public class Transaction {
      * An overall list containing all transactions are also included.
      */
     private final static ArrayList<Transaction> transactionList = new ArrayList<>();
+    private final static String[] receiptTableHeaders = new String[]{"Description", "Quantity", "Price"};
+    private final static int[] receiptColumnPosition = new int[]{40, 325, 450};
     private String transactionID;
     private Customer customer;
     private LocalDateTime transactionTime;
@@ -277,6 +292,16 @@ public class Transaction {
 
     public void setPaymentMethod(PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+
+    /**
+     * A method to generate receipt in PDF format for transactions.
+     * @return {@code true} if the receipt is generated successfully, else {@code false}
+     */
+    public boolean generateReceipt() {
+
+        // Pass the current object to the method that generates PDF
+        return Utility.generatePDF(this, receiptTableHeaders, receiptColumnPosition);
     }
 
     /**
