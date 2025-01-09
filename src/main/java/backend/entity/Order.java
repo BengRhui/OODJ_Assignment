@@ -26,10 +26,9 @@ public class Order {
     private DeliveryRunner runnerInCharge;
     private DiningType diningType;
     private String tableNumber;
-    private String deliveryNote;
+    private String noteToVendor;
     private double orderPrice;
     private LocalDateTime orderedDate;
-    private double tipsForRunner;
     private OrderStatus orderStatus;
     private HashMap<Item, Integer> orderItem;
 
@@ -42,26 +41,24 @@ public class Order {
      * @param runnerInCharge   The delivery runner delivering the food (if available)
      * @param diningType       The dining type preferred by user
      * @param tableNumber      The table number of user (for eat-in)
-     * @param deliveryNote     The delivery note that user wishes to inform runner
+     * @param noteToVendor     The note that user wishes to inform vendor when preparing for food
      * @param orderPrice       The total payment of the order
      * @param orderedDate      The date where the order is made
-     * @param tipsForRunner    The delivery tips that customer gives to runner
      * @param orderStatus      The current status of order
      * @param orderItem        The list of items ordered by customer
      */
     public Order(String orderID, Customer orderingCustomer, Stall orderedStall, DeliveryRunner runnerInCharge,
-                 DiningType diningType, String tableNumber, String deliveryNote, double orderPrice, LocalDateTime orderedDate,
-                 double tipsForRunner, OrderStatus orderStatus, HashMap<Item, Integer> orderItem) {
+                 DiningType diningType, String tableNumber, String noteToVendor, double orderPrice,
+                 LocalDateTime orderedDate, OrderStatus orderStatus, HashMap<Item, Integer> orderItem) {
         this.orderID = orderID;
         this.orderingCustomer = orderingCustomer;
         this.orderedStall = orderedStall;
         this.runnerInCharge = runnerInCharge;
         this.diningType = diningType;
         this.tableNumber = tableNumber;
-        this.deliveryNote = deliveryNote;
+        this.noteToVendor = noteToVendor;
         this.orderPrice = orderPrice;
         this.orderedDate = orderedDate;
-        this.tipsForRunner = tipsForRunner;
         this.orderStatus = orderStatus;
         this.orderItem = orderItem;
     }
@@ -168,12 +165,12 @@ public class Order {
         this.tableNumber = tableNumber;
     }
 
-    public String getDeliveryNote() {
-        return deliveryNote;
+    public String getNoteToVendor() {
+        return noteToVendor;
     }
 
-    public void setDeliveryNote(String deliveryNote) {
-        this.deliveryNote = deliveryNote;
+    public void setNoteToVendor(String noteToVendor) {
+        this.noteToVendor = noteToVendor;
     }
 
     public double getOrderPrice() {
@@ -190,14 +187,6 @@ public class Order {
 
     public void setOrderedDate(LocalDateTime orderedDate) {
         this.orderedDate = orderedDate;
-    }
-
-    public double getTipsForRunner() {
-        return tipsForRunner;
-    }
-
-    public void setTipsForRunner(double tipsForRunner) {
-        this.tipsForRunner = tipsForRunner;
     }
 
     public OrderStatus getOrderStatus() {
@@ -228,14 +217,12 @@ public class Order {
                 orderingCustomer.toString() + "\n" +
                 "Ordered Stall: " + "\n" +
                 orderedStall.toString() + "\n" +
-                "Runner in Charge: " + "\n" +
-                runnerInCharge.toString() + "\n" +
+                "Runner in Charge: " + (runnerInCharge == null ? "null" : "\n" + runnerInCharge) + "\n" +
                 "Dining Type: " + diningType.toString() + "\n" +
                 "Table Number: " + tableNumber + "\n" +
-                "Delivery Note: " + deliveryNote + "\n" +
+                "Delivery Note: " + noteToVendor + "\n" +
                 "Order Price: " + orderPrice + "\n" +
                 "Ordered Date: " + Utility.generateString(orderedDate) + "\n" +
-                "Tips for Runner: " + tipsForRunner + "\n" +
                 "Order Status: " + orderStatus.toString() + "\n" +
                 "Order Items: " + Utility.generateString(orderItem);
     }

@@ -5,6 +5,8 @@ import backend.utility.Utility;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Class {@code VendorNotification} represents the notifications for vendors.
@@ -17,7 +19,7 @@ public class VendorNotification implements Notification {
      * Attributes for {@code VendorNotification} objects.<br>
      * An overall list that records all vendor notifications is also included.
      */
-    private final static ArrayList<Notification> vendorNotificationList = new ArrayList<>();
+    private final static ArrayList<VendorNotification> vendorNotificationList = new ArrayList<>();
     private String notificationID;
     private Stall stall;
     private LocalDateTime notificationTime;
@@ -50,7 +52,7 @@ public class VendorNotification implements Notification {
      *
      * @return An ArrayList containing all instances of {@code VendorNotification}
      */
-    public static ArrayList<Notification> getVendorNotificationList() {
+    public static ArrayList<VendorNotification> getVendorNotificationList() {
         return vendorNotificationList;
     }
 
@@ -59,8 +61,41 @@ public class VendorNotification implements Notification {
      *
      * @param notification The {@code VendorNotification} object to be added to list
      */
-    public static void addToList(VendorNotification notification) {
-        vendorNotificationList.add(notification);
+    public static void addToList(VendorNotification... notification) {
+
+        // Throws an error if there is no notification or a null notification is passed as argument
+        if (notification.length == 0 || Arrays.stream(notification).anyMatch(Objects::isNull)) {
+            throw new IllegalArgumentException("Arguments should contain at least one VendorNotification object");
+        }
+
+        // Add all the notifications from the arguments into the list
+        vendorNotificationList.addAll(
+                Arrays.asList(notification)
+        );
+    }
+
+    /**
+     * A method to get notification by ID.
+     *
+     * @param notificationID The ID of the notification
+     * @return The {@code Notification} object associated with the ID
+     */
+    public static VendorNotification getNotification(String notificationID) {
+
+        // Loop through the list of notification
+        for (VendorNotification notification : vendorNotificationList) {
+
+            // Continue the loop if the notification ID does not match
+            if (!notification.getNotificationID().equals(notificationID)) {
+                continue;
+            }
+
+            // Return notification object if ID matches
+            return notification;
+        }
+
+        // Return null if no ID matches
+        return null;
     }
 
     /**

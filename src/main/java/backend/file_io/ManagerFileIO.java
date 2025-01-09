@@ -14,9 +14,9 @@ public class ManagerFileIO extends UserFileIO {
     /**
      * Fixed variables to help in coding.
      */
-    private final static String MANAGER_FILE_NAME = "manager_information.txt";
-    private final static int NUMBER_OF_INFO_IN_FILE = 2;
-    private final static int[] SPACING_SIZE = {5, 50};
+    public final static String MANAGER_FILE_NAME = "manager_information.txt";
+    public final static int NUMBER_OF_INFO_IN_FILE = 2;
+    public final static int[] SPACING_SIZE = {5, 50};
 
     /**
      * A method to create {@code Manager} objects.
@@ -44,6 +44,9 @@ public class ManagerFileIO extends UserFileIO {
      */
     @Override
     public void readFile() {
+
+        // Reset list before reading files
+        Manager.getManagerList().clear();
 
         // Get list of managers from text file
         ArrayList<String[]> managerInformation = getListFromFile(MANAGER_FILE_NAME);

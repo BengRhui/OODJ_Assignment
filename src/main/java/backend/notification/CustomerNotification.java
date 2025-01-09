@@ -5,6 +5,8 @@ import backend.utility.Utility;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Class {@code CustomerNotification} represents the notification that customers will receive in the system.
@@ -17,7 +19,7 @@ public class CustomerNotification implements Notification {
      * Attributes for {@code CustomerNotification} class.<br>
      * An overall list containing all {@code CustomerNotification} objects is included.
      */
-    private final static ArrayList<Notification> customerNotificationList = new ArrayList<>();
+    private final static ArrayList<CustomerNotification> customerNotificationList = new ArrayList<>();
     private String notificationID;
     private Customer customer;
     private LocalDateTime notificationTime;
@@ -50,17 +52,50 @@ public class CustomerNotification implements Notification {
      *
      * @return An ArrayList consisting of all {@code CustomerNotification} instances
      */
-    public static ArrayList<Notification> getCustomerNotificationList() {
+    public static ArrayList<CustomerNotification> getCustomerNotificationList() {
         return customerNotificationList;
     }
 
     /**
      * A method to add customer notifications into an overall list.
      *
-     * @param notification The {@code CustomerNotification} object to be added to list
+     * @param notification The {@code CustomerNotification} objects to be added to list
      */
-    public static void addToList(CustomerNotification notification) {
-        customerNotificationList.add(notification);
+    public static void addToList(CustomerNotification... notification) {
+
+        // Throws an error if there is no notification or a null notification is passed as argument
+        if (notification.length == 0 || Arrays.stream(notification).anyMatch(Objects::isNull)) {
+            throw new IllegalArgumentException("Arguments should contain at least one CustomerNotification object");
+        }
+
+        // Add all the notifications from the arguments into the list
+        customerNotificationList.addAll(
+                Arrays.asList(notification)
+        );
+    }
+
+    /**
+     * A method to get notification by ID.
+     *
+     * @param notificationID The ID of the notification
+     * @return The {@code Notification} object associated with the ID
+     */
+    public static CustomerNotification getNotification(String notificationID) {
+
+        // Loop through the list of notification
+        for (CustomerNotification notification : customerNotificationList) {
+
+            // Continue the loop if the notification ID does not match
+            if (!notification.getNotificationID().equals(notificationID)) {
+                continue;
+            }
+
+            // Return notification object if ID matches
+            return notification;
+        }
+
+        // Return null if no ID matches
+        return null;
     }
 
     /**

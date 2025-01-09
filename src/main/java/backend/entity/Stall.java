@@ -30,6 +30,7 @@ public class Stall {
     public Stall(String stallID, String stallName, StallCategories[] stallCategories) {
         this.stallID = stallID;
         this.stallName = stallName;
+        Arrays.sort(stallCategories);
         this.stallCategories = stallCategories;
     }
 
@@ -108,6 +109,7 @@ public class Stall {
     }
 
     public void setStallCategories(StallCategories[] stallCategories) {
+        Arrays.sort(stallCategories);               // Sort before added as attributes
         this.stallCategories = stallCategories;
     }
 

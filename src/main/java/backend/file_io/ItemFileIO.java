@@ -15,20 +15,28 @@ public class ItemFileIO extends FileIO {
     /**
      * Fixed variables to aid in coding.
      */
-    private final static String ITEM_FILE_NAME = "item_details.txt";
-    private final static int NUMBER_OF_INFORMATION_IN_FILE = 5;
-    private final static int[] SPACING_SIZE = {5, 30, 5, 10, 150};
+    public final static String ITEM_FILE_NAME = "item_details.txt";
+    public final static int NUMBER_OF_INFORMATION_IN_FILE = 5;
+    public final static int[] SPACING_SIZE = {5, 30, 5, 10, 150};
 
     /**
      * A method to read item file and initialize {@code Item} objects.
      */
     public static void readFile() {
 
+        // Reset list before reading files
+        Item.getItemList().clear();
+
         // Retrieve information from text file
         ArrayList<String[]> informationList = getListFromFile(ITEM_FILE_NAME);
 
         // Loop through each information
         for (String[] information : informationList) {
+
+            // Skip for the creation of item object
+            if (information[1].equalsIgnoreCase("Delivery fees")) {
+                continue;
+            }
 
             // Create the item object based on the information and add to list
             Item newItem = createItemObject(information);
@@ -47,7 +55,7 @@ public class ItemFileIO extends FileIO {
         // Retrieve information from the string array
         String itemID = recordFromFile[0];
         String itemName = recordFromFile[1];
-        Stall stall = Stall.getStall(recordFromFile[2]);
+        Stall stall = recordFromFile[2].equals("null") ? null : Stall.getStall(recordFromFile[2]);
         double price = Double.parseDouble(recordFromFile[3]);
         String description = recordFromFile[4];
 
@@ -73,7 +81,7 @@ public class ItemFileIO extends FileIO {
             String[] record = new String[NUMBER_OF_INFORMATION_IN_FILE];
             record[0] = item.getItemID();
             record[1] = item.getItemName();
-            record[2] = item.getStall().getStallID();
+            record[2] = item.getStall() != null ? item.getStall().getStallID() : null;
             record[3] = Double.toString(item.getPrice());
             record[4] = item.getDescription();
             informationToFile.add(record);

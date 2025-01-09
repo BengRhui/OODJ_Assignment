@@ -15,14 +15,17 @@ public class StallFileIO extends FileIO {
     /**
      * Fixed variables to help in read and write files.
      */
-    private final static String STALL_FILE_NAME = "stall_information.txt";
-    private final static int NUMBER_OF_INFORMATION_IN_FILE = 3;
-    private final static int[] SPACING_SIZE = {5, 40, 50};
+    public final static String STALL_FILE_NAME = "stall_information.txt";
+    public final static int NUMBER_OF_INFORMATION_IN_FILE = 3;
+    public final static int[] SPACING_SIZE = {5, 40, 50};
 
     /**
      * A method to read from stall file and create {@code Stall} objects.
      */
     public static void readFile() {
+
+        // Reset list before reading files
+        Stall.getStallList().clear();
 
         // Get stall information from text file
         ArrayList<String[]> informationFromFile = getListFromFile(STALL_FILE_NAME);
@@ -50,6 +53,7 @@ public class StallFileIO extends FileIO {
 
         // Convert stall categories from string to StallCategory type
         String[] unformattedStallCategories = recordFromFile[2].split(",");                  // Retrieve categories
+        Arrays.sort(unformattedStallCategories);                                             // Sort the categories
         Stall.StallCategories[] stallCategories = Arrays.stream(unformattedStallCategories)  // Pass into array stream
                 .map(String::strip)                                                          // Strip each string
                 .map(Stall.StallCategories::generateFromString)                              // Map to correct category

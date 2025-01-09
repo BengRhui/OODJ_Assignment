@@ -5,6 +5,8 @@ import backend.utility.Utility;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Class {@code DeliveryRunnerNotification} represents the notifications that will be received by the delivery runners.
@@ -17,7 +19,7 @@ public class DeliveryRunnerNotification implements Notification {
      * Attributes for the {@code DeliveryRunnerNotification} objects.<br>
      * A list containing all notifications for delivery runners is included.
      */
-    private final static ArrayList<Notification> deliveryRunnerNotificationList = new ArrayList<>();
+    private final static ArrayList<DeliveryRunnerNotification> deliveryRunnerNotificationList = new ArrayList<>();
     private String notificationID;
     private DeliveryRunner runner;
     private LocalDateTime notificationTime;
@@ -51,17 +53,50 @@ public class DeliveryRunnerNotification implements Notification {
      *
      * @return An ArrayList consisting of all {@code DeliveryRunnerNotification} instances.
      */
-    public static ArrayList<Notification> getDeliveryRunnerNotificationList() {
+    public static ArrayList<DeliveryRunnerNotification> getDeliveryRunnerNotificationList() {
         return deliveryRunnerNotificationList;
     }
 
     /**
      * A method to add the notifications for delivery runner into an overall list.
      *
-     * @param notification The {@code DeliveryRunnerNotification} object to be added to list
+     * @param notification The {@code DeliveryRunnerNotification} objects to be added to list
      */
-    public static void addToList(DeliveryRunnerNotification notification) {
-        deliveryRunnerNotificationList.add(notification);
+    public static void addToList(DeliveryRunnerNotification... notification) {
+
+        // Throws an error if there is no notification or a null notification is passed as argument
+        if (notification.length == 0 || Arrays.stream(notification).anyMatch(Objects::isNull)) {
+            throw new IllegalArgumentException("Arguments should contain at least one DeliveryRunnerNotification object");
+        }
+
+        // Add all the notifications from the arguments into the list
+        deliveryRunnerNotificationList.addAll(
+                Arrays.asList(notification)
+        );
+    }
+
+    /**
+     * A method to get notification by ID.
+     *
+     * @param notificationID The ID of the notification
+     * @return The {@code Notification} object associated with the ID
+     */
+    public static DeliveryRunnerNotification getNotification(String notificationID) {
+
+        // Loop through the list of notification
+        for (DeliveryRunnerNotification notification : deliveryRunnerNotificationList) {
+
+            // Continue the loop if the notification ID does not match
+            if (!notification.getNotificationID().equals(notificationID)) {
+                continue;
+            }
+
+            // Return notification object if ID matches
+            return notification;
+        }
+
+        // Return null if no ID matches
+        return null;
     }
 
     /**

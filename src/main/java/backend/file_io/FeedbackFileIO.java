@@ -15,14 +15,17 @@ public class FeedbackFileIO extends FileIO {
     /**
      * Fixed variables to help in coding.
      */
-    private final static String FEEDBACK_FILE_NAME = "feedback.txt";
-    private final static int NUMBER_OF_INFORMATION_IN_FILE = 7;
-    private final static int[] SPACING_SIZE = {5, 20, 10, 5, 35, 150, 150};
+    public final static String FEEDBACK_FILE_NAME = "feedback.txt";
+    public final static int NUMBER_OF_INFORMATION_IN_FILE = 7;
+    public final static int[] SPACING_SIZE = {5, 20, 10, 5, 35, 150, 150};
 
     /**
      * A method to read from feedback file and initialize {@code Feedback} objects.
      */
     public static void readFile() {
+
+        // Reset list before reading files
+        Feedback.getFeedbackList().clear();
 
         // Get information from text file
         ArrayList<String[]> informationFromFile = getListFromFile(FEEDBACK_FILE_NAME);
@@ -46,8 +49,8 @@ public class FeedbackFileIO extends FileIO {
 
         // Retrieve information from the string array
         String feedbackID = recordFromFile[0];
-        String feedbackCategory = recordFromFile[1];
-        Order orderAssociated = Order.getOrder(recordFromFile[2]);
+        Feedback.Category feedbackCategory = Feedback.Category.getFromString(recordFromFile[1]);
+        Order orderAssociated = recordFromFile[2].equalsIgnoreCase("null") ? null : Order.getOrder(recordFromFile[2]);
         double ratings = Double.parseDouble(recordFromFile[3]);
         String feedbackTitle = recordFromFile[4];
         String feedbackDetails = recordFromFile[5];
@@ -82,8 +85,8 @@ public class FeedbackFileIO extends FileIO {
             // Retrieve information and add to list
             String[] record = new String[NUMBER_OF_INFORMATION_IN_FILE];
             record[0] = feedback.getFeedbackID();
-            record[1] = feedback.getFeedbackCategory();
-            record[2] = feedback.getOrderAssociated().getOrderID();
+            record[1] = feedback.getFeedbackCategory().toString();
+            record[2] = feedback.getOrderAssociated() == null ? "null" : feedback.getOrderAssociated().getOrderID();
             record[3] = Double.toString(feedback.getRatings());
             record[4] = feedback.getFeedbackTitle();
             record[5] = feedback.getFeedbackDetails();

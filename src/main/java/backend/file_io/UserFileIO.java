@@ -12,7 +12,7 @@ public abstract class UserFileIO extends FileIO {
     /**
      * Fixed variables to aid in coding.
      */
-    private static final String CREDENTIALS_FILE_NAME = "login_credentials.txt";
+    public static final String CREDENTIALS_FILE_NAME = "login_credentials.txt";
 
     /**
      * A general method to return the email and password of users based on user ID.
