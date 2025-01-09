@@ -1,34 +1,37 @@
-package backend;
+package backend.entity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Class {@code Customer} represents the customers of the food stall who uses the system.
+ *
  * @author Beng Rhui (TP068495)
  */
-public class Customer extends User{
+public class Customer extends User {
 
     /**
      * Attributes of the {@code Customer} class.<br>
      * An ArrayList that contains all instances of {@code Customer} is also included.
      */
+    private final static ArrayList<Customer> customerList = new ArrayList<>();
     private String contactNumber;
     private Address address;
     private double eWalletAmount;
     private String deliveryNote;
 
-    private final static ArrayList<Customer> customerList = new ArrayList<>();
-
     /**
      * Constructor used to instantiate the {@code Customer} class.
-     * @param userID The Customer ID of the user
-     * @param email The email that the customer uses to log into the account
-     * @param password The password used to login to the system
-     * @param name The real-world name of customer
+     *
+     * @param userID        The Customer ID of the user
+     * @param email         The email that the customer uses to log into the account
+     * @param password      The password used to log into the system
+     * @param name          The real-world name of customer
      * @param contactNumber The phone number used to contact the customer
-     * @param address The delivery address of the customer
+     * @param address       The delivery address of the customer
      * @param eWalletAmount The balance of e-wallet of customer
-     * @param deliveryNote The notes that a customer wishes to tell runner during delivery
+     * @param deliveryNote  The notes that a customer wishes to tell runner during delivery
      */
     public Customer(String userID, String email, String password, String name, String contactNumber,
                     Address address, double eWalletAmount, String deliveryNote) {
@@ -37,7 +40,57 @@ public class Customer extends User{
         this.address = address;
         this.eWalletAmount = eWalletAmount;
         this.deliveryNote = deliveryNote;
-        addToCustomerList(this);
+    }
+
+    /**
+     * A method to retrieve the overall list of customers
+     *
+     * @return An ArrayList containing all {@code Customer} objects
+     */
+    public static ArrayList<Customer> getCustomerList() {
+        return customerList;
+    }
+
+    /**
+     * A method to add {@code Customer} objects to an overall list
+     *
+     * @param customer {@code Customer} objects to be added to the list
+     */
+    public static void addToCustomerList(Customer... customer) {
+
+        // Throws an error if there is no customer passed into the argument, or a null customer is passed into argument
+        if (customer.length == 0 || Arrays.stream(customer).anyMatch(Objects::isNull)) {
+            throw new IllegalArgumentException("Arguments should contain at least one Customer object");
+        }
+
+        // Add all the customers from the arguments into the list
+        customerList.addAll(
+                Arrays.asList(customer)
+        );
+    }
+
+    /**
+     * A method to retrieve {@code Customer} based on customer ID.
+     *
+     * @param customerID The ID of the customer
+     * @return The {@code Customer} object associated with the ID
+     */
+    public static Customer getCustomer(String customerID) {
+
+        // Loop through the list of customers
+        for (Customer customer : customerList) {
+
+            // Continue the loop if the ID does not match
+            if (!customer.userID.equals(customerID)) {
+                continue;
+            }
+
+            // Return customer object if the ID matches
+            return customer;
+        }
+
+        // If no ID matches, return null
+        return null;
     }
 
     /**
@@ -59,12 +112,12 @@ public class Customer extends User{
         this.address = address;
     }
 
-    public double getCreditAmount() {
+    public double getEWalletAmount() {
         return eWalletAmount;
     }
 
-    public void setCreditAmount(double creditAmount) {
-        this.eWalletAmount = creditAmount;
+    public void setEWalletAmount(double eWalletAmount) {
+        this.eWalletAmount = eWalletAmount;
     }
 
     public String getDeliveryNote() {
@@ -76,23 +129,8 @@ public class Customer extends User{
     }
 
     /**
-     * A method to retrieve the overall list of customers
-     * @return An ArrayList containing all {@code Customer} objects
-     */
-    public static ArrayList<Customer> getCustomerList() {
-        return customerList;
-    }
-
-    /**
-     * A method to add a {@code Customer} object to an overall list
-     * @param customer {@code Customer} object to be added to the list
-     */
-    public static void addToCustomerList(Customer customer) {
-        customerList.add(customer);
-    }
-
-    /**
      * A method to print out the information of {@code Customer} instances.
+     *
      * @return String representation of {@code Customer} object
      */
     @Override

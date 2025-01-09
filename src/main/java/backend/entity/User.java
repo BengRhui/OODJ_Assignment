@@ -1,10 +1,10 @@
-package backend;
+package backend.entity;
 
 import java.util.ArrayList;
 
 /**
- *  Class {@code User} is used as a parent class consisting of the general attributes for other
- *  user-related subclasses.
+ * Class {@code User} is used as a parent class consisting of the general attributes for other
+ * user-related subclasses.
  *
  * @author Beng Rhui (TP068495)
  */
@@ -14,26 +14,44 @@ public class User {
      * The attributes for {@code User} class. <br>
      * An overall list that contains all instances of the {@code User} class is also included.
      */
+    private static final ArrayList<User> userList = new ArrayList<>();
     protected String userID;
     protected String email;
     protected String password;
     protected String name;
 
-    private static final ArrayList<User> userList = new ArrayList<>();
-
     /**
      * Constructor for {@code User} class.
      *
-     * @param userID The ID for user.
-     * @param email The email for user that is used to login to the system.
+     * @param userID   The ID for user.
+     * @param email    The email for user that is used to login to the system.
      * @param password The password for user that is used to login to the system.
-     * @param name The real-world name for user.
+     * @param name     The real-world name for user.
      */
     public User(String userID, String email, String password, String name) {
         this.userID = userID;
         this.email = email;
         this.password = password;
         this.name = name;
+    }
+
+    /**
+     * A method to return the list containing all {@code User} objects.
+     *
+     * @return An ArrayList containing all instances of {@code User} objects.
+     */
+    public static ArrayList<User> getUserList() {
+
+        // Clear the user list
+        userList.clear();
+
+        // Add all the users into user list and return it
+        userList.addAll(Admin.getAdminList());
+        userList.addAll(Customer.getCustomerList());
+        userList.addAll(DeliveryRunner.getDeliveryRunnerList());
+        userList.addAll(Manager.getManagerList());
+        userList.addAll(Vendor.getVendorList());
+        return userList;
     }
 
     /**
@@ -77,23 +95,8 @@ public class User {
     }
 
     /**
-     * A method to add instances of the {@code User} class into the {@code userList} array.
-     * @param user The {@code User} object to be added into the ArrayList
-     */
-    public static void addUser(User user) {
-        userList.add(user);
-    }
-
-    /**
-     * A method to return the list containing all {@code User} objects.
-     * @return An ArrayList containing all instances of {@code User} objects.
-     */
-    public static ArrayList<User> getUserList() {
-        return userList;
-    }
-
-    /**
      * Prints the information associated with a {@code User} object.
+     *
      * @return A string representation of {@code User} object.
      */
     @Override
