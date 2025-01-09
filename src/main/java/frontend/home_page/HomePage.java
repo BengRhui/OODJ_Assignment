@@ -4,9 +4,11 @@
  */
 package frontend.home_page;
 
+import java.awt.*;
+
 /**
  *
- * @author Kendra cheung
+ * @author Xuan Jack (TP067678), Beng Rhui (TP068495)
  */
 public class HomePage extends javax.swing.JFrame {
 
@@ -26,399 +28,827 @@ public class HomePage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel21 = new javax.swing.JPanel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jButton8 = new javax.swing.JButton();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        jPanel13 = new javax.swing.JPanel();
-        jLabel30 = new javax.swing.JLabel();
-        jButton12 = new javax.swing.JButton();
-        jLabel32 = new javax.swing.JLabel();
-        jPanel14 = new javax.swing.JPanel();
-        jLabel33 = new javax.swing.JLabel();
-        jButton13 = new javax.swing.JButton();
-        jPanel15 = new javax.swing.JPanel();
-        jLabel34 = new javax.swing.JLabel();
-        jButton14 = new javax.swing.JButton();
-        jPanel16 = new javax.swing.JPanel();
-        jLabel35 = new javax.swing.JLabel();
-        jButton15 = new javax.swing.JButton();
-        jPanel17 = new javax.swing.JPanel();
-        jLabel36 = new javax.swing.JLabel();
-        jButton16 = new javax.swing.JButton();
-        jPanel18 = new javax.swing.JPanel();
-        jLabel37 = new javax.swing.JLabel();
-        jButton17 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        backgroundScrollPane = new javax.swing.JScrollPane();
+        backgroundPanel = new javax.swing.JPanel();
+        bannerPanel = new javax.swing.JPanel();
+        loginButton = new javax.swing.JButton();
+        systemIcon = new javax.swing.JLabel();
+        mainTitle = new javax.swing.JLabel();
+        subTitle = new javax.swing.JLabel();
+        bannerBackground = new javax.swing.JLabel();
+        contentPanel = new javax.swing.JPanel();
+        contentSubtitle = new javax.swing.JLabel();
+        contentTitle = new javax.swing.JLabel();
+        halfTransparentPanel1 = new javax.swing.JPanel();
+        foodLabel1 = new javax.swing.JLabel();
+        foodPicture1 = new javax.swing.JLabel();
+        halfTransparentPanel2 = new javax.swing.JPanel();
+        foodLabel2 = new javax.swing.JLabel();
+        foodPicture2 = new javax.swing.JLabel();
+        halfTransparentPanel3 = new javax.swing.JPanel();
+        foodLabel3 = new javax.swing.JLabel();
+        foodPicture3 = new javax.swing.JLabel();
+        halfTransparentPanel4 = new javax.swing.JPanel();
+        foodLabel4 = new javax.swing.JLabel();
+        foodPicture4 = new javax.swing.JLabel();
+        halfTransparentPanel5 = new javax.swing.JPanel();
+        foodLabel5 = new javax.swing.JLabel();
+        foodPicture5 = new javax.swing.JLabel();
+        halfTransparentPanel6 = new javax.swing.JPanel();
+        foodLabel6 = new javax.swing.JLabel();
+        foodPicture6 = new javax.swing.JLabel();
+        footerPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        memberFourTP = new javax.swing.JLabel();
+        memberTwoName = new javax.swing.JLabel();
+        memberThreeName = new javax.swing.JLabel();
+        memberFourName = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        mamberOneName = new javax.swing.JLabel();
+        memberOneTP = new javax.swing.JLabel();
+        memberTwoTP = new javax.swing.JLabel();
+        memberThreeTP = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Food Court System");
+        setLocation((int) (
+            (Toolkit.getDefaultToolkit().getScreenSize().width - 1400) / 2),
+        (int) (
+            (Toolkit.getDefaultToolkit().getScreenSize().height - 800) / 2)
+    );
+    setName("homePageFrame"); // NOI18N
+    setResizable(false);
+    setSize(new java.awt.Dimension(1400, 800));
 
-        jPanel21.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel21.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+    backgroundScrollPane.setBackground(new java.awt.Color(255, 255, 255));
+    backgroundScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+    backgroundScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+    backgroundScrollPane.setPreferredSize(new java.awt.Dimension(1400, 800));
+    backgroundScrollPane.setSize(new java.awt.Dimension(1400, 800));
 
-        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/LOGO LIGHT.png"))); // NOI18N
-        jPanel21.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, -10, -1, -1));
+    backgroundPanel.setBackground(new java.awt.Color(255, 255, 255));
+    backgroundPanel.setBounds(new java.awt.Rectangle(0, 0, 1400, 1620));
+    backgroundPanel.setMinimumSize(new java.awt.Dimension(1400, 2000));
+    backgroundPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel27.setFont(new java.awt.Font("Avenir", 1, 50)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel27.setText("FASCINATING DELICACIES");
-        jPanel21.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
+    bannerPanel.setLayout(null);
 
-        jButton8.setBackground(new java.awt.Color(0, 0, 0));
-        jButton8.setFont(new java.awt.Font("Andale Mono", 1, 18)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(255, 255, 255));
-        jButton8.setText("Login Here");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8jButton5ActionPerformed(evt);
-            }
-        });
-        jPanel21.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 30, -1, -1));
+    loginButton.setBackground(new java.awt.Color(0, 0, 0));
+    loginButton.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+    loginButton.setForeground(new java.awt.Color(255, 255, 255));
+    loginButton.setText("Login Here");
+    loginButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
+    loginButton.setFocusable(false);
+    loginButton.setOpaque(true);
+    loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            loginButtonMouseEntered(evt);
+        }
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            loginButtonMouseExited(evt);
+        }
+    });
+    loginButton.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            loginButtonActionPerformed(evt);
+        }
+    });
+    bannerPanel.add(loginButton);
+    loginButton.setBounds(1030, 70, 290, 60);
 
-        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/main_page_banner.png"))); // NOI18N
-        jPanel21.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 190));
+    systemIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logo_light_with_text.png"))); // NOI18N
+    bannerPanel.add(systemIcon);
+    systemIcon.setBounds(70, 30, 150, 150);
 
-        jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 40)); // NOI18N
-        jLabel29.setText("Our Offerings");
-        jPanel21.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 210, -1, -1));
+    mainTitle.setFont(new java.awt.Font("Arial", 1, 80)); // NOI18N
+    mainTitle.setForeground(new java.awt.Color(255, 255, 255));
+    mainTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    mainTitle.setText("BENG の BEST ");
+    bannerPanel.add(mainTitle);
+    mainTitle.setBounds(0, 200, 1400, 93);
 
-        jPanel13.setBackground(new java.awt.Color(51, 51, 51, 128));
+    subTitle.setFont(new java.awt.Font("Arial", 2, 36)); // NOI18N
+    subTitle.setForeground(new java.awt.Color(255, 255, 255));
+    subTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    subTitle.setText("Taste. Gather. Repeat.");
+    bannerPanel.add(subTitle);
+    subTitle.setBounds(0, 310, 1400, 42);
 
-        jLabel30.setBackground(new java.awt.Color(51, 51, 51, 128));
-        jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel30.setText("Local");
+    bannerBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/main_page_banner.png"))); // NOI18N
+    bannerBackground.setText("jLabel1");
+    bannerPanel.add(bannerBackground);
+    bannerBackground.setBounds(0, 0, 1546, 499);
 
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addComponent(jLabel30)
-                .addGap(0, 1, Short.MAX_VALUE))
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+    backgroundPanel.add(bannerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1400, 420));
 
-        jPanel21.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, 130, 50));
+    contentPanel.setBackground(new java.awt.Color(255, 251, 233));
+    contentPanel.setLayout(null);
 
-        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/Nasi Lemak.jpg"))); // NOI18N
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
-            }
-        });
-        jPanel21.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 400, 210));
+    contentSubtitle.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+    contentSubtitle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+    contentSubtitle.setText("And more fascinating delicacies awaiting for you!");
+    contentPanel.add(contentSubtitle);
+    contentSubtitle.setBounds(70, 830, 850, 40);
 
-        jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel21.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 490, -1, -1));
+    contentTitle.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+    contentTitle.setText("DISCOVER OUR OFFERINGS");
+    contentPanel.add(contentTitle);
+    contentTitle.setBounds(70, 70, 498, 42);
 
-        jPanel14.setBackground(new java.awt.Color(51, 51, 51, 128));
+    halfTransparentPanel1.setBackground(new java.awt.Color(0, 0, 0, 200));
+    halfTransparentPanel1.setMaximumSize(new java.awt.Dimension(400, 300));
+    halfTransparentPanel1.setPreferredSize(new java.awt.Dimension(400, 300));
+    halfTransparentPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            halfTransparentPanel1MouseEntered(evt);
+        }
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            halfTransparentPanel1MouseExited(evt);
+        }
+    });
 
-        jLabel33.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel33.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel33.setText("Halal");
+    foodLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+    foodLabel1.setForeground(new java.awt.Color(255, 255, 255));
+    foodLabel1.setText("LOCAL");
 
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addComponent(jLabel33)
-                .addGap(0, 5, Short.MAX_VALUE))
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+    javax.swing.GroupLayout halfTransparentPanel1Layout = new javax.swing.GroupLayout(halfTransparentPanel1);
+    halfTransparentPanel1.setLayout(halfTransparentPanel1Layout);
+    halfTransparentPanel1Layout.setHorizontalGroup(
+        halfTransparentPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(halfTransparentPanel1Layout.createSequentialGroup()
+            .addGap(35, 35, 35)
+            .addComponent(foodLabel1)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    );
+    halfTransparentPanel1Layout.setVerticalGroup(
+        halfTransparentPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, halfTransparentPanel1Layout.createSequentialGroup()
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(foodLabel1)
+            .addGap(27, 27, 27))
+    );
 
-        jPanel21.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 460, 130, 50));
+    contentPanel.add(halfTransparentPanel1);
+    halfTransparentPanel1.setBounds(70, 350, 400, 100);
 
-        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/halal (1).jpg"))); // NOI18N
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
-            }
-        });
-        jPanel21.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 300, 400, 210));
+    foodPicture1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/local_food.jpg"))); // NOI18N
+    foodPicture1.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            foodPicture1MouseEntered(evt);
+        }
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            foodPicture1MouseExited(evt);
+        }
+    });
+    contentPanel.add(foodPicture1);
+    foodPicture1.setBounds(70, 150, 400, 300);
 
-        jPanel15.setBackground(new java.awt.Color(51, 51, 51, 128));
+    halfTransparentPanel2.setBackground(new java.awt.Color(0, 0, 0, 200));
+    halfTransparentPanel2.setMaximumSize(new java.awt.Dimension(400, 300));
+    halfTransparentPanel2.setPreferredSize(new java.awt.Dimension(400, 300));
+    halfTransparentPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            halfTransparentPanel2MouseEntered(evt);
+        }
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            halfTransparentPanel2MouseExited(evt);
+        }
+    });
 
-        jLabel34.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel34.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel34.setText("Chinese");
+    foodLabel2.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+    foodLabel2.setForeground(new java.awt.Color(255, 255, 255));
+    foodLabel2.setText("HALAL");
 
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addComponent(jLabel34)
-                .addGap(0, 3, Short.MAX_VALUE))
-        );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+    javax.swing.GroupLayout halfTransparentPanel2Layout = new javax.swing.GroupLayout(halfTransparentPanel2);
+    halfTransparentPanel2.setLayout(halfTransparentPanel2Layout);
+    halfTransparentPanel2Layout.setHorizontalGroup(
+        halfTransparentPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(halfTransparentPanel2Layout.createSequentialGroup()
+            .addGap(35, 35, 35)
+            .addComponent(foodLabel2)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    );
+    halfTransparentPanel2Layout.setVerticalGroup(
+        halfTransparentPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, halfTransparentPanel2Layout.createSequentialGroup()
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(foodLabel2)
+            .addGap(27, 27, 27))
+    );
 
-        jPanel21.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 460, 200, 50));
+    contentPanel.add(halfTransparentPanel2);
+    halfTransparentPanel2.setBounds(500, 350, 400, 100);
 
-        jButton14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/Chinese food.jpg"))); // NOI18N
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
-            }
-        });
-        jPanel21.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 300, 400, 210));
+    foodPicture2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/halal_food.jpg"))); // NOI18N
+    foodPicture2.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            foodPicture2MouseEntered(evt);
+        }
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            foodPicture2MouseExited(evt);
+        }
+    });
+    contentPanel.add(foodPicture2);
+    foodPicture2.setBounds(500, 150, 400, 300);
 
-        jPanel16.setBackground(new java.awt.Color(51, 51, 51, 128));
+    halfTransparentPanel3.setBackground(new java.awt.Color(0, 0, 0, 200));
+    halfTransparentPanel3.setMaximumSize(new java.awt.Dimension(400, 300));
+    halfTransparentPanel3.setPreferredSize(new java.awt.Dimension(400, 300));
+    halfTransparentPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            halfTransparentPanel3MouseEntered(evt);
+        }
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            halfTransparentPanel3MouseExited(evt);
+        }
+    });
 
-        jLabel35.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel35.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel35.setText("Japanese");
+    foodLabel3.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+    foodLabel3.setForeground(new java.awt.Color(255, 255, 255));
+    foodLabel3.setText("CHINESE");
 
-        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
-        jPanel16.setLayout(jPanel16Layout);
-        jPanel16Layout.setHorizontalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel35)
-                .addContainerGap(11, Short.MAX_VALUE))
-        );
-        jPanel16Layout.setVerticalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+    javax.swing.GroupLayout halfTransparentPanel3Layout = new javax.swing.GroupLayout(halfTransparentPanel3);
+    halfTransparentPanel3.setLayout(halfTransparentPanel3Layout);
+    halfTransparentPanel3Layout.setHorizontalGroup(
+        halfTransparentPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(halfTransparentPanel3Layout.createSequentialGroup()
+            .addGap(35, 35, 35)
+            .addComponent(foodLabel3)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    );
+    halfTransparentPanel3Layout.setVerticalGroup(
+        halfTransparentPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, halfTransparentPanel3Layout.createSequentialGroup()
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(foodLabel3)
+            .addGap(27, 27, 27))
+    );
 
-        jPanel21.add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 700, 240, 60));
+    contentPanel.add(halfTransparentPanel3);
+    halfTransparentPanel3.setBounds(930, 350, 400, 100);
 
-        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/Japanese Food.jpg"))); // NOI18N
-        jButton15.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton15ActionPerformed(evt);
-            }
-        });
-        jPanel21.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 550, 400, 210));
+    foodPicture3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/chinese_food.jpg"))); // NOI18N
+    foodPicture3.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            foodPicture3MouseEntered(evt);
+        }
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            foodPicture3MouseExited(evt);
+        }
+    });
+    contentPanel.add(foodPicture3);
+    foodPicture3.setBounds(930, 150, 400, 300);
 
-        jPanel17.setBackground(new java.awt.Color(51, 51, 51, 128));
+    halfTransparentPanel4.setBackground(new java.awt.Color(0, 0, 0, 200));
+    halfTransparentPanel4.setMaximumSize(new java.awt.Dimension(400, 300));
+    halfTransparentPanel4.setPreferredSize(new java.awt.Dimension(400, 300));
+    halfTransparentPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            halfTransparentPanel4MouseEntered(evt);
+        }
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            halfTransparentPanel4MouseExited(evt);
+        }
+    });
 
-        jLabel36.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel36.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel36.setText("Western");
+    foodLabel4.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+    foodLabel4.setForeground(new java.awt.Color(255, 255, 255));
+    foodLabel4.setText("JAPANESE");
 
-        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
-        jPanel17.setLayout(jPanel17Layout);
-        jPanel17Layout.setHorizontalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel17Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel36)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel17Layout.setVerticalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 54, Short.MAX_VALUE))
-        );
+    javax.swing.GroupLayout halfTransparentPanel4Layout = new javax.swing.GroupLayout(halfTransparentPanel4);
+    halfTransparentPanel4.setLayout(halfTransparentPanel4Layout);
+    halfTransparentPanel4Layout.setHorizontalGroup(
+        halfTransparentPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(halfTransparentPanel4Layout.createSequentialGroup()
+            .addGap(35, 35, 35)
+            .addComponent(foodLabel4)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    );
+    halfTransparentPanel4Layout.setVerticalGroup(
+        halfTransparentPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, halfTransparentPanel4Layout.createSequentialGroup()
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(foodLabel4)
+            .addGap(27, 27, 27))
+    );
 
-        jPanel21.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 700, 210, 60));
+    contentPanel.add(halfTransparentPanel4);
+    halfTransparentPanel4.setBounds(70, 680, 400, 100);
 
-        jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/western food.jpg"))); // NOI18N
-        jButton16.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton16ActionPerformed(evt);
-            }
-        });
-        jPanel21.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 550, 400, 210));
+    foodPicture4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/japanese_food.jpg"))); // NOI18N
+    foodPicture4.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            foodPicture4MouseEntered(evt);
+        }
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            foodPicture4MouseExited(evt);
+        }
+    });
+    contentPanel.add(foodPicture4);
+    foodPicture4.setBounds(70, 480, 400, 300);
 
-        jPanel18.setBackground(new java.awt.Color(51, 51, 51, 128));
+    halfTransparentPanel5.setBackground(new java.awt.Color(0, 0, 0, 200));
+    halfTransparentPanel5.setMaximumSize(new java.awt.Dimension(400, 300));
+    halfTransparentPanel5.setPreferredSize(new java.awt.Dimension(400, 300));
+    halfTransparentPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            halfTransparentPanel5MouseEntered(evt);
+        }
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            halfTransparentPanel5MouseExited(evt);
+        }
+    });
 
-        jLabel37.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel37.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel37.setText("Beverages");
+    foodLabel5.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+    foodLabel5.setForeground(new java.awt.Color(255, 255, 255));
+    foodLabel5.setText("WESTERN");
 
-        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
-        jPanel18.setLayout(jPanel18Layout);
-        jPanel18Layout.setHorizontalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addComponent(jLabel37)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel18Layout.setVerticalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+    javax.swing.GroupLayout halfTransparentPanel5Layout = new javax.swing.GroupLayout(halfTransparentPanel5);
+    halfTransparentPanel5.setLayout(halfTransparentPanel5Layout);
+    halfTransparentPanel5Layout.setHorizontalGroup(
+        halfTransparentPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(halfTransparentPanel5Layout.createSequentialGroup()
+            .addGap(35, 35, 35)
+            .addComponent(foodLabel5)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    );
+    halfTransparentPanel5Layout.setVerticalGroup(
+        halfTransparentPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, halfTransparentPanel5Layout.createSequentialGroup()
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(foodLabel5)
+            .addGap(27, 27, 27))
+    );
 
-        jPanel21.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 700, 250, 60));
+    contentPanel.add(halfTransparentPanel5);
+    halfTransparentPanel5.setBounds(500, 680, 400, 100);
 
-        jButton17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/beverages.jpg"))); // NOI18N
-        jButton17.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton17ActionPerformed(evt);
-            }
-        });
-        jPanel21.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 550, 400, 210));
+    foodPicture5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/western_food.jpg"))); // NOI18N
+    foodPicture5.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            foodPicture5MouseEntered(evt);
+        }
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            foodPicture5MouseExited(evt);
+        }
+    });
+    contentPanel.add(foodPicture5);
+    foodPicture5.setBounds(500, 480, 400, 300);
 
-        jPanel1.setBackground(new java.awt.Color(159, 122, 84));
+    halfTransparentPanel6.setBackground(new java.awt.Color(0, 0, 0, 200));
+    halfTransparentPanel6.setMaximumSize(new java.awt.Dimension(400, 300));
+    halfTransparentPanel6.setPreferredSize(new java.awt.Dimension(400, 300));
+    halfTransparentPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            halfTransparentPanel6MouseEntered(evt);
+        }
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            halfTransparentPanel6MouseExited(evt);
+        }
+    });
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel2.setText("Our Team - Beng's Best");
+    foodLabel6.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+    foodLabel6.setForeground(new java.awt.Color(255, 255, 255));
+    foodLabel6.setText("BEVERAGES");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("Chan Chun Ming  (The Best Leader)            - TP068983");
+    javax.swing.GroupLayout halfTransparentPanel6Layout = new javax.swing.GroupLayout(halfTransparentPanel6);
+    halfTransparentPanel6.setLayout(halfTransparentPanel6Layout);
+    halfTransparentPanel6Layout.setHorizontalGroup(
+        halfTransparentPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(halfTransparentPanel6Layout.createSequentialGroup()
+            .addGap(35, 35, 35)
+            .addComponent(foodLabel6)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    );
+    halfTransparentPanel6Layout.setVerticalGroup(
+        halfTransparentPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, halfTransparentPanel6Layout.createSequentialGroup()
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(foodLabel6)
+            .addGap(27, 27, 27))
+    );
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setText("Eu Jun Hong        (The Best Coordinator)    - TP068580");
+    contentPanel.add(halfTransparentPanel6);
+    halfTransparentPanel6.setBounds(930, 680, 400, 100);
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setText("Lim Beng Rhui      (The “DOH”)                     - TP068495");
+    foodPicture6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/beverages.jpg"))); // NOI18N
+    foodPicture6.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            foodPicture6MouseEntered(evt);
+        }
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            foodPicture6MouseExited(evt);
+        }
+    });
+    contentPanel.add(foodPicture6);
+    foodPicture6.setBounds(930, 480, 400, 300);
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel11.setText("Ng Xuan Jack      (The Best Designer)           - TP067678");
+    backgroundPanel.add(contentPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 1400, 920));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel12.setText("Contact Us");
+    footerPanel.setBackground(new java.awt.Color(231, 219, 210));
+    footerPanel.setLayout(null);
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel13.setText("No. 1A, Jalan Teknologi 5, Taman Teknologi Malaysia, 57000 Bukit Jalil, WP Kuala Lumpur.");
+    jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/team_icon.png"))); // NOI18N
+    footerPanel.add(jLabel1);
+    jLabel1.setBounds(70, 40, 100, 67);
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel14.setText("Tel No: (+60) 5-345 6789");
+    jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/contact_icon.png"))); // NOI18N
+    footerPanel.add(jLabel2);
+    jLabel2.setBounds(760, 45, 66, 67);
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel15.setText("Email: bengnobest@gmail.com");
+    jLabel3.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+    jLabel3.setText("Our Team - Beng's Best");
+    footerPanel.add(jLabel3);
+    jLabel3.setBounds(190, 55, 460, 42);
 
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/contact_icon.png"))); // NOI18N
+    memberFourTP.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+    memberFourTP.setText(" - TP067678");
+    footerPanel.add(memberFourTP);
+    memberFourTP.setBounds(440, 200, 200, 30);
 
-        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/team icon.png"))); // NOI18N
+    memberTwoName.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+    memberTwoName.setText("•  Eu Jun Hong");
+    footerPanel.add(memberTwoName);
+    memberTwoName.setBounds(200, 140, 200, 30);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(jLabel31)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel2))
-                .addGap(148, 148, 148)
-                .addComponent(jLabel16)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel12))
-                .addGap(103, 103, 103))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel31))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel12)
-                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel13))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel14))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+    memberThreeName.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+    memberThreeName.setText("•  Lim Beng Rhui");
+    footerPanel.add(memberThreeName);
+    memberThreeName.setBounds(200, 170, 200, 30);
 
-        jPanel21.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 824, 1400, 200));
+    memberFourName.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+    memberFourName.setText("•  Ng Xuan Jack");
+    footerPanel.add(memberFourName);
+    memberFourName.setBounds(200, 200, 200, 30);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+    jLabel12.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+    jLabel12.setText("Contact Us");
+    footerPanel.add(jLabel12);
+    jLabel12.setBounds(847, 55, 300, 42);
 
-        pack();
+    jLabel13.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+    jLabel13.setText("57000 Bukit Jalil, WP Kuala Lumpur.");
+    footerPanel.add(jLabel13);
+    jLabel13.setBounds(850, 140, 500, 30);
+
+    jLabel14.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+    jLabel14.setText("Tel No: (+60) 5-345 6789");
+    footerPanel.add(jLabel14);
+    jLabel14.setBounds(850, 200, 500, 30);
+
+    jLabel15.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+    jLabel15.setText("Email: bengnobest@gmail.com");
+    footerPanel.add(jLabel15);
+    jLabel15.setBounds(850, 170, 500, 30);
+
+    mamberOneName.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+    mamberOneName.setText("•  Chan Chun Ming");
+    footerPanel.add(mamberOneName);
+    mamberOneName.setBounds(200, 110, 200, 30);
+
+    memberOneTP.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+    memberOneTP.setText(" - TP068983");
+    footerPanel.add(memberOneTP);
+    memberOneTP.setBounds(440, 110, 200, 30);
+
+    memberTwoTP.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+    memberTwoTP.setText(" - TP068580");
+    footerPanel.add(memberTwoTP);
+    memberTwoTP.setBounds(440, 140, 200, 30);
+
+    memberThreeTP.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+    memberThreeTP.setText(" - TP068495");
+    footerPanel.add(memberThreeTP);
+    memberThreeTP.setBounds(440, 170, 200, 30);
+
+    jLabel16.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+    jLabel16.setText("No. 1A, Jalan Teknologi 5, Taman Teknologi Malaysia,");
+    footerPanel.add(jLabel16);
+    jLabel16.setBounds(850, 110, 500, 30);
+
+    backgroundPanel.add(footerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 1340, 1400, 280));
+
+    backgroundScrollPane.setViewportView(backgroundPanel);
+
+    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+    getContentPane().setLayout(layout);
+    layout.setHorizontalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(backgroundScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    );
+    layout.setVerticalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(backgroundScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    );
+
+    pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton17ActionPerformed
+    private void halfTransparentPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_halfTransparentPanel1MouseEntered
+        
+        // Change cursor
+        halfTransparentPanel1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
+        // Make panel fill the entire picture
+        halfTransparentPanel1.setBounds(70, 150, 400, 300);
+        
+        // Increase text size when mouse entered
+        foodLabel1.setFont(new Font("Arial", Font.BOLD, 48));
+        
+        // Refresh everything upon change
+        revalidate();
+        repaint();
+    }//GEN-LAST:event_halfTransparentPanel1MouseEntered
 
-    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton16ActionPerformed
+    private void halfTransparentPanel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_halfTransparentPanel1MouseExited
+        
+        // Change cursor
+        halfTransparentPanel1.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        
+        // Make panel return to initial location
+        halfTransparentPanel1.setBounds(70, 350, 400, 100);
 
-    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton15ActionPerformed
+        // Reset text size when mouse leave
+        foodLabel1.setFont(new Font("Arial", Font.BOLD, 36));
 
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton14ActionPerformed
+        // Refresh everything upon change
+        revalidate();
+        repaint();
+    }//GEN-LAST:event_halfTransparentPanel1MouseExited
 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton12ActionPerformed
+    private void halfTransparentPanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_halfTransparentPanel2MouseEntered
+        
+        // Change cursor
+        halfTransparentPanel2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
+        // Make panel fill the entire picture
+        halfTransparentPanel2.setBounds(500, 150, 400, 300);
+        
+        // Increase text size when mouse entered
+        foodLabel2.setFont(new Font("Arial", Font.BOLD, 48));
+        
+        // Refresh everything upon change
+        revalidate();
+        repaint();
+    }//GEN-LAST:event_halfTransparentPanel2MouseEntered
 
-    private void jButton8jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8jButton5ActionPerformed
+    private void halfTransparentPanel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_halfTransparentPanel2MouseExited
+        
+        // Change cursor
+        halfTransparentPanel2.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        
+        // Make panel return to initial location
+        halfTransparentPanel2.setBounds(500, 350, 400, 100);
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton13ActionPerformed
+        // Reset text size when mouse leave
+        foodLabel2.setFont(new Font("Arial", Font.BOLD, 36));
+
+        // Refresh everything upon change
+        revalidate();
+        repaint();
+    }//GEN-LAST:event_halfTransparentPanel2MouseExited
+
+    private void halfTransparentPanel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_halfTransparentPanel3MouseEntered
+        
+        // Change cursor
+        halfTransparentPanel3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
+        // Make panel fill the entire picture
+        halfTransparentPanel3.setBounds(930, 150, 400, 300);
+        
+        // Increase text size when mouse entered
+        foodLabel3.setFont(new Font("Arial", Font.BOLD, 48));
+        
+        // Refresh everything upon change
+        revalidate();
+        repaint();
+    }//GEN-LAST:event_halfTransparentPanel3MouseEntered
+
+    private void halfTransparentPanel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_halfTransparentPanel3MouseExited
+
+        // Change cursor
+        halfTransparentPanel3.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        
+        // Make panel return to initial location
+        halfTransparentPanel3.setBounds(930, 350, 400, 100);
+
+        // Reset text size when mouse leave
+        foodLabel3.setFont(new Font("Arial", Font.BOLD, 36));
+
+        // Refresh everything upon change
+        revalidate();
+        repaint();
+    }//GEN-LAST:event_halfTransparentPanel3MouseExited
+
+    private void halfTransparentPanel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_halfTransparentPanel4MouseEntered
+        
+        // Change cursor
+        halfTransparentPanel4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
+        // Make panel fill the entire picture
+        halfTransparentPanel4.setBounds(70, 480, 400, 300);
+        
+        // Increase text size when mouse entered
+        foodLabel4.setFont(new Font("Arial", Font.BOLD, 48));
+        
+        // Refresh everything upon change
+        revalidate();
+        repaint();
+    }//GEN-LAST:event_halfTransparentPanel4MouseEntered
+
+    private void halfTransparentPanel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_halfTransparentPanel4MouseExited
+
+        // Change cursor
+        halfTransparentPanel4.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        
+        // Make panel return to initial location
+        halfTransparentPanel4.setBounds(70, 680, 400, 100);
+
+        // Reset text size when mouse leave
+        foodLabel4.setFont(new Font("Arial", Font.BOLD, 36));
+
+        // Refresh everything upon change
+        revalidate();
+        repaint();
+    }//GEN-LAST:event_halfTransparentPanel4MouseExited
+
+    private void halfTransparentPanel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_halfTransparentPanel5MouseEntered
+        
+        // Change cursor
+        halfTransparentPanel5.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
+        // Make panel fill the entire picture
+        halfTransparentPanel5.setBounds(500, 480, 400, 300);
+        
+        // Increase text size when mouse entered
+        foodLabel5.setFont(new Font("Arial", Font.BOLD, 48));
+        
+        // Refresh everything upon change
+        revalidate();
+        repaint();
+    }//GEN-LAST:event_halfTransparentPanel5MouseEntered
+
+    private void halfTransparentPanel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_halfTransparentPanel5MouseExited
+
+        // Change cursor
+        halfTransparentPanel5.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        
+        // Make panel return to initial location
+        halfTransparentPanel5.setBounds(500, 680, 400, 100);
+
+        // Reset text size when mouse leave
+        foodLabel5.setFont(new Font("Arial", Font.BOLD, 36));
+
+        // Refresh everything upon change
+        revalidate();
+        repaint();
+    }//GEN-LAST:event_halfTransparentPanel5MouseExited
+
+    private void halfTransparentPanel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_halfTransparentPanel6MouseEntered
+        
+        // Change cursor
+        halfTransparentPanel6.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
+        // Make panel fill the entire picture
+        halfTransparentPanel6.setBounds(930, 480, 400, 300);
+        
+        // Increase text size when mouse entered
+        foodLabel6.setFont(new Font("Arial", Font.BOLD, 48));
+        
+        // Refresh everything upon change
+        revalidate();
+        repaint();
+    }//GEN-LAST:event_halfTransparentPanel6MouseEntered
+
+    private void halfTransparentPanel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_halfTransparentPanel6MouseExited
+
+        // Change cursor
+        halfTransparentPanel6.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        
+        // Make panel return to initial location
+        halfTransparentPanel6.setBounds(930, 680, 400, 100);
+
+        // Reset text size when mouse leave
+        foodLabel6.setFont(new Font("Arial", Font.BOLD, 36));
+
+        // Refresh everything upon change
+        revalidate();
+        repaint();
+    }//GEN-LAST:event_halfTransparentPanel6MouseExited
+
+    private void foodPicture1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodPicture1MouseEntered
+        
+        // Perform the same action as the ones in half transparent panel
+        halfTransparentPanel1MouseEntered(evt);
+    }//GEN-LAST:event_foodPicture1MouseEntered
+
+    private void foodPicture1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodPicture1MouseExited
+        
+        // Perform the same action as the ones in half transparent panel
+        halfTransparentPanel1MouseExited(evt);
+    }//GEN-LAST:event_foodPicture1MouseExited
+
+    private void foodPicture2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodPicture2MouseEntered
+        
+        // Perform the same action as the ones in half transparent panel
+        halfTransparentPanel2MouseEntered(evt);
+    }//GEN-LAST:event_foodPicture2MouseEntered
+
+    private void foodPicture2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodPicture2MouseExited
+        
+        // Perform the same action as the ones in half transparent panel
+        halfTransparentPanel2MouseExited(evt);
+    }//GEN-LAST:event_foodPicture2MouseExited
+
+    private void foodPicture3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodPicture3MouseEntered
+        
+        // Perform the same action as the ones in half transparent panel
+        halfTransparentPanel3MouseEntered(evt);
+    }//GEN-LAST:event_foodPicture3MouseEntered
+
+    private void foodPicture3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodPicture3MouseExited
+        
+        // Perform the same action as the ones in half transparent panel
+        halfTransparentPanel3MouseExited(evt);
+    }//GEN-LAST:event_foodPicture3MouseExited
+
+    private void foodPicture4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodPicture4MouseEntered
+        
+        // Perform the same action as the ones in half transparent panel
+        halfTransparentPanel4MouseEntered(evt);
+    }//GEN-LAST:event_foodPicture4MouseEntered
+
+    private void foodPicture4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodPicture4MouseExited
+        
+        // Perform the same action as the ones in half transparent panel
+        halfTransparentPanel4MouseExited(evt);
+    }//GEN-LAST:event_foodPicture4MouseExited
+
+    private void foodPicture5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodPicture5MouseEntered
+        
+        // Perform the same action as the ones in half transparent panel
+        halfTransparentPanel5MouseEntered(evt);
+    }//GEN-LAST:event_foodPicture5MouseEntered
+
+    private void foodPicture5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodPicture5MouseExited
+        
+        // Perform the same action as the ones in half transparent panel
+        halfTransparentPanel5MouseExited(evt);
+    }//GEN-LAST:event_foodPicture5MouseExited
+
+    private void foodPicture6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodPicture6MouseEntered
+        
+        // Perform the same action as the ones in half transparent panel
+        halfTransparentPanel6MouseEntered(evt);
+    }//GEN-LAST:event_foodPicture6MouseEntered
+
+    private void foodPicture6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_foodPicture6MouseExited
+        
+        // Perform the same action as the ones in half transparent panel
+        halfTransparentPanel6MouseExited(evt);
+    }//GEN-LAST:event_foodPicture6MouseExited
+
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+
+        // Navigate to user login page (RMB TO LINK TO THE FOOD CATEGORIES)
+        LoginPage loginPage = new LoginPage();
+        loginPage.setVisible(true);
+        loginPage.setLocationRelativeTo(this);
+        
+        // Discard the current page
+        dispose();
+    }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void loginButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseEntered
+        
+        // Set background to white
+        loginButton.setBackground(Color.WHITE);
+        
+        // Set text to black
+        loginButton.setForeground(Color.BLACK);
+        
+        // Change cursor
+        loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
+    }//GEN-LAST:event_loginButtonMouseEntered
+
+    private void loginButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseExited
+
+        // Set background back to black
+        loginButton.setBackground(Color.BLACK);
+        
+        // Set text to white
+        loginButton.setForeground(Color.WHITE);
+        
+        // Change cursor
+        loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_loginButtonMouseExited
 
     /**
      * @param args the command line arguments
@@ -446,7 +876,6 @@ public class HomePage extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -457,42 +886,51 @@ public class HomePage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JLabel jLabel11;
+    private javax.swing.JPanel backgroundPanel;
+    private javax.swing.JScrollPane backgroundScrollPane;
+    private javax.swing.JLabel bannerBackground;
+    private javax.swing.JPanel bannerPanel;
+    private javax.swing.JPanel contentPanel;
+    private javax.swing.JLabel contentSubtitle;
+    private javax.swing.JLabel contentTitle;
+    private javax.swing.JLabel foodLabel1;
+    private javax.swing.JLabel foodLabel2;
+    private javax.swing.JLabel foodLabel3;
+    private javax.swing.JLabel foodLabel4;
+    private javax.swing.JLabel foodLabel5;
+    private javax.swing.JLabel foodLabel6;
+    private javax.swing.JLabel foodPicture1;
+    private javax.swing.JLabel foodPicture2;
+    private javax.swing.JLabel foodPicture3;
+    private javax.swing.JLabel foodPicture4;
+    private javax.swing.JLabel foodPicture5;
+    private javax.swing.JLabel foodPicture6;
+    private javax.swing.JPanel footerPanel;
+    private javax.swing.JPanel halfTransparentPanel1;
+    private javax.swing.JPanel halfTransparentPanel2;
+    private javax.swing.JPanel halfTransparentPanel3;
+    private javax.swing.JPanel halfTransparentPanel4;
+    private javax.swing.JPanel halfTransparentPanel5;
+    private javax.swing.JPanel halfTransparentPanel6;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel16;
-    private javax.swing.JPanel jPanel17;
-    private javax.swing.JPanel jPanel18;
-    private javax.swing.JPanel jPanel21;
+    private javax.swing.JButton loginButton;
+    private javax.swing.JLabel mainTitle;
+    private javax.swing.JLabel mamberOneName;
+    private javax.swing.JLabel memberFourName;
+    private javax.swing.JLabel memberFourTP;
+    private javax.swing.JLabel memberOneTP;
+    private javax.swing.JLabel memberThreeName;
+    private javax.swing.JLabel memberThreeTP;
+    private javax.swing.JLabel memberTwoName;
+    private javax.swing.JLabel memberTwoTP;
+    private javax.swing.JLabel subTitle;
+    private javax.swing.JLabel systemIcon;
     // End of variables declaration//GEN-END:variables
 }
