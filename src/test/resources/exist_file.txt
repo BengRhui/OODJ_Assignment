@@ -1,0 +1,1 @@
+Hi, this file is used to test if JUnit is able to detect this file during testing.

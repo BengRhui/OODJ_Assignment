@@ -1,0 +1,157 @@
+package backend.entity;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
+/**
+ * Class {@code Item} represents the item sold by each stall in the food court.
+ *
+ * @author Beng Rhui (TP068495)
+ */
+public class Item {
+
+    /**
+     * Attributes for the {@code Item} object.<br>
+     * A list that contains all {@code Item} objects is also included.
+     */
+    public final static Item deliveryFees = new Item(
+            "I001",
+            "Delivery Fees",
+            null,
+            2,
+            "Fees charged for delivery services"
+    );
+    private final static ArrayList<Item> itemList = new ArrayList<>(List.of(deliveryFees));
+    private String itemID;
+    private String itemName;
+    private Stall stall;
+    private double price;
+    private String description;
+
+    /**
+     * Constructor to instantiate the {@code Item} object.
+     *
+     * @param itemID      The ID of the item
+     * @param itemName    The name of the item
+     * @param stall       The stall associated with the item
+     * @param price       The price of the item
+     * @param description The description of the item
+     */
+    public Item(String itemID, String itemName, Stall stall, double price, String description) {
+        this.itemID = itemID;
+        this.itemName = itemName;
+        this.stall = stall;
+        this.price = price;
+        this.description = description;
+    }
+
+    /**
+     * A method to return a list containing all {@code Item} objects.
+     *
+     * @return An ArrayList consisting of all {@code Item} objects
+     */
+    public static ArrayList<Item> getItemList() {
+        return itemList;
+    }
+
+    /**
+     * A method to add {@code Item} objects into an overall list.
+     *
+     * @param item The {@code Item} objects to be added to list
+     */
+    public static void addItemToList(Item... item) {
+
+        // Throws an error if there is no item passed into the argument, or a null item is passed into argument
+        if (item.length == 0 || Arrays.stream(item).anyMatch(Objects::isNull)) {
+            throw new IllegalArgumentException("Arguments should contain at least one Item object");
+        }
+
+        // Add all the items from the arguments into the list
+        itemList.addAll(
+                Arrays.asList(item)
+        );
+    }
+
+    /**
+     * A method to retrieve {@code Item} object by ID.
+     *
+     * @param itemID The ID of the item
+     * @return The {@code Item} object associated with the ID
+     */
+    public static Item getItem(String itemID) {
+
+        // Loop through the list of item objects
+        for (Item item : itemList) {
+
+            // Continue loop if item ID does not match
+            if (!item.itemID.equals(itemID)) {
+                continue;
+            }
+
+            // Return the respective item object if item ID matches
+            return item;
+        }
+
+        // Return null if there is no matching ID
+        return null;
+    }
+
+    /**
+     * Getters and setters for the {@code Item} class.
+     */
+    public String getItemID() {
+        return itemID;
+    }
+
+    public void setItemID(String itemID) {
+        this.itemID = itemID;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public Stall getStall() {
+        return stall;
+    }
+
+    public void setStall(Stall stall) {
+        this.stall = stall;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * A method to print out all information of the {@code Item} object.
+     *
+     * @return String representation of the {@code Item} object
+     */
+    @Override
+    public String toString() {
+        return "Item ID: " + itemID + "\n" +
+                "Item Name: " + itemName + "\n" +
+                "Stall: " + (stall == null ? "null" : "\n" + stall) + "\n" +
+                "Price: " + price + "\n" +
+                "Item Description: " + description;
+    }
+}

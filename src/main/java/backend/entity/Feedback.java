@@ -1,0 +1,219 @@
+package backend.entity;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
+
+/**
+ * Class {@code Feedback} represents the feedback that customers provide to the system, vendor and delivery runner.
+ *
+ * @author Beng Rhui (TP068495)
+ */
+public class Feedback {
+
+    /**
+     * Attributes for {@code Feedback} objects.<br>
+     * A list containing all {@code Feedback} objects is also included.
+     */
+    private final static ArrayList<Feedback> feedbackList = new ArrayList<Feedback>();
+    private String feedbackID;
+    private Category feedbackCategory;
+    private Order orderAssociated;
+    private double ratings;
+    private String feedbackTitle;
+    private String feedbackDetails;
+    private String replyFromManager;
+
+    /**
+     * Constructor to instantiate {@code Feedback} objects.
+     *
+     * @param feedbackID       The ID of feedback
+     * @param feedbackCategory The categories of feedback, i.e. system, vendor and delivery runner
+     * @param orderAssociated  The Order item associated with the feedback
+     * @param ratings          The ratings provided by the customer in the feedback
+     * @param feedbackTitle    The title of the feedback
+     * @param feedbackDetails  The description of the feedback
+     * @param replyFromManager The reply that the manager provides to the customer
+     */
+    public Feedback(String feedbackID, Category feedbackCategory, Order orderAssociated, double ratings, String feedbackTitle, String feedbackDetails, String replyFromManager) {
+        this.feedbackID = feedbackID;
+        this.feedbackCategory = feedbackCategory;
+        this.orderAssociated = orderAssociated;
+        this.ratings = ratings;
+        this.feedbackTitle = feedbackTitle;
+        this.feedbackDetails = feedbackDetails;
+        this.replyFromManager = replyFromManager;
+    }
+
+    /**
+     * A method to retrieve the list that contains all instances of {@code Feedback}.
+     *
+     * @return An ArrayList containing all {@code Feedback} objects
+     */
+    public static ArrayList<Feedback> getFeedbackList() {
+        return feedbackList;
+    }
+
+    /**
+     * A method to add {@code Feedback} objects to the overall list.
+     *
+     * @param feedback The {@code Feedback} objects to be added to list
+     */
+    public static void addToFeedbackList(Feedback... feedback) {
+
+        // Throws an error if there is no feedback passed into the argument, or a null feedback is passed into argument
+        if (feedback.length == 0 || Arrays.stream(feedback).anyMatch(Objects::isNull)) {
+            throw new IllegalArgumentException("Arguments should contain at least one Feedback object");
+        }
+
+        // Add all the feedbacks from the arguments into the list
+        feedbackList.addAll(
+                Arrays.asList(feedback)
+        );
+    }
+
+    /**
+     * A method to retrieve feedback based on ID
+     *
+     * @param feedbackID The ID of the feedback
+     * @return The {@code Feedback} object associated to the ID
+     */
+    public static Feedback getFeedback(String feedbackID) {
+
+        // Loop through the list of feedback
+        for (Feedback feedback : feedbackList) {
+
+            // Continue loop if ID does not match
+            if (!feedback.feedbackID.equals(feedbackID)) {
+                continue;
+            }
+
+            // Return feedback if ID matches
+            return feedback;
+        }
+
+        // Return null if all ID does not match the input ID
+        return null;
+    }
+
+    /**
+     * Getters and setters for {@code Feedback} class.
+     */
+    public String getFeedbackID() {
+        return feedbackID;
+    }
+
+    public void setFeedbackID(String feedbackID) {
+        this.feedbackID = feedbackID;
+    }
+
+    public Category getFeedbackCategory() {
+        return feedbackCategory;
+    }
+
+    public void setFeedbackCategory(Category feedbackCategory) {
+        this.feedbackCategory = feedbackCategory;
+    }
+
+    public Order getOrderAssociated() {
+        return orderAssociated;
+    }
+
+    public void setOrderAssociated(Order orderAssociated) {
+        this.orderAssociated = orderAssociated;
+    }
+
+    public double getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(double ratings) {
+        this.ratings = ratings;
+    }
+
+    public String getFeedbackTitle() {
+        return feedbackTitle;
+    }
+
+    public void setFeedbackTitle(String feedbackTitle) {
+        this.feedbackTitle = feedbackTitle;
+    }
+
+    public String getFeedbackDetails() {
+        return feedbackDetails;
+    }
+
+    public void setFeedbackDetails(String feedbackDetails) {
+        this.feedbackDetails = feedbackDetails;
+    }
+
+    public String getReplyFromManager() {
+        return replyFromManager;
+    }
+
+    public void setReplyFromManager(String replyFromManager) {
+        this.replyFromManager = replyFromManager;
+    }
+
+    /**
+     * A method to print out information for {@code Feedback} objects.
+     *
+     * @return String representation of the {@code Feedback} objects
+     */
+    @Override
+    public String toString() {
+        return "Feedback ID: " + feedbackID + "\n" +
+                "Feedback Category: " + feedbackCategory.toString() + "\n" +
+                "Order Associated: " + "\n" +
+                orderAssociated + "\n" +
+                "Ratings: " + ratings + "\n" +
+                "Feedback Title: " + feedbackTitle + "\n" +
+                "Feedback Details: " + feedbackDetails + "\n" +
+                "Reply From Manager: " + replyFromManager;
+    }
+
+    /**
+     * Enum {@code Category} contains the different {@code Feedback} types.
+     */
+    public enum Category {
+
+        /**
+         * Different status of categories
+         */
+        SYSTEM, VENDOR, DELIVERY_RUNNER;
+
+        /**
+         * The list of available categories in list
+         */
+        public final static String[] CATEGORY_OPTIONS = Arrays.stream(Category.values())  // Get the fields
+                .map(Category::toString)                                                  // Map to values in toString
+                .toArray(String[]::new);                                                  // Return as string array
+
+        /**
+         * A method to retrieve {@code Category} based on string input
+         *
+         * @param category The string input corresponding to the category
+         * @return The {@code Category} field corresponding to the string
+         */
+        public static Category getFromString(String category) {
+            return Arrays.stream(Category.values())                                       // Get the fields
+                    .filter(field -> field.toString().equalsIgnoreCase(category))         // Compare with input
+                    .findFirst()                                                          // Find the first occurrence
+                    .orElse(null);                                                        // Return null if not match
+        }
+
+        /**
+         * A method to return the string value of the {@code Feedback} fields
+         *
+         * @return The string representation of the fields
+         */
+        @Override
+        public String toString() {
+            return switch (this) {
+                case SYSTEM -> "System";
+                case VENDOR -> "Vendor";
+                case DELIVERY_RUNNER -> "Delivery Runner";
+            };
+        }
+    }
+}
