@@ -1,64 +1,68 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package frontend.pop_up;
 
-import org.apache.xmlbeans.impl.store.Cur;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Frame;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
 /**
  *
  * @author limbengrhui
  */
-public class NotificationPopUp extends javax.swing.JFrame {
+public class NotificationPopUp extends javax.swing.JDialog {
 
-    /**
-     * Private variables to be used to create notification pop up
-     */
+    private static int status = -1;
+    private Frame parent;
     private String popUpTitle;
     private String popUpDescription;
     private String[] popUpOptions;
-    private static int status = 0;
-    
+
     /**
-     * Creates new form NotificationPopUp
-     * 
-     * @param title The title of the notification
-     * @param description The description for the notification
-     * @param optionList A list containing the text to be added to buttons (from left to right, either 1 or 2)
+     * Creates new form Testing
+     *
+     * @param parent The parent frame of the JDialog
      */
-    public NotificationPopUp(String title, String description, String[] optionList) {
-        
+    public NotificationPopUp(java.awt.Frame parent, String title, String description, String[] optionList) {
+        super(parent, "Confirmation", true);
+
         // Validate the inputs
-        if (title == null || title.isBlank() || 
-                description == null || description.isBlank() || 
+        if (title == null || title.isBlank() ||
+                description == null || description.isBlank() ||
                 optionList == null || (optionList.length != 1 && optionList.length != 2)) {
-            
+
             // Throw an exception when input is incorrect
             throw new IllegalArgumentException("Invalid arguments. The input should not be null or empty.");
         }
-        
+
         // Set the inputs into the private variables
+        this.parent = parent;
         this.popUpTitle = title;
         this.popUpDescription = description;
         this.popUpOptions = optionList;
-        
-        // Run the code that renders the GUI
+
         initComponents();
-        
+
+        addButtonToPanel(buttonPanel, popUpOptions);
+
+    }
+
+    private void addButtonToPanel(JPanel panel, String[] optionList) {
+
         // Get the information for adding buttons
         int gapBetweenButtons = 30;
         int numOfButtons = optionList.length;
-        int buttonWidth = (buttonPanel.getWidth() - gapBetweenButtons * (numOfButtons - 1)) / numOfButtons ;
-        int buttonHeight = buttonPanel.getHeight();
+        int buttonWidth = (panel.getWidth() - gapBetweenButtons * (numOfButtons - 1)) / numOfButtons ;
+        int buttonHeight = panel.getHeight();
 
         // Loop through the list of text
         for (int i = 0; i < numOfButtons; i ++) {
@@ -123,51 +127,16 @@ public class NotificationPopUp extends javax.swing.JFrame {
             });
 
             // Add the button to button panel
-            buttonPanel.add(newButton);
+            panel.add(newButton);
         }
     }
-    
+
     /**
-     * The method that has to be executed in order to run the notification
-     * (coz we will need to let the current thread to wait until the notification is disposed, then only a status will be returned)
-     *
-     * @return The status of the selected option (0 for the first button, 1 for the second button (if available))
+     * A method to return the status of the notification after it is disposed.
+     * @return The status of the notification
      */
-    public int run() {
-
-        // Make the notification frame visible
-        setVisible(true);
-
-        try {
-
-            // Pause the execution of code until the "notify()" method is called
-            synchronized (this) {
-                wait(); // Wait for user interaction
-            }
-
-        } catch (InterruptedException e) {
-
-            // Inform the system that the current thread is interrupted
-            Thread.currentThread().interrupt();
-        }
-
-        // Return the status after the frame is disposed
+    public int getStatus() {
         return status;
-    }
-
-    /**
-     * This method overrides the initial dispose() method, where the {@code notify()} method is called before the usual dispose method takes place.
-     */
-    @Override
-    public void dispose() {
-
-        // Call the notify method to update the status
-        synchronized (this) {
-            notify();
-        }
-
-        // Continue the usual dispose operation
-        super.dispose();
     }
 
     /**
@@ -180,40 +149,42 @@ public class NotificationPopUp extends javax.swing.JFrame {
     private void initComponents() {
 
         backgroundPanel = new javax.swing.JPanel();
-        notificationTitle = new javax.swing.JLabel();
-        notificationDescription = new javax.swing.JLabel();
+        titleText = new javax.swing.JLabel();
+        descriptionText = new javax.swing.JLabel();
         buttonPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Confirmation");
-        setMinimumSize(new java.awt.Dimension(500, 400));
-        setName("notificationPopUp"); // NOI18N
-        setSize(new java.awt.Dimension(500, 400));
+        setAlwaysOnTop(true);
+        setLocation(parent.getX() + (parent.getWidth() - 500) / 2,
+            parent.getY() + (parent.getHeight() - 350) / 2);
+        setName("notificationDialog"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(500, 350));
+        setResizable(false);
+        setSize(new java.awt.Dimension(500, 350));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         backgroundPanel.setBackground(new java.awt.Color(255, 251, 233));
-        backgroundPanel.setMinimumSize(new java.awt.Dimension(500, 400));
-        backgroundPanel.setPreferredSize(new java.awt.Dimension(500, 400));
         backgroundPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        notificationTitle.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        notificationTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        notificationTitle.setText(popUpTitle);
-        backgroundPanel.add(notificationTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 500, -1));
+        titleText.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        titleText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleText.setText(popUpTitle);
+        backgroundPanel.add(titleText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 500, -1));
 
-        notificationDescription.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        notificationDescription.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        notificationDescription.setText("<html><div style='text-align: center;'>" + popUpDescription + "</div></html>");
-        notificationDescription.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        backgroundPanel.add(notificationDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 380, 110));
+        descriptionText.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        descriptionText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        descriptionText.setText("<html><div style='text-align: center;'>" + popUpDescription + "</div></html>");
+        descriptionText.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        backgroundPanel.add(descriptionText, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, 100, 500, 90));
 
-        buttonPanel.setBackground(new java.awt.Color(255, 255, 255, 0));
+        buttonPanel.setBackground(new java.awt.Color(255, 251, 233));
         java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 15, 0);
         flowLayout1.setAlignOnBaseline(true);
         buttonPanel.setLayout(flowLayout1);
-        backgroundPanel.add(buttonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 380, 60));
+        backgroundPanel.add(buttonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 380, 60));
 
-        getContentPane().add(backgroundPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 400));
+        getContentPane().add(backgroundPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 350));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -225,7 +196,7 @@ public class NotificationPopUp extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -244,11 +215,19 @@ public class NotificationPopUp extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(NotificationPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NotificationPopUp("ABC", "123", new String[]{"Okay"}).setVisible(true);
+                NotificationPopUp dialog = new NotificationPopUp(new javax.swing.JFrame(), "ABC", "123", new String[]{"Okay"});
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
@@ -256,7 +235,7 @@ public class NotificationPopUp extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backgroundPanel;
     private javax.swing.JPanel buttonPanel;
-    private javax.swing.JLabel notificationDescription;
-    private javax.swing.JLabel notificationTitle;
+    private javax.swing.JLabel descriptionText;
+    private javax.swing.JLabel titleText;
     // End of variables declaration//GEN-END:variables
 }
