@@ -62,7 +62,7 @@ public class OrderFileIO extends FileIO {
         double orderPrice = Double.parseDouble(recordFromFile[8]);
         LocalDateTime orderedDate = Utility.changeStringToTime(recordFromFile[9]);
         Order.OrderStatus orderStatus = Order.OrderStatus.getFromString(recordFromFile[10]);
-        Map<Item, Integer> orderItem = Utility.changeStringToHashMap(recordFromFile[10]);
+        Map<Item, Integer> orderItem = Utility.changeStringToHashMap(recordFromFile[11]);
 
         // Create and return a new item object
         return new Order(

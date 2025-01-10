@@ -8,6 +8,7 @@ import backend.utility.Utility;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Class {@code Order} represents the order placed by the customer via the system.
@@ -82,7 +83,7 @@ public class Order {
      */
     public Order(String orderID, Customer orderingCustomer, Stall orderedStall, DeliveryRunner runnerInCharge,
                  Double tipsForRunner, DiningType diningType, String tableNumber, String noteToVendor, double orderPrice,
-                 LocalDateTime orderedDate, OrderStatus orderStatus, HashMap<Item, Integer> orderItem) {
+                 LocalDateTime orderedDate, OrderStatus orderStatus, Map<Item, Integer> orderItem) {
         this.orderID = orderID;
         this.orderingCustomer = orderingCustomer;
         this.orderedStall = orderedStall;
