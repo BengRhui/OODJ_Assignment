@@ -1,9 +1,14 @@
 package backend.entity;
 
+import backend.file_io.ItemFileIO;
+import backend.file_io.PictureIO;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Class {@code Item} represents the item sold by each stall in the food court.
@@ -23,7 +28,7 @@ public class Item {
             2,
             "Fees charged for delivery services"
     );
-    private final static ArrayList<Item> itemList = new ArrayList<>(List.of(deliveryFees));
+    private static ArrayList<Item> itemList = new ArrayList<>(List.of(deliveryFees));
     private String itemID;
     private String itemName;
     private Stall stall;
@@ -54,6 +59,15 @@ public class Item {
      */
     public static ArrayList<Item> getItemList() {
         return itemList;
+    }
+
+    /**
+     * A setter to set item list (used for reset purposes).
+     *
+     * @param list The new list to be set to replace the current list
+     */
+    public static void setItemList(ArrayList<Item> list) {
+        itemList = list;
     }
 
     /**
@@ -96,6 +110,137 @@ public class Item {
 
         // Return null if there is no matching ID
         return null;
+    }
+
+    /**
+     * A method to automatically generate a new item ID.
+     *
+     * @return The new item ID generated
+     */
+    public static String generateItemID() {
+
+        // Initialize an index
+        int index = 1;
+
+        // Get the list of item ID
+        ArrayList<String> itemIDList = itemList.stream()              // Get the list of items
+                .map(item -> item.itemID)                             // Map each item to their item ID
+                .collect(Collectors.toCollection(ArrayList::new));    // Convert the list of ID into arrays
+
+        // Begin loop
+        while (true) {
+
+            // Convert index into ID
+            String newID = String.format("I%03d", index);
+
+            // Check if ID is in the list
+            if (!itemIDList.contains(newID)) {
+
+                // Return the ID if it's not in the list
+                return newID;
+            }
+
+            // Increase the index if the item ID is in the list
+            index++;
+        }
+    }
+
+    /**
+     * A method to let vendors create a new item.
+     *
+     * @param name        The name of the item
+     * @param price       The price of the item
+     * @param description The description of the item
+     * @param picture     The picture of the item
+     * @param vendor      The vendor associated with the item
+     * @return Returns {@code true} if item is created successfully, else {@code false}
+     */
+    public static boolean addNewVendorItem(String name, double price, String description, File picture, Vendor vendor) {
+
+        // Return false if the arguments are invalid
+        if (name.isBlank() || price <= 0 || description.isBlank() || vendor == null) return false;
+
+        // Return false if the name of the item matches with existing items of the same stall in the list
+        boolean itemExist = itemList.stream()                                                    // Get the list of items
+                .filter(item -> item.stall == null || item.stall.equals(vendor.getStall()))      // Filter the items to the ones in stall
+                .anyMatch(item -> item.itemName.equalsIgnoreCase(name));                         // Check if item name exists in list
+        if (itemExist) return false;
+
+        // Create a new item
+        Item newItem = new Item(
+                Item.generateItemID(),
+                name,
+                vendor.getStall(),
+                price,
+                description
+        );
+
+        // Return false if the item picture could not be set
+        if (!PictureIO.uploadVendorItemPicture(picture, newItem)) return false;
+
+        // Add the item into list
+        Item.addItemToList(newItem);
+
+        // Write to file after modification
+        ItemFileIO.writeFile();
+
+        // Return true to indicate successfully adding a new item
+        return true;
+    }
+
+    /**
+     * A method for vendors to modify the details of an item.
+     *
+     * @param name        The name of the item
+     * @param price       The price of the item
+     * @param description The description of the item
+     * @param picture     THe picture associated with the item
+     * @return Status is {@code true} if everything works well, else {@code wrong}
+     */
+    public boolean modifyItemDetails(String name, double price, String description, File picture) {
+
+        // Make sure that the arguments are valid
+        if (name.isBlank() || price <= 0 || description.isBlank()) return false;
+
+        // Check if name is used by other items from the same stall
+        boolean isNameRepeated = itemList.stream()
+                .filter(item -> item.stall == null || item.stall.equals(this.stall) && !item.equals(this))
+                .anyMatch(item -> item.itemName.equalsIgnoreCase(name));
+        if (isNameRepeated) return false;
+
+        // Update the picture and return false if unsuccessful
+        if (!PictureIO.uploadVendorItemPicture(picture, this)) return false;
+
+        // Modify the item details
+        this.setItemName(name);
+        this.setPrice(price);
+        this.setDescription(description);
+
+        // Write to file after modification
+        ItemFileIO.writeFile();
+
+        // Return true upon successful modification
+        return true;
+    }
+
+    /**
+     * A method to delete an item from the list
+     *
+     * @return Status indicating if the item is successfully deleted
+     */
+    public boolean deleteItem() {
+
+        // Delete the picture of the item
+        if (!PictureIO.retrieveItemPicture(this).equals(PictureIO.getEmptyPicture())) {
+            if (!PictureIO.retrieveItemPicture(this).delete()) return false;
+        }
+
+        // Return false if the item was not found in the list (cannot be deleted)
+        if (!Item.getItemList().remove(this)) return false;
+
+        // Write to file and return true after deletion
+        ItemFileIO.writeFile();
+        return true;
     }
 
     /**

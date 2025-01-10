@@ -86,6 +86,38 @@ public class Stall {
     }
 
     /**
+     * A method to retrieve the list of vendors of a specific stall
+     *
+     * @param stall The specific stall containing vendors
+     * @return The list of vendors associated with the stall
+     */
+    public static ArrayList<Vendor> getVendors(Stall stall) {
+
+        // Throw exceptions if the value of stall passed in is null
+        if (stall == null) {
+            throw new IllegalArgumentException("Stall cannot be null");
+        }
+
+        // Create a new list to store the associated vendors
+        ArrayList<Vendor> vendors = new ArrayList<>();
+
+        // Loop through the list of vendors
+        for (Vendor vendor : Vendor.getVendorList()) {
+
+            // Continue loop if the stall ID does not match
+            if (!vendor.getStall().getStallID().equals(stall.getStallID())) {
+                continue;
+            }
+
+            // Add vendors to list if the stall ID matches
+            vendors.add(vendor);
+        }
+
+        // Return the list of vendors
+        return vendors;
+    }
+
+    /**
      * Getters and setters for {@code Stall} class.
      */
     public String getStallID() {

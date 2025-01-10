@@ -1,6 +1,8 @@
 package backend.notification;
 
 import backend.entity.Stall;
+import backend.entity.Vendor;
+import backend.file_io.NotificationIO;
 import backend.utility.Utility;
 
 import java.time.LocalDateTime;
@@ -21,7 +23,7 @@ public class VendorNotification implements Notification {
      */
     private final static ArrayList<VendorNotification> vendorNotificationList = new ArrayList<>();
     private String notificationID;
-    private Stall stall;
+    private Vendor vendor;
     private LocalDateTime notificationTime;
     private NotificationStatus readStatus;
     private String notificationTitle;
@@ -31,16 +33,16 @@ public class VendorNotification implements Notification {
      * Constructor to instantiate {@code VendorNotification} objects.
      *
      * @param notificationID      The ID of the notification
-     * @param stall               The stall associated to the notification
+     * @param vendor              The vendor associated to the notification
      * @param notificationTime    The time the notification is created
      * @param readStatus          Status that records if the vendor has read the message or not
      * @param notificationTitle   The title of the notification
      * @param notificationDetails The description of the notification
      */
-    public VendorNotification(String notificationID, Stall stall, LocalDateTime notificationTime,
+    public VendorNotification(String notificationID, Vendor vendor, LocalDateTime notificationTime,
                               NotificationStatus readStatus, String notificationTitle, String notificationDetails) {
         this.notificationID = notificationID;
-        this.stall = stall;
+        this.vendor = vendor;
         this.notificationTime = notificationTime;
         this.readStatus = readStatus;
         this.notificationTitle = notificationTitle;
@@ -99,6 +101,47 @@ public class VendorNotification implements Notification {
     }
 
     /**
+     * A method to create new vendor notification
+     *
+     * @param title       The title of the notification
+     * @param description The description associated with the notification
+     * @param stall       The stall that invoked the notification
+     * @return True if notification is created successfully, else false
+     */
+    public static boolean createNewNotification(String title, String description, Stall stall) {
+
+        // Returns false if the arguments are empty
+        if (title.isBlank() || description.isBlank() || stall == null) {
+            return false;
+        }
+
+        // Search for the vendors involved in the stall
+        ArrayList<Vendor> vendorList = Stall.getVendors(stall);
+        if (vendorList.isEmpty()) return false;
+
+        // Create a new vendor notification object
+        for (Vendor vendor : vendorList) {
+
+            // Create notification for each vendor
+            VendorNotification newNotification = new VendorNotification(
+                    Utility.generateNewNotificationID(VendorNotification.class),
+                    vendor,
+                    LocalDateTime.now(),
+                    NotificationStatus.UNREAD,
+                    title,
+                    description
+            );
+
+            // Add the notification to list and write to file
+            VendorNotification.addToList(newNotification);
+            NotificationIO.writeFile();
+        }
+
+        // Return true if notification is created successfully
+        return true;
+    }
+
+    /**
      * Getters and setters associated with the {@code VendorNotification} class.
      */
     @Override
@@ -110,12 +153,12 @@ public class VendorNotification implements Notification {
         this.notificationID = notificationID;
     }
 
-    public Stall getStall() {
-        return stall;
+    public Vendor getVendor() {
+        return vendor;
     }
 
-    public void setStall(Stall stall) {
-        this.stall = stall;
+    public void setVendor(Vendor vendor) {
+        this.vendor = vendor;
     }
 
     @Override
@@ -161,7 +204,7 @@ public class VendorNotification implements Notification {
      */
     @Override
     public String getEntityID() {
-        return stall.getStallID();
+        return vendor.getUserID();
     }
 
     /**
@@ -191,8 +234,8 @@ public class VendorNotification implements Notification {
     @Override
     public String toString() {
         return "Notification ID: " + notificationID + "\n" +
-                "Stall Involved: " + "\n" +
-                stall.toString() + "\n" +
+                "Vendor Involved: " + "\n" +
+                vendor.toString() + "\n" +
                 "Notification Time: " + Utility.generateString(notificationTime) + "\n" +
                 "Notification Status: " + readStatus.toString() + "\n" +
                 "Notification Title: " + notificationTitle + "\n" +
