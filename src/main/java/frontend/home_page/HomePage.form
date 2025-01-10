@@ -237,6 +237,7 @@
                     </Property>
                   </Properties>
                   <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="halfTransparentPanel1MouseClicked"/>
                     <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="halfTransparentPanel1MouseEntered"/>
                     <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="halfTransparentPanel1MouseExited"/>
                   </Events>
@@ -309,6 +310,7 @@
                     </Property>
                   </Properties>
                   <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="halfTransparentPanel2MouseClicked"/>
                     <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="halfTransparentPanel2MouseEntered"/>
                     <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="halfTransparentPanel2MouseExited"/>
                   </Events>
@@ -381,6 +383,7 @@
                     </Property>
                   </Properties>
                   <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="halfTransparentPanel3MouseClicked"/>
                     <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="halfTransparentPanel3MouseEntered"/>
                     <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="halfTransparentPanel3MouseExited"/>
                   </Events>
@@ -453,6 +456,7 @@
                     </Property>
                   </Properties>
                   <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="halfTransparentPanel4MouseClicked"/>
                     <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="halfTransparentPanel4MouseEntered"/>
                     <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="halfTransparentPanel4MouseExited"/>
                   </Events>
@@ -525,6 +529,7 @@
                     </Property>
                   </Properties>
                   <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="halfTransparentPanel5MouseClicked"/>
                     <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="halfTransparentPanel5MouseEntered"/>
                     <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="halfTransparentPanel5MouseExited"/>
                   </Events>
@@ -597,6 +602,7 @@
                     </Property>
                   </Properties>
                   <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="halfTransparentPanel6MouseClicked"/>
                     <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="halfTransparentPanel6MouseEntered"/>
                     <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="halfTransparentPanel6MouseExited"/>
                   </Events>

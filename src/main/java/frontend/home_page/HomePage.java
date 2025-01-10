@@ -165,6 +165,9 @@ public class HomePage extends javax.swing.JFrame {
     halfTransparentPanel1.setMaximumSize(new java.awt.Dimension(400, 300));
     halfTransparentPanel1.setPreferredSize(new java.awt.Dimension(400, 300));
     halfTransparentPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            halfTransparentPanel1MouseClicked(evt);
+        }
         public void mouseEntered(java.awt.event.MouseEvent evt) {
             halfTransparentPanel1MouseEntered(evt);
         }
@@ -213,6 +216,9 @@ public class HomePage extends javax.swing.JFrame {
     halfTransparentPanel2.setMaximumSize(new java.awt.Dimension(400, 300));
     halfTransparentPanel2.setPreferredSize(new java.awt.Dimension(400, 300));
     halfTransparentPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            halfTransparentPanel2MouseClicked(evt);
+        }
         public void mouseEntered(java.awt.event.MouseEvent evt) {
             halfTransparentPanel2MouseEntered(evt);
         }
@@ -261,6 +267,9 @@ public class HomePage extends javax.swing.JFrame {
     halfTransparentPanel3.setMaximumSize(new java.awt.Dimension(400, 300));
     halfTransparentPanel3.setPreferredSize(new java.awt.Dimension(400, 300));
     halfTransparentPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            halfTransparentPanel3MouseClicked(evt);
+        }
         public void mouseEntered(java.awt.event.MouseEvent evt) {
             halfTransparentPanel3MouseEntered(evt);
         }
@@ -309,6 +318,9 @@ public class HomePage extends javax.swing.JFrame {
     halfTransparentPanel4.setMaximumSize(new java.awt.Dimension(400, 300));
     halfTransparentPanel4.setPreferredSize(new java.awt.Dimension(400, 300));
     halfTransparentPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            halfTransparentPanel4MouseClicked(evt);
+        }
         public void mouseEntered(java.awt.event.MouseEvent evt) {
             halfTransparentPanel4MouseEntered(evt);
         }
@@ -357,6 +369,9 @@ public class HomePage extends javax.swing.JFrame {
     halfTransparentPanel5.setMaximumSize(new java.awt.Dimension(400, 300));
     halfTransparentPanel5.setPreferredSize(new java.awt.Dimension(400, 300));
     halfTransparentPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            halfTransparentPanel5MouseClicked(evt);
+        }
         public void mouseEntered(java.awt.event.MouseEvent evt) {
             halfTransparentPanel5MouseEntered(evt);
         }
@@ -405,6 +420,9 @@ public class HomePage extends javax.swing.JFrame {
     halfTransparentPanel6.setMaximumSize(new java.awt.Dimension(400, 300));
     halfTransparentPanel6.setPreferredSize(new java.awt.Dimension(400, 300));
     halfTransparentPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            halfTransparentPanel6MouseClicked(evt);
+        }
         public void mouseEntered(java.awt.event.MouseEvent evt) {
             halfTransparentPanel6MouseEntered(evt);
         }
@@ -849,6 +867,47 @@ public class HomePage extends javax.swing.JFrame {
         // Change cursor
         loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_loginButtonMouseExited
+
+    private void halfTransparentPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_halfTransparentPanel1MouseClicked
+
+        // Redirect to login page, just like the button
+        LoginPage loginPage = new LoginPage();
+        loginPage.setVisible(true);
+        loginPage.setLocationRelativeTo(this);
+        
+        // Discard the current page
+        dispose();
+    }//GEN-LAST:event_halfTransparentPanel1MouseClicked
+
+    private void halfTransparentPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_halfTransparentPanel2MouseClicked
+        
+        // Similar to what transparent panel 1 has did
+        halfTransparentPanel1MouseClicked(evt);
+    }//GEN-LAST:event_halfTransparentPanel2MouseClicked
+
+    private void halfTransparentPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_halfTransparentPanel3MouseClicked
+        
+        // Similar to what transparent panel 1 has did
+        halfTransparentPanel1MouseClicked(evt);
+    }//GEN-LAST:event_halfTransparentPanel3MouseClicked
+
+    private void halfTransparentPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_halfTransparentPanel4MouseClicked
+        
+        // Similar to what transparent panel 1 has did
+        halfTransparentPanel1MouseClicked(evt);
+    }//GEN-LAST:event_halfTransparentPanel4MouseClicked
+
+    private void halfTransparentPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_halfTransparentPanel5MouseClicked
+        
+        // Similar to what transparent panel 1 has did
+        halfTransparentPanel1MouseClicked(evt);
+    }//GEN-LAST:event_halfTransparentPanel5MouseClicked
+
+    private void halfTransparentPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_halfTransparentPanel6MouseClicked
+        
+        // Similar to what transparent panel 1 has did
+        halfTransparentPanel1MouseClicked(evt);
+    }//GEN-LAST:event_halfTransparentPanel6MouseClicked
 
     /**
      * @param args the command line arguments
