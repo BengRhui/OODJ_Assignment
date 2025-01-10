@@ -4,14 +4,17 @@
  */
 package frontend.home_page;
 
+import java.awt.Color;
+import java.awt.Cursor;
+
 /**
  *
- * @author jack
+ * @author Beng Rhui (TP068495), Xuan Jack (TP067678)
  */
 public class LoginPage extends javax.swing.JFrame {
 
     /**
-     * Creates new form MainPage
+     * Creates new form LoginPage
      */
     public LoginPage() {
         initComponents();
@@ -26,176 +29,207 @@ public class LoginPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jFrame1 = new javax.swing.JFrame();
-        jFrame2 = new javax.swing.JFrame();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        backgroundPanel = new javax.swing.JPanel();
+        translucentBlackBackground = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-
-        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
-        jFrame1.getContentPane().setLayout(jFrame1Layout);
-        jFrame1Layout.setHorizontalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jFrame1Layout.setVerticalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jFrame2Layout = new javax.swing.GroupLayout(jFrame2.getContentPane());
-        jFrame2.getContentPane().setLayout(jFrame2Layout);
-        jFrame2Layout.setHorizontalGroup(
-            jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jFrame2Layout.setVerticalGroup(
-            jFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        jLabel2.setText("jLabel2");
+        jPanel1 = new javax.swing.JPanel();
+        loginTitle = new javax.swing.JLabel();
+        emailTitle = new javax.swing.JLabel();
+        emailInput = new javax.swing.JTextField();
+        loginButton = new javax.swing.JButton();
+        passwordTitle = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        passwordInput = new javax.swing.JPasswordField();
+        backgroundImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Food Court System");
+        setName("loginFrame"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(1400, 800));
         setResizable(false);
 
-        jPanel2.setPreferredSize(new java.awt.Dimension(1400, 800));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        backgroundPanel.setBackground(new java.awt.Color(255, 255, 255));
+        backgroundPanel.setPreferredSize(new java.awt.Dimension(1400, 800));
+        backgroundPanel.setSize(new java.awt.Dimension(1400, 800));
+        backgroundPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel3.setBackground(new java.awt.Color(51, 51, 51, 128));
+        translucentBlackBackground.setBackground(new java.awt.Color(0, 0, 0, 128));
+        translucentBlackBackground.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("WELCOME");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logo_light_with_text.png"))); // NOI18N
+        translucentBlackBackground.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 35, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Email:");
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0, 200));
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Password:");
+        loginTitle.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        loginTitle.setForeground(new java.awt.Color(255, 255, 255));
+        loginTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        loginTitle.setText("WELCOME BACK");
+        loginTitle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(loginTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 580, -1));
 
-        jLabel6.setFont(new java.awt.Font("Helvetica Neue", 2, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Click Me");
+        emailTitle.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        emailTitle.setForeground(new java.awt.Color(255, 255, 255));
+        emailTitle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        emailTitle.setText("Email");
+        jPanel1.add(emailTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 130, 50));
 
-        jLabel7.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Forgot Password? ");
-
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("LOGIN");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        emailInput.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        emailInput.setForeground(new java.awt.Color(204, 204, 204));
+        emailInput.setText("Enter email here");
+        emailInput.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 15, 2, 15));
+        emailInput.setOpaque(true);
+        emailInput.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                emailInputFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                emailInputFocusLost(evt);
             }
         });
+        jPanel1.add(emailInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 440, 60));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)
-                        .addGap(77, 77, 77))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)))
-                .addContainerGap(57, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel3)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6))
-                .addGap(28, 28, 28)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
-        );
-
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 200, 460, 420));
-
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logo_light.png"))); // NOI18N
-        jLabel9.setMaximumSize(new java.awt.Dimension(200, 200));
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, -50, 430, 260));
-
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/cancel.png"))); // NOI18N
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+        loginButton.setBackground(new java.awt.Color(0, 0, 0));
+        loginButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        loginButton.setForeground(new java.awt.Color(255, 255, 255));
+        loginButton.setText("LOGIN");
+        loginButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
+        loginButton.setOpaque(true);
+        loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                loginButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                loginButtonMouseExited(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1320, 10, 60, 70));
+        jPanel1.add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, 440, 60));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/login_page_background.jpg"))); // NOI18N
-        jLabel1.setDoubleBuffered(true);
-        jLabel1.setMixingCutoutShape(null);
-        jLabel1.setPreferredSize(new java.awt.Dimension(1400, 800));
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 1472, 840));
+        passwordTitle.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        passwordTitle.setForeground(new java.awt.Color(255, 255, 255));
+        passwordTitle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        passwordTitle.setText("Password");
+        jPanel1.add(passwordTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, 130, 50));
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("<html>Forgot password? Click <u>me</u>!</html>");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 310, -1));
+
+        passwordInput.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        passwordInput.setForeground(new java.awt.Color(204, 204, 204));
+        passwordInput.setText("Enter password here");
+        passwordInput.setToolTipText("");
+        passwordInput.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 15, 2, 15));
+        passwordInput.setEchoChar((char) 0);
+        passwordInput.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                passwordInputFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                passwordInputFocusLost(evt);
+            }
+        });
+        jPanel1.add(passwordInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, 440, 60));
+
+        translucentBlackBackground.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, 580, 600));
+
+        backgroundPanel.add(translucentBlackBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1400, 800));
+
+        backgroundImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/login_page_background.jpg"))); // NOI18N
+        backgroundPanel.add(backgroundImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(backgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(backgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void emailInputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailInputFocusGained
+        
+        // Take action only if the initial prompt exists
+        if (emailInput.getText().equals("Enter email here")) {
+            
+            // Set the text colour to black and remove all the existing prompt
+            emailInput.setForeground(Color.BLACK);
+            emailInput.setText("");
+        }
+    }//GEN-LAST:event_emailInputFocusGained
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void emailInputFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailInputFocusLost
+        
+        // Perform actions only when input is empty
+        if (emailInput.getText().isEmpty()) {
+            
+            // Set colour back to grey and set the initial prompt
+            emailInput.setForeground(new Color(204, 204, 204));
+            emailInput.setText("Enter email here");
+        }
+    }//GEN-LAST:event_emailInputFocusLost
+
+    private void passwordInputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordInputFocusGained
+        
+        // Get the current prompt
+        String currentText = String.valueOf(passwordInput.getPassword());
+        
+        // Take action only if the initial prompt exists
+        if (currentText.equals("Enter password here")) {
+            
+            // Set the text colour to black and remove all the existing prompt
+            passwordInput.setForeground(Color.BLACK);
+            passwordInput.setText("");
+            passwordInput.setEchoChar('•');
+        }
+    }//GEN-LAST:event_passwordInputFocusGained
+
+    private void passwordInputFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordInputFocusLost
+
+        // Get the current prompt
+        String currentText = String.valueOf(passwordInput.getPassword());
+        
+        // Perform actions only when input is empty
+        if (currentText.isEmpty()) {
+            
+            // Set colour back to grey, display character and set initial prompt
+            passwordInput.setEchoChar((char) 0);
+            passwordInput.setForeground(new Color(204, 204, 204));
+            passwordInput.setText("Enter password here");
+        }
+    }//GEN-LAST:event_passwordInputFocusLost
+
+    private void loginButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseEntered
+        
+        // Change the cursor to hand cursor
+        loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
+        // Change the colour of the button
+        loginButton.setForeground(Color.BLACK);
+        loginButton.setBackground(Color.WHITE);
+    }//GEN-LAST:event_loginButtonMouseEntered
+
+    private void loginButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseExited
+
+        // Change the cursor to hand cursor
+        loginButton.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        
+        // Change the colour of the button
+        loginButton.setForeground(Color.WHITE);
+        loginButton.setBackground(Color.BLACK);
+    }//GEN-LAST:event_loginButtonMouseExited
 
     /**
      * @param args the command line arguments
@@ -223,9 +257,6 @@ public class LoginPage extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -236,21 +267,17 @@ public class LoginPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JFrame jFrame1;
-    private javax.swing.JFrame jFrame2;
+    private javax.swing.JLabel backgroundImage;
+    private javax.swing.JPanel backgroundPanel;
+    private javax.swing.JTextField emailInput;
+    private javax.swing.JLabel emailTitle;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton loginButton;
+    private javax.swing.JLabel loginTitle;
+    private javax.swing.JPasswordField passwordInput;
+    private javax.swing.JLabel passwordTitle;
+    private javax.swing.JPanel translucentBlackBackground;
     // End of variables declaration//GEN-END:variables
 }
