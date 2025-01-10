@@ -15,7 +15,7 @@ public class Feedback {
      * Attributes for {@code Feedback} objects.<br>
      * A list containing all {@code Feedback} objects is also included.
      */
-    private final static ArrayList<Feedback> feedbackList = new ArrayList<Feedback>();
+    private final static ArrayList<Feedback> feedbackList = new ArrayList<>();
     private String feedbackID;
     private Category feedbackCategory;
     private Order orderAssociated;

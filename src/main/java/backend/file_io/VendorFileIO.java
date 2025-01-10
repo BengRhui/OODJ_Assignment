@@ -33,7 +33,7 @@ public class VendorFileIO extends UserFileIO {
         String stallID = vendorRecord[2];
 
         // Convert stall ID to stall object
-        Stall stall = Stall.getStall(stallID);
+        Stall stall = Stall.getStallByID(stallID);
 
         // Retrieve email and password
         String[] credentials = getUsernameAndPassword(userID);

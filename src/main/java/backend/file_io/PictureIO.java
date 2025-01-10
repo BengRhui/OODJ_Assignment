@@ -25,6 +25,7 @@ public class PictureIO {
 
     /**
      * A method to get the empty picture file.
+     *
      * @return The empty picture file
      */
     public static File getEmptyPicture() {
@@ -193,5 +194,43 @@ public class PictureIO {
 
         // Retrieve the relevant picture
         return itemPicture;
+    }
+
+    /**
+     * A method to delete the picture of an item based on the item object.
+     *
+     * @param item The item object associated with the picture
+     * @return {@code true} if operation is successful, else {@code false}
+     */
+    public static boolean deleteItemPicture(Item item) {
+
+        // If the picture is not the empty picture
+        if (!PictureIO.retrieveItemPicture(item).equals(PictureIO.getEmptyPicture())) {
+
+            // Delete the file
+            return PictureIO.retrieveItemPicture(item).delete();
+        }
+
+        // Do nothing if the picture is the empty picture
+        return true;
+    }
+
+    /**
+     * A method to delete the vendor's background picture file.
+     *
+     * @param vendor The vendor associated with the file
+     * @return {@code true} if the operation is successful, else {@code false}
+     */
+    public static boolean deleteVendorBackgroundPicture(Vendor vendor) {
+
+        // If the picture is not the empty picture
+        if (!PictureIO.retrieveBackgroundPicture(vendor).equals(PictureIO.getEmptyPicture())) {
+
+            // Delete the file
+            return PictureIO.retrieveBackgroundPicture(vendor).delete();
+        }
+
+        // Do nothing if the picture is the empty picture
+        return true;
     }
 }

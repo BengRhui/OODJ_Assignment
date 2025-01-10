@@ -1,5 +1,8 @@
 package backend.entity;
 
+import backend.file_io.CredentialsFileIO;
+import backend.file_io.DeliveryRunnerFileIO;
+import backend.notification.DeliveryRunnerNotification;
 import backend.utility.Utility;
 
 import java.util.*;
@@ -16,7 +19,7 @@ public class DeliveryRunner extends User {
      * A list that contains all delivery runners is also included.
      */
     private final static ArrayList<DeliveryRunner> deliveryRunnerList = new ArrayList<>();
-    private final static HashMap<DeliveryRunner, Boolean> availabilityList = new HashMap<>();
+    private final static Map<DeliveryRunner, Boolean> availabilityList = new HashMap<>();
     private String contactNumber;
 
     /**
@@ -129,6 +132,201 @@ public class DeliveryRunner extends User {
     }
 
     /**
+     * A method to generate new delivery runner ID.
+     *
+     * @return The new delivery runner ID generated
+     */
+    public static String generateNewID() {
+
+        // Declare variables to record index
+        int index = 1;
+
+        // Start a loop
+        while (true) {
+
+            // Get the generated ID
+            String generatedID = String.format("R%03d", index);
+
+            // Check if the generated ID is in the runner list
+            boolean generatedIDExists = deliveryRunnerList.stream()             // Get the list of delivery runners
+                    .anyMatch(runner -> runner.userID.equals(generatedID));     // Check if there is any match with the existing runner ID
+
+            // If the ID does not exist among the runner list, return that ID
+            if (!generatedIDExists) return generatedID;
+
+            // Increment the index if there is a match
+            index++;
+        }
+    }
+
+    /**
+     * A method to create a new delivery runner account.
+     *
+     * @param runnerID        The ID of the runner
+     * @param name            The name of the runner
+     * @param contactNumber   The contact number of the runner
+     * @param email           The email of the runner
+     * @param password        The password of the runner
+     * @param confirmPassword The password retyped
+     * @return {@code 1} if the new account is created successfully<br>
+     * {@code 0} if there exist any empty values<br>
+     * {@code -1} if the email is not in the correct format<br>
+     * {@code -2} if the email is not available<br>
+     * {@code -3} if the password does not meet requirement<br>
+     * {@code -4} if the password does not match with "confirm password"<br>
+     * {@code -5} if the contact number is not in the correct format
+     */
+    public static int createNewRunner(
+            String runnerID,
+            String name,
+            String contactNumber,
+            String email,
+            char[] password,
+            char[] confirmPassword) {
+
+        // Check if there is any empty values
+        if (name == null || name.isBlank() ||
+                contactNumber == null || contactNumber.isBlank() ||
+                email == null || email.isBlank() ||
+                password == null || password.length == 0
+        ) return 0;
+
+        // Case 1: Check if the email format is correct (-1)
+        if (!checkEmailFormat(email)) return -1;
+
+        // Case 2: Check if the email is available (-2)
+        if (!isEmailAvailable(email)) return -2;
+
+        // Case 3: Check if password meets requirement (-3)
+        if (!validatePassword(
+                Utility.generateString(password))
+        ) return -3;
+
+        // Case 4: Check if both passwords match (-4)
+        if (!Arrays.equals(password, confirmPassword)) return -4;
+
+        // Case 5: Check if the format of contact number is correct (-5)
+        if (!checkContactNumberFormat(contactNumber)) return -5;
+
+        // Create the new runner
+        DeliveryRunner newRunner = new DeliveryRunner(
+                runnerID,
+                email,
+                Utility.generateString(password),
+                name,
+                contactNumber
+        );
+
+        // Add to list
+        addToRunnerList(newRunner);
+
+        // Write to file
+        CredentialsFileIO.writeCredentialsFile();
+        DeliveryRunnerFileIO runnerIO = new DeliveryRunnerFileIO();
+        runnerIO.writeFile();
+
+        // Return 1 for successful operation
+        return 1;
+    }
+
+    /**
+     * A method to modify the details of the delivery runner account.
+     *
+     * @param name            The name of the runner
+     * @param contactNumber   The contact number of the runner
+     * @param email           The email of the runner
+     * @param password        The password of the runner
+     * @param confirmPassword The password retyped
+     * @return {@code 1}  if the new account is created successfully<br>
+     * {@code 0} if there exist any empty values (except those that will be validated later)<br>
+     * {@code -1} if the email is not in the correct format<br>
+     * {@code -2} if the email is not available<br>
+     * {@code -3} if the password does not meet requirement<br>
+     * {@code -4} if the password does not match with "confirm password"<br>
+     * {@code -5} if the contact number is not in the correct format<br>
+     * {@code -6} if notification is unable to be created
+     */
+    public int modifyRunner(
+            String name,
+            String contactNumber,
+            String email,
+            char[] password,
+            char[] confirmPassword) {
+
+        // Check if there is any empty values
+        if (name == null || name.isBlank()) return 0;
+
+        // Check if email is in correct format
+        if (!checkEmailFormat(email)) return -1;
+
+        // Check if email is available
+        if (!this.email.equals(email) && !isEmailAvailable(email)) return -2;
+
+        // Check if password meets requirement
+        if (!validatePassword(
+                Utility.generateString(password))
+        ) return -3;
+
+        // Check if both passwords match
+        if (!Arrays.equals(password, confirmPassword)) return -4;
+
+        // Check if contact number is in correct format
+        if (!checkContactNumberFormat(contactNumber)) return -5;
+
+        // Create notification to inform that details is modified
+        boolean createNotification = DeliveryRunnerNotification.createNewNotification(
+                "Personal Information Updated",
+                "Your personal information has been updated.",
+                this
+        );
+        if (!createNotification) return -6;
+
+        // Change the details
+        this.setName(name);
+        this.setContactNumber(contactNumber);
+        this.setEmail(email);
+        this.setPassword(
+                Utility.generateString(password)
+        );
+
+        // Write to file
+        CredentialsFileIO.writeCredentialsFile();
+        DeliveryRunnerFileIO runnerIO = new DeliveryRunnerFileIO();
+        runnerIO.writeFile();
+
+        // Return 1 to indicate successful modification
+        return 1;
+    }
+
+    /**
+     * A method to delete the current delivery runner account.
+     *
+     * @return {@code true} if the account is deleted successfully, else {@code false}
+     */
+    public boolean deleteRunner() {
+
+        // Delete the relevant notifications
+        boolean deleteNotification = DeliveryRunnerNotification.deleteRunnerFromNotification(this.getUserID());
+        if (!deleteNotification) return false;
+
+        // Change the relevant runner attributes in order to null
+        boolean changeToNull = Order.changeRunnerToNull(this.getUserID());
+        if (!changeToNull) return false;
+
+        // Remove from list
+        boolean removeFromList = deliveryRunnerList.remove(this);
+        if (!removeFromList) return false;
+
+        // Write to file
+        CredentialsFileIO.writeCredentialsFile();
+        DeliveryRunnerFileIO runnerIO = new DeliveryRunnerFileIO();
+        runnerIO.writeFile();
+
+        // Return true for successful operation
+        return true;
+    }
+
+    /**
      * A method to update the availability of runners (mainly used when runner rejects an order)
      *
      * @param status The status of the runner
@@ -154,7 +352,7 @@ public class DeliveryRunner extends User {
                         order -> !order.getOrderStatus().equals(Order.OrderStatus.COMPLETED) &&
                                 !order.getOrderStatus().equals(Order.OrderStatus.CANCELLED) &&
                                 !(order.getRunnerInCharge() == null)
-                        )
+                )
                 .noneMatch(order -> order.getRunnerInCharge().equals(this));                        // Return true if runner is not in the list
     }
 
@@ -182,5 +380,4 @@ public class DeliveryRunner extends User {
                 "Runner Name: " + super.name + "\n" +
                 "Runner Contact No: " + contactNumber;
     }
-
 }

@@ -2,9 +2,6 @@ package backend.utility;
 
 import backend.entity.DeliveryRunner;
 import backend.entity.Item;
-import backend.notification.CustomerNotification;
-import backend.notification.DeliveryRunnerNotification;
-import backend.notification.VendorNotification;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -12,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class {@code Utility} includes a couple of methods that brings convenient to coding.
@@ -64,7 +62,7 @@ public class Utility {
      * @param map HashMap with {@code Item} object as key and {@code Integer} object as value
      * @return The string representation of the {@code HashMap}
      */
-    public static String generateString(HashMap<Item, Integer> map) {
+    public static String generateString(Map<Item, Integer> map) {
 
         // Create a string builder to store string
         StringBuilder string = new StringBuilder();
@@ -86,12 +84,22 @@ public class Utility {
     }
 
     /**
+     * A method to convert password from char[] to string
+     *
+     * @param password The password in char[] format
+     * @return The password in string format
+     */
+    public static String generateString(char[] password) {
+        return new String(password);
+    }
+
+    /**
      * A method to generate the string representation of {@code HashMap} representing availability of delivery runners.
      *
      * @param map The HashMap consisting of {@code DeliveryRunner} as the key, {@code Boolean} as the value
      * @return The string representation of the HashMap
      */
-    public static String generateRunnerString(HashMap<DeliveryRunner, Boolean> map) {
+    public static String generateRunnerString(Map<DeliveryRunner, Boolean> map) {
 
         // Create a string builder to store string
         StringBuilder string = new StringBuilder();
@@ -134,10 +142,10 @@ public class Utility {
      * @param itemSet The string that contains the key-value pair of item and quantity
      * @return The key-value pair in {@code HashMap}
      */
-    public static HashMap<Item, Integer> changeStringToHashMap(String itemSet) {
+    public static Map<Item, Integer> changeStringToHashMap(String itemSet) {
 
         // Create a new HashMap to store information
-        HashMap<Item, Integer> map = new HashMap<>();
+        Map<Item, Integer> map = new HashMap<>();
 
         // Split each item pair
         String[] itemPairs = itemSet.split(", ");
@@ -158,16 +166,6 @@ public class Utility {
 
         // Return HashMap after everything is done
         return map;
-    }
-
-    /**
-     * A method to convert password from char[] to string
-     *
-     * @param password The password in char[] format
-     * @return The password in string format
-     */
-    public static String convertPasswordToString(char[] password) {
-        return new String(password);
     }
 
     /**

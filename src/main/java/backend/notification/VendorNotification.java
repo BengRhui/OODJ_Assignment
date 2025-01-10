@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Class {@code VendorNotification} represents the notifications for vendors.
@@ -136,6 +137,65 @@ public class VendorNotification implements Notification {
             VendorNotification.addToList(newNotification);
             NotificationIO.writeFile();
         }
+
+        // Return true if notification is created successfully
+        return true;
+    }
+
+    /**
+     * A method to delete the notifications associated with the vendor.
+     *
+     * @param vendorID The ID of vendor
+     * @return {@code true} if the operation is successful, else {@code false}
+     */
+    public static boolean deleteVendorFromNotification(String vendorID) {
+
+        // Return false if the input is blank
+        if (vendorID.isBlank()) return false;
+
+        // Get the list of notifications associated with the vendor
+        ArrayList<VendorNotification> vendorNotification = VendorNotification.getVendorNotificationList().stream()
+                .filter(notification -> notification.getVendor().getUserID().equals(vendorID))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        // Remove the notifications from the list
+        vendorNotificationList.removeAll(vendorNotification);
+
+        // Write to file
+        NotificationIO.writeFile();
+
+        // Return true for successful operation
+        return true;
+    }
+
+    /**
+     * A method to create vendor personal notification.
+     *
+     * @param title       The title of the notification
+     * @param description The description for the notification
+     * @param vendor      The vendor associated with the notification
+     * @return {@code true} if the notification is created successfully, else {@code false}
+     */
+    public static boolean createNewNotification(String title, String description, Vendor vendor) {
+
+        // Returns false if the arguments are empty
+        if (title.isBlank() || description.isBlank() || vendor == null) {
+            return false;
+        }
+
+        // Create notification for each vendor
+        VendorNotification newNotification = new VendorNotification(
+                Notification.generateNewNotificationID(VendorNotification.class),
+                vendor,
+                LocalDateTime.now(),
+                NotificationStatus.UNREAD,
+                title,
+                description
+        );
+
+        // Add the notification to list and write to file
+        VendorNotification.addToList(newNotification);
+        NotificationIO.writeFile();
 
         // Return true if notification is created successfully
         return true;

@@ -68,4 +68,43 @@ public class AuthenticationTest extends BaseTest {
         assertFalse(User.resetPassword(wrongEmail, modifiedPassword));
     }
 
+    @Test
+    void testEmailFormat() {
+
+        // List of emails in the correct format
+        String[] correctList = new String[]{
+                "test@example.com",
+                "user.name@domain.co",
+                "first.last@sub.domain.com",
+                "user+name@domain.org",
+                "name123@domain.com",
+                "name@subdomain.domain.com",
+                "john.doe@company.co.uk",
+                "email@valid-domain.net"
+        };
+
+        // List of emails in the wrong format
+        String[] wrongList = new String[]{
+                "",
+                "test@.com",
+                "test@com",
+                "@example.com",
+                "username@domain.",
+                "username@domain..com",
+                "username@.domain.com",
+                "user@com",
+                "user@domain.c",
+                "us@er@domain.com",
+                "user@domain,com",
+                "user..name@domain.com",
+                "user@domain.c@om",
+                "user@domain_com.com",
+                "user@domain#example.com",
+                "@example.com"
+        };
+
+        // Check if the method is able to identify correct and wrong emails
+        for (String email : correctList) assertTrue(User.checkEmailFormat(email));
+        for (String email : wrongList) assertFalse(User.checkEmailFormat(email));
+    }
 }

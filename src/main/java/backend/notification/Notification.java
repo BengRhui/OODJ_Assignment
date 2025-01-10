@@ -1,6 +1,7 @@
 package backend.notification;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 /**
  * Interface {@code Notification} includes the basic methods that a notification should have.
@@ -16,9 +17,10 @@ public interface Notification {
      */
     static <T> String generateNewNotificationID(Class<T> clazz) {
 
-        // Declare variables to store prefix and index
+        // Declare variables to store prefix, index and the notification list to be looped
         final String prefix;
-        final int index;
+        int index = 1;
+        final ArrayList<? extends Notification> notificationList;
 
         // Obtain and assign different prefix and index based on the types of notification class
         switch (clazz.getSimpleName()) {
@@ -26,27 +28,41 @@ public interface Notification {
             // When class is delivery runner notification
             case "DeliveryRunnerNotification" -> {
                 prefix = "ND";
-                index = DeliveryRunnerNotification.getDeliveryRunnerNotificationList().size();
+                notificationList = DeliveryRunnerNotification.getDeliveryRunnerNotificationList();
             }
 
             // When class is vendor notification
             case "VendorNotification" -> {
                 prefix = "NV";
-                index = VendorNotification.getVendorNotificationList().size();
+                notificationList = VendorNotification.getVendorNotificationList();
             }
 
             // When class is customer notification
             case "CustomerNotification" -> {
                 prefix = "NC";
-                index = CustomerNotification.getCustomerNotificationList().size();
+                notificationList = CustomerNotification.getCustomerNotificationList();
             }
 
             // Throw an exception if the class is not a notification class
             default -> throw new IllegalStateException("Unexpected class: " + clazz.getSimpleName());
         }
 
-        // Format the string with prefix and three-digit numbers before returning it
-        return String.format("%s%03d", prefix, index + 1);
+        // Start an infinite loop
+        while (true) {
+
+            // Generate ID based on current index and prefix
+            String generatedID = String.format("%s%03d", prefix, index);
+
+            // Check if the ID has been used
+            boolean idHasBeenUsed = notificationList.stream()                                           // Get notification list
+                    .anyMatch(notification -> notification.getNotificationID().equals(generatedID));    // Find if the generated ID matches existing ID
+
+            // If the ID is not used, then return the ID
+            if (!idHasBeenUsed) return generatedID;
+
+            // If the ID is used, increment index and continue the loop
+            index++;
+        }
     }
 
     /**

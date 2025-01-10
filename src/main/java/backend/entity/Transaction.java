@@ -1,11 +1,13 @@
 package backend.entity;
 
+import backend.file_io.TransactionFileIO;
 import backend.utility.Utility;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Class {@code Transaction} represents the transaction that occurs during purchasing items and topping up.
@@ -74,6 +76,34 @@ public class Transaction {
     }
 
     /**
+     * A method to generate a new transaction ID.
+     *
+     * @return A new transaction ID that is not in use currently
+     */
+    public static String generateTransactionID() {
+
+        // Declare a variable to store index
+        int index = 1;
+
+        // Start a loop
+        while (true) {
+
+            // Generate the transaction ID
+            String generatedID = String.format("TRANS%04d", index);
+
+            // Check if the ID is used
+            boolean isIdUsed = transactionList.stream()
+                    .anyMatch(transaction -> transaction.getTransactionID().equals(generatedID));
+
+            // If the ID is not used, return the ID
+            if (!isIdUsed) return generatedID;
+
+            // If the ID is used, increment index and proceed to the next iteration
+            index++;
+        }
+    }
+
+    /**
      * A method to obtain transaction based on ID
      *
      * @param ID The ID that related to a transaction
@@ -95,6 +125,69 @@ public class Transaction {
 
         // Return null if there is no matching ID
         return null;
+    }
+
+    /**
+     * A method to create records for a transaction
+     *
+     * @param customer          The customer involved
+     * @param transactionAmount The amount of transaction
+     * @param transactionType   The type of transaction
+     * @param paymentMethod     The way customer paid for the transaction
+     * @return {@code true} if the transaction is created successfully, else {@code false}
+     */
+    public static boolean createTransactionHistory(
+            Customer customer,
+            double transactionAmount,
+            TransactionType transactionType,
+            PaymentMethod paymentMethod) {
+
+        // If the details are null, return false
+        if (customer == null || transactionAmount <= 0 || transactionType == null || paymentMethod == null)
+            return false;
+
+        // Create a new transaction
+        Transaction newTransaction = new Transaction(
+                generateTransactionID(),
+                customer,
+                LocalDateTime.now(),
+                transactionAmount,
+                transactionType,
+                paymentMethod
+        );
+
+        // Add the transaction to list
+        addToList(newTransaction);
+
+        // Write to file
+        TransactionFileIO.writeFile();
+
+        // Return true for successful operation
+        return true;
+    }
+
+    /**
+     * A method to delete all the transaction history of customers.
+     *
+     * @param customerID The ID of the customer
+     * @return {@code true} if the operation is successful, else {@code false}
+     */
+    public static boolean deleteTransaction(String customerID) {
+
+        // Return false if customer ID is blank
+        if (customerID == null || customerID.isBlank()) return false;
+
+        // Get the list of the associated transaction
+        ArrayList<Transaction> customerTransaction = transactionList.stream()
+                .filter(transaction -> transaction.getCustomer().getUserID().equals(customerID))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        // Delete these transactions from the array
+        transactionList.removeAll(customerTransaction);
+
+        // Write to file and return true
+        TransactionFileIO.writeFile();
+        return true;
     }
 
     /**

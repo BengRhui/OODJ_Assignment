@@ -175,16 +175,47 @@ public class Item {
                 description
         );
 
+        // If picture is uploaded successfully
+        if (PictureIO.uploadVendorItemPicture(picture, newItem)) {
+
+            // Add the item into list
+            Item.addItemToList(newItem);
+
+            // Write to file after modification
+            ItemFileIO.writeFile();
+
+            // Return true to indicate successfully adding a new item
+            return true;
+        }
+
         // Return false if the item picture could not be set
-        if (!PictureIO.uploadVendorItemPicture(picture, newItem)) return false;
+        return false;
+    }
 
-        // Add the item into list
-        Item.addItemToList(newItem);
+    /**
+     * A method to delete all items related to the stall.
+     *
+     * @param stallID The ID of the stall
+     * @return {@code true} if items are deleted successfully, else {@code false}
+     */
+    public static boolean deleteItem(String stallID) throws IllegalArgumentException {
 
-        // Write to file after modification
-        ItemFileIO.writeFile();
+        // Check if the stall ID is valid
+        if (stallID == null || stallID.isBlank())
+            throw new IllegalArgumentException("The stall ID cannot be empty or null.");
 
-        // Return true to indicate successfully adding a new item
+        // Find if there exist any items associated with the stall ID
+        ArrayList<Item> itemsToBeRemoved = Item.getItemList().stream()
+                .filter(item -> item.getStall() != null && item.getStall().getStallID().equals(stallID))
+                .collect(Collectors.toCollection(ArrayList::new));
+        if (itemsToBeRemoved.isEmpty()) return false;
+
+        // Remove the items from the list
+        for (Item item : itemsToBeRemoved) {
+            if (!item.deleteItem()) return false;
+        }
+
+        // Return true for successful deletion
         return true;
     }
 
@@ -231,9 +262,7 @@ public class Item {
     public boolean deleteItem() {
 
         // Delete the picture of the item
-        if (!PictureIO.retrieveItemPicture(this).equals(PictureIO.getEmptyPicture())) {
-            if (!PictureIO.retrieveItemPicture(this).delete()) return false;
-        }
+        if (!PictureIO.deleteItemPicture(this)) return false;
 
         // Return false if the item was not found in the list (cannot be deleted)
         if (!Item.getItemList().remove(this)) return false;

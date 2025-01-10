@@ -6,6 +6,7 @@ import backend.utility.Utility;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class {@code OrderFileIO} contains the methods to read and write files related to orders.
@@ -51,8 +52,8 @@ public class OrderFileIO extends FileIO {
 
         // Retrieve information from the string array
         String orderID = recordFromFile[0];
-        Customer orderingCustomer = Customer.getCustomer(recordFromFile[1]);
-        Stall orderedStall = Stall.getStall(recordFromFile[2]);
+        Customer orderingCustomer = recordFromFile[1].equalsIgnoreCase("null") ? null : Customer.getCustomer(recordFromFile[1]);
+        Stall orderedStall = recordFromFile[2].equalsIgnoreCase("null") ? null : Stall.getStallByID(recordFromFile[2]);
         DeliveryRunner runnerInCharge = recordFromFile[3].equalsIgnoreCase("null") ? null : DeliveryRunner.getRunner(recordFromFile[3]);
         Order.DiningType diningType = Order.DiningType.getFromString(recordFromFile[4]);
         String tableNumber = recordFromFile[5].equalsIgnoreCase("null") ? null : recordFromFile[5];
@@ -60,7 +61,7 @@ public class OrderFileIO extends FileIO {
         double orderPrice = Double.parseDouble(recordFromFile[7]);
         LocalDateTime orderedDate = Utility.changeStringToTime(recordFromFile[8]);
         Order.OrderStatus orderStatus = Order.OrderStatus.getFromString(recordFromFile[9]);
-        HashMap<Item, Integer> orderItem = Utility.changeStringToHashMap(recordFromFile[10]);
+        Map<Item, Integer> orderItem = Utility.changeStringToHashMap(recordFromFile[10]);
 
         // Create and return a new item object
         return new Order(
@@ -97,11 +98,11 @@ public class OrderFileIO extends FileIO {
 
             // Retrieve information from order object
             record[0] = order.getOrderID();
-            record[1] = order.getOrderingCustomer().getUserID();
-            record[2] = order.getOrderedStall().getStallID();
+            record[1] = order.getOrderingCustomer() == null ? "null" : order.getOrderingCustomer().getUserID();
+            record[2] = order.getOrderedStall() == null ? "null" : order.getOrderedStall().getStallID();
             record[3] = order.getRunnerInCharge() == null ? "null" : order.getRunnerInCharge().getUserID();
             record[4] = order.getDiningType().toString();
-            record[5] = order.getTableNumber();
+            record[5] = order.getTableNumber() == null ? "null" : order.getTableNumber();
             record[6] = order.getNoteToVendor();
             record[7] = String.valueOf(order.getOrderPrice());
             record[8] = Utility.generateString(order.getOrderedDate());

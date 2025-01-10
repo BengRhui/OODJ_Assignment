@@ -1,6 +1,5 @@
 package backend.entity;
 
-import backend.file_io.NotificationIO;
 import backend.file_io.OrderFileIO;
 import backend.notification.CustomerNotification;
 import backend.notification.DeliveryRunnerNotification;
@@ -8,10 +7,7 @@ import backend.notification.VendorNotification;
 import backend.utility.Utility;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Class {@code Order} represents the order placed by the customer via the system.
@@ -35,7 +31,7 @@ public class Order {
     private double orderPrice;
     private LocalDateTime orderedDate;
     private OrderStatus orderStatus;
-    private HashMap<Item, Integer> orderItem;
+    private Map<Item, Integer> orderItem;
 
     /**
      * Constructor to instantiate {@code Order} objects.
@@ -54,7 +50,7 @@ public class Order {
      */
     public Order(String orderID, Customer orderingCustomer, Stall orderedStall, DeliveryRunner runnerInCharge,
                  DiningType diningType, String tableNumber, String noteToVendor, double orderPrice,
-                 LocalDateTime orderedDate, OrderStatus orderStatus, HashMap<Item, Integer> orderItem) {
+                 LocalDateTime orderedDate, OrderStatus orderStatus, Map<Item, Integer> orderItem) {
         this.orderID = orderID;
         this.orderingCustomer = orderingCustomer;
         this.orderedStall = orderedStall;
@@ -117,6 +113,96 @@ public class Order {
 
         // Return null if no order ID matches
         return null;
+    }
+
+    /**
+     * A method to change the customer attributes of the associated orders to null.
+     *
+     * @param customerID The ID of the customer
+     * @return {@code true} if the operation is successful, else {@code false}
+     */
+    public static boolean changeCustomerToNull(String customerID) {
+
+        // Reject empty inputs
+        if (customerID == null || customerID.isBlank()) return false;
+
+        // Loop through each order
+        for (Order order : orderList) {
+
+            // If the customer attribute is not null and the ID matches
+            if (order.getOrderingCustomer() != null &&
+                    order.getOrderingCustomer().getUserID().equals(customerID)) {
+
+                // Set the customer attribute to null
+                order.setOrderingCustomer(null);
+            }
+        }
+
+        // Write to file
+        OrderFileIO.writeFile();
+
+        // Return true after successful operation
+        return true;
+    }
+
+    /**
+     * A method to change the stall attributes of the associated orders to null.
+     *
+     * @param stallID The ID of the stall
+     * @return {@code true} if the operation is successful, else {@code false}
+     */
+    public static boolean changeStallToNull(String stallID) {
+
+        // Reject empty inputs
+        if (stallID == null || stallID.isBlank()) return false;
+
+        // Loop through each order
+        for (Order order : orderList) {
+
+            // If the stall attribute is not null and the ID matches
+            if (order.getOrderedStall() != null &&
+                    order.getOrderedStall().getStallID().equals(stallID)) {
+
+                // Set the stall attribute to null
+                order.setOrderedStall(null);
+            }
+        }
+
+        // Write to file
+        OrderFileIO.writeFile();
+
+        // Return true after successful operation
+        return true;
+    }
+
+    /**
+     * A method to change the delivery runner attributes of the associated orders to null.
+     *
+     * @param runnerID The ID of the delivery runner
+     * @return {@code true} if the operation is successful, else {@code false}
+     */
+    public static boolean changeRunnerToNull(String runnerID) {
+
+        // Reject empty inputs
+        if (runnerID.isBlank()) return false;
+
+        // Loop through each order
+        for (Order order : orderList) {
+
+            // If the delivery runner attribute is not null and the ID matches
+            if (order.getRunnerInCharge() != null &&
+                    order.getRunnerInCharge().getUserID().equals(runnerID)) {
+
+                // Set the delivery runner attribute to null
+                order.setRunnerInCharge(null);
+            }
+        }
+
+        // Write to file
+        OrderFileIO.writeFile();
+
+        // Return true after successful operation
+        return true;
     }
 
     /**
@@ -215,11 +301,11 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    public HashMap<Item, Integer> getOrderItem() {
+    public Map<Item, Integer> getOrderItem() {
         return orderItem;
     }
 
-    public void setOrderItem(HashMap<Item, Integer> orderItem) {
+    public void setOrderItem(Map<Item, Integer> orderItem) {
         this.orderItem = orderItem;
     }
 
@@ -254,7 +340,7 @@ public class Order {
      *
      * @return {@code 1} if order is accepted by vendor and notification is created<br>
      * {@code 0} if order is not accepted and notification is not created<br>
-     * {@code -1} if order is accepted but notification fail to create
+     * {@code -1} if vendor accepts order but notification fails to be created
      */
     public int vendorAcceptOrder() {
 
@@ -295,7 +381,6 @@ public class Order {
 
             // Write into file
             OrderFileIO.writeFile();
-            NotificationIO.writeFile();
 
             // Return 1 to indicate success modification
             return 1;
@@ -324,7 +409,6 @@ public class Order {
 
             // Write into file
             OrderFileIO.writeFile();
-            NotificationIO.writeFile();
 
             // Return true to indicate success modification
             return 1;
@@ -341,7 +425,7 @@ public class Order {
      *
      * @return {@code 1} if order is cancelled successfully and notification is created<br>
      * {@code 0} if order is cancelled unsuccessfully and notification is not created<br>
-     * {@code -1} if order is cancelled successfully but notification is not created
+     * {@code -1} if vendor cancels order but notification fails to be created
      */
     public int vendorCancelOrder() {
 
@@ -382,7 +466,6 @@ public class Order {
 
         // Write into file
         OrderFileIO.writeFile();
-        NotificationIO.writeFile();
 
         // Return 1 for successful operation
         return 1;
@@ -439,7 +522,6 @@ public class Order {
 
             // Write into file
             OrderFileIO.writeFile();
-            NotificationIO.writeFile();
 
             // Return 1 to indicate successful modification
             return 1;
@@ -501,7 +583,6 @@ public class Order {
 
             // Write into file
             OrderFileIO.writeFile();
-            NotificationIO.writeFile();
 
             // Return 1 for successful modification
             return 1;
@@ -527,7 +608,6 @@ public class Order {
 
             // Write into file
             OrderFileIO.writeFile();
-            NotificationIO.writeFile();
 
             // Return 1 for successful modification
             return 1;
@@ -611,7 +691,6 @@ public class Order {
 
         // Write to file
         OrderFileIO.writeFile();
-        NotificationIO.writeFile();
 
         // Return true for successful operation
         return true;
@@ -625,7 +704,7 @@ public class Order {
      * @param status The new status to be updated
      * @return {@code 1} if status is updated and notification is created<br>
      * {@code 0} if status is not updated and notification is not created<br>
-     * {@code -1} if status is updated but notification is not created
+     * {@code -1} if status can be updated but notification fails to be created
      */
     public int runnerUpdateOrderStatus(OrderStatus status) {
 
@@ -667,7 +746,6 @@ public class Order {
 
             // Write to files
             OrderFileIO.writeFile();
-            NotificationIO.writeFile();
 
             // Return 1 for successful modification
             return 1;
@@ -701,7 +779,6 @@ public class Order {
 
             // Write to files
             OrderFileIO.writeFile();
-            NotificationIO.writeFile();
 
             // Return 1 for successful modification
             return 1;
@@ -713,13 +790,15 @@ public class Order {
 
     /**
      * A method for delivery runner to reject an order.
+     *
      * @return {@code true} if the order is rejected successfully, otherwise {@code false} if notification is not created successfully
      */
     public boolean runnerRejectOrder() {
 
         // Check if the correct type of order is implemented by the method
         if (this.getDiningType() != DiningType.DELIVERY) return false;
-        if (this.getOrderStatus() != OrderStatus.WAITING_VENDOR_AND_RUNNER && this.getOrderStatus() != OrderStatus.WAITING_RUNNER) return false;
+        if (this.getOrderStatus() != OrderStatus.WAITING_VENDOR_AND_RUNNER && this.getOrderStatus() != OrderStatus.WAITING_RUNNER)
+            return false;
 
         // Mark the current runner as unavailable
         boolean markAvailability = this.getRunnerInCharge().updateAvailability(false);
@@ -767,7 +846,6 @@ public class Order {
 
         // Write into file
         OrderFileIO.writeFile();
-        NotificationIO.writeFile();
 
         // Return true for successful operation
         return true;
