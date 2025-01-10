@@ -6,6 +6,7 @@ import backend.utility.Utility;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class {@code OrderFileIO} contains the methods to read and write files related to orders.
@@ -61,7 +62,7 @@ public class OrderFileIO extends FileIO {
         double orderPrice = Double.parseDouble(recordFromFile[8]);
         LocalDateTime orderedDate = Utility.changeStringToTime(recordFromFile[9]);
         Order.OrderStatus orderStatus = Order.OrderStatus.getFromString(recordFromFile[10]);
-        HashMap<Item, Integer> orderItem = Utility.changeStringToHashMap(recordFromFile[11]);
+        Map<Item, Integer> orderItem = Utility.changeStringToHashMap(recordFromFile[10]);
 
         // Create and return a new item object
         return new Order(

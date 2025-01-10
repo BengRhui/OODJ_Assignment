@@ -7,11 +7,7 @@ import backend.notification.VendorNotification;
 import backend.utility.Utility;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.*;
 
 /**
  * Class {@code Order} represents the order placed by the customer via the system.
@@ -67,7 +63,7 @@ public class Order {
     private double orderPrice;
     private LocalDateTime orderedDate;
     private OrderStatus orderStatus;
-    private HashMap<Item, Integer> orderItem;
+    private Map<Item, Integer> orderItem;
 
     /**
      * Constructor to instantiate {@code Order} objects.
@@ -448,11 +444,11 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    public HashMap<Item, Integer> getOrderItem() {
+    public Map<Item, Integer> getOrderItem() {
         return orderItem;
     }
 
-    public void setOrderItem(HashMap<Item, Integer> orderItem) {
+    public void setOrderItem(Map<Item, Integer> orderItem) {
         this.orderItem = orderItem;
     }
 

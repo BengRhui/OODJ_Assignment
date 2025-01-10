@@ -20,7 +20,7 @@ public class DeliveryRunner extends User {
      * A list that contains all delivery runners is also included.
      */
     private final static ArrayList<DeliveryRunner> deliveryRunnerList = new ArrayList<>();
-    private final static HashMap<DeliveryRunner, Boolean> availabilityList = new HashMap<>();
+    private final static Map<DeliveryRunner, Boolean> availabilityList = new HashMap<>();
     private String contactNumber;
 
     /**

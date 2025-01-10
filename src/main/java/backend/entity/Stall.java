@@ -313,6 +313,7 @@ public class Stall {
 
     /**
      * A method to delete the current stall. If there are still vendors associated with the stall, the operation will not proceed.
+     *
      * @return {@code true} if the stall is deleted successfully, else {@code false}
      */
     public boolean deleteStall() {
