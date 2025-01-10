@@ -127,4 +127,14 @@ public class Utility {
         // Return HashMap after everything is done
         return map;
     }
+
+    /**
+     * A method to convert password from char[] to string
+     *
+     * @param password The password in char[] format
+     * @return The password in string format
+     */
+    public static String convertPasswordToString(char[] password) {
+        return new String(password);
+    }
 }
