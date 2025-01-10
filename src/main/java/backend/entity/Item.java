@@ -1,9 +1,15 @@
 package backend.entity;
 
+import backend.file_io.ItemFileIO;
+import backend.file_io.PictureIO;
+import backend.notification.VendorNotification;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Class {@code Item} represents the item sold by each stall in the food court.
@@ -23,7 +29,7 @@ public class Item {
             2,
             "Fees charged for delivery services"
     );
-    private final static ArrayList<Item> itemList = new ArrayList<>(List.of(deliveryFees));
+    private static ArrayList<Item> itemList = new ArrayList<>(List.of(deliveryFees));
     private String itemID;
     private String itemName;
     private Stall stall;
@@ -54,6 +60,15 @@ public class Item {
      */
     public static ArrayList<Item> getItemList() {
         return itemList;
+    }
+
+    /**
+     * A setter to set item list (used for reset purposes).
+     *
+     * @param list The new list to be set to replace the current list
+     */
+    public static void setItemList(ArrayList<Item> list) {
+        itemList = list;
     }
 
     /**
@@ -96,6 +111,198 @@ public class Item {
 
         // Return null if there is no matching ID
         return null;
+    }
+
+    /**
+     * A method to automatically generate a new item ID.
+     *
+     * @return The new item ID generated
+     */
+    public static String generateItemID() {
+
+        // Initialize an index
+        int index = 1;
+
+        // Get the list of item ID
+        ArrayList<String> itemIDList = itemList.stream()              // Get the list of items
+                .map(item -> item.itemID)                             // Map each item to their item ID
+                .collect(Collectors.toCollection(ArrayList::new));    // Convert the list of ID into arrays
+
+        // Begin loop
+        while (true) {
+
+            // Convert index into ID
+            String newID = String.format("I%03d", index);
+
+            // Check if ID is in the list
+            if (!itemIDList.contains(newID)) {
+
+                // Return the ID if it's not in the list
+                return newID;
+            }
+
+            // Increase the index if the item ID is in the list
+            index++;
+        }
+    }
+
+    /**
+     * A method to let vendors create a new item.
+     *
+     * @param name        The name of the item
+     * @param price       The price of the item
+     * @param description The description of the item
+     * @param picture     The picture of the item
+     * @param vendor      The vendor associated with the item
+     * @return Returns {@code true} if item is created successfully, else {@code false}
+     */
+    public static boolean addNewVendorItem(String name, double price, String description, File picture, Vendor vendor) {
+
+        // Return false if the arguments are invalid
+        if (name.isBlank() || price <= 0 || description.isBlank() || vendor == null) return false;
+
+        // Return false if the name of the item matches with existing items of the same stall in the list
+        boolean itemExist = itemList.stream()                                                    // Get the list of items
+                .filter(item -> item.stall == null || item.stall.equals(vendor.getStall()))      // Filter the items to the ones in stall
+                .anyMatch(item -> item.itemName.equalsIgnoreCase(name));                         // Check if item name exists in list
+        if (itemExist) return false;
+
+        // Create a new item
+        Item newItem = new Item(
+                Item.generateItemID(),
+                name,
+                vendor.getStall(),
+                price,
+                description
+        );
+
+        // If picture is uploaded successfully
+        if (PictureIO.uploadVendorItemPicture(picture, newItem)) {
+
+            // Add the item into list
+            Item.addItemToList(newItem);
+
+            // Write to file after modification
+            ItemFileIO.writeFile();
+
+            // Return true to indicate successfully adding a new item
+            return true;
+        }
+
+        // Return false if the item picture could not be set
+        return false;
+    }
+
+    /**
+     * A method to delete all items related to the stall.
+     *
+     * @param stallID The ID of the stall
+     * @return {@code true} if items are deleted successfully, else {@code false}
+     */
+    public static boolean deleteItem(String stallID) throws IllegalArgumentException {
+
+        // Check if the stall ID is valid
+        if (stallID == null || stallID.isBlank())
+            throw new IllegalArgumentException("The stall ID cannot be empty or null.");
+
+        // Find if there exist any items associated with the stall ID
+        ArrayList<Item> itemsToBeRemoved = Item.getItemList().stream()
+                .filter(item -> item.getStall() != null && item.getStall().getStallID().equals(stallID))
+                .collect(Collectors.toCollection(ArrayList::new));
+        if (itemsToBeRemoved.isEmpty()) return false;
+
+        // Remove the items from the list
+        for (Item item : itemsToBeRemoved) {
+            if (!item.deleteItem()) return false;
+        }
+
+        // Return true for successful deletion
+        return true;
+    }
+
+    /**
+     * A method to retrieve the list of items based on vendor.
+     *
+     * @param vendor The vendor object that has association with the items
+     * @return A list of filtered items
+     */
+    public static ArrayList<Item> getItemList(Vendor vendor) {
+
+        // Filter the item list based on stall ID
+        return getItemList().stream()
+                .filter(item -> item.stall != null && item.stall.getStallID().equals(vendor.getStall().getStallID()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * A method for vendors to modify the details of an item.
+     *
+     * @param name        The name of the item
+     * @param price       The price of the item
+     * @param description The description of the item
+     * @param picture     THe picture associated with the item
+     * @return Status is {@code true} if everything works well, else {@code wrong}
+     */
+    public boolean modifyItemDetails(String name, double price, String description, File picture) {
+
+        // Make sure that the arguments are valid
+        if (name.isBlank() || price <= 0 || description.isBlank()) return false;
+
+        // Check if name is used by other items from the same stall
+        boolean isNameRepeated = itemList.stream()
+                .filter(item -> item.stall == null || item.stall.equals(this.stall) && !item.equals(this))
+                .anyMatch(item -> item.itemName.equalsIgnoreCase(name));
+        if (isNameRepeated) return false;
+
+        // Update the picture and return false if unsuccessful
+        if (!PictureIO.uploadVendorItemPicture(picture, this)) return false;
+
+        // Modify the item details
+        this.setItemName(name);
+        this.setPrice(price);
+        this.setDescription(description);
+
+        // Write to file after modification
+        ItemFileIO.writeFile();
+
+        // Return true upon successful modification
+        return true;
+    }
+
+    /**
+     * A method to delete an item from the list
+     *
+     * @return Status indicating if the item is successfully deleted
+     */
+    public boolean deleteItem() {
+
+        // Delete the picture of the item
+        if (!PictureIO.deleteItemPicture(this)) return false;
+
+        // Return false if the item was not found in the list (cannot be deleted)
+        if (!Item.getItemList().remove(this)) return false;
+
+        // Write to file and return true after deletion
+        ItemFileIO.writeFile();
+        return true;
+    }
+
+    /**
+     * A method for manager to delete an item.
+     *
+     * @return {@code true} if the deletion is successful, else {@code false}
+     */
+    public boolean managerDeleteItem() {
+
+        // Delete the item and return its value
+        if (!this.deleteItem()) return false;
+
+        // Create notification to notify vendor that the item is deleted
+        return VendorNotification.createNewNotification(
+                "Item " + this.itemID + " Deleted",
+                "The item " + this.itemName + " (" + this.itemID + ") has been removed by the manager due to its inappropriate nature for sale on this platform.",
+                this.stall
+        );
     }
 
     /**

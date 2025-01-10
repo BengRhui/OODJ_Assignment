@@ -1,12 +1,14 @@
 package backend.notification;
 
 import backend.entity.Customer;
+import backend.file_io.NotificationIO;
 import backend.utility.Utility;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Class {@code CustomerNotification} represents the notification that customers will receive in the system.
@@ -57,6 +59,32 @@ public class CustomerNotification implements Notification {
     }
 
     /**
+     * A method to delete the notifications associated with the customer.
+     *
+     * @param customerID The ID of the customer
+     * @return {@code true} if the operation is successful, else {@code false}
+     */
+    public static boolean deleteCustomerFromNotification(String customerID) {
+
+        // Return false if the input is blank
+        if (customerID.isBlank()) return false;
+
+        // Get the list of notifications associated with the customer
+        ArrayList<CustomerNotification> customerNotification = CustomerNotification.getCustomerNotificationList().stream()
+                .filter(notification -> notification.getCustomer().getUserID().equals(customerID))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        // Remove the notifications from the list
+        customerNotificationList.removeAll(customerNotification);
+
+        // Write to file
+        NotificationIO.writeFile();
+
+        // Return true for successful operation
+        return true;
+    }
+
+    /**
      * A method to add customer notifications into an overall list.
      *
      * @param notification The {@code CustomerNotification} objects to be added to list
@@ -96,6 +124,37 @@ public class CustomerNotification implements Notification {
 
         // Return null if no ID matches
         return null;
+    }
+
+    /**
+     * A method to create new customer notification
+     *
+     * @param title       The title of the notification
+     * @param description The description associated with the notification
+     * @param customer    The customer associated with the notification
+     * @return True if notification is created successfully, else false
+     */
+    public static boolean createNewNotification(String title, String description, Customer customer) {
+
+        // Returns false if the arguments are empty
+        if (title.isBlank() || description.isBlank() || customer == null) {
+            return false;
+        }
+
+        // Create a new customer notification object
+        CustomerNotification newNotification = new CustomerNotification(
+                Notification.generateNewNotificationID(CustomerNotification.class),
+                customer,
+                LocalDateTime.now(),
+                NotificationStatus.UNREAD,
+                title,
+                description
+        );
+
+        // Add the notification to list and write to file, then return true to indicate success creation
+        CustomerNotification.addToList(newNotification);
+        NotificationIO.writeFile();
+        return true;
     }
 
     /**

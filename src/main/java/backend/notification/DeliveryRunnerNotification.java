@@ -1,12 +1,14 @@
 package backend.notification;
 
 import backend.entity.DeliveryRunner;
+import backend.file_io.NotificationIO;
 import backend.utility.Utility;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Class {@code DeliveryRunnerNotification} represents the notifications that will be received by the delivery runners.
@@ -97,6 +99,61 @@ public class DeliveryRunnerNotification implements Notification {
 
         // Return null if no ID matches
         return null;
+    }
+
+    /**
+     * A method to create new delivery runner notification
+     *
+     * @param title       The title of the notification
+     * @param description The description associated with the notification
+     * @param runner      The runner associated with the notification
+     * @return True if notification is created successfully, else false
+     */
+    public static boolean createNewNotification(String title, String description, DeliveryRunner runner) {
+
+        // Returns false if the arguments are empty
+        if (title.isBlank() || description.isBlank() || runner == null) return false;
+
+        // Create a new delivery runner notification object
+        DeliveryRunnerNotification newNotification = new DeliveryRunnerNotification(
+                Notification.generateNewNotificationID(DeliveryRunnerNotification.class),
+                runner,
+                LocalDateTime.now(),
+                NotificationStatus.UNREAD,
+                title,
+                description
+        );
+
+        // Add the notification to list and write to file, then return true to indicate success creation
+        DeliveryRunnerNotification.addToList(newNotification);
+        NotificationIO.writeFile();
+        return true;
+    }
+
+    /**
+     * A method to delete the notifications associated with the delivery runner.
+     *
+     * @param runnerID The ID of the delivery runner
+     * @return {@code true} if the operation is successful, else {@code false}
+     */
+    public static boolean deleteRunnerFromNotification(String runnerID) {
+
+        // Return false if the input is blank
+        if (runnerID.isBlank()) return false;
+
+        // Get the list of notifications associated with the delivery runner
+        ArrayList<DeliveryRunnerNotification> runnerNotification = DeliveryRunnerNotification.getDeliveryRunnerNotificationList().stream()
+                .filter(notification -> notification.getRunner().getUserID().equals(runnerID))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        // Remove the notifications from the list
+        deliveryRunnerNotificationList.removeAll(runnerNotification);
+
+        // Write to file
+        NotificationIO.writeFile();
+
+        // Return true for successful operation
+        return true;
     }
 
     /**

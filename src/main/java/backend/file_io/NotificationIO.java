@@ -2,7 +2,7 @@ package backend.file_io;
 
 import backend.entity.Customer;
 import backend.entity.DeliveryRunner;
-import backend.entity.Stall;
+import backend.entity.Vendor;
 import backend.notification.*;
 import backend.utility.Utility;
 
@@ -60,7 +60,7 @@ public class NotificationIO extends FileIO {
 
         // Retrieve information from the string array
         String notificationID = record[0];
-        Stall stall = Stall.getStall(record[1]);
+        Vendor vendor = Vendor.getVendor(record[1]);
         LocalDateTime notificationTime = Utility.changeStringToTime(record[2]);
         NotificationStatus readStatus = NotificationStatus.fromString(record[3]);
         String notificationTitle = record[4];
@@ -69,7 +69,7 @@ public class NotificationIO extends FileIO {
         // Create vendor notification
         VendorNotification newNotification = new VendorNotification(
                 notificationID,
-                stall,
+                vendor,
                 notificationTime,
                 readStatus,
                 notificationTitle,

@@ -1,8 +1,11 @@
 package backend.file_io;
 
+import backend.entity.Customer;
 import backend.entity.Feedback;
 import backend.entity.Order;
+import backend.utility.Utility;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -16,8 +19,8 @@ public class FeedbackFileIO extends FileIO {
      * Fixed variables to help in coding.
      */
     public final static String FEEDBACK_FILE_NAME = "feedback.txt";
-    public final static int NUMBER_OF_INFORMATION_IN_FILE = 7;
-    public final static int[] SPACING_SIZE = {5, 20, 10, 5, 35, 150, 150};
+    public final static int NUMBER_OF_INFORMATION_IN_FILE = 9;
+    public final static int[] SPACING_SIZE = {5, 20, 5, 10, 20, 5, 35, 150, 150};
 
     /**
      * A method to read from feedback file and initialize {@code Feedback} objects.
@@ -50,17 +53,21 @@ public class FeedbackFileIO extends FileIO {
         // Retrieve information from the string array
         String feedbackID = recordFromFile[0];
         Feedback.Category feedbackCategory = Feedback.Category.getFromString(recordFromFile[1]);
-        Order orderAssociated = recordFromFile[2].equalsIgnoreCase("null") ? null : Order.getOrder(recordFromFile[2]);
-        double ratings = Double.parseDouble(recordFromFile[3]);
-        String feedbackTitle = recordFromFile[4];
-        String feedbackDetails = recordFromFile[5];
-        String replyFromManager = recordFromFile[6];
+        Customer customerAssociated = Customer.getCustomer(recordFromFile[2]);
+        Order orderAssociated = recordFromFile[3].equalsIgnoreCase("null") ? null : Order.getOrder(recordFromFile[3]);
+        LocalDateTime feedbackSubmittedTime = Utility.changeStringToTime(recordFromFile[4]);
+        double ratings = Double.parseDouble(recordFromFile[5]);
+        String feedbackTitle = recordFromFile[6];
+        String feedbackDetails = recordFromFile[7];
+        String replyFromManager = recordFromFile[8].equalsIgnoreCase("null") ? null : recordFromFile[8];
 
         // Create a feedback object and return it
         return new Feedback(
                 feedbackID,
                 feedbackCategory,
+                customerAssociated,
                 orderAssociated,
+                feedbackSubmittedTime,
                 ratings,
                 feedbackTitle,
                 feedbackDetails,
@@ -86,11 +93,13 @@ public class FeedbackFileIO extends FileIO {
             String[] record = new String[NUMBER_OF_INFORMATION_IN_FILE];
             record[0] = feedback.getFeedbackID();
             record[1] = feedback.getFeedbackCategory().toString();
-            record[2] = feedback.getOrderAssociated() == null ? "null" : feedback.getOrderAssociated().getOrderID();
-            record[3] = Double.toString(feedback.getRatings());
-            record[4] = feedback.getFeedbackTitle();
-            record[5] = feedback.getFeedbackDetails();
-            record[6] = feedback.getReplyFromManager();
+            record[2] = feedback.getCustomerAssociated() == null ? "null" : feedback.getCustomerAssociated().getUserID();
+            record[3] = feedback.getOrderAssociated() == null ? "null" : feedback.getOrderAssociated().getOrderID();
+            record[4] = Utility.generateString(feedback.getFeedbackSubmissionTime());
+            record[5] = Double.toString(feedback.getRatings());
+            record[6] = feedback.getFeedbackTitle();
+            record[7] = feedback.getFeedbackDetails();
+            record[8] = feedback.getReplyFromManager();
             informationToFile.add(record);
         }
 

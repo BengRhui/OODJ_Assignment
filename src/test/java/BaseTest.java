@@ -11,28 +11,28 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test class {@code ReadWriteFileTest} covers the read and write operations of all text files.
  *
  * @author Beng Rhui (TP068495)
  */
-class BaseTest {
+public class BaseTest {
 
     /**
      * A list of objects to be initialized in testing
      */
-    static final String TESTING_FILE_PATH = "src/test/resources/";
+    static final String TESTING_FILE_PATH = "src/test/resources/text_file/";
+    static final String TESTING_PICTURE_PATH = "src/test/resources/picture/";
 
     static Address address1;
     static Stall stall1;
@@ -83,6 +83,16 @@ class BaseTest {
                 System.out.println("Error deleting file: " + fileName);    // Display error if file fails to be deleted
             }
         }
+
+        // Delete any additional pictures created
+        File[] pictureDirectory = new File(TESTING_PICTURE_PATH).listFiles();
+        assertNotNull(pictureDirectory);
+        for (File file : pictureDirectory) {
+            if (file.getName().contains("empty_picture")) {
+                continue;
+            }
+            assertTrue(file.delete());
+        }
     }
 
     /**
@@ -91,7 +101,7 @@ class BaseTest {
     @BeforeAll
     static void setDirectory() {
 
-        // Set file path to test resources file
+        // Set file path to test resources text_file file
         FileIO.setParentPathToFile(TESTING_FILE_PATH);
 
         // Test if file can be written from file path by reading a preset file from test resources folder
@@ -102,7 +112,23 @@ class BaseTest {
                     line
             );
         } catch (IOException e) {
-            fail("The test case is not able to access the files under test resources.");
+            fail("The test case is not able to access the files under test resources -> text_file folder.");
+        }
+
+
+        // Set directory to store pictures
+        PictureIO.setParentPathToItemDirectory(TESTING_PICTURE_PATH);
+        PictureIO.setParentPathToStoreDirectory(TESTING_PICTURE_PATH);
+
+        // Set up the file directory
+        File[] pictureDirectory = new File(TESTING_PICTURE_PATH).listFiles();
+
+        // Test if the picture file can be detected
+        try {
+            assertNotNull(pictureDirectory);
+            assertEquals("empty_picture.jpg", pictureDirectory[0].getName());
+        } catch (AssertionError e) {
+            fail("The test case is not able to access the picture file under test resources -> picture folder.");
         }
     }
 
@@ -120,7 +146,7 @@ class BaseTest {
         Vendor.getVendorList().clear();
 
         Feedback.getFeedbackList().clear();
-        Item.getItemList().clear();
+        Item.setItemList(new ArrayList<>(List.of(Item.deliveryFees)));
         Order.getOrderList().clear();
         Stall.getStallList().clear();
         Transaction.getTransactionList().clear();
@@ -210,7 +236,7 @@ class BaseTest {
         );
         Item.addItemToList(item1);
 
-        HashMap<Item, Integer> itemCollection = new HashMap<>();
+        Map<Item, Integer> itemCollection = new HashMap<>();
         itemCollection.put(Item.deliveryFees, 1);
         itemCollection.put(item1, 2);
 
@@ -219,6 +245,7 @@ class BaseTest {
                 customer1,
                 stall1,
                 runner1,
+                10.0,
                 Order.DiningType.DELIVERY,
                 null,
                 "Less spicy please.",
@@ -232,6 +259,7 @@ class BaseTest {
                 "ORD00002",
                 customer1,
                 stall1,
+                null,
                 null,
                 Order.DiningType.DINE_IN,
                 "T001",
@@ -247,6 +275,7 @@ class BaseTest {
                 customer1,
                 stall1,
                 null,
+                null,
                 Order.DiningType.TAKEAWAY,
                 null,
                 "Zero spicy please.",
@@ -260,7 +289,9 @@ class BaseTest {
         feedback1 = new Feedback(
                 "F001",
                 Feedback.Category.DELIVERY_RUNNER,
+                customer1,
                 order1,
+                LocalDateTime.of(2021, 4, 6, 12, 32, 45),
                 4.5,
                 "Good feedback 1",
                 "Very good runner",
@@ -270,7 +301,9 @@ class BaseTest {
         feedback2 = new Feedback(
                 "F002",
                 Feedback.Category.SYSTEM,
+                customer1,
                 null,
+                LocalDateTime.of(2025, 1, 2, 14, 12, 52),
                 3.5,
                 "Moderate feedback 2",
                 "Moderate good system",
@@ -280,7 +313,9 @@ class BaseTest {
         feedback3 = new Feedback(
                 "F003",
                 Feedback.Category.VENDOR,
+                customer1,
                 order2,
+                LocalDateTime.of(2024, 8, 9, 19, 2, 5),
                 1.5,
                 "Bad feedback 3",
                 "Very bad vendor",
@@ -338,7 +373,7 @@ class BaseTest {
 
         vendorNotification1 = new VendorNotification(
                 "NV001",
-                stall1,
+                vendor1,
                 Utility.changeStringToTime("17/12/2024 13:28:54"),
                 NotificationStatus.READ,
                 "Update Order Status",
@@ -365,6 +400,8 @@ class BaseTest {
         OrderFileIO.writeFile();
         TransactionFileIO.writeFile();
         NotificationIO.writeFile();
-    }
 
+        // Other methods that has to be initialized
+        DeliveryRunner.initializeAvailabilityList();    // To initialize the list that records each runner's availability
+    }
 }
