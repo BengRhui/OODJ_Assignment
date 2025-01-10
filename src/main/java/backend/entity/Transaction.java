@@ -2,10 +2,24 @@ package backend.entity;
 
 import backend.file_io.TransactionFileIO;
 import backend.utility.Utility;
+import com.itextpdf.io.font.constants.StandardFonts;
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.Paragraph;
 
+import java.awt.*;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -21,6 +35,8 @@ public class Transaction {
      * An overall list containing all transactions are also included.
      */
     private final static ArrayList<Transaction> transactionList = new ArrayList<>();
+    private final static String[] receiptTableHeaders = new String[]{"Description", "Quantity", "Price"};
+    private final static int[] receiptColumnPosition = new int[]{40, 325, 450};
     private String transactionID;
     private Customer customer;
     private LocalDateTime transactionTime;
@@ -54,8 +70,45 @@ public class Transaction {
      * @return ArrayList containing all {@code Transaction} objects
      */
     public static ArrayList<Transaction> getTransactionList() {
+
+        // Sort transaction list in descending order based on time
+        transactionList.sort(Comparator.comparing(Transaction::getTransactionTime).reversed());
+
+        // Return transaction list
         return transactionList;
     }
+
+    /**
+     * A method to get transaction list after filtered using customer.
+     *
+     * @param customer The customer that will be used for filter
+     * @return The filtered transaction list
+     */
+    public static ArrayList<Transaction> getTransactionList(Customer customer) {
+
+        // Filter transaction based on customer ID, then sort them descending based on transaction time
+        return transactionList.stream()
+                .filter(transaction -> transaction.customer.userID.equals(customer.userID))
+                .sorted(Comparator.comparing(Transaction::getTransactionTime).reversed())
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * A method to filter transaction list based on transaction type (cash in and cash out).
+     *
+     * @param customer        The customer involved
+     * @param transactionType The transaction type used for filter
+     * @return The filtered transaction list
+     */
+    public static ArrayList<Transaction> getTransactionList(Customer customer, TransactionType transactionType) {
+
+        // Filter transaction list based on transaction type, and sort descending based on transaction time
+        return getTransactionList(customer).stream()
+                .filter(transaction -> transaction.getTransactionType() == transactionType)
+                .sorted(Comparator.comparing(Transaction::getTransactionTime).reversed())
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
 
     /**
      * A method to add transactions into an overall list.
@@ -239,6 +292,16 @@ public class Transaction {
 
     public void setPaymentMethod(PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+
+    /**
+     * A method to generate receipt in PDF format for transactions.
+     * @return {@code true} if the receipt is generated successfully, else {@code false}
+     */
+    public boolean generateReceipt() {
+
+        // Pass the current object to the method that generates PDF
+        return Utility.generatePDF(this, receiptTableHeaders, receiptColumnPosition);
     }
 
     /**

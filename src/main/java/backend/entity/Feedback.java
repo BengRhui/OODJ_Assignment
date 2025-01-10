@@ -57,7 +57,7 @@ public class Feedback {
     private Customer customerAssociated;
     private Order orderAssociated;
     private LocalDateTime feedbackSubmissionTime;
-    private double ratings;
+    private int ratings;
     private String feedbackTitle;
     private String feedbackDetails;
     private String replyFromManager;
@@ -73,7 +73,7 @@ public class Feedback {
      * @param feedbackDetails  The description of the feedback
      * @param replyFromManager The reply that the manager provides to the customer
      */
-    public Feedback(String feedbackID, Category feedbackCategory, Customer customerAssociated, Order orderAssociated, LocalDateTime feedbackSubmissionTime, double ratings, String feedbackTitle, String feedbackDetails, String replyFromManager) {
+    public Feedback(String feedbackID, Category feedbackCategory, Customer customerAssociated, Order orderAssociated, LocalDateTime feedbackSubmissionTime, int ratings, String feedbackTitle, String feedbackDetails, String replyFromManager) {
         this.feedbackID = feedbackID;
         this.feedbackCategory = feedbackCategory;
         this.customerAssociated = customerAssociated;
@@ -83,6 +83,34 @@ public class Feedback {
         this.feedbackTitle = feedbackTitle;
         this.feedbackDetails = feedbackDetails;
         this.replyFromManager = replyFromManager;
+    }
+
+    /**
+     * A method to automatically generate the ID for a new feedback.
+     *
+     * @return The ID string of the feedback
+     */
+    public static String generateNewID() {
+
+        // Create a variable to record index
+        int index = 1;
+
+        // Start an infinity loop
+        while (true) {
+
+            // Generate an ID
+            String generatedID = String.format("F%03d", index);
+
+            // Check if the ID is used by another feedback
+            boolean isAvailable = feedbackList.stream()
+                    .noneMatch(feedback -> feedback.getFeedbackID().equals(generatedID));
+
+            // If not used by others, return the ID
+            if (isAvailable) return generatedID;
+
+            // If yes, increase index and try again
+            index++;
+        }
     }
 
     /**
@@ -190,9 +218,27 @@ public class Feedback {
      */
     public static ArrayList<Feedback> getFeedbackList(Category category) {
 
-        // Filter the feedback list based on the category
+        // Filter the feedback list based on the category and sort from latest to oldest
         return getFeedbackList().stream()
                 .filter(feedback -> feedback.feedbackCategory == category)
+                .sorted(Comparator.comparing(Feedback::getFeedbackSubmissionTime).reversed())
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * A method to filter the feedback list based on stall.
+     *
+     * @param stall The stall that associates with the feedback
+     * @return A filtered feedback list
+     */
+    public static ArrayList<Feedback> getFeedbackList(Stall stall) {
+
+        // Filter and sort the feedback list from latest to oldest based on the stall
+        return getFeedbackList().stream()
+                .filter(feedback -> feedback.feedbackCategory == Category.VENDOR &&
+                        feedback.orderAssociated.getOrderedStall() != null &&
+                        feedback.orderAssociated.getOrderedStall().getStallID().equals(stall.getStallID()))
+                .sorted(Comparator.comparing(Feedback::getFeedbackSubmissionTime).reversed())
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
@@ -220,6 +266,117 @@ public class Feedback {
 
         // Return the sorted list
         return feedbackList;
+    }
+
+    /**
+     * A method to allow customers to provide feedback for system, vendor and runner.
+     *
+     * @param category    The category for the feedback
+     * @param customer    The customer involved
+     * @param order       The order related to the feedback (if available)
+     * @param score       The ratings provided to feedback
+     * @param title       The title of the feedback
+     * @param description The description of feedback
+     * @param tips        The tips for runner (if applicable)
+     * @return {@code true} if the feedback is created successfully, else {@code false}
+     */
+    public static boolean customerProvideFeedback(
+            Category category,
+            Customer customer,
+            Order order,
+            int score,
+            String title,
+            String description,
+            Double tips
+    ) {
+
+        // Avoid null values for some parameters
+        if (customer == null ||
+                score <= 0 ||
+                title == null || title.isBlank() ||
+                description == null || description.isBlank()) return false;
+
+        // Check if the input is correct
+        if (category != Category.DELIVERY_RUNNER && tips != null) return false;
+        if (category == Category.SYSTEM && order != null) return false;
+        if (order != null && order.getOrderingCustomer() != null &&
+                !order.getOrderingCustomer().getUserID().equals(customer.getUserID())) return false;
+
+        // Check if the input is valid
+        if (tips != null && tips < 0) return false;
+
+        // Create feedback object
+        Feedback submittedFeedback = new Feedback(
+                generateNewID(),
+                category,
+                customer,
+                order,
+                LocalDateTime.now(),
+                score,
+                title,
+                description,
+                null
+        );
+
+        // Check if there is any tips
+        if (category == Category.DELIVERY_RUNNER && (tips != null && tips > 0)) {
+
+            // Reject if the tips is more than the customer's e-wallet amount
+            if (customer.getEWalletAmount() < tips) return false;
+
+            // Subtract tips from customer's e-wallet
+            double walletAmountAfterDelivery = customer.getEWalletAmount() - tips;
+            customer.setEWalletAmount(walletAmountAfterDelivery);
+
+            // Create transaction history
+            boolean createTransaction = Transaction.createTransactionHistory(
+                    customer,
+                    tips,
+                    Transaction.TransactionType.CASH_IN,
+                    Transaction.PaymentMethod.E_WALLET
+            );
+            if (!createTransaction) return false;
+
+        }
+
+        // Add to list
+        addToFeedbackList(submittedFeedback);
+
+        // Write to file
+        FeedbackFileIO.writeFile();
+
+        // Return true for successful operation
+        return true;
+    }
+
+    /**
+     * A method to check if vendor feedback has been created by the customer
+     *
+     * @param customer The customer that will be checked
+     * @return {@code true} if vendor feedback is filled, else {@code false}
+     */
+    public static boolean checkNeedToFillVendorFeedback(Customer customer) {
+
+        // Find if there is any matching vendor feedback from the customer
+        return feedbackList.stream()
+                .noneMatch(feedback -> feedback.feedbackCategory == Category.VENDOR &&
+                        feedback.customerAssociated != null &&
+                        feedback.customerAssociated.userID.equals(customer.userID));
+    }
+
+    /**
+     * A method to check if runner feedback has been created by the customer
+     *
+     * @param customer The customer that will be checked
+     * @return {@code true} if runner feedback is filled, else {@code false}
+     */
+    public static boolean checkNeedToFillRunnerFeedback(Customer customer) {
+
+        // Find if there is any matching vendor feedback from the customer
+        return feedbackList.stream()
+                .noneMatch(feedback -> feedback.feedbackCategory == Category.DELIVERY_RUNNER &&
+                        feedback.customerAssociated != null &&
+                        feedback.customerAssociated.userID.equals(customer.userID));
     }
 
     /**
@@ -283,11 +440,11 @@ public class Feedback {
         this.feedbackSubmissionTime = feedbackSubmissionTime;
     }
 
-    public double getRatings() {
+    public int getRatings() {
         return ratings;
     }
 
-    public void setRatings(double ratings) {
+    public void setRatings(int ratings) {
         this.ratings = ratings;
     }
 

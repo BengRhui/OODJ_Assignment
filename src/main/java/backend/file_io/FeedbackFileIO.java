@@ -56,7 +56,7 @@ public class FeedbackFileIO extends FileIO {
         Customer customerAssociated = Customer.getCustomer(recordFromFile[2]);
         Order orderAssociated = recordFromFile[3].equalsIgnoreCase("null") ? null : Order.getOrder(recordFromFile[3]);
         LocalDateTime feedbackSubmittedTime = Utility.changeStringToTime(recordFromFile[4]);
-        double ratings = Double.parseDouble(recordFromFile[5]);
+        int ratings = Integer.parseInt(recordFromFile[5]);
         String feedbackTitle = recordFromFile[6];
         String feedbackDetails = recordFromFile[7];
         String replyFromManager = recordFromFile[8].equalsIgnoreCase("null") ? null : recordFromFile[8];
@@ -96,7 +96,7 @@ public class FeedbackFileIO extends FileIO {
             record[2] = feedback.getCustomerAssociated() == null ? "null" : feedback.getCustomerAssociated().getUserID();
             record[3] = feedback.getOrderAssociated() == null ? "null" : feedback.getOrderAssociated().getOrderID();
             record[4] = Utility.generateString(feedback.getFeedbackSubmissionTime());
-            record[5] = Double.toString(feedback.getRatings());
+            record[5] = Integer.toString(feedback.getRatings());
             record[6] = feedback.getFeedbackTitle();
             record[7] = feedback.getFeedbackDetails();
             record[8] = feedback.getReplyFromManager();

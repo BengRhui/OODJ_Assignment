@@ -60,7 +60,7 @@ public class DeliveryRunnerFileIO extends UserFileIO {
             DeliveryRunner.addToRunnerList(newRunner);
         }
 
-        // Initialize a HashMap that records the availability of runners
+        // Initialize a Map that records the availability of runners
         DeliveryRunner.initializeAvailabilityList();
     }
 
