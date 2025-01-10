@@ -394,5 +394,8 @@ public class BaseTest {
         OrderFileIO.writeFile();
         TransactionFileIO.writeFile();
         NotificationIO.writeFile();
+
+        // Other methods that has to be initialized
+        DeliveryRunner.initializeAvailabilityList();    // To initialize the list that records each runner's availability
     }
 }

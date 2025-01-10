@@ -1,8 +1,8 @@
 package backend.entity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
+import backend.utility.Utility;
+
+import java.util.*;
 
 /**
  * Class {@code DeliveryRunner} represents the delivery people who will use the system to update delivery progress.
@@ -16,6 +16,7 @@ public class DeliveryRunner extends User {
      * A list that contains all delivery runners is also included.
      */
     private final static ArrayList<DeliveryRunner> deliveryRunnerList = new ArrayList<>();
+    private final static HashMap<DeliveryRunner, Boolean> availabilityList = new HashMap<>();
     private String contactNumber;
 
     /**
@@ -30,6 +31,50 @@ public class DeliveryRunner extends User {
     public DeliveryRunner(String userID, String email, String password, String name, String contactNumber) {
         super(userID, email, password, name);
         this.contactNumber = contactNumber;
+    }
+
+    /**
+     * A method to randomly obtain an available runner that is free.
+     *
+     * @return A random delivery runner that is available. Returns {@code null} if no runner is available.
+     */
+    public static DeliveryRunner getAvailableRunner() {
+
+        // Initialize array to store available runners
+        ArrayList<DeliveryRunner> availableRunners = new ArrayList<>();
+
+        // From the availability list, get the available runners
+        availabilityList.forEach(
+                (runner, availability) -> {
+                    if (availability) availableRunners.add(runner);
+                }
+        );
+
+        // Return null if the list of available runners is empty
+        if (availableRunners.isEmpty()) return null;
+
+        // Randomly pick an index
+        Random randomNumber = new Random();
+        int chosenIndex = randomNumber.nextInt(availableRunners.size());
+
+        // Retrieve and return the relevant runner
+        return availableRunners.get(chosenIndex);
+    }
+
+    /**
+     * A method to initialize the availability list that represents the availability of each runner.
+     */
+    public static void initializeAvailabilityList() {
+
+        // Loop through each runner
+        for (DeliveryRunner runner : deliveryRunnerList) {
+
+            // Check for the runner availability
+            boolean availability = runner.checkAvailability();
+
+            // Add runner and the corresponding availability into the HashMap
+            availabilityList.put(runner, availability);
+        }
     }
 
     /**
@@ -81,6 +126,36 @@ public class DeliveryRunner extends User {
 
         // Return null if there is no matching ID
         return null;
+    }
+
+    /**
+     * A method to update the availability of runners (mainly used when runner rejects an order)
+     *
+     * @param status The status of the runner
+     * @return Status whether if the availability is updated successfully. If not, the {@code HashMap} has to be initialized again.
+     */
+    public boolean updateAvailability(boolean status) {
+
+        // Replace the status in the HashMap with the new status
+        Boolean state = availabilityList.replace(this, status);
+
+        // Return false if the runner is not found, else return true
+        return state != null;
+    }
+
+    /**
+     * A method to check the availability of a runner.
+     *
+     * @return {@code true} if the runner is free from any incomplete orders, {@code false} otherwise
+     */
+    public boolean checkAvailability() {
+        return Order.getOrderList().stream()                                                        // Convert list of orders into stream
+                .filter(                                                                            // Get orders excluding completed and cancelled ones
+                        order -> !order.getOrderStatus().equals(Order.OrderStatus.COMPLETED) &&
+                                !order.getOrderStatus().equals(Order.OrderStatus.CANCELLED) &&
+                                !(order.getRunnerInCharge() == null)
+                        )
+                .noneMatch(order -> order.getRunnerInCharge().equals(this));                        // Return true if runner is not in the list
     }
 
     /**

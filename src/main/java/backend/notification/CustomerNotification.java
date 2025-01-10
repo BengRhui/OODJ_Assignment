@@ -116,7 +116,7 @@ public class CustomerNotification implements Notification {
 
         // Create a new customer notification object
         CustomerNotification newNotification = new CustomerNotification(
-                Utility.generateNewNotificationID(CustomerNotification.class),
+                Notification.generateNewNotificationID(CustomerNotification.class),
                 customer,
                 LocalDateTime.now(),
                 NotificationStatus.UNREAD,

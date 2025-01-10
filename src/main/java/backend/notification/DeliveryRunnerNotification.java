@@ -115,7 +115,7 @@ public class DeliveryRunnerNotification implements Notification {
 
         // Create a new delivery runner notification object
         DeliveryRunnerNotification newNotification = new DeliveryRunnerNotification(
-                Utility.generateNewNotificationID(DeliveryRunnerNotification.class),
+                Notification.generateNewNotificationID(DeliveryRunnerNotification.class),
                 runner,
                 LocalDateTime.now(),
                 NotificationStatus.UNREAD,

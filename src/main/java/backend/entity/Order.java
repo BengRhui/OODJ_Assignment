@@ -120,6 +120,19 @@ public class Order {
     }
 
     /**
+     * This method randomly assigns the current order to an available runner.
+     */
+    public void assignOrderToRandomRunner() {
+
+        // Get a new runner and assign to the current order
+        DeliveryRunner newRunner = DeliveryRunner.getAvailableRunner();
+        this.setRunnerInCharge(newRunner);
+
+        // Write changes into file
+        OrderFileIO.writeFile();
+    }
+
+    /**
      * Getters and setters for {@code Order} class
      */
     public String getOrderID() {
@@ -280,7 +293,7 @@ public class Order {
             );
             if (!vendorNotificationStatus) return -1;
 
-            // Write to file
+            // Write into file
             OrderFileIO.writeFile();
             NotificationIO.writeFile();
 
@@ -309,7 +322,7 @@ public class Order {
             );
             if (!vendorNotificationStatus) return -1;
 
-            // Write to file
+            // Write into file
             OrderFileIO.writeFile();
             NotificationIO.writeFile();
 
@@ -367,7 +380,7 @@ public class Order {
         );
         if (!vendorNotification) return -1;
 
-        // Write to file
+        // Write into file
         OrderFileIO.writeFile();
         NotificationIO.writeFile();
 
@@ -424,7 +437,7 @@ public class Order {
                 );
             }
 
-            // Write to file
+            // Write into file
             OrderFileIO.writeFile();
             NotificationIO.writeFile();
 
@@ -486,14 +499,14 @@ public class Order {
                 }
             }
 
-            // Write to file
+            // Write into file
             OrderFileIO.writeFile();
             NotificationIO.writeFile();
 
             // Return 1 for successful modification
             return 1;
 
-            // When the status is marked as complete (only applicable for dine in and takeaway orders)
+        // When the status is marked as complete (only applicable for dine in and takeaway orders)
         } else if (status == OrderStatus.COMPLETED && (this.getDiningType() == DiningType.DINE_IN || this.getDiningType() == DiningType.TAKEAWAY)) {
 
             // Customer notification for complete order
@@ -512,7 +525,7 @@ public class Order {
             );
             if (!vendorNotification) return -1;
 
-            // Write to file
+            // Write into file
             OrderFileIO.writeFile();
             NotificationIO.writeFile();
 
@@ -522,6 +535,242 @@ public class Order {
 
         // Return 0 to indicate unsuccessful modification (does not fit preparing, ready for pickup or customer received)
         return 0;
+    }
+
+    /**
+     * A method for delivery runner to accept an order.
+     *
+     * @return {@code true} if the delivery runner accepts the order and notification is created successfully, {@code false} otherwise
+     */
+    public boolean runnerAcceptOrder() {
+
+        // Perform nothing if the order is wrong (not a delivery order)
+        if (this.getDiningType() != DiningType.DELIVERY) {
+            return false;
+        }
+
+        // Change status according to different types of initial status
+        switch (this.getOrderStatus()) {
+
+            // When the initial status is waiting for vendor and runner
+            case WAITING_VENDOR_AND_RUNNER -> {
+
+                // Create notification
+                boolean customerNotification = CustomerNotification.createNewNotification(
+                        "Order Accepted by Runner",
+                        "Your order " + this.getOrderID() + " is accepted by runner " + this.getRunnerInCharge().getName() + ". Please give us a moment for vendors to accept this order.",
+                        this.getOrderingCustomer()
+                );
+                if (!customerNotification) return false;
+
+                boolean runnerNotification = DeliveryRunnerNotification.createNewNotification(
+                        "Order Accepted",
+                        "You have accepted the order " + this.getOrderID() + ". Please wait for the confirmation from the vendor side (" + this.getOrderedStall().getStallID() + ").",
+                        this.getRunnerInCharge()
+                );
+                if (!runnerNotification) return false;
+
+                // Change status
+                this.setOrderStatus(OrderStatus.WAITING_VENDOR);
+            }
+
+            // When initial status is waiting runner
+            case WAITING_RUNNER -> {
+
+                // Create notification
+                boolean customerNotification = CustomerNotification.createNewNotification(
+                        "Order Accepted by Runner",
+                        "Your order " + this.getOrderID() + " has been accepted by runner " + this.getRunnerInCharge().getUserID() + ". The vendor will now start to prepare your order.",
+                        this.getOrderingCustomer()
+                );
+                if (!customerNotification) return false;
+
+                boolean vendorNotification = VendorNotification.createNewNotification(
+                        "Order Assigned to Runner",
+                        "Order " + this.getOrderID() + " has been assigned to runner " + this.getRunnerInCharge().getUserID() + ". You may start preparing the food.",
+                        this.getOrderedStall()
+                );
+                if (!vendorNotification) return false;
+
+                boolean runnerNotification = DeliveryRunnerNotification.createNewNotification(
+                        "Order Accepted",
+                        "You have accepted the order " + this.getOrderID() + ". Please head to the stall " + this.getOrderedStall().getStallID() + " to pick-up the order.",
+                        this.getRunnerInCharge()
+                );
+                if (!runnerNotification) return false;
+
+                // Change status
+                this.setOrderStatus(OrderStatus.VENDOR_PREPARING);
+            }
+
+            // Return false for other initial status
+            default -> {
+                return false;
+            }
+        }
+
+        // Write to file
+        OrderFileIO.writeFile();
+        NotificationIO.writeFile();
+
+        // Return true for successful operation
+        return true;
+    }
+
+    /**
+     * A method for delivery runner to update the status of an order.<br>
+     * Note: The status cannot be reverted after choosing it<br>
+     * (heading to stall (involves two status: vendor preparing and ready to pick up) -> heading to customer address -> order complete)
+     *
+     * @param status The new status to be updated
+     * @return {@code 1} if status is updated and notification is created<br>
+     * {@code 0} if status is not updated and notification is not created<br>
+     * {@code -1} if status is updated but notification is not created
+     */
+    public int runnerUpdateOrderStatus(OrderStatus status) {
+
+        // Only applicable for delivery orders
+        if (this.getDiningType() != DiningType.DELIVERY) return 0;
+
+        // If status remains the same, do nothing
+        if (this.getOrderStatus() == status) return 0;
+
+        // Change order status
+        this.setOrderStatus(status);
+
+        // If status is changed to delivering (on the way to customer address)
+        if (status == OrderStatus.RUNNER_DELIVERY) {
+
+            // Customer notification
+            boolean customerNotification = CustomerNotification.createNewNotification(
+                    "Your Order is On its Way!",
+                    "Runner " + this.getRunnerInCharge().getUserID() + " is on his/her way to deliver your order " + this.getOrderID() + ". Get ready to collect your meals in a while!",
+                    this.getOrderingCustomer()
+            );
+            if (!customerNotification) return -1;
+
+            // Vendor notification
+            boolean vendorNotification = VendorNotification.createNewNotification(
+                    "Order collected by Runner",
+                    "The order " + this.getOrderID() + " is picked up by runner " + this.getRunnerInCharge().getUserID() + ".",
+                    this.getOrderedStall()
+            );
+            if (!vendorNotification) return -1;
+
+            // Runner notification
+            boolean runnerNotification = DeliveryRunnerNotification.createNewNotification(
+                    "Delivery in Progress",
+                    "You have picked up order " + this.getOrderID() + ". Please proceed to deliver it to customer in a safely manner.",
+                    this.getRunnerInCharge()
+            );
+            if (!runnerNotification) return -1;
+
+            // Write to files
+            OrderFileIO.writeFile();
+            NotificationIO.writeFile();
+
+            // Return 1 for successful modification
+            return 1;
+
+            // If status is changed to complete (customer has received order)
+        } else if (status == OrderStatus.COMPLETED) {
+
+            // Customer notification
+            boolean customerNotification = CustomerNotification.createNewNotification(
+                    "Order Delivered!",
+                    "Your order " + this.getOrderID() + " has been delivered. Enjoy your meal!",
+                    this.getOrderingCustomer()
+            );
+            if (!customerNotification) return -1;
+
+            // Vendor notification
+            boolean vendorNotification = VendorNotification.createNewNotification(
+                    "Delivery Completed",
+                    "You have successfully delivered the order " + this.getOrderID() + ".",
+                    this.getOrderedStall()
+            );
+            if (!vendorNotification) return -1;
+
+            // Runner notification
+            boolean runnerNotification = DeliveryRunnerNotification.createNewNotification(
+                    "Order Completed",
+                    "Runner " + this.getRunnerInCharge().getUserID() + " has successfully delivered the order " + this.getOrderID() + " to the customer.",
+                    this.getRunnerInCharge()
+            );
+            if (!runnerNotification) return -1;
+
+            // Write to files
+            OrderFileIO.writeFile();
+            NotificationIO.writeFile();
+
+            // Return 1 for successful modification
+            return 1;
+        }
+
+        // Return 0 for other status which are irrelevant
+        return 0;
+    }
+
+    /**
+     * A method for delivery runner to reject an order.
+     * @return {@code true} if the order is rejected successfully, otherwise {@code false} if notification is not created successfully
+     */
+    public boolean runnerRejectOrder() {
+
+        // Check if the correct type of order is implemented by the method
+        if (this.getDiningType() != DiningType.DELIVERY) return false;
+        if (this.getOrderStatus() != OrderStatus.WAITING_VENDOR_AND_RUNNER && this.getOrderStatus() != OrderStatus.WAITING_RUNNER) return false;
+
+        // Mark the current runner as unavailable
+        boolean markAvailability = this.getRunnerInCharge().updateAvailability(false);
+        if (!markAvailability) return false;
+
+        // Pass the order to another runner
+        DeliveryRunner newRunner = DeliveryRunner.getAvailableRunner();
+
+        // If there is another available runner
+        if (newRunner != null) {
+
+            // Create notification for the current runner
+            boolean currentRunnerNotification = DeliveryRunnerNotification.createNewNotification(
+                    "Order Reassigned to Another Runner",
+                    "You have declined the order " + this.getOrderID() + ". The order is now passed to another runner.",
+                    this.getRunnerInCharge()
+            );
+            if (!currentRunnerNotification) return false;
+
+            // Assign the order to the runner
+            this.setRunnerInCharge(newRunner);
+
+        } else {
+
+            // Customer should choose another dining method if no runner is available. Notifications are created here.
+            boolean runnerNotification = DeliveryRunnerNotification.createNewNotification(
+                    "Order Declined",
+                    "You have declined the order " + this.getOrderID() + ".",
+                    this.getRunnerInCharge()
+            );
+            if (!runnerNotification) return false;
+
+            boolean customerNotification = CustomerNotification.createNewNotification(
+                    "Unavailability of Delivery Runners",
+                    "We regret to inform that your order " + this.getOrderID() + " cannot be delivered as no runners were available to deliver it. " +
+                            "Please change your dining method or cancel your order and try again later.",
+                    this.getOrderingCustomer()
+            );
+            if (!customerNotification) return false;
+
+            // Mark order as pending change
+            this.setRunnerInCharge(null);
+            this.setOrderStatus(OrderStatus.PENDING_CHANGE);
+        }
+
+        // Write into file
+        OrderFileIO.writeFile();
+        NotificationIO.writeFile();
+
+        // Return true for successful operation
+        return true;
     }
 
     /**
@@ -578,7 +827,7 @@ public class Order {
          * Fields for order status
          */
         WAITING_VENDOR_AND_RUNNER, WAITING_VENDOR, WAITING_RUNNER, VENDOR_PREPARING,
-        READY_FOR_PICK_UP, RUNNER_DELIVERY, COMPLETED, CANCELLED;
+        READY_FOR_PICK_UP, RUNNER_DELIVERY, COMPLETED, CANCELLED, PENDING_CHANGE;
 
         /**
          * Variables containing different types of options for an order
@@ -626,6 +875,7 @@ public class Order {
                 case RUNNER_DELIVERY -> "Delivering by Runner";
                 case COMPLETED -> "Completed";
                 case CANCELLED -> "Cancelled";
+                case PENDING_CHANGE -> "Pending Change";
             };
         }
     }
