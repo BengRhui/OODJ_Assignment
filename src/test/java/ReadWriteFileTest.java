@@ -248,7 +248,7 @@ class ReadWriteFileTest extends BaseTest {
 
         // Modify the attributes
         feedback1.setFeedbackCategory(Feedback.Category.VENDOR);
-        feedback2.setRatings(2.3);
+        feedback2.setRatings(2);
         feedback3.setOrderAssociated(order3);
 
         // Write to file

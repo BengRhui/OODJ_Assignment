@@ -82,7 +82,10 @@ public class StallFileIO extends FileIO {
             record[0] = stall.getStallID();
             record[1] = stall.getStallName();
 
-            // Transform array to string, then remove the leading and ending braces
+            // Sort the categories
+            Arrays.sort(stall.getStallCategories());
+
+            // Generate string for the categories and remove the braces ("{" and "}")
             String categoryList = Arrays.toString(stall.getStallCategories());
             record[2] = categoryList.substring(1, categoryList.length() - 1);
 

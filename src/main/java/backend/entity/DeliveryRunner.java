@@ -20,7 +20,7 @@ public class DeliveryRunner extends User {
      * A list that contains all delivery runners is also included.
      */
     private final static ArrayList<DeliveryRunner> deliveryRunnerList = new ArrayList<>();
-    private final static Map<DeliveryRunner, Boolean> availabilityList = new HashMap<>();
+    private final static Map<String, Boolean> availabilityList = new HashMap<>();
     private String contactNumber;
 
     /**
@@ -49,8 +49,8 @@ public class DeliveryRunner extends User {
 
         // From the availability list, get the available runners
         availabilityList.forEach(
-                (runner, availability) -> {
-                    if (availability) availableRunners.add(runner);
+                (runnerID, availability) -> {
+                    if (availability) availableRunners.add(getRunner(runnerID));
                 }
         );
 
@@ -76,8 +76,8 @@ public class DeliveryRunner extends User {
             // Check for the runner availability
             boolean availability = runner.checkAvailability();
 
-            // Add runner and the corresponding availability into the HashMap
-            availabilityList.put(runner, availability);
+            // Add runner and the corresponding availability into the Map
+            availabilityList.put(runner.userID, availability);
         }
     }
 
@@ -88,6 +88,14 @@ public class DeliveryRunner extends User {
      */
     public static ArrayList<DeliveryRunner> getDeliveryRunnerList() {
         return deliveryRunnerList;
+    }
+
+    /**
+     * A method to get the availability list for the current system.
+     * @return A Map consisting of the runner ID, with a boolean representing availability
+     */
+    public static Map<String, Boolean> getAvailabilityList() {
+        return availabilityList;
     }
 
     /**
@@ -249,6 +257,9 @@ public class DeliveryRunner extends User {
         // Add to list
         addToRunnerList(newRunner);
 
+        // Update the availability list
+        availabilityList.put(newRunner.userID, true);
+
         // Write to file
         CredentialsFileIO.writeCredentialsFile();
         DeliveryRunnerFileIO runnerIO = new DeliveryRunnerFileIO();
@@ -337,6 +348,9 @@ public class DeliveryRunner extends User {
         // Delete the relevant notifications
         boolean deleteNotification = DeliveryRunnerNotification.deleteRunnerFromNotification(this.getUserID());
         if (!deleteNotification) return false;
+
+        // Delete runner from availability list
+        availabilityList.remove(this.userID);
 
         // Change the relevant runner attributes in order to null
         boolean changeToNull = Order.changeRunnerToNull(this.getUserID());
@@ -463,12 +477,12 @@ public class DeliveryRunner extends User {
      * A method to update the availability of runners (mainly used when runner rejects an order)
      *
      * @param status The status of the runner
-     * @return Status whether if the availability is updated successfully. If not, the {@code HashMap} has to be initialized again.
+     * @return Status whether if the availability is updated successfully. If not, the {@code Map} has to be initialized again.
      */
     public boolean updateAvailability(boolean status) {
 
-        // Replace the status in the HashMap with the new status
-        Boolean state = availabilityList.replace(this, status);
+        // Replace the status in the Map with the new status
+        Boolean state = availabilityList.replace(this.userID, status);
 
         // Return false if the runner is not found, else return true
         return state != null;

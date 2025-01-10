@@ -5,10 +5,7 @@ import backend.file_io.PictureIO;
 import backend.notification.VendorNotification;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -69,6 +66,43 @@ public class Item {
      */
     public static void setItemList(ArrayList<Item> list) {
         itemList = list;
+    }
+
+    /**
+     * A method to retrieve the list of items based on vendor.
+     *
+     * @param vendor The vendor object that has association with the items
+     * @return A list of filtered items
+     */
+    public static ArrayList<Item> getItemList(Vendor vendor) {
+
+        // Return null if the input is null
+        if (vendor == null) return null;
+
+        // Get the associated stall
+        Stall associatedStall = vendor.getStall();
+        if (associatedStall == null) return null;
+
+        // Filter the item list based on stall ID
+        return getItemList(associatedStall);
+    }
+
+    /**
+     * A method to retrieve the items associated to a stall.
+     *
+     * @param stall The stall object associated with the items
+     * @return A list of items from the stall
+     */
+    public static ArrayList<Item> getItemList(Stall stall) {
+
+        // Return null if the input is null
+        if (stall == null) return null;
+
+        // Filter the item list and sort them based on stall ID
+        return getItemList().stream()
+                .filter(item -> item.stall != null && item.stall.getStallID().equals(stall.getStallID()))
+                .sorted(Comparator.comparing(Item::getItemID))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
@@ -221,20 +255,6 @@ public class Item {
     }
 
     /**
-     * A method to retrieve the list of items based on vendor.
-     *
-     * @param vendor The vendor object that has association with the items
-     * @return A list of filtered items
-     */
-    public static ArrayList<Item> getItemList(Vendor vendor) {
-
-        // Filter the item list based on stall ID
-        return getItemList().stream()
-                .filter(item -> item.stall != null && item.stall.getStallID().equals(vendor.getStall().getStallID()))
-                .collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    /**
      * A method for vendors to modify the details of an item.
      *
      * @param name        The name of the item
@@ -303,6 +323,22 @@ public class Item {
                 "The item " + this.itemName + " (" + this.itemID + ") has been removed by the manager due to its inappropriate nature for sale on this platform.",
                 this.stall
         );
+    }
+
+    /**
+     * A method to calculate the price of an item according to their quantities,
+     *
+     * @param quantity The number of item involved
+     * @return The calculated price of an item
+     * @throws IllegalArgumentException Occurs when the amount for quantity is less than or equals to 0
+     */
+    public double getPrice(int quantity) throws IllegalArgumentException {
+
+        // Throw an exception if quantity is wrong
+        if (quantity <= 0) throw new IllegalArgumentException("The quantity cannot be less than or equal to 0.");
+
+        // Return the unit price multiplied with quantity
+        return this.getPrice() * quantity;
     }
 
     /**

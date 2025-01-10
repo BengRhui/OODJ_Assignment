@@ -1,5 +1,6 @@
 package backend.entity;
 
+import backend.file_io.CustomerFileIO;
 import backend.file_io.OrderFileIO;
 import backend.notification.CustomerNotification;
 import backend.notification.DeliveryRunnerNotification;
@@ -8,6 +9,7 @@ import backend.utility.Utility;
 
 import java.time.LocalDateTime;
 import java.util.*;
+
 
 /**
  * Class {@code Order} represents the order placed by the customer via the system.
@@ -82,7 +84,7 @@ public class Order {
      */
     public Order(String orderID, Customer orderingCustomer, Stall orderedStall, DeliveryRunner runnerInCharge,
                  Double tipsForRunner, DiningType diningType, String tableNumber, String noteToVendor, double orderPrice,
-                 LocalDateTime orderedDate, OrderStatus orderStatus, HashMap<Item, Integer> orderItem) {
+                 LocalDateTime orderedDate, OrderStatus orderStatus, Map<Item, Integer> orderItem) {
         this.orderID = orderID;
         this.orderingCustomer = orderingCustomer;
         this.orderedStall = orderedStall;
@@ -109,7 +111,7 @@ public class Order {
     /**
      * A method to add {@code Order} objects into the overall list.
      *
-     * @param order The {@code Order} objectS to be added into list.
+     * @param order The {@code Order} objects to be added into list.
      */
     public static void addToOrderList(Order... order) {
 
@@ -122,6 +124,34 @@ public class Order {
         orderList.addAll(
                 Arrays.asList(order)
         );
+    }
+
+    /**
+     * A method to generate a new ID for orders.
+     *
+     * @return The new ID in string form
+     */
+    public static String generateNewID() {
+
+        // Create an index to record number count
+        int index = 1;
+
+        // Star a while loop
+        while (true) {
+
+            // Get the format of the ID
+            String generatedID = String.format("%s%05d", "ORD", index);
+
+            // Check if the ID is available
+            boolean isIdAvailable = orderList.stream()
+                    .noneMatch(order -> order.orderID.equals(generatedID));
+
+            // If ID is available, then the generated ID is returned
+            if (isIdAvailable) return generatedID;
+
+            // If not, then increment index and start the loop again
+            index++;
+        }
     }
 
     /**
@@ -569,7 +599,8 @@ public class Order {
      *
      * @return {@code 1} if order is cancelled successfully and notification is created<br>
      * {@code 0} if order is cancelled unsuccessfully and notification is not created<br>
-     * {@code -1} if vendor cancels order but notification fails to be created
+     * {@code -1} if vendor cancels order but notification fails to be created<br>
+     * {@code -2} if vendor cancels order, system creates notification but the transaction history cannot generate
      */
     public int vendorCancelOrder() {
 
@@ -608,8 +639,23 @@ public class Order {
         );
         if (!vendorNotification) return -1;
 
+        // Return money back to users
+        double walletBalanceAfterReturn = this.getOrderingCustomer().getEWalletAmount() + this.getOrderPrice();
+        this.getOrderingCustomer().setEWalletAmount(walletBalanceAfterReturn);
+
+        // Create a transaction history
+        boolean generateTransactionHistory = Transaction.createTransactionHistory(
+                this.orderingCustomer,
+                this.orderPrice,
+                Transaction.TransactionType.CASH_IN,
+                Transaction.PaymentMethod.E_WALLET
+        );
+        if (!generateTransactionHistory) return -2;
+
         // Write into file
         OrderFileIO.writeFile();
+        CustomerFileIO customerFileIO = new CustomerFileIO();
+        customerFileIO.writeFile();
 
         // Return 1 for successful operation
         return 1;
@@ -921,6 +967,9 @@ public class Order {
             );
             if (!runnerNotification) return -1;
 
+            // Update availability of runners to true
+            this.getRunnerInCharge().updateAvailability(true);
+
             // Write to files
             OrderFileIO.writeFile();
 
@@ -989,6 +1038,128 @@ public class Order {
         }
 
         // Write into file
+        OrderFileIO.writeFile();
+
+        // Return true for successful operation
+        return true;
+    }
+
+    /**
+     * A method for customers to cancel an order (before the vendors and runners accept it)
+     *
+     * @return {@code true} if the order is cancelled successfully, else {@code false}
+     */
+    public boolean customerCancelOrder() {
+
+        // Make sure that the correct order is passed into the method (reject methods other than waiting ones)
+        if (this.getOrderStatus() != OrderStatus.WAITING_VENDOR_AND_RUNNER &&
+                this.getOrderStatus() != OrderStatus.WAITING_VENDOR &&
+                this.getOrderStatus() != OrderStatus.WAITING_RUNNER &&
+                this.getOrderStatus() != OrderStatus.PENDING_CHANGE) return false;
+
+        // Change the status of order to "cancelled"
+        this.setOrderStatus(OrderStatus.CANCELLED);
+
+        // Create notifications for customers themselves
+        boolean customerNotification = CustomerNotification.createNewNotification(
+                "Order Cancellation Successful",
+                "Your order " + this.getOrderID() + " has been cancelled successfully. The order records can be found in the Order History page.",
+                this.getOrderingCustomer()
+        );
+        if (!customerNotification) return false;
+
+        // Create notifications to inform vendors
+        boolean vendorNotification = VendorNotification.createNewNotification(
+                "Order Cancelled by Customer",
+                "Order " + this.getOrderID() + " has been cancelled by the customer.",
+                this.getOrderedStall()
+        );
+        if (!vendorNotification) return false;
+
+        // Check if the order already has a runner
+        if (this.getRunnerInCharge() != null) {
+
+            // Create notification for the runner
+            boolean runnerNotification = DeliveryRunnerNotification.createNewNotification(
+                    "Order Cancelled by Customer",
+                    "The customer has cancelled the order " + this.getOrderID() + ".",
+                    this.getRunnerInCharge()
+            );
+            if (!runnerNotification) return false;
+        }
+
+        // Return money back to users
+        double walletAmountAfterReturn = this.orderingCustomer.getEWalletAmount() + this.orderPrice;
+        this.orderingCustomer.setEWalletAmount(walletAmountAfterReturn);
+
+        // Create a transaction history
+        boolean generateTransactionHistory = Transaction.createTransactionHistory(
+                this.orderingCustomer,
+                this.orderPrice,
+                Transaction.TransactionType.CASH_IN,
+                Transaction.PaymentMethod.E_WALLET
+        );
+        if (!generateTransactionHistory) return false;
+
+        // Write to file
+        OrderFileIO.writeFile();
+        CustomerFileIO customerFileIO = new CustomerFileIO();
+        customerFileIO.writeFile();
+
+        // Return true for successful modification
+        return true;
+    }
+
+    /**
+     * A method to let customer change the order to their preferred dining type due to the lack of delivery runner.
+     *
+     * @param type The dining type that the customer wishes to change their order to
+     * @return {@code true} if changes are applied successfully, else {@code false}
+     */
+    public boolean customerChangeDiningStatus(DiningType type) {
+
+        // Make sure that the correct order is passed to this method
+        if (this.getDiningType() != DiningType.DELIVERY || this.getOrderStatus() != OrderStatus.PENDING_CHANGE)
+            return false;
+
+        // Perform different operations based on different types
+        switch (type) {
+
+            // If the user chooses to cancel order (Delivery type is used here since technically the dining type still remains)
+            case DELIVERY -> {
+
+                // Perform the cancel order method
+                boolean cancelOrder = this.customerCancelOrder();
+                if (!cancelOrder) return false;
+            }
+
+            // If the user chooses to change either to dine in or takeaway
+            case DINE_IN, TAKEAWAY -> {
+
+                // Change the dining type
+                this.setDiningType(type);
+
+                // Change the status to waiting vendor
+                this.setOrderStatus(OrderStatus.WAITING_VENDOR);
+
+                // Create customer notification to indicate successful change
+                boolean customerNotification = CustomerNotification.createNewNotification(
+                        "Dining Method Changed Successful",
+                        "You have changed the dining method for order " + this.getOrderID() + " to " + this.getOrderStatus() + ". Please wait for the vendor to accept your order.",
+                        this.getOrderingCustomer()
+                );
+                if (!customerNotification) return false;
+
+                boolean vendorNotification = VendorNotification.createNewNotification(
+                        "Order Update: Dining Method Changed",
+                        "The dining method for order " + this.getOrderID() + " has been changed. Please return to the main page to re-accept the order if you wish to proceed with the order.",
+                        this.getOrderedStall()
+                );
+                if (!vendorNotification) return false;
+            }
+        }
+
+        // Write to file
         OrderFileIO.writeFile();
 
         // Return true for successful operation

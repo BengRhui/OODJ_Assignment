@@ -7,6 +7,7 @@ import backend.utility.Utility;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Class {@code Stall} is used to represent the different types of stalls in the food court.
@@ -34,7 +35,7 @@ public class Stall {
     public Stall(String stallID, String stallName, StallCategories[] stallCategories) {
         this.stallID = stallID;
         this.stallName = stallName;
-        Arrays.sort(stallCategories);
+        Arrays.sort(stallCategories);               // Sort categories before adding them
         this.stallCategories = stallCategories;
     }
 
@@ -181,6 +182,21 @@ public class Stall {
     }
 
     /**
+     * A method to filter the list of stalls based on a specific category
+     *
+     * @param category The category to be filtered
+     * @return The filtered list of stalls
+     */
+    public static ArrayList<Stall> filterStall(StallCategories category) {
+
+        // Filter the stall list based on categories
+        return getStallList().stream()                                              // Convert to stream
+                .filter(stall -> Arrays.stream(stall.stallCategories)               // Get the stall category list and convert to stream also
+                        .anyMatch(categoryInList -> categoryInList == category))    // Determine if the category is inside the list
+                .collect(Collectors.toCollection(ArrayList::new));                  // Return the list as ArrayList
+    }
+
+    /**
      * A method to create a new stall.
      *
      * @param stallID         The ID of the stall
@@ -225,19 +241,17 @@ public class Stall {
     }
 
     /**
-     * A method to obtain the overall ratings of a stall.
+     * A method to calculate the details of the ratings of a stall.
      *
+     * @param feedbackList The feedback list used to count ratings
      * @return A double list representing the average ratings of a stall with the number of feedback received.<br>
-     * {@code 0} represents the stall does not have a rating
+     * {@code null} represents the stall does not have a rating
      */
-    public double[] getOverallRating(Utility.TimeframeFilter filter) {
+    private double[] calculateRating(ArrayList<Feedback> feedbackList) {
 
         // Declare variables to store data to calculate average
         double totalRating = 0;
         int feedbackCount = 0;
-
-        // Filter the feedback list based on filter
-        ArrayList<Feedback> feedbackList = Feedback.filterFeedback(filter);
 
         // Loop through the list of feedbacks
         for (Feedback feedback : feedbackList) {
@@ -257,6 +271,88 @@ public class Stall {
 
         // Return the ratings and the feedback count
         return new double[]{overallRating, feedbackCount};
+    }
+
+    /**
+     * A method to get the overall ratings for a stall with filter.
+     *
+     * @param filter The timeframe used to filter the feedback list
+     * @return The overall ratings of stall
+     */
+    public double getOverallRatings(Utility.TimeframeFilter filter) {
+
+        // Get the feedback list to be involved
+        ArrayList<Feedback> feedbackList = Feedback.filterFeedback(filter);
+
+        // Get the rating details
+        double[] ratingDetails = this.calculateRating(feedbackList);
+
+        // Return -1 if the rating details is null (no feedback)
+        if (ratingDetails == null) return -1;
+
+        // Return the rating details
+        return ratingDetails[0];
+    }
+
+    /**
+     * A method to get the overall ratings for a stall without filter.
+     *
+     * @return The overall ratings of stall
+     */
+    public double getOverallRatings() {
+
+        // Get the feedback list required
+        ArrayList<Feedback> feedbackList = Feedback.getFeedbackList(this);
+
+        // Get the rating details
+        double[] ratingDetails = this.calculateRating(feedbackList);
+
+        // Return -1 if the rating details is null (no feedback)
+        if (ratingDetails == null) return -1;
+
+        // Return the rating details
+        return ratingDetails[0];
+    }
+
+    /**
+     * A method to get the feedback count of a stall with filter.
+     *
+     * @param filter The timeframe used to filter the feedback list
+     * @return The feedback count of stall
+     */
+    public int getFeedbackCount(Utility.TimeframeFilter filter) {
+
+        // Get the feedback list to be involved
+        ArrayList<Feedback> feedbackList = Feedback.filterFeedback(filter);
+
+        // Get the rating details
+        double[] ratingDetails = this.calculateRating(feedbackList);
+
+        // Return -1 if the rating details is null
+        if (ratingDetails == null) return -1;
+
+        // Return the feedback count of the stall
+        return (int) ratingDetails[1];
+    }
+
+    /**
+     * A method to get the feedback count of a stall without filter.
+     *
+     * @return The feedback count of stall
+     */
+    public int getFeedbackCount() {
+
+        // Get the feedback list required
+        ArrayList<Feedback> feedbackList = Feedback.getFeedbackList(this);
+
+        // Get the rating details
+        double[] ratingDetails = this.calculateRating(feedbackList);
+
+        // Return -1 if the rating details is null
+        if (ratingDetails == null) return -1;
+
+        // Return the feedback count of the stall
+        return (int) ratingDetails[1];
     }
 
     /**
@@ -366,7 +462,7 @@ public class Stall {
     }
 
     public void setStallCategories(StallCategories[] stallCategories) {
-        Arrays.sort(stallCategories);               // Sort before added as attributes
+        Arrays.sort(stallCategories);               // Sort categories before adding
         this.stallCategories = stallCategories;
     }
 

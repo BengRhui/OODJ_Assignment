@@ -2,12 +2,15 @@ package backend.entity;
 
 import backend.file_io.CredentialsFileIO;
 import backend.file_io.CustomerFileIO;
+import backend.file_io.OrderFileIO;
 import backend.notification.CustomerNotification;
+import backend.notification.DeliveryRunnerNotification;
+import backend.notification.VendorNotification;
 import backend.utility.Utility;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Class {@code Customer} represents the customers of the food stall who uses the system.
@@ -25,6 +28,7 @@ public class Customer extends User {
     private Address address;
     private double eWalletAmount;
     private String deliveryNote;
+    private Map<String, Integer> cart = new HashMap<>();
 
     /**
      * Constructor used to instantiate the {@code Customer} class.
@@ -432,6 +436,292 @@ public class Customer extends User {
 
     public void setDeliveryNote(String deliveryNote) {
         this.deliveryNote = deliveryNote;
+    }
+
+    public Map<String, Integer> getCart() {
+        return cart;
+    }
+
+    public void setCart(Map<String, Integer> cart) {
+        this.cart = cart;
+    }
+
+    /**
+     * A method to update the items in the cart.
+     *
+     * @param item     The item object that is added to cart
+     * @param quantity The quantity of items
+     * @return {@code true} if the cart is updated successfully, else {@code false}
+     */
+    public boolean addItemToCart(Item item, int quantity) {
+
+        // Return false if the inputs are null
+        if (item == null || quantity <= 0) return false;
+
+        // Get the ID of the item
+        String itemID = item.getItemID();
+
+        // If the item ID is already in the list, add the quantity
+        if (cart.containsKey(itemID)) {
+
+            // Get the initial quantity and replace the existing value
+            int newQuantity = cart.get(itemID) + quantity;
+            cart.replace(itemID, newQuantity);
+
+        } else {
+
+            // If the ID is not in list, add the new key value to the map
+            cart.put(item.getItemID(), quantity);
+        }
+
+        // Return true for successful operation
+        return true;
+    }
+
+    /**
+     * A method to allow customers to remove an item from their cart.
+     *
+     * @param item The item to be removed
+     * @return {@code true} if the item is removed successfully, else false
+     */
+    public boolean removeItemFromCart(Item item) {
+
+        // Return false if the input is null
+        if (item == null || cart.isEmpty()) return false;
+
+        // Get the ID of the item
+        String itemID = item.getItemID();
+
+        // Remove the item from the cart and return true for successful operation
+        return cart.remove(itemID) != null;
+    }
+
+    /**
+     * A method for customers to update cart based on the chosen dining method.
+     *
+     * @param diningType The dining type preferred by customers
+     * @return {@code true} if the cart is updated, else {@code false}
+     */
+    public boolean setDiningMethodInCart(Order.DiningType diningType) {
+
+        // If the input is null, return false
+        if (diningType == null) return false;
+
+        // Compute based on different dining type
+        switch (diningType) {
+
+            // If the dining type is delivery, then the delivery fees has to be included
+            case DELIVERY -> cart.putIfAbsent(Item.deliveryFees.getItemID(), 1);
+
+            // If the dining type is dine-in ot takeaway, delivery fees should not be there
+            case DINE_IN, TAKEAWAY -> {
+                if (cart.get(Item.deliveryFees.getItemID()) != null) cart.remove(Item.deliveryFees.getItemID());
+            }
+        }
+
+        // Return true for successful operation
+        return true;
+    }
+
+    /**
+     * A method for customers to place an order.
+     *
+     * @param stall         The stall associated with the cart
+     * @param cart          The items inside the cart
+     * @param diningType    The dining method chosen by customer
+     * @param notesToVendor The additional notes provided to vendor
+     * @param tableNumber   The table number inputted by customer (only for dine-in)
+     * @return {@code true} if the order is created successfully, else {@code false}
+     */
+    public boolean placeOrder(Stall stall, Map<String, Integer> cart, Order.DiningType diningType, String notesToVendor, String tableNumber) {
+
+        // If the cart is empty, reject placing order
+        if (cart.isEmpty()) return false;
+
+        // If the wallet balance is less than the order amount, return false
+        if (Utility.getTotalAmountForCart(cart) > this.eWalletAmount) return false;
+
+        // Declare a variable to store runner involved (for delivery)
+        DeliveryRunner runnerGenerated = null;
+
+        // Check if dining type is delivery
+        if (diningType == Order.DiningType.DELIVERY) {
+
+            // Try to get an available runner if possible
+            runnerGenerated = DeliveryRunner.getAvailableRunner();
+
+            // If there is no runner available, reject the order
+            if (runnerGenerated == null) return false;
+        }
+
+        // Create new order
+        Order newOrder = new Order(
+                Order.generateNewID(),
+                this,
+                stall,
+                runnerGenerated,
+                null,
+                diningType,
+                tableNumber,
+                notesToVendor,
+                Utility.getTotalAmountForCart(cart),
+                LocalDateTime.now(),
+                Order.OrderStatus.WAITING_VENDOR,
+                Utility.convertItemMap(cart)
+        );
+
+        // Create customer notification for new order
+        boolean createCustomerNotification = CustomerNotification.createNewNotification(
+                "Order Placed Successfully",
+                "Your order " + newOrder.getOrderID() + " has been created successfully. " +
+                        "An amount of RM" + String.format("%.2f", Utility.getTotalAmountForCart(cart)) + " is deducted from your wallet. " +
+                        "Please wait for the vendor and runner (if applicable) to accept your order.",
+                this
+        );
+        if (!createCustomerNotification) return false;
+
+        // Create vendor notification for new order
+        boolean createVendorNotification = VendorNotification.createNewNotification(
+                "New Order Available",
+                "A new order with ID " + newOrder.getOrderID() + " is available. You may return to the main menu to check the details.",
+                stall
+        );
+        if (!createVendorNotification) return false;
+
+        // Create runner notification for new order (if involved)
+        if (runnerGenerated != null) {
+            boolean createRunnerNotification = DeliveryRunnerNotification.createNewNotification(
+                    "New Order Available",
+                    "A new order with ID " + newOrder.getOrderID() + " is available. You may return to the main menu to check the details.",
+                    runnerGenerated
+            );
+            if (!createRunnerNotification) return false;
+        }
+
+        // Remove the money from the customer's account
+        double remainingWalletAmount = this.getEWalletAmount() - Utility.getTotalAmountForCart(cart);
+        this.setEWalletAmount(remainingWalletAmount);
+
+        // Create a transaction history to record the money spent on order
+        boolean createTransactionHistory = Transaction.createTransactionHistory(
+                this,
+                Utility.getTotalAmountForCart(cart),
+                Transaction.TransactionType.CASH_OUT,
+                Transaction.PaymentMethod.E_WALLET
+        );
+        if (!createTransactionHistory) return false;
+
+        // Add to order list
+        Order.addToOrderList(newOrder);
+
+        // Write to file
+        OrderFileIO.writeFile();
+
+        // Reset cart
+        this.setCart(new HashMap<>());
+
+        // Return true for successful operation
+        return true;
+    }
+
+    /**
+     * A method to set the address and delivery notes for customers.
+     *
+     * @param addressLine1 The new address line 1 for customer
+     * @param addressLine2 The new address line 2 for customer
+     * @param postcode     The postcode for the address
+     * @param state        The state for the address
+     * @param city         The city for the address
+     * @param deliveryNote The delivery note that customer wishes to tell to runner
+     * @return {@code true} if the address is updated sccessfully, else {@code false}
+     */
+    public boolean modifyAddressAndDeliveryNotes(
+            String addressLine1,
+            String addressLine2,
+            String postcode,
+            Address.State state,
+            String city,
+            String deliveryNote
+    ) {
+
+        // If inputs are null or empty, then reject
+        if (addressLine1 == null || addressLine1.isBlank() ||
+                addressLine2 == null || addressLine2.isBlank() ||
+                postcode == null || postcode.isBlank() ||
+                state == null ||
+                city == null || city.isBlank()) return false;
+
+        // Create a new address object
+        Address newAddress = new Address(
+                addressLine1,
+                addressLine2,
+                postcode,
+                city,
+                state
+        );
+
+        // Update address to customer
+        this.setAddress(newAddress);
+
+        // Update delivery note for customer
+        this.setDeliveryNote(deliveryNote);
+
+        // Update into file
+        CustomerFileIO customerIO = new CustomerFileIO();
+        customerIO.writeFile();
+
+        // Return true for successful operation
+        return true;
+    }
+
+    /**
+     * A method to calculate the total cash in for a customer.
+     *
+     * @return The total cash in amount
+     */
+    public double calculateTotalCashIn() {
+
+        // Get the list of transactions
+        ArrayList<Transaction> transactionList = Transaction.getTransactionList(this);
+
+        // Filter the transaction list so that only cash in transactions are involved
+        transactionList = transactionList.stream()
+                .filter(transaction -> transaction.getTransactionType() == Transaction.TransactionType.CASH_IN)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        // Declare an empty variable to store cash in
+        double cashInAmount = 0;
+
+        // Loop through the transaction list
+        for (Transaction transaction : transactionList) cashInAmount += transaction.getTransactionAmount();
+
+        // Return the cash in amount
+        return cashInAmount;
+    }
+
+    /**
+     * A method to calculate the total cash out for a customer.
+     *
+     * @return The total cash out amount
+     */
+    public double calculateTotalCashOut() {
+
+        // Get the list of transactions
+        ArrayList<Transaction> transactionList = Transaction.getTransactionList(this);
+
+        // Filter the transaction list so that only cash in transactions are involved
+        transactionList = transactionList.stream()
+                .filter(transaction -> transaction.getTransactionType() == Transaction.TransactionType.CASH_OUT)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        // Declare an empty variable to store cash out
+        double cashOutAmount = 0;
+
+        // Loop through the transaction list
+        for (Transaction transaction : transactionList) cashOutAmount += transaction.getTransactionAmount();
+
+        // Return the cash in amount
+        return cashOutAmount;
     }
 
     /**

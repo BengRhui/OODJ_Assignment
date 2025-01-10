@@ -1,9 +1,21 @@
 package backend.utility;
 
-import backend.entity.DeliveryRunner;
-import backend.entity.Feedback;
-import backend.entity.Item;
-import backend.entity.Order;
+import backend.entity.*;
+import com.itextpdf.io.font.PdfEncodings;
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import com.itextpdf.kernel.pdf.canvas.draw.SolidLine;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.LineSeparator;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.properties.TextAlignment;
+import com.itextpdf.layout.properties.UnitValue;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -15,11 +27,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Class {@code Utility} includes a couple of methods that brings convenient to coding.
@@ -31,6 +39,14 @@ public class Utility {
     /**
      * Static variables to be used in the methods.
      */
+    private final static String SYSTEM_PICTURE_PATH = "src/main/resources/asset/system/full_system_logo.png";
+    private final static String CONTACT_ME_ICON_PATH = "src/main/resources/asset/system/contact_icon.png";
+    private final static String JAPANESE_FONT_PATH = "src/main/resources/asset/font/NotoSansJP.ttf";
+    private final static String FOOD_COURT_NAME = "Beng の Best";
+    private final static String FOOD_COURT_ADDRESS = "No. 1A, Jalan Teknologi 5, Taman Teknologi Malaysia,\n" +
+            "57000 Bukit Jalil, WP Kuala Lumpur.";
+    private final static String FOOD_COURT_PHONE_NUMBER = "(+60) 5-345 6789";
+    private final static String FOOD_COURT_EMAIL = "bengnobest@gmail.com";
     private static LocalDateTime currentTime = LocalDateTime.now();
 
     /**
@@ -81,10 +97,10 @@ public class Utility {
     }
 
     /**
-     * A method to generate string from {@code HashMap} with {@code Item} and {@code Integer} key and value
+     * A method to generate string from {@code Map} with {@code Item} and {@code Integer} key and value
      *
-     * @param map HashMap with {@code Item} object as key and {@code Integer} object as value
-     * @return The string representation of the {@code HashMap}
+     * @param map Map with {@code Item} object as key and {@code Integer} object as value
+     * @return The string representation of the {@code Map}
      */
     public static String generateString(Map<Item, Integer> map) {
 
@@ -98,10 +114,10 @@ public class Utility {
         map.entrySet().stream()                                                         // Convert map to stream
                 .sorted(Comparator.comparing(item -> item.getKey().getItemID()))        // Sort the map based on item ID
                 .forEach(entry -> string.append(entry.getKey().getItemID())             // Convert each pair to string
-                                .append(" - ")
-                                .append(entry.getValue())
-                                .append(", ")
-        );
+                        .append(" - ")
+                        .append(entry.getValue())
+                        .append(", ")
+                );
 
         // Remove the extra ", " at the end of the string builder
         string.delete(string.length() - 2, string.length());
@@ -121,30 +137,22 @@ public class Utility {
     }
 
     /**
-     * A method to generate the string representation of {@code HashMap} representing availability of delivery runners.
-     *
-     * @param map The HashMap consisting of {@code DeliveryRunner} as the key, {@code Boolean} as the value
-     * @return The string representation of the HashMap
+     * A method to print out the availability list (used for testing purposes, maybe will be removed if not used later)
      */
-    public static String generateRunnerString(Map<DeliveryRunner, Boolean> map) {
+    public static void printAvailabilityList() throws NullPointerException {
 
-        // Create a string builder to store string
-        StringBuilder string = new StringBuilder();
+        // Loop through the map
+        for (Map.Entry<String, Boolean> entry : DeliveryRunner.getAvailabilityList().entrySet()) {
 
-        // Append each pair of item and quantity to the string builder
-        map.forEach(
-                (runner, status) ->
-                        string.append(runner.getUserID())
-                                .append(" - ")
-                                .append(status)
-                                .append(", ")
-        );
+            // Retrieve the runner object
+            DeliveryRunner runnerRetrieved = DeliveryRunner.getRunner(entry.getKey());
 
-        // Remove the extra ", " at the end of the string builder
-        string.delete(string.length() - 2, string.length());
+            // If the runner is null, throw a null pointer exception
+            if (runnerRetrieved == null) throw new NullPointerException(entry.getKey());
 
-        // Return the string builder
-        return string.toString();
+            // If runner is found, print the runner
+            System.out.println(runnerRetrieved.getName() + ": " + entry.getValue());
+        }
     }
 
     /**
@@ -163,18 +171,18 @@ public class Utility {
     }
 
     /**
-     * A method to change a string containing the pair of item and quantity into {@code HashMap}.<br>
+     * A method to change a string containing the pair of item and quantity into {@code Map}.<br>
      * The string is parsed in the format of "I001 - 1, I002 - 2, ..."
      *
      * @param itemSet The string that contains the key-value pair of item and quantity
-     * @return The key-value pair in {@code HashMap}
+     * @return The key-value pair in {@code Map}
      */
     public static Map<Item, Integer> changeStringToHashMap(String itemSet) {
 
         // If input is null, return null
         if (itemSet == null || itemSet.isEmpty()) return null;
 
-        // Create a new HashMap to store information
+        // Create a new Map to store information
         Map<Item, Integer> map = new HashMap<>();
 
         // Split each item pair
@@ -190,11 +198,11 @@ public class Utility {
             Item item = Item.getItem(itemAndQuantity[0].strip());
             int quantity = Integer.parseInt(itemAndQuantity[1].strip());
 
-            // Add the item and quantity into HashMap
+            // Add the item and quantity into Map
             map.put(item, quantity);
         }
 
-        // Return HashMap after everything is done
+        // Return Map after everything is done
         return map;
     }
 
@@ -489,7 +497,7 @@ public class Utility {
             int rowIndexForCurrentOrder = 0;
 
             // Loop through each pair of key-value of the items involved in an order
-            for (HashMap.Entry<Item, Integer> entry : order.getOrderItem().entrySet()) {
+            for (Map.Entry<Item, Integer> entry : order.getOrderItem().entrySet()) {
 
                 // Create row based on row index and set height
                 Row dataRow = sheet.createRow(rowIndex + rowIndexForCurrentOrder);
@@ -579,7 +587,7 @@ public class Utility {
      * @param entry      The {@code item} attribute in {@code Order} object that contains the item ID and quantity
      * @param isFirstRow Check if the current row is the first row
      */
-    public static void setCellValues(Cell cell, int column, Order order, HashMap.Entry<Item, Integer> entry, boolean isFirstRow) {
+    public static void setCellValues(Cell cell, int column, Order order, Map.Entry<Item, Integer> entry, boolean isFirstRow) {
 
         // Write data based on the column index
         switch (column) {
@@ -717,7 +725,7 @@ public class Utility {
         String fullFileName = fileName + ".xlsx";
 
         // Retrieve path to user's downloads folder
-        String pathToDownload = Paths.get(System.getProperty("user.home"), "Downloads").toString();
+        String pathToDownload = getPathToDownloadsFolder();
 
         // Create a file object at the path
         File outputFile = new File(pathToDownload, fullFileName);
@@ -725,6 +733,17 @@ public class Utility {
         // Export the Excel file to the designated path
         FileOutputStream fileOut = new FileOutputStream(outputFile);
         workbook.write(fileOut);
+    }
+
+    /**
+     * A method to generate the file path to downloads folder of a user.
+     *
+     * @return The path to downloads folder
+     */
+    public static String getPathToDownloadsFolder() {
+
+        // Retrieve path to user's downloads folder
+        return Paths.get(System.getProperty("user.home"), "Downloads").toString();
     }
 
     /**
@@ -768,6 +787,403 @@ public class Utility {
 
         // Set the style to the cell
         cell.setCellStyle(cellStyle);
+    }
+
+    /**
+     * A method to convert map consisting of item ID to the item object.
+     *
+     * @param map The map with item ID as key, quantity as value
+     * @return Map with item object as key, quantity as value
+     */
+    public static Map<Item, Integer> convertItemMap(Map<String, Integer> map) {
+
+        // Return null if the map is empty
+        if (map == null) return null;
+
+        // Create a map to store values to output
+        Map<Item, Integer> outputMap = new HashMap<>();
+
+        // Loop through each entry
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+
+            // Get the item ID and retrieve the associated item
+            String itemID = entry.getKey();
+            Item item = Item.getItem(itemID);
+
+            // If the retrieved item is null, return null
+            if (item == null) return null;
+
+            // Get the quantity of the item
+            int quantity = entry.getValue();
+
+            // Put them into the map
+            outputMap.put(item, quantity);
+        }
+
+        // Return the map
+        return outputMap;
+    }
+
+    /**
+     * A method to return the total price for the cart.
+     *
+     * @param cart The cart consisting of item and quantity
+     * @return The total price
+     */
+    public static double getTotalAmountForCart(Map<?, Integer> cart) {
+
+        // Declare a variable to store price
+        double price = 0;
+
+        // Loop through each item in the cart
+        for (Map.Entry<?, Integer> entry : cart.entrySet()) {
+
+            // Get the object
+            Object key = entry.getKey();
+
+            // Declare a variable to store item object
+            Item item = null;
+
+            // Retrieve item object based on key
+            if (key instanceof String) item = Item.getItem((String) key);
+            else if (key instanceof Item) item = (Item) key;
+
+            // If the item cannot be retrieved, continue the loop
+            if (item == null) continue;
+
+            // Add the calculated price to variable
+            price += item.getPrice(entry.getValue());
+        }
+
+        // Return the variable as overall price for the cart
+        return price;
+    }
+
+    /**
+     * A method to generate the path for the transaction PDF to user's Downloads folder.
+     *
+     * @param transaction The transaction item to be converted to PDF
+     * @return The path to Downloads folder for the transaction object
+     */
+    private static String generatePathForPDF(Transaction transaction) {
+
+        // Get path to downloads folder
+        String pathToDownloads = getPathToDownloadsFolder() + "/";
+
+        // Generate file name for transaction
+        return pathToDownloads + "Transaction_" + transaction.getTransactionID() + ".pdf";
+    }
+
+    /**
+     * A method to generate a PDF file for a transaction object in general.
+     *
+     * @param transaction The transaction item involved
+     */
+    public static boolean generatePDF(Transaction transaction, String[] tableHeaders, int[] columnPosition) {
+
+        // Retrieve the path to downloads folder
+        String destinationPath = generatePathForPDF(transaction);
+
+        try {
+
+            // Initialize PDF writer with the path
+            PdfWriter writer = new PdfWriter(destinationPath);
+
+            // Create a PDF document
+            PdfDocument pdfDoc = new PdfDocument(writer);
+            Document document = new Document(pdfDoc);
+
+            // Add header for PDF (food court logo, name and address)
+            createHeaderForPDF(document);
+
+            // Add title for PDF (the main title - Invoice Slip)
+            createTitleForPDF(document);
+
+            // Add table headers for PDF
+            createTableHeaderForPDF(document, tableHeaders, columnPosition);
+
+            // Add data into the PDF
+            createTableDataForPDF(document, transaction, columnPosition);
+
+            // Add total row into PDF
+            createTotalRowForPDF(document, transaction.getTransactionAmount());
+
+            // Add footer into PDF
+            createFooterForPDF(pdfDoc, document, transaction);
+
+            // Close the document after finish editing
+            document.close();
+
+            // Return true for successful operation
+            return true;
+
+        } catch (Exception e) {
+
+            // Print error message and return false
+            System.out.println("Fail to create PDF file for " + transaction.getTransactionID() + ".");
+            return false;
+        }
+    }
+
+    /**
+     * A private method that creates a header for a PDF document
+     *
+     * @param document The document that will be added with header
+     */
+    private static void createHeaderForPDF(Document document) throws Exception {
+
+        // Get the font used
+        PdfFont font = getJapaneseFont();
+
+        // Add image into PDF
+        ImageData imageData = ImageDataFactory.create(SYSTEM_PICTURE_PATH);
+        Image image = new Image(imageData);
+        image.scaleToFit(100, 100);
+        document.add(image);
+
+        // Add name to PDF
+        document.add(new Paragraph(FOOD_COURT_NAME)
+                .setFont(font)
+                .setFontSize(20)
+                .setTextRenderingMode(1)
+                .setStrokeWidth(1.7f)
+                .setFixedPosition(170, 777, 300)
+        );
+
+        // Add address to PDF
+        document.add(new Paragraph(FOOD_COURT_ADDRESS)
+                .setFont(font)
+                .setFontSize(12)
+                .setFixedPosition(170, 732, 300)
+        );
+    }
+
+    /**
+     * A private method to create a title for the PDF (invoice slip in this case).
+     *
+     * @param document The PDF document that will be added with title
+     */
+    private static void createTitleForPDF(Document document) {
+
+        // Create a line object to separate title with header
+        LineSeparator line = new LineSeparator(new SolidLine(1));
+        line.setWidth(UnitValue.createPercentValue(100));
+        line.setMarginTop(10);
+
+        // Add the line
+        document.add(line);
+
+        // Add the title
+        document.add(new Paragraph("Invoice Slip")
+                .setFont(getJapaneseFont())
+                .setFontSize(30)
+                .setTextRenderingMode(1)
+                .setStrokeWidth(2f)
+                .setTextAlignment(TextAlignment.CENTER)
+        );
+
+        // Add the line again to separate with table header
+        document.add(line);
+    }
+
+    /**
+     * A private method to add table headers into the PDF.
+     *
+     * @param document       The PDF document that will be added with header
+     * @param headerList     The list of headers
+     * @param columnPosition The column position of headers (at what place will the header start)
+     */
+    private static void createTableHeaderForPDF(Document document, String[] headerList, int[] columnPosition) {
+
+        // Loop through each header
+        for (int i = 0; i < headerList.length; i++) {
+
+            // Add headers to PDF
+            document.add(new Paragraph(headerList[i])
+                    .setFont(getJapaneseFont())
+                    .setFontSize(16)
+                    .setTextRenderingMode(1)
+                    .setStrokeWidth(1.5f)
+                    .setFixedPosition(columnPosition[i], 590, 100)
+            );
+        }
+    }
+
+    /**
+     * A private method to add data into PDF.
+     *
+     * @param document       The document that will be written with data
+     * @param transaction    The transaction object to be written
+     * @param columnPosition The column position of data (at what place will the data start)
+     */
+    private static void createTableDataForPDF(Document document, Transaction transaction, int[] columnPosition) {
+
+        // Add transaction type (cash in / our)
+        document.add(new Paragraph(transaction.getTransactionType().toString())
+                .setFont(getJapaneseFont())
+                .setFontSize(12)
+                .setTextRenderingMode(1)
+                .setStrokeWidth(1f)
+                .setFixedPosition(columnPosition[0], 565, 100)
+        );
+
+        // Quantity is null in this case, so "-" is set
+        document.add(new Paragraph("-")
+                .setFont(getJapaneseFont())
+                .setFontSize(12)
+                .setTextRenderingMode(1)
+                .setStrokeWidth(1f)
+                .setTextAlignment(TextAlignment.CENTER)
+                .setFixedPosition(columnPosition[1], 565, 60)
+        );
+
+        // Add the amount of transaction
+        document.add(new Paragraph("RM" + String.format("%.2f", transaction.getTransactionAmount()))
+                .setFont(getJapaneseFont())
+                .setFontSize(12)
+                .setTextRenderingMode(1)
+                .setStrokeWidth(1f)
+                .setFixedPosition(columnPosition[2], 565, 100)
+        );
+
+        // Add the payment method into PDF
+        document.add(new Paragraph("Payment Method: " + transaction.getPaymentMethod().toString())
+                .setFont(getJapaneseFont())
+                .setFontSize(12)
+                .setFixedPosition(columnPosition[0], 545, 200)
+        );
+    }
+
+    /**
+     * A private method to generate a line separator (when we need a line at a specific place).
+     *
+     * @param pdfDoc    The document object that will be written to
+     * @param yPosition The y-position of the line
+     */
+    private static void generateLineSeparator(PdfDocument pdfDoc, int yPosition) {
+
+        // Create a canvas object to draw the line
+        PdfCanvas canvas = new PdfCanvas(pdfDoc.getFirstPage());
+
+        // Set the margin for the PDF (note that the size of an A4 PDF is 595 pts x 842 pts)
+        int margin = 35;
+
+        // Calculate the starting point and ending point in terms of x-coordinate
+        float xStart = (float) margin;
+        float xEnd = (float) (595 - margin);
+
+        // Draw the line on the canvas
+        canvas.moveTo(xStart, yPosition);
+        canvas.lineTo(xEnd, yPosition);
+        canvas.stroke();
+    }
+
+    /**
+     * A private method to create a total row inside a PDF.
+     *
+     * @param document    The document where the total row will be written to
+     * @param totalAmount The total amount involved
+     */
+    private static void createTotalRowForPDF(Document document, double totalAmount) {
+
+        // Add the "Total" text
+        document.add(new Paragraph("Total:")
+                .setFont(getJapaneseFont())
+                .setFontSize(16)
+                .setTextRenderingMode(1)
+                .setStrokeWidth(1.5f)
+                .setFixedPosition(380, 150, 100)
+        );
+
+        // Add the total price
+        document.add(new Paragraph("RM" + String.format("%.2f", totalAmount))
+                .setFont(getJapaneseFont())
+                .setFontSize(16)
+                .setTextRenderingMode(1)
+                .setStrokeWidth(1.5f)
+                .setFixedPosition(450, 150, 100)
+        );
+    }
+
+    /**
+     * A private method to create a footer for a PDF (includes contact details and ID)
+     *
+     * @param pdfDoc      The PDF document object
+     * @param document    THe document that the footer will be written to
+     * @param transaction The transaction object that will be involved (to retrieve ID)
+     * @throws Exception If the icon for "Contact Us" could not be found, an exception will be thrown
+     */
+    private static void createFooterForPDF(PdfDocument pdfDoc, Document document, Transaction transaction) throws Exception {
+
+        // Draw a line to separate data with footer
+        generateLineSeparator(pdfDoc, 135);
+
+        // Get the font
+        PdfFont font = getJapaneseFont();
+
+        // Add the word "contact us"
+        document.add(new Paragraph("Contact Us")
+                .setFont(font)
+                .setFontSize(14)
+                .setTextRenderingMode(1)
+                .setStrokeWidth(1.3f)
+                .setFixedPosition(40, 90, 100)
+        );
+
+        // Add the image into the PDF
+        ImageData contactIconData = ImageDataFactory.create(CONTACT_ME_ICON_PATH);
+        Image contactIcon = new Image(contactIconData);
+        contactIcon.scaleToFit(50, 50);
+        document.add(contactIcon.setFixedPosition(40, 35));
+
+        // Add telephone number into PDF
+        document.add(new Paragraph("Tel No: " + FOOD_COURT_PHONE_NUMBER)
+                .setFont(font)
+                .setFontSize(12)
+                .setFixedPosition(95, 60, 200)
+        );
+
+        // Add email into PDF
+        document.add(new Paragraph("Email: " + FOOD_COURT_EMAIL)
+                .setFont(font)
+                .setFontSize(12)
+                .setFixedPosition(95, 39, 200)
+        );
+
+        // Add ID into PDF
+        document.add(new Paragraph(transaction.getTransactionID())
+                .setFont(font)
+                .setFontSize(14)
+                .setTextRenderingMode(1)
+                .setStrokeWidth(1.3f)
+                .setTextAlignment(TextAlignment.RIGHT)
+                .setFixedPosition(455, 39, 100)
+        );
+    }
+
+    /**
+     * A method to retrieve the Japanese font used (coz of the character "の")
+     *
+     * @return The font object
+     */
+    public static PdfFont getJapaneseFont() {
+
+        // Declare a variable to store the font object
+        PdfFont japaneseFont = null;
+
+        try {
+
+            // Retrieve the font from file
+            japaneseFont = PdfFontFactory.createFont(JAPANESE_FONT_PATH, PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.PREFER_EMBEDDED);
+
+        } catch (IOException ex) {
+
+            // Print error message out if the font file is not found
+            System.out.println("Cannot find file: " + JAPANESE_FONT_PATH);
+        }
+
+        // Return the font
+        return japaneseFont;
     }
 
     /**
