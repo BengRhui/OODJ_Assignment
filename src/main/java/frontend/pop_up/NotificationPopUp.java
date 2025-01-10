@@ -184,11 +184,10 @@ public class NotificationPopUp extends javax.swing.JFrame {
         notificationDescription = new javax.swing.JLabel();
         buttonPanel = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Confirmation");
         setMinimumSize(new java.awt.Dimension(500, 400));
         setName("notificationPopUp"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(500, 400));
         setSize(new java.awt.Dimension(500, 400));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
