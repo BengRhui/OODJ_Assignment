@@ -547,6 +547,9 @@ public class VendorTest extends BaseTest {
         assertEquals("empty_picture.jpg", retrieveNoBackground.getName());
     }
 
+    /**
+     * This test focuses on the operation where a vendor adds an item.
+     */
     @Test
     void testVendorAddingItem() {
 
@@ -621,6 +624,9 @@ public class VendorTest extends BaseTest {
         assertEquals("empty_picture.jpg", testBlankPicture.getName());
     }
 
+    /**
+     * This test focuses on the operation where the vendor modifies the details of an item.
+     */
     @Test
     void testVendorModifyItem() {
 
@@ -695,6 +701,9 @@ public class VendorTest extends BaseTest {
         assertEquals("empty_picture.jpg", blankPicture.getName());
     }
 
+    /**
+     * This method focuses on the operation where a vendor deletes an item.
+     */
     @Test
     void testVendorDeleteItem() {
 
