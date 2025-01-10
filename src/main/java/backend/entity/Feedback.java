@@ -1,8 +1,15 @@
 package backend.entity;
 
+import backend.file_io.FeedbackFileIO;
+import backend.notification.CustomerNotification;
+import backend.utility.Utility;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Class {@code Feedback} represents the feedback that customers provide to the system, vendor and delivery runner.
@@ -13,12 +20,43 @@ public class Feedback {
 
     /**
      * Attributes for {@code Feedback} objects.<br>
-     * A list containing all {@code Feedback} objects is also included.
+     * A list containing all {@code Feedback} objects and lists used to write to Excel file is also included.
      */
     private final static ArrayList<Feedback> feedbackList = new ArrayList<>();
+    private final static String[] headerList = {
+            "Feedback ID",
+            "Feedback Type",
+            "Order ID",
+            "Customer Name",
+            "Customer Contact No.",
+            "Stall Name (if applicable)",
+            "Delivery Runner Name (if applicable)",
+            "Feedback Submission Time",
+            "Ratings",
+            "Feedback Title",
+            "Feedback Description",
+            "Response to Feedback"
+    };
+    private final static int[] columnWidth = {
+            256 * 15,
+            256 * 20,
+            256 * 20,
+            256 * 30,
+            256 * 25,
+            256 * 35,
+            256 * 40,
+            256 * 30,
+            256 * 10,
+            256 * 30,
+            256 * 50,
+            256 * 50
+    };
+
     private String feedbackID;
     private Category feedbackCategory;
+    private Customer customerAssociated;
     private Order orderAssociated;
+    private LocalDateTime feedbackSubmissionTime;
     private double ratings;
     private String feedbackTitle;
     private String feedbackDetails;
@@ -35,14 +73,42 @@ public class Feedback {
      * @param feedbackDetails  The description of the feedback
      * @param replyFromManager The reply that the manager provides to the customer
      */
-    public Feedback(String feedbackID, Category feedbackCategory, Order orderAssociated, double ratings, String feedbackTitle, String feedbackDetails, String replyFromManager) {
+    public Feedback(String feedbackID, Category feedbackCategory, Customer customerAssociated, Order orderAssociated, LocalDateTime feedbackSubmissionTime, double ratings, String feedbackTitle, String feedbackDetails, String replyFromManager) {
         this.feedbackID = feedbackID;
         this.feedbackCategory = feedbackCategory;
+        this.customerAssociated = customerAssociated;
         this.orderAssociated = orderAssociated;
+        this.feedbackSubmissionTime = feedbackSubmissionTime;
         this.ratings = ratings;
         this.feedbackTitle = feedbackTitle;
         this.feedbackDetails = feedbackDetails;
         this.replyFromManager = replyFromManager;
+    }
+
+    /**
+     * A method to change the customer attribute of associated customer to null if a customer is deleted.
+     *
+     * @param customerID The ID of the associated customer
+     * @return {@code true} if the operation is successful, else {@code false}
+     */
+    public static boolean changeCustomerToNull(String customerID) {
+
+        // Return false if the customer ID is null or empty
+        if (customerID == null || customerID.isBlank()) return false;
+
+        // Loop through each feedback in the feedback list
+        for (Feedback feedback : feedbackList) {
+
+            // Make sure that the customer is not null and it matches the ID
+            if (feedback.customerAssociated != null && feedback.customerAssociated.userID.equals(customerID))
+
+                // Set the customer to null if condition meets
+                feedback.customerAssociated = null;
+        }
+
+        // Write into file and return true for successful operation
+        FeedbackFileIO.writeFile();
+        return true;
     }
 
     /**
@@ -97,33 +163,81 @@ public class Feedback {
     }
 
     /**
-     * A method to obtain the overall ratings of a stall
+     * A method to filter the overall feedback list based on a timeframe.
      *
-     * @param stall The stall where the ratings belong to
-     * @return A double value representing the average ratings of a stall.<br>
-     * {@code 0} represents the stall does not have a rating
+     * @param filter The type of filter used to filter the feedback
+     * @return An array list consisting of the filtered list of feedbacks
      */
-    public static double getOverallRating(Stall stall) {
+    public static ArrayList<Feedback> filterFeedback(Utility.TimeframeFilter filter) {
 
-        // Declare variables to store data to calculate average
-        double totalRating = 0;
-        int feedbackCount = 0;
+        // Get the starting and ending time for the selected filter
+        LocalDateTime[] timeframe = Utility.getFilterStartAndEndTime(filter);
+        LocalDateTime startingTime = timeframe[0];
+        LocalDateTime endingTime = timeframe[1];
 
-        // Loop through the list of feedbacks
-        for (Feedback feedback : feedbackList) {
+        // Filter the feedback list based on the timeframe
+        return feedbackList.stream()
+                .filter(feedback -> !feedback.feedbackSubmissionTime.isBefore(startingTime)
+                        && !feedback.feedbackSubmissionTime.isAfter(endingTime))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
 
-            // Record the rating if the feedback is vendor type and the stall matches
-            if (feedback.feedbackCategory == Category.VENDOR && feedback.orderAssociated.getOrderedStall().equals(stall)) {
-                totalRating += feedback.ratings;
-                feedbackCount++;
-            }
+    /**
+     * A method to filter the feedback list based on category.
+     *
+     * @param category The feedback category to be applied as a filter
+     * @return A filtered feedback list
+     */
+    public static ArrayList<Feedback> getFeedbackList(Category category) {
+
+        // Filter the feedback list based on the category
+        return getFeedbackList().stream()
+                .filter(feedback -> feedback.feedbackCategory == category)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * A method to arrange and retrieve the list of feedbacks.
+     *
+     * @param category The feedback category involved
+     * @param filter   The filters involved while arranging the feedback
+     * @return A filtered list of feedbacks with the specific order
+     */
+    public static ArrayList<Feedback> arrangeFeedbackList(Category category, Filter filter) {
+
+        // Filter based on category
+        ArrayList<Feedback> feedbackList = getFeedbackList(category);
+        if (feedbackList == null) return null;
+
+        // Arrange list based on filter
+        switch (filter) {
+            case LATEST_TO_OLDEST ->
+                    feedbackList.sort(Comparator.comparing(Feedback::getFeedbackSubmissionTime).reversed());
+            case OLDEST_TO_LATEST -> feedbackList.sort(Comparator.comparing(Feedback::getFeedbackSubmissionTime));
+            case HIGH_TO_LOW_RATING -> feedbackList.sort(Comparator.comparing(Feedback::getRatings).reversed());
+            case LOW_TO_HIGH_RATING -> feedbackList.sort(Comparator.comparing(Feedback::getRatings));
         }
 
-        // Return 0 if feedback count is 0, indicating no review is given
-        if (feedbackCount == 0) return 0;
+        // Return the sorted list
+        return feedbackList;
+    }
 
-        // Return the average value of the reviews
-        return totalRating / feedbackCount;
+    /**
+     * A method to export Feedback data to Excel file based on filter provided.
+     *
+     * @param filter The timeframe used to filter the Feedback data
+     * @return {@code true} if the Excel file is exported successfully, else {@code false}
+     */
+    public static boolean exportDataToExcel(Utility.TimeframeFilter filter) {
+
+        // Get feedback list
+        ArrayList<Feedback> feedbackList = filterFeedback(filter);
+
+        // Get timeframe
+        LocalDateTime[] timeframe = Utility.getFilterStartAndEndTime(filter);
+
+        // Pass to method for exporting to Excel and return the boolean associated
+        return Utility.downloadAsExcel(headerList, columnWidth, "Feedback Records", feedbackList, timeframe);
     }
 
     /**
@@ -145,12 +259,28 @@ public class Feedback {
         this.feedbackCategory = feedbackCategory;
     }
 
+    public Customer getCustomerAssociated() {
+        return customerAssociated;
+    }
+
+    public void setCustomerAssociated(Customer customerAssociated) {
+        this.customerAssociated = customerAssociated;
+    }
+
     public Order getOrderAssociated() {
         return orderAssociated;
     }
 
     public void setOrderAssociated(Order orderAssociated) {
         this.orderAssociated = orderAssociated;
+    }
+
+    public LocalDateTime getFeedbackSubmissionTime() {
+        return feedbackSubmissionTime;
+    }
+
+    public void setFeedbackSubmissionTime(LocalDateTime feedbackSubmissionTime) {
+        this.feedbackSubmissionTime = feedbackSubmissionTime;
     }
 
     public double getRatings() {
@@ -194,12 +324,44 @@ public class Feedback {
     public String toString() {
         return "Feedback ID: " + feedbackID + "\n" +
                 "Feedback Category: " + feedbackCategory.toString() + "\n" +
+                "Customer Associated: " + customerAssociated.toString() + "\n" +
                 "Order Associated: " + "\n" +
                 orderAssociated + "\n" +
+                "Submitted Time: " + Utility.generateString(feedbackSubmissionTime) + "\n" +
                 "Ratings: " + ratings + "\n" +
                 "Feedback Title: " + feedbackTitle + "\n" +
                 "Feedback Details: " + feedbackDetails + "\n" +
                 "Reply From Manager: " + replyFromManager;
+    }
+
+    /**
+     * A method to update the response from manager regarding the feedback received.
+     *
+     * @param reply The reply from manager
+     * @return {@code true} if the reply is set successfully, else {@code false}
+     */
+    public boolean managerProvideReply(String reply) {
+
+        // Check if reply is empty or null
+        if (reply == null || reply.isBlank()) return false;
+
+        // Check if the correct feedback is passed into the method
+        if (this.getReplyFromManager() != null || this.getCustomerAssociated() == null) return false;
+
+        // Set the reply
+        this.setReplyFromManager(reply);
+
+        // Create notification
+        boolean createNotification = CustomerNotification.createNewNotification(
+                "Response to Feedback",
+                "Thank you for reaching out! Our team has reviewed your feedback " + this.getFeedbackID() + " and provided some response. Please check it out for more details.",
+                this.customerAssociated
+        );
+        if (!createNotification) return false;
+
+        // Write to file and return true
+        FeedbackFileIO.writeFile();
+        return true;
     }
 
     /**
@@ -245,5 +407,19 @@ public class Feedback {
                 case DELIVERY_RUNNER -> "Delivery Runner";
             };
         }
+    }
+
+    /**
+     * An enum class used to store the types of filters used for filtering feedback.
+     */
+    public enum Filter {
+
+        /**
+         * Fields involved in the {@code Filter} enum.
+         */
+        LOW_TO_HIGH_RATING,
+        HIGH_TO_LOW_RATING,
+        LATEST_TO_OLDEST,
+        OLDEST_TO_LATEST
     }
 }

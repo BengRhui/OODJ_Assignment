@@ -2,6 +2,7 @@ package backend.entity;
 
 import backend.file_io.ItemFileIO;
 import backend.file_io.PictureIO;
+import backend.notification.VendorNotification;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -220,6 +221,20 @@ public class Item {
     }
 
     /**
+     * A method to retrieve the list of items based on vendor.
+     *
+     * @param vendor The vendor object that has association with the items
+     * @return A list of filtered items
+     */
+    public static ArrayList<Item> getItemList(Vendor vendor) {
+
+        // Filter the item list based on stall ID
+        return getItemList().stream()
+                .filter(item -> item.stall != null && item.stall.getStallID().equals(vendor.getStall().getStallID()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
      * A method for vendors to modify the details of an item.
      *
      * @param name        The name of the item
@@ -270,6 +285,24 @@ public class Item {
         // Write to file and return true after deletion
         ItemFileIO.writeFile();
         return true;
+    }
+
+    /**
+     * A method for manager to delete an item.
+     *
+     * @return {@code true} if the deletion is successful, else {@code false}
+     */
+    public boolean managerDeleteItem() {
+
+        // Delete the item and return its value
+        if (!this.deleteItem()) return false;
+
+        // Create notification to notify vendor that the item is deleted
+        return VendorNotification.createNewNotification(
+                "Item " + this.itemID + " Deleted",
+                "The item " + this.itemName + " (" + this.itemID + ") has been removed by the manager due to its inappropriate nature for sale on this platform.",
+                this.stall
+        );
     }
 
     /**

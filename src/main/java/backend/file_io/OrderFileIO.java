@@ -19,8 +19,8 @@ public class OrderFileIO extends FileIO {
      * Fixed variables to aid in coding.
      */
     public final static String ORDER_FILE_NAME = "order_information.txt";
-    public final static int NUMBER_OF_INFORMATION_IN_FILE = 11;
-    public final static int[] SPACING_SIZE = {10, 5, 5, 5, 15, 5, 60, 10, 20, 50, 200};
+    public final static int NUMBER_OF_INFORMATION_IN_FILE = 12;
+    public final static int[] SPACING_SIZE = {10, 5, 5, 5, 10, 15, 5, 60, 10, 20, 50, 200};
 
     /**
      * A method to read file and initialize {@code Order} objects.
@@ -55,12 +55,13 @@ public class OrderFileIO extends FileIO {
         Customer orderingCustomer = recordFromFile[1].equalsIgnoreCase("null") ? null : Customer.getCustomer(recordFromFile[1]);
         Stall orderedStall = recordFromFile[2].equalsIgnoreCase("null") ? null : Stall.getStallByID(recordFromFile[2]);
         DeliveryRunner runnerInCharge = recordFromFile[3].equalsIgnoreCase("null") ? null : DeliveryRunner.getRunner(recordFromFile[3]);
-        Order.DiningType diningType = Order.DiningType.getFromString(recordFromFile[4]);
-        String tableNumber = recordFromFile[5].equalsIgnoreCase("null") ? null : recordFromFile[5];
-        String deliveryNote = recordFromFile[6];
-        double orderPrice = Double.parseDouble(recordFromFile[7]);
-        LocalDateTime orderedDate = Utility.changeStringToTime(recordFromFile[8]);
-        Order.OrderStatus orderStatus = Order.OrderStatus.getFromString(recordFromFile[9]);
+        Double tipsForRunner = recordFromFile[4].equalsIgnoreCase("null") ? null : Double.parseDouble(recordFromFile[4]);
+        Order.DiningType diningType = Order.DiningType.getFromString(recordFromFile[5]);
+        String tableNumber = recordFromFile[6].equalsIgnoreCase("null") ? null : recordFromFile[6];
+        String deliveryNote = recordFromFile[7];
+        double orderPrice = Double.parseDouble(recordFromFile[8]);
+        LocalDateTime orderedDate = Utility.changeStringToTime(recordFromFile[9]);
+        Order.OrderStatus orderStatus = Order.OrderStatus.getFromString(recordFromFile[10]);
         Map<Item, Integer> orderItem = Utility.changeStringToHashMap(recordFromFile[10]);
 
         // Create and return a new item object
@@ -69,6 +70,7 @@ public class OrderFileIO extends FileIO {
                 orderingCustomer,
                 orderedStall,
                 runnerInCharge,
+                tipsForRunner,
                 diningType,
                 tableNumber,
                 deliveryNote,
@@ -101,13 +103,14 @@ public class OrderFileIO extends FileIO {
             record[1] = order.getOrderingCustomer() == null ? "null" : order.getOrderingCustomer().getUserID();
             record[2] = order.getOrderedStall() == null ? "null" : order.getOrderedStall().getStallID();
             record[3] = order.getRunnerInCharge() == null ? "null" : order.getRunnerInCharge().getUserID();
-            record[4] = order.getDiningType().toString();
-            record[5] = order.getTableNumber() == null ? "null" : order.getTableNumber();
-            record[6] = order.getNoteToVendor();
-            record[7] = String.valueOf(order.getOrderPrice());
-            record[8] = Utility.generateString(order.getOrderedDate());
-            record[9] = order.getOrderStatus().toString();
-            record[10] = Utility.generateString(order.getOrderItem());
+            record[4] = order.getTipsForRunner() == null ? "null" : String.valueOf(order.getTipsForRunner());
+            record[5] = order.getDiningType().toString();
+            record[6] = order.getTableNumber() == null ? "null" : order.getTableNumber();
+            record[7] = order.getNoteToVendor();
+            record[8] = String.valueOf(order.getOrderPrice());
+            record[9] = Utility.generateString(order.getOrderedDate());
+            record[10] = order.getOrderStatus().toString();
+            record[11] = Utility.generateString(order.getOrderItem());
 
             // Add the record into list
             informationToFile.add(record);

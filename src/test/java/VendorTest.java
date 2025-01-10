@@ -727,4 +727,29 @@ public class VendorTest extends BaseTest {
         File itemPicture = Utility.retrieveFileWithoutExtension(directory, pictureName);
         assertNull(itemPicture);
     }
+
+    /**
+     * This test focuses on whether the correct statistics are obtained for the vendor.
+     */
+    @Test
+    void testVendorGetStatistics() {
+
+        // Use vendor 1 to get the statistics - using YEARLY filter
+        int vendorOrderCount = vendor1.getOrderCount(Utility.TimeframeFilter.YEARLY);
+        double vendorTotalEarnings = vendor1.getTotalEarnings(Utility.TimeframeFilter.YEARLY);
+        double vendorRatings = vendor1.getOverallRatings(Utility.TimeframeFilter.YEARLY);
+        int vendorFeedbackCount = vendor1.getFeedbackCount(Utility.TimeframeFilter.YEARLY);
+
+        // Check if the calculations are correct
+        assertEquals(3, vendorOrderCount);
+        assertEquals(
+                order1.getOrderPrice() + order2.getOrderPrice() + order3.getOrderPrice(),
+                vendorTotalEarnings
+        );
+        assertEquals(1, vendorFeedbackCount);
+        assertEquals(
+                feedback3.getRatings(),
+                vendorRatings
+        );
+    }
 }

@@ -18,13 +18,45 @@ public class Order {
 
     /**
      * Attributes for the {@code Order} object.<br>
-     * A list that collects all orders is included.
+     * A list that collects all orders and the lists used to write Excel files are included.
      */
     private final static ArrayList<Order> orderList = new ArrayList<>();
+    private final static String[] orderHeaderList = {
+            "Order ID",
+            "Order Time",
+            "Customer Name",
+            "Customer Contact No.",
+            "Stall Name",
+            "Delivery Runner Name",
+            "Table Number",
+            "Item Name",
+            "Price Per Unit (RM)",
+            "Quantity",
+            "Order Amount (RM)",
+            "Order Status",
+            "Delivery Notes"
+    };
+    private final static int[] orderColumnWidth = {
+            256 * 15,
+            256 * 25,
+            256 * 25,
+            256 * 25,
+            256 * 25,
+            256 * 25,
+            256 * 15,
+            256 * 30,
+            256 * 20,
+            256 * 10,
+            256 * 20,
+            256 * 25,
+            256 * 40
+    };
+
     private String orderID;
     private Customer orderingCustomer;
     private Stall orderedStall;
     private DeliveryRunner runnerInCharge;
+    private Double tipsForRunner;
     private DiningType diningType;
     private String tableNumber;
     private String noteToVendor;
@@ -49,12 +81,13 @@ public class Order {
      * @param orderItem        The list of items ordered by customer
      */
     public Order(String orderID, Customer orderingCustomer, Stall orderedStall, DeliveryRunner runnerInCharge,
-                 DiningType diningType, String tableNumber, String noteToVendor, double orderPrice,
-                 LocalDateTime orderedDate, OrderStatus orderStatus, Map<Item, Integer> orderItem) {
+                 Double tipsForRunner, DiningType diningType, String tableNumber, String noteToVendor, double orderPrice,
+                 LocalDateTime orderedDate, OrderStatus orderStatus, HashMap<Item, Integer> orderItem) {
         this.orderID = orderID;
         this.orderingCustomer = orderingCustomer;
         this.orderedStall = orderedStall;
         this.runnerInCharge = runnerInCharge;
+        this.tipsForRunner = tipsForRunner;
         this.diningType = diningType;
         this.tableNumber = tableNumber;
         this.noteToVendor = noteToVendor;
@@ -206,16 +239,118 @@ public class Order {
     }
 
     /**
-     * This method randomly assigns the current order to an available runner.
+     * A method to retrieve the overall list of orders that falls within a timeframe.
+     *
+     * @param filter The timeframe used to filter the order
+     * @return The filtered list of orders
      */
-    public void assignOrderToRandomRunner() {
+    public static ArrayList<Order> filterOrder(Utility.TimeframeFilter filter) {
 
-        // Get a new runner and assign to the current order
-        DeliveryRunner newRunner = DeliveryRunner.getAvailableRunner();
-        this.setRunnerInCharge(newRunner);
+        // Get the starting and ending time for the filter
+        LocalDateTime[] timeRange = Utility.getFilterStartAndEndTime(filter);
+        LocalDateTime startTime = timeRange[0];
+        LocalDateTime endTime = timeRange[1];
 
-        // Write changes into file
-        OrderFileIO.writeFile();
+        // Filter the orders based on time
+        return getOrderList().stream()
+                .filter(order ->
+                        !order.getOrderedDate().isBefore(startTime) &&
+                                !order.getOrderedDate().isAfter(endTime))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * A method to retrieve the relevant vendor orders based on the vendor and the filter
+     *
+     * @param vendor The vendor object
+     * @param filter The timeframe used
+     * @return An array list consisting of the filtered list of orders
+     */
+    public static ArrayList<Order> filterOrder(Vendor vendor, Utility.TimeframeFilter filter) {
+
+        // Check if vendor is null
+        if (vendor == null) return null;
+
+        // Get the overall list of orders based on filters
+        ArrayList<Order> overallOrder = filterOrder(filter);
+
+        // Get the list of orders associated to vendor
+        return overallOrder.stream()
+                .filter(order -> order.getOrderedStall().getStallID().equals(vendor.getStall().getStallID()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * A method to retrieve the list of orders associated to the runner based on a timeframe.
+     *
+     * @param runner The runner involved
+     * @param filter The timeframe set
+     * @return A filtered list of orders
+     */
+    public static ArrayList<Order> filterOrder(DeliveryRunner runner, Utility.TimeframeFilter filter) {
+
+        // Check if runner is null
+        if (runner == null) return null;
+
+        // Get the overall list of orders based on filters
+        ArrayList<Order> overallOrder = filterOrder(filter);
+
+        // Get the list of orders associated to runner
+        return overallOrder.stream()
+                .filter(order -> order.getRunnerInCharge() != null && order.getRunnerInCharge().getUserID().equals(runner.getUserID()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * A method to return a filtered order list based on vendor.
+     *
+     * @param vendor The vendor associated with the order
+     * @return A filtered array list based on stall associated with vendor
+     */
+    public static ArrayList<Order> filterOrder(Vendor vendor) {
+
+        // Return null if the vendor is null
+        if (vendor == null) return null;
+
+        // Filter order list based on the associated stall ID
+        return getOrderList().stream()
+                .filter(order -> order.getOrderedStall() != null && order.getOrderedStall().getStallID().equals(vendor.getStall().getStallID()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * A method to filter order list based on the delivery runner.
+     *
+     * @param runner The delivery runner associated with the order
+     * @return A filtered list of orders based on delivery runner
+     */
+    public static ArrayList<Order> filterOrder(DeliveryRunner runner) {
+
+        // Return null if the input is null
+        if (runner == null) return null;
+
+        // Filter order list based on runner
+        return getOrderList().stream()
+                .filter(order -> order.getRunnerInCharge() != null && order.getRunnerInCharge().getUserID().equals(runner.getUserID()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * A method to export the associated date to an Excel file.
+     *
+     * @param filter The timeframe set to export the Excel file
+     * @return {@code true} if the Excel file is created successfully, else {@code false}
+     */
+    public static boolean exportDataToExcel(Utility.TimeframeFilter filter) {
+
+        // Get the data to be passed into the method to generate Excel file
+        ArrayList<Order> dataList = filterOrder(filter);
+
+        // Get the timeframe involved with the filer
+        LocalDateTime[] timeframe = Utility.getFilterStartAndEndTime(filter);
+
+        // Return the method that generates the Excel file
+        return Utility.downloadAsExcel(orderHeaderList, orderColumnWidth, "Order Records", dataList, timeframe);
     }
 
     /**
@@ -251,6 +386,14 @@ public class Order {
 
     public void setRunnerInCharge(DeliveryRunner runnerInCharge) {
         this.runnerInCharge = runnerInCharge;
+    }
+
+    public Double getTipsForRunner() {
+        return tipsForRunner;
+    }
+
+    public void setTipsForRunner(Double tipsForRunner) {
+        this.tipsForRunner = tipsForRunner;
     }
 
     public DiningType getDiningType() {
@@ -317,11 +460,12 @@ public class Order {
     @Override
     public String toString() {
         return "Order ID: " + orderID + "\n" +
-                "Ordering Customer: " + "\n" +
-                orderingCustomer.toString() + "\n" +
+                "Ordering Customer: " +
+                (orderingCustomer == null ? "null" : "\n" + orderingCustomer) + "\n" +
                 "Ordered Stall: " + "\n" +
                 orderedStall.toString() + "\n" +
                 "Runner in Charge: " + (runnerInCharge == null ? "null" : "\n" + runnerInCharge) + "\n" +
+                "Tips for Runner: " + tipsForRunner + "\n" +
                 "Dining Type: " + diningType.toString() + "\n" +
                 "Table Number: " + tableNumber + "\n" +
                 "Delivery Note: " + noteToVendor + "\n" +
@@ -526,7 +670,7 @@ public class Order {
             // Return 1 to indicate successful modification
             return 1;
 
-        // Notification if status updated to ready for pickup
+            // Notification if status updated to ready for pickup
         } else if (status == OrderStatus.READY_FOR_PICK_UP) {
 
             // Vendor notification for all orders
@@ -587,7 +731,7 @@ public class Order {
             // Return 1 for successful modification
             return 1;
 
-        // When the status is marked as complete (only applicable for dine in and takeaway orders)
+            // When the status is marked as complete (only applicable for dine in and takeaway orders)
         } else if (status == OrderStatus.COMPLETED && (this.getDiningType() == DiningType.DINE_IN || this.getDiningType() == DiningType.TAKEAWAY)) {
 
             // Customer notification for complete order

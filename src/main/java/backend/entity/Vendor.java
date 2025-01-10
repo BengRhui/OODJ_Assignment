@@ -9,6 +9,7 @@ import backend.utility.Utility;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Class {@code Vendor} represents the hawkers / sellers in the food court.
@@ -63,6 +64,34 @@ public class Vendor extends User {
         vendorList.addAll(
                 Arrays.asList(vendor)
         );
+    }
+
+    /**
+     * A method to search for vendor using their names.
+     *
+     * @param name The name of the vendor
+     * @return An array list consisting of the vendors fulfilling the condition
+     */
+    public static ArrayList<Vendor> findVendorByName(String name) {
+
+        // Return the list (for empty strings, return back all values)
+        return vendorList.stream()
+                .filter(vendor -> vendor.getName().toLowerCase().contains(name.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * A method to get the relevant vendor list based on stall name.
+     *
+     * @param stallName The name of the stall
+     * @return The list of filtered vendors
+     */
+    public static ArrayList<Vendor> findVendorByStallName(String stallName) {
+
+        // Return the list (empty strings - return all values)
+        return vendorList.stream()
+                .filter(vendor -> vendor.getStall().getStallName().toLowerCase().contains(stallName.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
@@ -282,6 +311,74 @@ public class Vendor extends User {
 
         // Return true for successful modification
         return true;
+    }
+
+    /**
+     * A method to retrieve the order count for a vendor.
+     *
+     * @return The order count
+     */
+    public int getOrderCount(Utility.TimeframeFilter filter) {
+
+        // Retrieve the list of orders
+        ArrayList<Order> orderList = Order.filterOrder(this, filter);
+
+        // Return -1 if the retrieved list is null
+        if (orderList == null) return -1;
+
+        // Return the size of the order list as order count
+        return orderList.size();
+    }
+
+    /**
+     * A method to calculate the total earnings of a vendor.
+     *
+     * @return The total earnings of vendor
+     */
+    public double getTotalEarnings(Utility.TimeframeFilter filter) {
+
+        // Declare a variable to store earnings
+        double earnings = 0;
+
+        // Retrieve the list of orders
+        ArrayList<Order> orderList = Order.filterOrder(this, filter);
+
+        // Return -1 if the list is null
+        if (orderList == null) return -1;
+
+        // Loop through each order list to calculate earnings
+        for (Order order : orderList) earnings += order.getOrderPrice();
+
+        // Return the earnings
+        return earnings;
+    }
+
+    /**
+     * A method to get the overall ratings for a vendor (same as the associated stall).
+     *
+     * @return The overall ratings of vendor
+     */
+    public double getOverallRatings(Utility.TimeframeFilter filter) {
+
+        // Get the stall associated with the vendor
+        Stall associatedStall = this.getStall();
+
+        // Return the ratings of the stall
+        return associatedStall.getOverallRating(filter)[0];
+    }
+
+    /**
+     * A method to get the feedback count of a vendor based on the store associated.
+     *
+     * @return The feedback count of vendor
+     */
+    public int getFeedbackCount(Utility.TimeframeFilter filter) {
+
+        // Get the stall associated with the vendor
+        Stall associatedStall = this.getStall();
+
+        // Return the feedback count of the stall
+        return (int) associatedStall.getOverallRating(filter)[1];
     }
 
     /**

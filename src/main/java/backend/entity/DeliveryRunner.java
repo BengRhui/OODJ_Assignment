@@ -6,6 +6,7 @@ import backend.notification.DeliveryRunnerNotification;
 import backend.utility.Utility;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Class {@code DeliveryRunner} represents the delivery people who will use the system to update delivery progress.
@@ -87,6 +88,34 @@ public class DeliveryRunner extends User {
      */
     public static ArrayList<DeliveryRunner> getDeliveryRunnerList() {
         return deliveryRunnerList;
+    }
+
+    /**
+     * A method to retrieve the list of delivery runners based on their names.
+     *
+     * @param name The name of the runner
+     * @return The filtered list of runners
+     */
+    public static ArrayList<DeliveryRunner> searchRunnerByName(String name) {
+
+        // Filter the overall runner list using name as input
+        return getDeliveryRunnerList().stream()
+                .filter(runner -> runner.name.toLowerCase().contains(name.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * A method to retrieve the list of delivery runners based on their contact number.
+     *
+     * @param contactNumber The contact number of runner
+     * @return A filtered list of runners
+     */
+    public static ArrayList<DeliveryRunner> searchRunnerByContactNumber(String contactNumber) {
+
+        // Filter overall runner list based on contact number
+        return getDeliveryRunnerList().stream()
+                .filter(runner -> runner.contactNumber.contains(contactNumber))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
@@ -324,6 +353,110 @@ public class DeliveryRunner extends User {
 
         // Return true for successful operation
         return true;
+    }
+
+    /**
+     * A method to obtain the overall delivery count of the runner.
+     *
+     * @param filter The timeframe used to filter the order data
+     * @return The delivery count of user
+     */
+    public int getDeliveryCount(Utility.TimeframeFilter filter) {
+
+        // Retrieve the order list based on the filter
+        ArrayList<Order> orderList = Order.filterOrder(this, filter);
+
+        // Return the size of the list as delivery count
+        return orderList.size();
+    }
+
+    /**
+     * A method to calculate the amount of tips received by the runner.
+     *
+     * @param filter The timeframe used to filter the order data
+     * @return The amount of tips received
+     */
+    public double getTipsAmount(Utility.TimeframeFilter filter) {
+
+        // Initialize a variable to store tips amount
+        double tipsAmount = 0;
+
+        // Get the order list based on filter
+        ArrayList<Order> orderList = Order.filterOrder(this, filter);
+
+        // Loop through the order list
+        for (Order order : orderList) {
+
+            // Continue if the tips received is null
+            if (order.getTipsForRunner() == null) continue;
+
+            // Add the tips to the variable
+            tipsAmount += order.getTipsForRunner();
+        }
+
+        // Return the total amount at last
+        return tipsAmount;
+    }
+
+    /**
+     * A private method to retrieve the overall rating details based on filter.
+     *
+     * @param filter The timeframe used to filter the feedback list
+     * @return A list containing two information: overall ratings and feedback count
+     */
+    private double[] getOverallRatingDetails(Utility.TimeframeFilter filter) {
+
+        // Initialize variables to store information
+        double ratings = 0;
+        int feedbackCount = 0;
+
+        // Obtain the filtered feedback list based on the filter
+        ArrayList<Feedback> feedbackList = Feedback.filterFeedback(filter);
+
+        // Loop through each feedback
+        for (Feedback feedback : feedbackList) {
+
+            // Check if the feedback category is runner (coz only runner feedbacks should be counted) and the runner in charge is the current runner
+            if (feedback.getFeedbackCategory() == Feedback.Category.DELIVERY_RUNNER && feedback.getOrderAssociated().getRunnerInCharge().equals(this)) {
+
+                // Add the ratings to the initialized variable and increment feedback count
+                ratings += feedback.getRatings();
+                feedbackCount++;
+            }
+        }
+
+        // Check if the feedback count is 0
+        if (feedbackCount == 0) return new double[]{0, 0};
+
+        // Calculate the average ratings
+        double overallRating = ratings / feedbackCount;
+
+        // Return both values
+        return new double[]{overallRating, feedbackCount};
+    }
+
+    /**
+     * A method to obtain the ratings of a delivery runner.
+     *
+     * @param filter The timeframe imposed to filter the feedback list
+     * @return The average rating of the runner
+     */
+    public double getRatings(Utility.TimeframeFilter filter) {
+
+        // Get the first element of the method as overall ratings
+        return getOverallRatingDetails(filter)[0];
+    }
+
+    /**
+     * A method to obtain the overall feedback count of a delivery runner.
+     *
+     * @param filter The timeframe used to filter the feedback list
+     * @return The overall count of feedback taken into consideration
+     */
+    public int getFeedbackCount(Utility.TimeframeFilter filter) {
+
+        // Get the second element of the method and cast to int as feedback count
+        return (int) getOverallRatingDetails(filter)[1];
     }
 
     /**

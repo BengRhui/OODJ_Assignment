@@ -336,6 +336,10 @@ public class Customer extends User {
         boolean transactionDeleted = Transaction.deleteTransaction(this.getUserID());
         if (!transactionDeleted) return false;
 
+        // Change the customer attribute for the associated feedback to null
+        boolean changeFeedback = Feedback.changeCustomerToNull(this.getUserID());
+        if (!changeFeedback) return false;
+
         // Delete user from list
         boolean removeSuccessful = getCustomerList().remove(this);
         if (!removeSuccessful) return false;
