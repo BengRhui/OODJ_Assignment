@@ -60,21 +60,22 @@ public class PictureIO {
      */
     public static boolean uploadVendorBackground(File uploadedFile, Vendor vendor) {
 
-        // Return true if vendor does not provide a background (they can have a choice to do so) - but the current background shall be removed
-        if (uploadedFile == null) {
+        // The existing background picture has to be deleted before adding the new background picture
+        // Get the directory for the existing background picture
+        File[] directory = new File(PARENT_PATH_TO_STORE_DIRECTORY).listFiles();
+        String fileName = vendor.getStall().getStallID() + "_background";
 
-            // Get the directory for the existing background picture
-            File[] directory = new File(PARENT_PATH_TO_STORE_DIRECTORY).listFiles();
-            String fileName = vendor.getStall().getStallID() + "_background";
+        // Get the background file
+        File initialBackground = Utility.retrieveFileWithoutExtension(directory, fileName);
 
-            // Get the background file
-            File initialBackground = Utility.retrieveFileWithoutExtension(directory, fileName);
-
-            // Delete the background file and return true
-            if (initialBackground != null) return initialBackground.delete();
-            return true;
+        // Delete the background file and return true
+        if (initialBackground != null) {
+            if (!initialBackground.delete()) return false;
         }
 
+        // If the uploaded file is null, then return true here
+        if (uploadedFile == null) return true;
+        
         // Get the file extension and generate file name
         String[] initialFileName = uploadedFile.getName().split("\\.");
         String fileExtension = initialFileName[initialFileName.length - 1];
