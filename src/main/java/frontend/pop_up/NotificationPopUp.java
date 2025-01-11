@@ -9,6 +9,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
@@ -22,6 +23,7 @@ import javax.swing.JPanel;
 public class NotificationPopUp extends javax.swing.JDialog {
 
     private static int status = -1;
+    private static JButton[] buttonList;
     private Frame parent;
     private String popUpTitle;
     private String popUpDescription;
@@ -64,6 +66,9 @@ public class NotificationPopUp extends javax.swing.JDialog {
         int buttonWidth = (panel.getWidth() - gapBetweenButtons * (numOfButtons - 1)) / numOfButtons ;
         int buttonHeight = panel.getHeight();
 
+        // Create the JButton list
+        buttonList = new JButton[numOfButtons];
+        
         // Loop through the list of text
         for (int i = 0; i < numOfButtons; i ++) {
 
@@ -128,6 +133,9 @@ public class NotificationPopUp extends javax.swing.JDialog {
 
             // Add the button to button panel
             panel.add(newButton);
+            
+            // Add the button to button list
+            buttonList[i] = newButton;
         }
     }
 
@@ -154,14 +162,21 @@ public class NotificationPopUp extends javax.swing.JDialog {
         buttonPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Confirmation");
+        setTitle("Message");
         setAlwaysOnTop(true);
         setLocation(parent.getX() + (parent.getWidth() - 500) / 2,
             parent.getY() + (parent.getHeight() - 350) / 2);
         setName("notificationDialog"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(500, 350));
         setResizable(false);
         setSize(new java.awt.Dimension(500, 350));
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                formKeyReleased(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         backgroundPanel.setBackground(new java.awt.Color(255, 251, 233));
@@ -188,6 +203,37 @@ public class NotificationPopUp extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
+        
+        // Get the button to be taken action (the rightmost button)
+        JButton button = buttonList[buttonList.length - 1];
+        
+        // When the enter key is entered
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
+            // Reset the colour of the button
+            button.setForeground(Color.WHITE);
+            button.setBackground(Color.BLACK);
+            
+            // Hit the rightmost button
+            button.doClick();
+        }
+    }//GEN-LAST:event_formKeyReleased
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        
+        // Get the button to be taken action
+        JButton button = buttonList[buttonList.length - 1];
+        
+        // When the enter key is pressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
+            // Change the colour of the button
+            button.setForeground(Color.BLACK);
+            button.setBackground(new Color(206, 171, 147));
+        }
+    }//GEN-LAST:event_formKeyPressed
 
     /**
      * @param args the command line arguments
