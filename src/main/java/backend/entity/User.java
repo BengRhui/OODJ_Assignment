@@ -109,12 +109,14 @@ public class User {
      *
      * @param email       The email of the user
      * @param newPassword The new password of the user
-     * @return True if password is reset successfully, else false
+     * @return {@code 1} is the password resets successfully<br>
+     * {@code 0} if email is not available<br>
+     * {@code -1} if password does not meet requirements
      */
-    public static boolean resetPassword(String email, String newPassword) {
+    public static int resetPassword(String email, String newPassword) {
 
         // Return false if the new password does not match
-        if (!validatePassword(newPassword)) return false;
+        if (!validatePassword(newPassword)) return -1;
 
         // Loop through the list of users
         for (User user : getUserList()) {
@@ -126,11 +128,11 @@ public class User {
 
             // Set the new password
             user.setPassword(newPassword.strip());
-            return true;
+            return 1;
         }
 
         // Return false if there is no matching email
-        return false;
+        return 0;
     }
 
     /**
