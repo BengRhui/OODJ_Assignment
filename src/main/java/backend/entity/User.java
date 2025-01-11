@@ -1,5 +1,7 @@
 package backend.entity;
 
+import backend.file_io.CredentialsFileIO;
+
 import java.util.ArrayList;
 
 /**
@@ -128,6 +130,11 @@ public class User {
 
             // Set the new password
             user.setPassword(newPassword.strip());
+
+            // Write to file after password is changed
+            CredentialsFileIO.writeCredentialsFile();
+
+            // Return 1 for successful modification
             return 1;
         }
 
