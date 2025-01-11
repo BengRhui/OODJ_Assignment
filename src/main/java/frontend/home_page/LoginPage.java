@@ -7,6 +7,7 @@ package frontend.home_page;
 import backend.entity.*;
 import backend.utility.Utility;
 import frontend.pop_up.NotificationPopUp;
+import frontend.vendor.MainPage;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.KeyEvent;
@@ -300,8 +301,19 @@ public class LoginPage extends javax.swing.JFrame {
                 case Customer customer -> System.out.println(customer);
                 case DeliveryRunner runner -> System.out.println(runner);
                 case Manager manager -> System.out.println(manager);
-                case Vendor vendor -> System.out.println(vendor);
+                case Vendor vendor -> {
+                    
+                    // Create a new vendor page
+                    MainPage vendorPage = new MainPage();
+                    vendorPage.setVisible(true);
+                    
+                    // Set the vendor to the new vendor page
+                    MainPage.setVendor(vendor);
+                }
+                
                 default -> {
+                    
+                    // Create a try again message if the current user retrieved is not in the user type (should not happen)
                     NotificationPopUp tryAgainMessage = new NotificationPopUp(this, "System Error", "Sorry, something wrong has happened.<br>Please try another credentials.", new String[]{"OK"});
                     tryAgainMessage.setVisible(true);
                 }
