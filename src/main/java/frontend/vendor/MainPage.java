@@ -92,7 +92,9 @@ public class MainPage extends javax.swing.JFrame {
             backgroundPanel.repaint();
             
         } catch (IOException ex) {
-            System.out.println("Error in writing files.");
+            
+            // Indicate error when there is an IO exception
+            System.out.println("Error in updating background pictures for vendor.");
         }
     }
 
