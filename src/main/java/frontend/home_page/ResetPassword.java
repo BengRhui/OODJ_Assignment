@@ -4,6 +4,13 @@
  */
 package frontend.home_page;
 
+import backend.entity.User;
+import backend.utility.Utility;
+import frontend.pop_up.NotificationPopUp;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.event.KeyEvent;
+
 /**
  *
  * @author jack
@@ -26,132 +33,444 @@ public class ResetPassword extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
+        backgroundPanel = new javax.swing.JPanel();
+        iconLabel = new javax.swing.JLabel();
+        titleLabel = new javax.swing.JLabel();
+        retypePasswordLabel = new javax.swing.JLabel();
+        emailInput = new javax.swing.JTextField();
+        emailLabel = new javax.swing.JLabel();
+        newPasswordLabel = new javax.swing.JLabel();
+        passwordRequirementLabel3 = new javax.swing.JLabel();
+        noteLabel = new javax.swing.JLabel();
+        passwordRequirementLabel1 = new javax.swing.JLabel();
+        resetPasswordButton = new javax.swing.JButton();
+        closeButton = new javax.swing.JButton();
+        passwordRequirementLabel2 = new javax.swing.JLabel();
+        retypePasswordField = new javax.swing.JPasswordField();
+        newPasswordField = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Reset Password");
+        setAlwaysOnTop(true);
+        setName("resetPasswordFrame"); // NOI18N
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1400, 800));
-        jPanel1.setLayout(null);
+        backgroundPanel.setBackground(new java.awt.Color(255, 251, 233));
+        backgroundPanel.setPreferredSize(new java.awt.Dimension(1400, 800));
+        backgroundPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/forgot_password_vector.png"))); // NOI18N
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(120, 160, 620, 540);
+        iconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/forgot_password_icon.png"))); // NOI18N
+        backgroundPanel.add(iconLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 510, 410));
 
-        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 48)); // NOI18N
-        jLabel2.setText("Password Reset");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(800, 210, 400, 50);
+        titleLabel.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        titleLabel.setText("Password Reset");
+        backgroundPanel.add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 400, 50));
 
-        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel3.setText("Retype Password:");
-        jPanel1.add(jLabel3);
-        jLabel3.setBounds(1010, 400, 200, 23);
+        retypePasswordLabel.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        retypePasswordLabel.setText("Retype Password");
+        backgroundPanel.add(retypePasswordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 260, 230, -1));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        emailInput.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        emailInput.setForeground(new java.awt.Color(204, 204, 204));
+        emailInput.setText("Enter email here");
+        emailInput.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), javax.swing.BorderFactory.createEmptyBorder(2, 15, 2, 15)));
+        emailInput.setOpaque(true);
+        emailInput.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                emailInputFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                emailInputFocusLost(evt);
             }
         });
-        jPanel1.add(jTextField1);
-        jTextField1.setBounds(1010, 440, 240, 40);
-
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+        emailInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                emailInputKeyReleased(evt);
             }
         });
-        jPanel1.add(jTextField2);
-        jTextField2.setBounds(720, 330, 530, 40);
+        backgroundPanel.add(emailInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 180, 650, 60));
 
-        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel4.setText("Email Address:");
-        jPanel1.add(jLabel4);
-        jLabel4.setBounds(720, 290, 180, 23);
-        jPanel1.add(jTextField3);
-        jTextField3.setBounds(720, 440, 240, 40);
+        emailLabel.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        emailLabel.setText("Email Address");
+        backgroundPanel.add(emailLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 140, 180, -1));
 
-        jLabel5.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel5.setText("New Password:");
-        jPanel1.add(jLabel5);
-        jLabel5.setBounds(720, 400, 200, 23);
+        newPasswordLabel.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        newPasswordLabel.setText("New Password");
+        backgroundPanel.add(newPasswordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 260, 230, -1));
 
-        jLabel6.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        jLabel6.setText("3) Password should have at least one special characters (#, @, $, etc.)");
-        jPanel1.add(jLabel6);
-        jLabel6.setBounds(780, 550, 460, 40);
+        passwordRequirementLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        passwordRequirementLabel3.setText(" •  Password should have at least one special characters (#, @, $, etc.)");
+        backgroundPanel.add(passwordRequirementLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 440, 570, 30));
 
-        jLabel7.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
-        jLabel7.setText("Note:");
-        jPanel1.add(jLabel7);
-        jLabel7.setBounds(720, 490, 50, 23);
+        noteLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        noteLabel.setText("Note:");
+        backgroundPanel.add(noteLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 380, 50, 30));
 
-        jLabel8.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        jLabel8.setText("1) Password should consist of 8 to 20 characters");
-        jPanel1.add(jLabel8);
-        jLabel8.setBounds(780, 490, 320, 40);
+        passwordRequirementLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        passwordRequirementLabel1.setText(" •  Password should consist of 8 to 20 characters");
+        backgroundPanel.add(passwordRequirementLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 380, 550, 30));
 
-        jButton1.setBackground(new java.awt.Color(159, 122, 84));
-        jButton1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText(" Reset Password");
-        jPanel1.add(jButton1);
-        jButton1.setBounds(720, 590, 540, 60);
+        resetPasswordButton.setBackground(new java.awt.Color(0, 0, 0));
+        resetPasswordButton.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        resetPasswordButton.setForeground(new java.awt.Color(255, 255, 255));
+        resetPasswordButton.setText(" Reset Password");
+        resetPasswordButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        resetPasswordButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                resetPasswordButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                resetPasswordButtonMouseExited(evt);
+            }
+        });
+        resetPasswordButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetPasswordButtonActionPerformed(evt);
+            }
+        });
+        backgroundPanel.add(resetPasswordButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 490, 650, 70));
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logo_dark.png"))); // NOI18N
-        jPanel1.add(jLabel10);
-        jLabel10.setBounds(50, 30, 150, 110);
+        closeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/cancel_icon.png"))); // NOI18N
+        closeButton.setBorderPainted(false);
+        closeButton.setContentAreaFilled(false);
+        closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                closeButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                closeButtonMouseExited(evt);
+            }
+        });
+        closeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                closeButtonActionPerformed(evt);
+            }
+        });
+        backgroundPanel.add(closeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 60, 40, 50));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/cancel.png"))); // NOI18N
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jPanel1.add(jButton2);
-        jButton2.setBounds(1340, 10, 40, 50);
+        passwordRequirementLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        passwordRequirementLabel2.setText(" •  Password should have at least one number and one alphabet");
+        backgroundPanel.add(passwordRequirementLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 410, 550, 30));
 
-        jLabel9.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        jLabel9.setText("2) Password should have at least one number and one alphabet");
-        jPanel1.add(jLabel9);
-        jLabel9.setBounds(780, 520, 460, 40);
+        retypePasswordField.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        retypePasswordField.setForeground(new java.awt.Color(204, 204, 204));
+        retypePasswordField.setText("Retype password here");
+        retypePasswordField.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), javax.swing.BorderFactory.createEmptyBorder(2, 15, 2, 15)));
+        retypePasswordField.setEchoChar((char) 0);
+        retypePasswordField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                retypePasswordFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                retypePasswordFieldFocusLost(evt);
+            }
+        });
+        retypePasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                retypePasswordFieldKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                retypePasswordFieldKeyReleased(evt);
+            }
+        });
+        backgroundPanel.add(retypePasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 300, 320, 60));
+
+        newPasswordField.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        newPasswordField.setForeground(new java.awt.Color(204, 204, 204));
+        newPasswordField.setText("New password here");
+        newPasswordField.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), javax.swing.BorderFactory.createEmptyBorder(2, 15, 2, 15)));
+        newPasswordField.setEchoChar((char) 0);
+        newPasswordField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                newPasswordFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                newPasswordFieldFocusLost(evt);
+            }
+        });
+        newPasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                newPasswordFieldKeyReleased(evt);
+            }
+        });
+        backgroundPanel.add(newPasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 300, 320, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(backgroundPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1250, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
+            .addComponent(backgroundPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void emailInputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailInputFocusGained
+        
+        // If the prompt is "Enter email here"
+        if (emailInput.getText().equals("Enter email here")) {
+            
+            // Remove the prompt
+            emailInput.setText("");
+            
+            // Change the text colour to black
+            emailInput.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_emailInputFocusGained
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    private void emailInputFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailInputFocusLost
+        
+        // If the field is empty
+        if (emailInput.getText().isBlank()) {
+            
+            // Set prompt to "Enter email here"
+            emailInput.setText("Enter email here");
+            
+            // Change the text colour to grey
+            emailInput.setForeground(new Color(204, 204, 204));
+        }
+    }//GEN-LAST:event_emailInputFocusLost
+
+    private void newPasswordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_newPasswordFieldFocusGained
+
+        // Get the current input
+        String input = Utility.generateString(newPasswordField.getPassword());
+        
+        // If the input is "New password here"
+        if (input.equals("New password here")) {
+            
+            // Remove the prompt
+            newPasswordField.setText("");
+            
+            // Set text colour to black
+            newPasswordField.setForeground(Color.BLACK);
+            
+            // Set echo char to "•"
+            newPasswordField.setEchoChar('•');
+        }
+    }//GEN-LAST:event_newPasswordFieldFocusGained
+
+    private void newPasswordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_newPasswordFieldFocusLost
+
+        // Get the current input
+        String input = Utility.generateString(newPasswordField.getPassword());
+        
+        // Check if the input is blank
+        if (input.isBlank()) {
+            
+            // Remove the prompt
+            newPasswordField.setText("New password here");
+            
+            // Set text colour to black
+            newPasswordField.setForeground(new Color(204, 204, 204));
+            
+            // Set echo char to normal text
+            newPasswordField.setEchoChar((char) 0);
+        }
+    }//GEN-LAST:event_newPasswordFieldFocusLost
+
+    private void retypePasswordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_retypePasswordFieldFocusGained
+
+        // Get the current input
+        String input = Utility.generateString(retypePasswordField.getPassword());
+        
+        // If the input is "Retype password here"
+        if (input.equals("Retype password here")) {
+            
+            // Remove the prompt
+            retypePasswordField.setText("");
+            
+            // Set text colour to black
+            retypePasswordField.setForeground(Color.BLACK);
+            
+            // Set echo char to "•"
+            retypePasswordField.setEchoChar('•');
+        }
+    }//GEN-LAST:event_retypePasswordFieldFocusGained
+
+    private void retypePasswordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_retypePasswordFieldFocusLost
+
+        // Get the current input
+        String input = Utility.generateString(retypePasswordField.getPassword());
+        
+        // Check if the input is blank
+        if (input.isBlank()) {
+            
+            // Remove the prompt
+            retypePasswordField.setText("Retype password here");
+            
+            // Set text colour to black
+            retypePasswordField.setForeground(new Color(204, 204, 204));
+            
+            // Set echo char to normal text
+            retypePasswordField.setEchoChar((char) 0);
+        }
+    }//GEN-LAST:event_retypePasswordFieldFocusLost
+
+    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
+
+        // Enable the login frame 
+        LoginPage.currentFrame.setEnabled(true);
+        
+        // Dispose the current pop up
+        dispose();
+    }//GEN-LAST:event_closeButtonActionPerformed
+
+    private void closeButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeButtonMouseEntered
+
+        // Set the cursor
+        closeButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_closeButtonMouseEntered
+
+    private void closeButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeButtonMouseExited
+
+        // Set the cursor
+        closeButton.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_closeButtonMouseExited
+
+    private void resetPasswordButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetPasswordButtonMouseEntered
+
+        // Change the cursor
+        resetPasswordButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        
+        // Change the button colour to brown and text colour to black
+        resetPasswordButton.setBackground(new Color(206, 171, 147));
+        resetPasswordButton.setForeground(Color.BLACK);
+    }//GEN-LAST:event_resetPasswordButtonMouseEntered
+
+    private void resetPasswordButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetPasswordButtonMouseExited
+
+        // Change the cursor
+        resetPasswordButton.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        
+        // Change the button colour to brown and text colour to white
+        resetPasswordButton.setBackground(Color.BLACK);
+        resetPasswordButton.setForeground(Color.WHITE);
+    }//GEN-LAST:event_resetPasswordButtonMouseExited
+
+    private void resetPasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetPasswordButtonActionPerformed
+ 
+        // Get the input from users
+        String email = emailInput.getText().strip().toLowerCase();
+        String newPassword = Utility.generateString(newPasswordField.getPassword());
+        String retypePassword = Utility.generateString(retypePasswordField.getPassword());
+        
+        // Check if the password matches
+        if (newPassword.equals(retypePassword)) {
+            
+            // Check if password is reset successfully
+            int passwordResetStatus = User.resetPassword(email, newPassword);
+            
+            // Handle different cases for different status
+            switch (passwordResetStatus) {
+                
+                // If password is reset successfully
+                case 1 -> {
+                    
+                    // Show notification to indicate that password resets succcessfully
+                    NotificationPopUp passwordResetSuccess = new NotificationPopUp (
+                            this,
+                            "Password Reset Successful",
+                            "Your password is reset successfully.<br>You will be redirected to the login page.",
+                            new String[]{"OK"}
+                    );
+                    passwordResetSuccess.setVisible(true);
+                    
+                    // Navigate back to login page and dispose the current frame
+                    LoginPage.currentFrame.setEnabled(true);
+                    dispose();
+                }
+                
+                // If email is not available
+                case 0 -> {
+                    
+                    // Show notification to indicate that email is incorrect
+                    NotificationPopUp incorrectEmail = new NotificationPopUp (
+                            this,
+                            "Incorrect Email",
+                            "The email does not exist.<br>Please try another email.",
+                            new String[]{"OK"}
+                    );
+                    incorrectEmail.setVisible(true);
+                }
+                
+                // If password does not meet requirements
+                case -1 -> {
+                    // Show notification to indicate that email is incorrect
+                    NotificationPopUp notMeetingRequirements = new NotificationPopUp (
+                            this,
+                            "Invalid Password",
+                            "Your password does not meet the requirements.<br>Please try another password.",
+                            new String[]{"OK"}
+                    );
+                    notMeetingRequirements.setVisible(true);
+                }
+            }
+            
+        // When the passwords do not match
+        } else {
+            
+            // Show a notification message to let user try again
+            NotificationPopUp passwordNotMatchMessage = new NotificationPopUp(
+                    this, 
+                    "Unmatching Passwords", 
+                    "The passwords provided do not match.<br>Please try again.", 
+                    new String[]{"OK"}
+            );
+            passwordNotMatchMessage.setVisible(true);
+        }
+    }//GEN-LAST:event_resetPasswordButtonActionPerformed
+
+    private void emailInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailInputKeyReleased
+
+        // When enter key is pressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
+            // Shift focus to new password field
+            newPasswordField.requestFocus();
+            newPasswordField.selectAll();
+        }
+    }//GEN-LAST:event_emailInputKeyReleased
+
+    private void newPasswordFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_newPasswordFieldKeyReleased
+
+        // When enter key is pressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
+            // Shift focus to retype password field
+            retypePasswordField.requestFocus();
+            retypePasswordField.selectAll();
+        }
+    }//GEN-LAST:event_newPasswordFieldKeyReleased
+
+    private void retypePasswordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_retypePasswordFieldKeyPressed
+
+        // When enter key is pressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
+            // Change the colour of the reset button
+            resetPasswordButton.setBackground(new Color(206, 171, 147));
+            resetPasswordButton.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_retypePasswordFieldKeyPressed
+
+    private void retypePasswordFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_retypePasswordFieldKeyReleased
+
+        // When enter key is pressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
+            // Change the colour of the reset button
+            resetPasswordButton.setBackground(Color.BLACK);
+            resetPasswordButton.setForeground(Color.WHITE);
+            
+            // Hit the button
+            resetPasswordButton.doClick();
+        }
+    }//GEN-LAST:event_retypePasswordFieldKeyReleased
 
     /**
      * @param args the command line arguments
@@ -190,21 +509,20 @@ public class ResetPassword extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JPanel backgroundPanel;
+    private javax.swing.JButton closeButton;
+    private javax.swing.JTextField emailInput;
+    private javax.swing.JLabel emailLabel;
+    private javax.swing.JLabel iconLabel;
+    private javax.swing.JPasswordField newPasswordField;
+    private javax.swing.JLabel newPasswordLabel;
+    private javax.swing.JLabel noteLabel;
+    private javax.swing.JLabel passwordRequirementLabel1;
+    private javax.swing.JLabel passwordRequirementLabel2;
+    private javax.swing.JLabel passwordRequirementLabel3;
+    private javax.swing.JButton resetPasswordButton;
+    private javax.swing.JPasswordField retypePasswordField;
+    private javax.swing.JLabel retypePasswordLabel;
+    private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }
