@@ -6,7 +6,7 @@ package frontend.home_page;
 
 import backend.entity.*;
 import backend.utility.Utility;
-import frontend.pop_up.NotificationPopUp;
+import frontend.pop_up.SystemPopUp;
 import frontend.vendor.MainPage;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -314,9 +314,10 @@ public class LoginPage extends javax.swing.JFrame {
                 default -> {
                     
                     // Create a try again message if the current user retrieved is not in the user type (should not happen)
-                    NotificationPopUp tryAgainMessage = new NotificationPopUp(this, "System Error", "Sorry, something wrong has happened.<br>Please try another credentials.", new String[]{"OK"});
+                    SystemPopUp tryAgainMessage = new SystemPopUp(this, "System Error", "Sorry, something wrong has happened.<br>Please try another credentials.", new String[]{"OK"});
                     tryAgainMessage.setVisible(true);
                 }
+
             }
             
             // Dispose the current frame and the home page frame once user logins
@@ -324,7 +325,7 @@ public class LoginPage extends javax.swing.JFrame {
             HomePage.currentFrame.dispose();
             
         } else {
-            NotificationPopUp tryAgainMessage = new NotificationPopUp(this, "Incorrect Credentials", "The credentials entered are incorrect.<br>Please try again.", new String[]{"OK"});
+            SystemPopUp tryAgainMessage = new SystemPopUp(this, "Incorrect Credentials", "The credentials entered are incorrect.<br>Please try again.", new String[]{"OK"});
             tryAgainMessage.setVisible(true);
         }
 

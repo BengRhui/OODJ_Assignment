@@ -288,7 +288,7 @@ public class UploadBackgroundPopUp extends javax.swing.JFrame {
         MainPage.updateBackground();
 
         // Show a notification to indicate that the background picture is updated successfully
-        NotificationPopUp successNotification = new NotificationPopUp(
+        SystemPopUp successNotification = new SystemPopUp(
                 this,
                 "Background Updated Successfully",
                 "Your background has been updated successfully.",

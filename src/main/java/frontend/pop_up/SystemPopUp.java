@@ -20,7 +20,7 @@ import javax.swing.JPanel;
  *
  * @author limbengrhui
  */
-public class NotificationPopUp extends javax.swing.JDialog {
+public class SystemPopUp extends javax.swing.JDialog {
 
     private static int status = -1;
     private static JButton[] buttonList;
@@ -34,7 +34,7 @@ public class NotificationPopUp extends javax.swing.JDialog {
      *
      * @param parent The parent frame of the JDialog
      */
-    public NotificationPopUp(java.awt.Frame parent, String title, String description, String[] optionList) {
+    public SystemPopUp(java.awt.Frame parent, String title, String description, String[] optionList) {
         super(parent, "Confirmation", true);
 
         // Validate the inputs
@@ -252,21 +252,23 @@ public class NotificationPopUp extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NotificationPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SystemPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NotificationPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SystemPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NotificationPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SystemPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NotificationPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SystemPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                NotificationPopUp dialog = new NotificationPopUp(new javax.swing.JFrame(), "ABC", "123", new String[]{"Okay"});
+                SystemPopUp dialog = new SystemPopUp(new javax.swing.JFrame(), "ABC", "123", new String[]{"Okay"});
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

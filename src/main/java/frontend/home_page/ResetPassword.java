@@ -6,7 +6,7 @@ package frontend.home_page;
 
 import backend.entity.User;
 import backend.utility.Utility;
-import frontend.pop_up.NotificationPopUp;
+import frontend.pop_up.SystemPopUp;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.KeyEvent;
@@ -372,7 +372,7 @@ public class ResetPassword extends javax.swing.JFrame {
                 case 1 -> {
                     
                     // Show notification to indicate that password resets succcessfully
-                    NotificationPopUp passwordResetSuccess = new NotificationPopUp (
+                    SystemPopUp passwordResetSuccess = new SystemPopUp (
                             this,
                             "Password Reset Successful",
                             "Your password is reset successfully.<br>You will be redirected to the login page.",
@@ -389,7 +389,7 @@ public class ResetPassword extends javax.swing.JFrame {
                 case 0 -> {
                     
                     // Show notification to indicate that email is incorrect
-                    NotificationPopUp incorrectEmail = new NotificationPopUp (
+                    SystemPopUp incorrectEmail = new SystemPopUp (
                             this,
                             "Incorrect Email",
                             "The email does not exist.<br>Please try another email.",
@@ -401,7 +401,7 @@ public class ResetPassword extends javax.swing.JFrame {
                 // If password does not meet requirements
                 case -1 -> {
                     // Show notification to indicate that email is incorrect
-                    NotificationPopUp notMeetingRequirements = new NotificationPopUp (
+                    SystemPopUp notMeetingRequirements = new SystemPopUp (
                             this,
                             "Invalid Password",
                             "Your password does not meet the requirements.<br>Please try another password.",
@@ -409,13 +409,14 @@ public class ResetPassword extends javax.swing.JFrame {
                     );
                     notMeetingRequirements.setVisible(true);
                 }
+
             }
             
         // When the passwords do not match
         } else {
             
             // Show a notification message to let user try again
-            NotificationPopUp passwordNotMatchMessage = new NotificationPopUp(
+            SystemPopUp passwordNotMatchMessage = new SystemPopUp(
                     this, 
                     "Unmatching Passwords", 
                     "The passwords provided do not match.<br>Please try again.", 
