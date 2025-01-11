@@ -5,6 +5,7 @@
 package frontend.home_page;
 
 import java.awt.*;
+import javax.swing.JFrame;
 
 /**
  *
@@ -12,10 +13,17 @@ import java.awt.*;
  */
 public class HomePage extends javax.swing.JFrame {
 
+    public static JFrame currentFrame;
+    
     /**
      * Creates new form HomePage
      */
     public HomePage() {
+        
+        // Set the current frame
+        currentFrame = this;
+        
+        // Render GUI components
         initComponents();
     }
 
@@ -839,8 +847,8 @@ public class HomePage extends javax.swing.JFrame {
         loginPage.setVisible(true);
         loginPage.setLocationRelativeTo(this);
         
-        // Discard the current page
-        dispose();
+        // Make the current page invisible
+        setVisible(false);
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void loginButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginButtonMouseEntered
@@ -875,8 +883,8 @@ public class HomePage extends javax.swing.JFrame {
         loginPage.setVisible(true);
         loginPage.setLocationRelativeTo(this);
         
-        // Discard the current page
-        dispose();
+        // Make the current page invisible
+        setVisible(false);
     }//GEN-LAST:event_halfTransparentPanel1MouseClicked
 
     private void halfTransparentPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_halfTransparentPanel2MouseClicked
