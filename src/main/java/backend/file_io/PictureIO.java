@@ -75,7 +75,7 @@ public class PictureIO {
 
         // If the uploaded file is null, then return true here
         if (uploadedFile == null) return true;
-        
+
         // Get the file extension and generate file name
         String[] initialFileName = uploadedFile.getName().split("\\.");
         String fileExtension = initialFileName[initialFileName.length - 1];
