@@ -7,11 +7,18 @@ package frontend.vendor;
 import backend.entity.Stall;
 import backend.entity.Vendor;
 import backend.file_io.PictureIO;
+import frontend.pop_up.UploadBackgroundPopUp;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 /**
  *
@@ -19,6 +26,7 @@ import javax.swing.ImageIcon;
  */
 public class MainPage extends javax.swing.JFrame {
 
+    public static JFrame currentFrame;
     private static Vendor currentVendor;
     private static String currentCard;
     
@@ -27,6 +35,9 @@ public class MainPage extends javax.swing.JFrame {
      */
     public MainPage() {
 
+        // Set the current frame
+        currentFrame = this;
+        
         // A temporary variable for development purpose
         currentVendor = new Vendor("V001", "vendor@mail.com", "Mno@3456", "Muhammad Abdul Ali bin Ahmad Ghazali", new Stall("S001", "Big Fish and Chips Western", new Stall.StallCategories[]{Stall.StallCategories.LOCAL, Stall.StallCategories.WESTERN, Stall.StallCategories.HALAL}));
         initComponents();
@@ -53,6 +64,37 @@ public class MainPage extends javax.swing.JFrame {
     public static void setVendor(Vendor vendor) {
         currentVendor = vendor;
     }
+    
+    /**
+     * This method is to let other frames to retrieve the current vendor.
+     * @return The vendor object that is logged into the system
+     */
+    public static Vendor getVendor() {
+        return currentVendor;
+    }
+    
+    /**
+     * This method is to help update the background of the current frame after uploading.
+     */
+    public static void updateBackground() {
+        
+        try {
+            
+            // Use image IO to read the image file to avoid cache
+            BufferedImage image = ImageIO.read(new File(PictureIO.retrieveBackgroundPicture(currentVendor).getAbsolutePath()));
+            ImageIcon updatedBackground = new ImageIcon(image);
+
+            // Change the background
+            vendorBackground.setIcon(updatedBackground);
+
+            // Make sure that everything is refreshed when updating the background
+            backgroundPanel.revalidate();
+            backgroundPanel.repaint();
+            
+        } catch (IOException ex) {
+            System.out.println("Error in writing files.");
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -64,8 +106,19 @@ public class MainPage extends javax.swing.JFrame {
     private void initComponents() {
 
         backgroundPanel = new javax.swing.JPanel();
-        basePanel = new javax.swing.JPanel();
-        headerPanel = new javax.swing.JPanel();
+        basePanel = new javax.swing.JPanel() {
+            protected void paintComponent(Graphics g) {
+                g.setColor(getBackground());
+                g.fillRect(0, 0, getWidth(), getHeight());
+                super.paintComponent(g);
+            }
+        }
+        ;
+        headerPanel = new javax.swing.JPanel(){
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+            }
+        };
         logoPictureLabel = new javax.swing.JLabel();
         homePageLabel = new javax.swing.JLabel();
         itemListingLabel = new javax.swing.JLabel();
@@ -73,28 +126,34 @@ public class MainPage extends javax.swing.JFrame {
         logoutIcon = new javax.swing.JLabel();
         notificationIcon = new javax.swing.JLabel();
         addBackgroundIcon = new javax.swing.JLabel();
-        cardPanel = new javax.swing.JPanel();
+        cardPanel = new javax.swing.JPanel() {
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+            }
+        };
         vendorBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Food Court System");
         setMinimumSize(new java.awt.Dimension(1400, 800));
         setName("vendorMainFrame"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1400, 800));
         setSize(new java.awt.Dimension(1400, 800));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         backgroundPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         basePanel.setBackground(new java.awt.Color(0, 0, 0, 150));
+        basePanel.setOpaque(false);
         basePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         headerPanel.setBackground(new Color(0, 0, 0, 0));
+        headerPanel.setOpaque(false);
         headerPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         logoPictureLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logo_light_without_text.png"))); // NOI18N
         headerPanel.add(logoPictureLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
 
+        homePageLabel.setBackground(new Color(0, 0, 0, 0));
         homePageLabel.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         homePageLabel.setForeground(new java.awt.Color(255, 255, 255));
         homePageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -112,6 +171,7 @@ public class MainPage extends javax.swing.JFrame {
         });
         headerPanel.add(homePageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 140, 30));
 
+        itemListingLabel.setBackground(new Color(0, 0, 0, 0));
         itemListingLabel.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         itemListingLabel.setForeground(new java.awt.Color(255, 255, 255));
         itemListingLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -129,6 +189,7 @@ public class MainPage extends javax.swing.JFrame {
         });
         headerPanel.add(itemListingLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, 140, 30));
 
+        orderHistoryLabel.setBackground(new Color(0, 0, 0, 0));
         orderHistoryLabel.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         orderHistoryLabel.setForeground(new java.awt.Color(255, 255, 255));
         orderHistoryLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -171,6 +232,9 @@ public class MainPage extends javax.swing.JFrame {
 
         addBackgroundIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/customize_image_icon.png"))); // NOI18N
         addBackgroundIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addBackgroundIconMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 addBackgroundIconMouseEntered(evt);
             }
@@ -183,19 +247,20 @@ public class MainPage extends javax.swing.JFrame {
         basePanel.add(headerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1400, 150));
 
         cardPanel.setBackground(new Color(0, 0, 0, 0));
+        cardPanel.setOpaque(false);
         cardPanel.setLayout(new java.awt.CardLayout());
         basePanel.add(cardPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 1400, 650));
 
         backgroundPanel.add(basePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1400, 800));
 
-        vendorBackground.setBackground(new java.awt.Color(204, 255, 204));
         vendorBackground.setIcon(new ImageIcon(
             PictureIO.retrieveBackgroundPicture(
                 currentVendor
             ).getAbsolutePath()
         ));
         vendorBackground.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        backgroundPanel.add(vendorBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1400, 800));
+        vendorBackground.setOpaque(true);
+        backgroundPanel.add(vendorBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1400, 500));
 
         getContentPane().add(backgroundPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1400, 800));
 
@@ -376,6 +441,17 @@ public class MainPage extends javax.swing.JFrame {
         logoutIcon.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_logoutIconMouseExited
 
+    private void addBackgroundIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBackgroundIconMouseClicked
+        
+        // Call the upload background picture pop up
+        UploadBackgroundPopUp uploadBackgroundPopUp = new UploadBackgroundPopUp();
+        uploadBackgroundPopUp.setVisible(true);
+        uploadBackgroundPopUp.setLocationRelativeTo(this);
+        
+        // Disable the current frame
+        setEnabled(false);
+    }//GEN-LAST:event_addBackgroundIconMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -414,8 +490,8 @@ public class MainPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addBackgroundIcon;
-    private javax.swing.JPanel backgroundPanel;
-    private javax.swing.JPanel basePanel;
+    private static javax.swing.JPanel backgroundPanel;
+    private static javax.swing.JPanel basePanel;
     private javax.swing.JPanel cardPanel;
     private javax.swing.JPanel headerPanel;
     private javax.swing.JLabel homePageLabel;
@@ -424,6 +500,6 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel logoutIcon;
     private javax.swing.JLabel notificationIcon;
     private javax.swing.JLabel orderHistoryLabel;
-    private javax.swing.JLabel vendorBackground;
+    private static javax.swing.JLabel vendorBackground;
     // End of variables declaration//GEN-END:variables
 }
