@@ -7,6 +7,7 @@ import backend.utility.Utility;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -155,6 +156,24 @@ public class CustomerNotification implements Notification {
         CustomerNotification.addToList(newNotification);
         NotificationIO.writeFile();
         return true;
+    }
+
+    /**
+     * A method to retrieve the list of notifications related to a customer.
+     *
+     * @param customer The customer involved in the notification
+     * @return The filtered notification list
+     */
+    public static ArrayList<Notification> getNotificationList(Customer customer) {
+
+        // Retrieve the list of customer notifications
+        ArrayList<CustomerNotification> notificationList = new ArrayList<>(CustomerNotification.getCustomerNotificationList());
+
+        // Filter the notification list based on customer ID then arrange them in descending order based on time
+        return notificationList.stream()
+                .filter(notification -> notification.customer.getUserID().equals(customer.getUserID()))
+                .sorted(Comparator.comparing(CustomerNotification::getNotificationTime).reversed())
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**

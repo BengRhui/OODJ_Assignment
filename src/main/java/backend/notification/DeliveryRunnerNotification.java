@@ -7,6 +7,7 @@ import backend.utility.Utility;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -154,6 +155,24 @@ public class DeliveryRunnerNotification implements Notification {
 
         // Return true for successful operation
         return true;
+    }
+
+    /**
+     * A method to retrieve the list of notifications related to a delivery runner.
+     *
+     * @param runner The delivery runner involved in the notification
+     * @return The filtered notification list
+     */
+    public static ArrayList<Notification> getNotificationList(DeliveryRunner runner) {
+
+        // Retrieve the list of customer notifications
+        ArrayList<DeliveryRunnerNotification> notificationList = new ArrayList<>(DeliveryRunnerNotification.getDeliveryRunnerNotificationList());
+
+        // Filter the notification list based on runner ID then arrange them in descending order based on time
+        return notificationList.stream()
+                .filter(notification -> notification.runner.getUserID().equals(runner.getUserID()))
+                .sorted(Comparator.comparing(DeliveryRunnerNotification::getNotificationTime).reversed())
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
