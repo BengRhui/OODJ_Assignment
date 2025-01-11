@@ -288,7 +288,6 @@ public class LoginPage extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
 
-        // RMB TO ADD BACK BUTTON
         // Process the input from user
         String userEmail = emailInput.getText().toLowerCase().strip();
         String userPassword = Utility.generateString(passwordInput.getPassword());
@@ -306,6 +305,7 @@ public class LoginPage extends javax.swing.JFrame {
                     // Create a new vendor page
                     MainPage vendorPage = new MainPage();
                     vendorPage.setVisible(true);
+                    vendorPage.setLocationRelativeTo(this);
                     
                     // Set the vendor to the new vendor page
                     MainPage.setVendor(vendor);
@@ -317,8 +317,12 @@ public class LoginPage extends javax.swing.JFrame {
                     NotificationPopUp tryAgainMessage = new NotificationPopUp(this, "System Error", "Sorry, something wrong has happened.<br>Please try another credentials.", new String[]{"OK"});
                     tryAgainMessage.setVisible(true);
                 }
-
             }
+            
+            // Dispose the current frame and the home page frame once user logins
+            dispose();
+            HomePage.currentFrame.dispose();
+            
         } else {
             NotificationPopUp tryAgainMessage = new NotificationPopUp(this, "Incorrect Credentials", "The credentials entered are incorrect.<br>Please try again.", new String[]{"OK"});
             tryAgainMessage.setVisible(true);
