@@ -4,8 +4,13 @@
  */
 package frontend.home_page;
 
+import backend.entity.*;
+import backend.utility.Utility;
+import frontend.pop_up.NotificationPopUp;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
 
 /**
  *
@@ -13,10 +18,16 @@ import java.awt.Cursor;
  */
 public class LoginPage extends javax.swing.JFrame {
 
+    public static JFrame currentFrame;
     /**
      * Creates new form LoginPage
      */
     public LoginPage() {
+        
+        // Set the current frame to the variable
+        currentFrame = this;
+        
+        // Render GUI components
         initComponents();
     }
 
@@ -31,21 +42,21 @@ public class LoginPage extends javax.swing.JFrame {
 
         backgroundPanel = new javax.swing.JPanel();
         translucentBlackBackground = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        logoPicture = new javax.swing.JLabel();
+        credentialsPanel = new javax.swing.JPanel();
         loginTitle = new javax.swing.JLabel();
         emailTitle = new javax.swing.JLabel();
         emailInput = new javax.swing.JTextField();
         loginButton = new javax.swing.JButton();
         passwordTitle = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        forgetPasswordLabel = new javax.swing.JLabel();
         passwordInput = new javax.swing.JPasswordField();
+        backIcon = new javax.swing.JLabel();
         backgroundImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Food Court System");
         setName("loginFrame"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1400, 800));
         setResizable(false);
 
         backgroundPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -56,25 +67,25 @@ public class LoginPage extends javax.swing.JFrame {
         translucentBlackBackground.setBackground(new java.awt.Color(0, 0, 0, 128));
         translucentBlackBackground.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logo_light_with_text.png"))); // NOI18N
-        translucentBlackBackground.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 35, -1, -1));
+        logoPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logo_light_with_text.png"))); // NOI18N
+        translucentBlackBackground.add(logoPicture, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0, 200));
-        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        credentialsPanel.setBackground(new java.awt.Color(0, 0, 0, 200));
+        credentialsPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
+        credentialsPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         loginTitle.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         loginTitle.setForeground(new java.awt.Color(255, 255, 255));
         loginTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         loginTitle.setText("WELCOME BACK");
         loginTitle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(loginTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 580, -1));
+        credentialsPanel.add(loginTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 580, -1));
 
         emailTitle.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         emailTitle.setForeground(new java.awt.Color(255, 255, 255));
         emailTitle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         emailTitle.setText("Email");
-        jPanel1.add(emailTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 130, 50));
+        credentialsPanel.add(emailTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 130, 50));
 
         emailInput.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         emailInput.setForeground(new java.awt.Color(204, 204, 204));
@@ -89,7 +100,12 @@ public class LoginPage extends javax.swing.JFrame {
                 emailInputFocusLost(evt);
             }
         });
-        jPanel1.add(emailInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 440, 60));
+        emailInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                emailInputKeyReleased(evt);
+            }
+        });
+        credentialsPanel.add(emailInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 440, 60));
 
         loginButton.setBackground(new java.awt.Color(0, 0, 0));
         loginButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -105,18 +121,34 @@ public class LoginPage extends javax.swing.JFrame {
                 loginButtonMouseExited(evt);
             }
         });
-        jPanel1.add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, 440, 60));
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginButtonActionPerformed(evt);
+            }
+        });
+        credentialsPanel.add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, 440, 60));
 
         passwordTitle.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         passwordTitle.setForeground(new java.awt.Color(255, 255, 255));
         passwordTitle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         passwordTitle.setText("Password");
-        jPanel1.add(passwordTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, 130, 50));
+        credentialsPanel.add(passwordTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, 130, 50));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("<html>Forgot password? Click <u>me</u>!</html>");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 310, -1));
+        forgetPasswordLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        forgetPasswordLabel.setForeground(new java.awt.Color(255, 255, 255));
+        forgetPasswordLabel.setText("<html>Forgot password? Click <u>me</u>!</html>");
+        forgetPasswordLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                forgetPasswordLabelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                forgetPasswordLabelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                forgetPasswordLabelMouseExited(evt);
+            }
+        });
+        credentialsPanel.add(forgetPasswordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 250, -1));
 
         passwordInput.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         passwordInput.setForeground(new java.awt.Color(204, 204, 204));
@@ -132,9 +164,31 @@ public class LoginPage extends javax.swing.JFrame {
                 passwordInputFocusLost(evt);
             }
         });
-        jPanel1.add(passwordInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, 440, 60));
+        passwordInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordInputKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                passwordInputKeyReleased(evt);
+            }
+        });
+        credentialsPanel.add(passwordInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, 440, 60));
 
-        translucentBlackBackground.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, 580, 600));
+        translucentBlackBackground.add(credentialsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, 580, 600));
+
+        backIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/back_icon.png"))); // NOI18N
+        backIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backIconMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backIconMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backIconMouseExited(evt);
+            }
+        });
+        translucentBlackBackground.add(backIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 50, -1, -1));
 
         backgroundPanel.add(translucentBlackBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1400, 800));
 
@@ -231,6 +285,116 @@ public class LoginPage extends javax.swing.JFrame {
         loginButton.setBackground(Color.BLACK);
     }//GEN-LAST:event_loginButtonMouseExited
 
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+
+        // RMB TO ADD BACK BUTTON
+        // Process the input from user
+        String userEmail = emailInput.getText().toLowerCase().strip();
+        String userPassword = Utility.generateString(passwordInput.getPassword());
+
+        User currentUser = User.getUser(userEmail, userPassword);
+
+        if (currentUser != null) {
+            switch (currentUser) {
+                case Admin admin -> System.out.println(admin);
+                case Customer customer -> System.out.println(customer);
+                case DeliveryRunner runner -> System.out.println(runner);
+                case Manager manager -> System.out.println(manager);
+                case Vendor vendor -> System.out.println(vendor);
+                default -> {
+                    NotificationPopUp tryAgainMessage = new NotificationPopUp(this, "System Error", "Sorry, something wrong has happened.<br>Please try another credentials.", new String[]{"OK"});
+                    tryAgainMessage.setVisible(true);
+                }
+
+            }
+        } else {
+            NotificationPopUp tryAgainMessage = new NotificationPopUp(this, "Incorrect Credentials", "The credentials entered are incorrect.<br>Please try again.", new String[]{"OK"});
+            tryAgainMessage.setVisible(true);
+        }
+
+    }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void backIconMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backIconMouseEntered
+
+        // Change cursor
+        backIcon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_backIconMouseEntered
+
+    private void backIconMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backIconMouseExited
+
+        // Change cursor
+        backIcon.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_backIconMouseExited
+
+    private void backIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backIconMouseClicked
+
+        // Navigate back to home page and set location
+        HomePage.currentFrame.setVisible(true);
+        HomePage.currentFrame.setLocationRelativeTo(this);
+        
+        // Dispose the current frame
+        dispose();
+    }//GEN-LAST:event_backIconMouseClicked
+
+    private void forgetPasswordLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgetPasswordLabelMouseEntered
+
+        // Change cursor
+        forgetPasswordLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_forgetPasswordLabelMouseEntered
+
+    private void forgetPasswordLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgetPasswordLabelMouseExited
+
+        // Change cursor
+        forgetPasswordLabel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_forgetPasswordLabelMouseExited
+
+    private void forgetPasswordLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgetPasswordLabelMouseClicked
+
+        // Open the reset password page
+        ResetPassword resetPasswordPage = new ResetPassword();
+        resetPasswordPage.setVisible(true);
+        resetPasswordPage.setLocationRelativeTo(this);
+        
+        // Make the current frame freeze
+        setEnabled(false);
+    }//GEN-LAST:event_forgetPasswordLabelMouseClicked
+
+    private void emailInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailInputKeyReleased
+        
+        // When the enter key is pressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
+            // Navigate to password input field
+            passwordInput.requestFocus();
+            passwordInput.selectAll();
+        }
+    }//GEN-LAST:event_emailInputKeyReleased
+
+    private void passwordInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordInputKeyReleased
+       
+        // When the enter key is pressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
+            // Reset the colour of the button
+            loginButton.setForeground(Color.WHITE);
+            loginButton.setBackground(Color.BLACK);
+            
+            // Run the button
+            loginButton.doClick();
+        }
+    }//GEN-LAST:event_passwordInputKeyReleased
+
+    private void passwordInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordInputKeyPressed
+        
+        // When pressing enter key
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
+            // Change the colour of the button
+            loginButton.setForeground(Color.BLACK);
+            loginButton.setBackground(Color.WHITE);
+        }
+    }//GEN-LAST:event_passwordInputKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -267,15 +431,16 @@ public class LoginPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel backIcon;
     private javax.swing.JLabel backgroundImage;
     private javax.swing.JPanel backgroundPanel;
+    private javax.swing.JPanel credentialsPanel;
     private javax.swing.JTextField emailInput;
     private javax.swing.JLabel emailTitle;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel forgetPasswordLabel;
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel loginTitle;
+    private javax.swing.JLabel logoPicture;
     private javax.swing.JPasswordField passwordInput;
     private javax.swing.JLabel passwordTitle;
     private javax.swing.JPanel translucentBlackBackground;
