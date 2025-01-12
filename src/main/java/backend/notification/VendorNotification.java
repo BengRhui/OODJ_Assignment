@@ -302,7 +302,12 @@ public class VendorNotification implements Notification {
      */
     @Override
     public void markAsRead() {
+
+        // Change the status
         this.readStatus = NotificationStatus.READ;
+
+        // Write to file
+        NotificationIO.writeFile();
     }
 
     /**

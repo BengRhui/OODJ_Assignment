@@ -42,7 +42,7 @@ public class NotificationIO extends FileIO {
             // Retrieve the associated notification ID
             String ID = record[0];
 
-            // Check the first letter of the ID and create respective notifications
+            // Check the second letter of the ID and create respective notifications
             switch (ID.charAt(1)) {
                 case 'V' -> createVendorNotification(record);
                 case 'R' -> createDeliveryRunnerNotification(record);
