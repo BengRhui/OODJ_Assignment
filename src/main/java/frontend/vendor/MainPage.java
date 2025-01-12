@@ -7,7 +7,9 @@ package frontend.vendor;
 import backend.entity.Stall;
 import backend.entity.Vendor;
 import backend.file_io.PictureIO;
+import frontend.home_page.HomePage;
 import frontend.pop_up.NotificationPopUp;
+import frontend.pop_up.SystemPopUp;
 import frontend.pop_up.UploadBackgroundPopUp;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -136,7 +138,7 @@ public class MainPage extends javax.swing.JFrame {
         };
         vendorBackground = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Food Court System");
         setMinimumSize(new java.awt.Dimension(1400, 800));
         setName("vendorMainFrame"); // NOI18N
@@ -213,6 +215,9 @@ public class MainPage extends javax.swing.JFrame {
         logoutIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logoutIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logout_icon.png"))); // NOI18N
         logoutIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutIconMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 logoutIconMouseEntered(evt);
             }
@@ -465,6 +470,45 @@ public class MainPage extends javax.swing.JFrame {
         vendorNotification.setVisible(true);
         vendorNotification.setLocationRelativeTo(this);
     }//GEN-LAST:event_notificationIconMouseClicked
+
+    private void logoutIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutIconMouseClicked
+
+        // Display a messsage to confirm logout
+        SystemPopUp logoutConfirmation = new SystemPopUp(
+                this,
+                "Logout from System",
+                "Are you sure you wish to logout from the system?",
+                new String[]{"No", "Yes"}
+        );
+        logoutConfirmation.setVisible(true);
+        
+        // Get the status of the notification
+        int status = logoutConfirmation.getStatus();
+        
+        // If "Yes" is chosen
+        if (status == 1) {
+            
+            // Display a message to indicate that logout is successful
+            SystemPopUp successLogout = new SystemPopUp(
+                this,
+                "Logout Success",
+                "Thank you for using the system!",
+                new String[]{"OK"}
+            );
+            successLogout.setVisible(true);
+            
+            // Redirect users to home page
+            HomePage homePage = new HomePage();
+            homePage.setVisible(true);
+            homePage.setLocationRelativeTo(this);
+            
+            // Dispose the current frame
+            dispose();
+
+            // Set the vendor instance to null (to avoid any errors when login again)
+            setVendor(null);
+        }
+    }//GEN-LAST:event_logoutIconMouseClicked
 
     /**
      * @param args the command line arguments
