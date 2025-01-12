@@ -7,6 +7,7 @@ package frontend.vendor;
 import backend.entity.Stall;
 import backend.entity.Vendor;
 import backend.file_io.PictureIO;
+import frontend.pop_up.NotificationPopUp;
 import frontend.pop_up.UploadBackgroundPopUp;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -223,6 +224,9 @@ public class MainPage extends javax.swing.JFrame {
 
         notificationIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/notification_icon.png"))); // NOI18N
         notificationIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                notificationIconMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 notificationIconMouseEntered(evt);
             }
@@ -453,6 +457,14 @@ public class MainPage extends javax.swing.JFrame {
         // Disable the current frame
         setEnabled(false);
     }//GEN-LAST:event_addBackgroundIconMouseClicked
+
+    private void notificationIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notificationIconMouseClicked
+
+        // Call the notification frame
+        NotificationPopUp vendorNotification = new NotificationPopUp(currentVendor);
+        vendorNotification.setVisible(true);
+        vendorNotification.setLocationRelativeTo(this);
+    }//GEN-LAST:event_notificationIconMouseClicked
 
     /**
      * @param args the command line arguments
