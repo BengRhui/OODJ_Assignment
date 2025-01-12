@@ -14,7 +14,6 @@ import backend.notification.DeliveryRunnerNotification;
 import backend.notification.Notification;
 import backend.notification.NotificationStatus;
 import backend.notification.VendorNotification;
-import frontend.home_page.LoginPage;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -142,7 +141,7 @@ public class NotificationPopUp extends javax.swing.JFrame {
         int newWordX = panelWidth - 30 - newWordWidth;
         
         // Get the font for title and description
-        Font titleFont = new Font("Arial", Font.BOLD, 18);
+        Font titleFont = new Font("Arial", Font.BOLD, 20);
         Font descriptionFont = new Font("Arial", Font.PLAIN, 18);
                 
         // Generate the panel
