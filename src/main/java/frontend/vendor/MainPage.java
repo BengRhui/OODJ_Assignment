@@ -46,7 +46,15 @@ public class MainPage extends javax.swing.JFrame {
         initComponents();
         
         // Add cards into the current frame
-        HomePagePanel homePagePanel = new HomePagePanel();
+        HomePagePanel homePagePanel = new HomePagePanel() {
+            
+            // Added to ensure that the transparent background can render properly
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+            }
+        };
+        
         ItemListingPanel itemListingPanel = new ItemListingPanel();
         OrderHistoryPanel orderHistoryPanel = new OrderHistoryPanel();
         
@@ -138,7 +146,7 @@ public class MainPage extends javax.swing.JFrame {
         };
         vendorBackground = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Food Court System");
         setMinimumSize(new java.awt.Dimension(1400, 800));
         setName("vendorMainFrame"); // NOI18N
