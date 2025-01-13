@@ -59,10 +59,10 @@ public class FeedbackPopUp extends javax.swing.JFrame {
         // Initialize the list of JPanels (used to calculate size later)
         ArrayList<JPanel> jPanelList = new ArrayList<>();
         
-        // If there is no notifications
+        // If there is no feedback
         if (feedbackList.isEmpty()) {
             
-            // Create the no notification label
+            // Create the no feedback label
             JLabel noFeedbackText = new JLabel();
             noFeedbackText.setText("No feedback available for now.");
             noFeedbackText.setFont(new Font("Arial", Font.PLAIN, 24));
@@ -75,10 +75,10 @@ public class FeedbackPopUp extends javax.swing.JFrame {
             
         } else {
             
-            // Loop through each notification
+            // Loop through each feedback
             for (Feedback feedback : feedbackList) {
 
-                // Create a JPanel for the notification
+                // Create a JPanel for the feedback
                 JPanel feedbackPanel = createPanel(feedback);
 
                 // Add the panel to the JPanel list
@@ -87,10 +87,10 @@ public class FeedbackPopUp extends javax.swing.JFrame {
                 // Add the JPanel to the content panel
                 contentPanel.add(feedbackPanel);
 
-                // Check if the current notification is the last notification
+                // Check if the current feedback is the last feedback
                 if (!feedback.equals(feedbackList.getLast())) {
 
-                    // Create a gap if its not the last notification
+                    // Create a gap if its not the last feedback
                     contentPanel.add(Box.createVerticalStrut(verticalGap));
                 }
             }
@@ -117,21 +117,31 @@ public class FeedbackPopUp extends javax.swing.JFrame {
      */
     public static JPanel createPanel(Feedback feedback) {
         
-        // Get an estimation for the number of lines that the description will span
-        int lineCount = feedback.getFeedbackDetails().length() / 90 + 1;
-        
-        // Get the size of the panel
+        // Get the width for everything
         int panelWidth = contentPanel.getWidth();
-        int panelHeight = 100 + 25 * lineCount;
-        Dimension panelDimension = new Dimension(panelWidth, panelHeight);
-
-        // Get the size of the title and description
         int starPanelWidth = 200;
-        int starPanelHeight = 30;
         int titleWidth = panelWidth - starPanelWidth - 60;
-        int titleHeight = 30;
         int descriptionWidth = panelWidth - 60;
-        int descriptionHeight = lineCount * 23;
+        
+        // Get the font for title and description
+        Font titleFont = new Font("Arial", Font.BOLD, 20);
+        Font descriptionFont = new Font("Arial", Font.PLAIN, 18);
+        
+        // Generate the description (used to calculate the height for the label later)
+        JLabel feedbackDescription = new JLabel();
+        feedbackDescription.setText("<html><div style='text-align: justify;'>" + feedback.getFeedbackDetails()+ "</div></html>");
+        feedbackDescription.setFont(descriptionFont);
+        
+        // Get the initial width of the description and calculate the number of line it spans
+        double initialDescriptionWidth = feedbackDescription.getPreferredSize().width;
+        int initialDescriptionHeight = feedbackDescription.getPreferredSize().height;
+        int lineCount = (int) Math.ceil(initialDescriptionWidth / descriptionWidth);
+
+        // Calculate the height for everything
+        int panelHeight = 100 + initialDescriptionHeight * lineCount;
+        int starPanelHeight = 30;
+        int titleHeight = 30;
+        int descriptionHeight = lineCount * initialDescriptionHeight;
         
         // Get the position for the elements
         int titleX = 30;
@@ -141,9 +151,8 @@ public class FeedbackPopUp extends javax.swing.JFrame {
         int starPanelX = titleX + titleWidth;
         int starPanelY = 25;
         
-        // Get the font for title and description
-        Font titleFont = new Font("Arial", Font.BOLD, 20);
-        Font descriptionFont = new Font("Arial", Font.PLAIN, 18);
+        // Set the dimension of the panel
+        Dimension panelDimension = new Dimension(panelWidth, panelHeight);
                 
         // Generate the panel
         JPanel feedbackPanel = new JPanel();
@@ -165,10 +174,7 @@ public class FeedbackPopUp extends javax.swing.JFrame {
         feedbackTitle.setHorizontalAlignment(SwingConstants.LEADING);
         feedbackTitle.setVerticalAlignment(SwingConstants.CENTER);
         
-        // Generate the description
-        JLabel feedbackDescription = new JLabel();
-        feedbackDescription.setText("<html><div style='text-align: justify;'>" + feedback.getFeedbackDetails()+ "</div></html>");
-        feedbackDescription.setFont(descriptionFont);
+        // Continue generate the description
         feedbackDescription.setBounds(descriptionX, descriptionY, descriptionWidth, descriptionHeight);
         feedbackDescription.setHorizontalAlignment(SwingConstants.LEADING);
         feedbackDescription.setVerticalAlignment(SwingConstants.TOP);
