@@ -21,7 +21,7 @@ public class NotificationIO extends FileIO {
      */
     public final static String NOTIFICATION_FILE_NAME = "notifications.txt";
     public final static int NUMBER_OF_INFORMATION_IN_FILE = 6;
-    public final static int[] SPACING_SIZE = {5, 5, 20, 10, 25, 80};
+    public final static int[] SPACING_SIZE = {5, 5, 20, 10, 50, 100};
 
     /**
      * A method to read notification file and instantiate different {@code Notification} objects
