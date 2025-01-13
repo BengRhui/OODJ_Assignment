@@ -23,6 +23,8 @@ import java.awt.Graphics;
 
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicHTML;
+import javax.swing.text.View;
 
 /**
  *
@@ -122,27 +124,36 @@ public class NotificationPopUp extends javax.swing.JFrame {
      * @return A JPanel containing information for the notifications
      */
     public static JPanel createPanel(Notification notification) {
-        
-        // Get an estimation for the number of lines that the description will span
-        int lineCount = notification.getNotificationDetails().length() / 90 + 1;
-        
-        // Get the size of the panel
-        int panelWidth = contentPanel.getWidth();
-        int panelHeight = 80 + 25 * lineCount;
-        Dimension panelDimension = new Dimension(panelWidth, panelHeight);
 
-        // Get the size of the title and description
-        int contentWidth = panelWidth - 60;
-        int titleHeight = 25;
-        int descriptionHeight = lineCount * 23;
-        
-        // Get the position for the "New" word
-        int newWordWidth = 50;
-        int newWordX = panelWidth - 30 - newWordWidth;
-        
+        // Firstly get the width for all components
+        int panelWidth = contentPanel.getPreferredSize().width;
+        int descriptionWidth = panelWidth - 60;
+
         // Get the font for title and description
         Font titleFont = new Font("Arial", Font.BOLD, 20);
         Font descriptionFont = new Font("Arial", Font.PLAIN, 18);
+
+        // Generate the description (have to calculate the height)
+        JLabel notificationText = new JLabel();
+        notificationText.setText("<html><div style='text-align: justify;'>" + notification.getNotificationDetails() + "</div></html>");
+        notificationText.setFont(descriptionFont);
+
+        // Based on the newly created JLabel, measure the initial width and hence calculate the size
+        double initialDescriptionWidth = notificationText.getPreferredSize().width;
+        int initialDescriptionHeight = notificationText.getPreferredSize().height;
+        int numOfDescriptionLine = (int) Math.ceil(initialDescriptionWidth / descriptionWidth);
+        
+        // Get the height for all components
+        int descriptionHeight = initialDescriptionHeight * numOfDescriptionLine;
+        int panelHeight = 80 + descriptionHeight;
+        int titleHeight = 25;
+        
+        // Get the position for the "New" word
+        int newWordWidth = 60;
+        int newWordX = panelWidth - 30 - newWordWidth;
+        
+        // Set the dimension of the panel
+        Dimension panelDimension = new Dimension(panelWidth, panelHeight);
                 
         // Generate the panel
         JPanel notificationPanel = new JPanel();
@@ -160,15 +171,12 @@ public class NotificationPopUp extends javax.swing.JFrame {
         JLabel notificationTitle = new JLabel();
         notificationTitle.setText(notification.getNotificationTitle());
         notificationTitle.setFont(titleFont);
-        notificationTitle.setBounds(30, 25, contentWidth, titleHeight);
+        notificationTitle.setBounds(30, 25, descriptionWidth, titleHeight);
         notificationTitle.setHorizontalAlignment(SwingConstants.LEADING);
         notificationTitle.setVerticalAlignment(SwingConstants.CENTER);
         
-        // Generate the description
-        JLabel notificationText = new JLabel();
-        notificationText.setText("<html><div style='text-align: justify;'>" + notification.getNotificationDetails() + "</div></html>");
-        notificationText.setFont(descriptionFont);
-        notificationText.setBounds(30, 55, contentWidth, descriptionHeight);
+        // Continue setting the description details
+        notificationText.setBounds(30, 55, descriptionWidth, descriptionHeight);
         notificationText.setHorizontalAlignment(SwingConstants.LEADING);
         notificationText.setVerticalAlignment(SwingConstants.TOP);
 
@@ -265,9 +273,8 @@ public class NotificationPopUp extends javax.swing.JFrame {
         contentScrollPane.setPreferredSize(new java.awt.Dimension(880, 420));
 
         contentPanel.setBackground(new Color(0, 0, 0, 0));
-        contentPanel.setMinimumSize(new java.awt.Dimension(0, 0));
         contentPanel.setOpaque(false);
-        contentPanel.setPreferredSize(new java.awt.Dimension(800, 420));
+        contentPanel.setPreferredSize(new java.awt.Dimension(880, 420));
         contentPanel.setLayout(new javax.swing.BoxLayout(contentPanel, javax.swing.BoxLayout.Y_AXIS));
         contentScrollPane.setViewportView(contentPanel);
 
