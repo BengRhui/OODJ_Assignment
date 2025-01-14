@@ -977,6 +977,14 @@ public class AdminTest extends BaseTest {
         boolean deleteVendor = vendor1.deleteVendor();
         assertTrue(deleteVendor);
 
+        // Try to remove stall 1 again (fail coz the items are still associated with the orders)
+        deleteStall = stall1.deleteStall();
+        assertFalse(deleteStall);
+
+        // Change the associated orders to completed
+        order2.setOrderStatus(Order.OrderStatus.COMPLETED);
+        order3.setOrderStatus(Order.OrderStatus.COMPLETED);
+
         // Try to remove stall 1 again
         deleteStall = stall1.deleteStall();
         assertTrue(deleteStall);
