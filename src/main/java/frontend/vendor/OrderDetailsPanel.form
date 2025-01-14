@@ -302,13 +302,13 @@
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="currentOrder.getNoteToVendor()" type="code"/>
                 </Property>
+                <Property name="wrapStyleWord" type="boolean" value="true"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
                 <Property name="caret" type="javax.swing.text.Caret" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new DefaultCaret() {&#xa;    // Called to render nothing for caret&#xa;    public void paint(Graphics g) {&#xa;        // Do nothing&#xa;    }&#xa;}" type="code"/>
                 </Property>
-                <Property name="caretPosition" type="int" value="0"/>
               </Properties>
             </Component>
           </SubComponents>

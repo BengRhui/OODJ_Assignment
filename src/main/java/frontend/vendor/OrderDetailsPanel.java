@@ -65,6 +65,9 @@ public class OrderDetailsPanel extends JPanel {
         // Loop through each item pair
         for (Map.Entry<Item, Integer> entry : itemMap.entrySet()) {
 
+            // Continue the loop if the item is null
+            if (entry.getKey() == null) continue;
+
             // Retrieve the item name and quantity of the pair
             String itemName = entry.getKey().getItemName();
             int quantity = entry.getValue();
@@ -607,6 +610,7 @@ public class OrderDetailsPanel extends JPanel {
         vendorNoteTextArea.setLineWrap(true);
         vendorNoteTextArea.setRows(3);
         vendorNoteTextArea.setText(currentOrder.getNoteToVendor());
+        vendorNoteTextArea.setWrapStyleWord(true);
         vendorNoteTextArea.setBorder(null);
         vendorNoteTextArea.setCaret(new DefaultCaret() {
             // Called to render nothing for caret
@@ -614,7 +618,6 @@ public class OrderDetailsPanel extends JPanel {
                 // Do nothing
             }
         });
-        vendorNoteTextArea.setCaretPosition(0);
         vendorNoteScrollPane.setViewportView(vendorNoteTextArea);
 
         orderDetailsPanel.add(vendorNoteScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 80, 340, 70));
