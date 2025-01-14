@@ -98,25 +98,22 @@ public class PictureIO {
      */
     public static boolean uploadVendorItemPicture(File uploadedFile, Item item) {
 
-        // Return true (since vendors can have the option to upload picture) - but the initial picture has to be removed
-        if (uploadedFile == null) {
+        // Get the directory
+        File[] directory = new File(PARENT_PATH_TO_ITEM_DIRECTORY).listFiles();
+        String fileName = item.getStall().getStallID() + "_" + item.getItemID();
 
-            // Get the directory
-            File[] directory = new File(PARENT_PATH_TO_ITEM_DIRECTORY).listFiles();
-            String fileName = item.getStall().getStallID() + "_" + item.getItemID();
+        // Retrieve the item picture
+        File initialItem = Utility.retrieveFileWithoutExtension(directory, fileName);
 
-            // Retrieve the item picture
-            File initialItem = Utility.retrieveFileWithoutExtension(directory, fileName);
-
-            // Remove the picture and return true
-            if (initialItem != null) return initialItem.delete();
-            return true;
+        // Remove the picture and return true
+        if (initialItem != null) {
+            if (!initialItem.delete()) return false;
         }
 
         // Generate file name
         String[] initialFileName = uploadedFile.getName().split("\\.");
         String fileExtension = initialFileName[initialFileName.length - 1];
-        String newFileName = item.getStall().getStallID() + "_" + item.getItemID() + "." + fileExtension;
+        String newFileName = fileName + "." + fileExtension;
 
         // Retrieve the file in the directory to be copied to
         String pathToSavePicture = PARENT_PATH_TO_ITEM_DIRECTORY + newFileName;
