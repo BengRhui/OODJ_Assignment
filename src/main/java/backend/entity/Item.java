@@ -400,6 +400,39 @@ public class Item {
     }
 
     /**
+     * A method to update the details of an item.
+     * @param name
+     * @param price
+     * @param description
+     * @param picture
+     * @return
+     */
+    public boolean updateItem(String name, double price, String description, File picture) {
+
+        // Upload the picture to the system if it's not the empty picture
+        if (!picture.getName().contains("empty_picture")) {
+            if (!PictureIO.uploadVendorItemPicture(picture, this)) return false;
+        }
+        
+        // Validation is made at frontend, so set values to the item
+        this.setItemName(name);
+        this.setPrice(price);
+        this.setDescription(description);
+
+        // Create notification for the stall
+        boolean createNotification = VendorNotification.createNewNotification(
+                "Item updated successfully",
+                "Details for item (" + this.getItemID() + ") are updated successfully.",
+                this.getStall()
+        );
+        if (!createNotification) return false;
+
+        // Write the changes to file and return true
+        ItemFileIO.writeFile();
+        return true;
+    }
+
+    /**
      * A method to print out all information of the {@code Item} object.
      *
      * @return String representation of the {@code Item} object
