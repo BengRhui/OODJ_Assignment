@@ -12,6 +12,7 @@ import backend.utility.Utility.TimeframeFilter;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.stream.Collectors;
 import javax.swing.*;
 
 /**
@@ -37,7 +38,10 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
         // Initialize values
         currentVendor = vendor;
         timeFrame = TimeframeFilter.DAILY;
-        orderList = Order.filterOrder(vendor, timeFrame);
+        orderList = Order.filterOrder(vendor, timeFrame).stream()
+                .filter(order -> order.getOrderStatus() == Order.OrderStatus.COMPLETED ||
+                        order.getOrderStatus() == Order.OrderStatus.CANCELLED)
+                .collect(Collectors.toCollection(ArrayList::new));
         
         // Render the GUI components
         initComponents();
@@ -51,8 +55,11 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
      */
     private void updateRecentOrderPanel() {
 
-        // Obtain the order history list
-        orderList = Order.filterOrder(currentVendor, timeFrame);
+        // Obtain the order history list (only take the completed and cancelled ones)
+        orderList = Order.filterOrder(currentVendor, timeFrame).stream()
+                .filter(order -> order.getOrderStatus() == Order.OrderStatus.COMPLETED ||
+                                 order.getOrderStatus() == Order.OrderStatus.CANCELLED)
+                .collect(Collectors.toCollection(ArrayList::new));
 
         // Remove all components on the panel
         recentOrderPanel.removeAll();
@@ -84,8 +91,11 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
         individualPanel.setLayout(null);
         individualPanel.setBackground(brownColour);
 
+        // Get the title for the label
+        String titleString = order.getOrderStatus() == Order.OrderStatus.CANCELLED ? order.getDiningType().toString() + " (Cancelled)" : order.getDiningType().toString();
+
         // Generate title label
-        JLabel titleLabel = new JLabel(order.getDiningType().toString());
+        JLabel titleLabel = new JLabel(titleString);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setBounds(30, 20, 560, 30);
 
@@ -497,9 +507,6 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
                             currentVendor.getTotalEarnings(TimeframeFilter.DAILY)
                     )
             );
-            
-            // Update the order list
-            orderList = Order.filterOrder(currentVendor, timeFrame);
 
             // Update the recent order panel
             updateRecentOrderPanel();
@@ -542,9 +549,6 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
                     )
             );
             
-            // Update the order list
-            orderList = Order.filterOrder(currentVendor, timeFrame);
-            
             // Update the recent order panel
             updateRecentOrderPanel();
         }
@@ -586,9 +590,6 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
                     )
             );
             
-            // Update the order list
-            orderList = Order.filterOrder(currentVendor, timeFrame);
-            
             // Update the recent order panel
             updateRecentOrderPanel();
         }
@@ -629,9 +630,6 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
                             currentVendor.getTotalEarnings(TimeframeFilter.YEARLY)
                     )
             );
-            
-            // Update the order list
-            orderList = Order.filterOrder(currentVendor, timeFrame);
             
             // Update the recent order panel
             updateRecentOrderPanel();
