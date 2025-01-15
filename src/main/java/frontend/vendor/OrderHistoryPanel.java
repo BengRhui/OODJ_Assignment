@@ -8,9 +8,12 @@ import backend.entity.Item;
 import backend.entity.Order;
 import backend.entity.Vendor;
 import backend.utility.Utility.TimeframeFilter;
+import frontend.utility.Graph;
 
 import java.awt.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javax.swing.*;
@@ -41,6 +44,7 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
         orderList = Order.filterOrder(vendor, timeFrame).stream()
                 .filter(order -> order.getOrderStatus() == Order.OrderStatus.COMPLETED ||
                         order.getOrderStatus() == Order.OrderStatus.CANCELLED)
+                .sorted(Comparator.comparing(Order::getOrderedDate).reversed())
                 .collect(Collectors.toCollection(ArrayList::new));
         
         // Render the GUI components
@@ -48,6 +52,33 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
         
         // Update order panel
         updateRecentOrderPanel();
+        
+        // Update graph panel
+        updateGraphPanel();
+    }
+    
+    /**
+     * This method helps to refresh the panel containing the graph.
+     */
+    private void updateGraphPanel() {
+        
+        // Remove all components on the graph panel
+        graphPanel.removeAll();
+        
+        // Generate the graph and set location
+        Graph revenueGraph = new Graph(
+                new ArrayList<Order>(),
+                Graph.REVENUE_GRAPH,
+                timeFrame,
+                650,
+                425
+        );
+        revenueGraph.setLocation(20, 30);
+        
+        // Add the graph to the panel, then refresh
+        graphPanel.add(revenueGraph);
+        graphPanel.revalidate();
+        graphPanel.repaint();
     }
 
     /**
@@ -59,6 +90,7 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
         orderList = Order.filterOrder(currentVendor, timeFrame).stream()
                 .filter(order -> order.getOrderStatus() == Order.OrderStatus.COMPLETED ||
                                  order.getOrderStatus() == Order.OrderStatus.CANCELLED)
+                .sorted(Comparator.comparing(Order::getOrderedDate).reversed())
                 .collect(Collectors.toCollection(ArrayList::new));
 
         // Remove all components on the panel
@@ -108,14 +140,19 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
         // Generate title label
         JLabel titleLabel = new JLabel(titleString);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titleLabel.setBounds(30, 20, 560, 30);
+        titleLabel.setBounds(30, 20, 400, 30);
 
+        // Generate time label
+        JLabel timeLabel = new JLabel(order.getOrderedDate().format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
+        timeLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        timeLabel.setBounds(385, 20, 150, 30);
+        
         // Generate description label
         JPanel descriptionPanel = generateItemListGUI(order);
         descriptionPanel.setLocation(5, 55);
 
         // Calculate and set the size of the panel
-        int panelWidth = 660;
+        int panelWidth = 550;
         int panelHeight = 70 + descriptionPanel.getSize().height;
 
         individualPanel.setPreferredSize(new Dimension(panelWidth, panelHeight));
@@ -128,6 +165,7 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
 
         // Add components to panel and return the panel
         individualPanel.add(titleLabel);
+        individualPanel.add(timeLabel);
         individualPanel.add(descriptionPanel);
         return individualPanel;
     }
@@ -197,7 +235,7 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
             emptyDescriptionLabel.setFont(new Font("Arial", Font.PLAIN, 18));
 
             // Set a size for the container
-            container.setSize(new Dimension(635, 40));
+            container.setSize(new Dimension(550, 40));
 
             // Add the empty label to the container panel and return it
             container.add(emptyDescriptionLabel);
@@ -209,7 +247,7 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
         int vGapBetweenItem = 10;
         int descriptionHeight = descriptionList.getFirst().getPreferredSize().height;
         int currentWidth = 0;
-        int panelWidth = 635;
+        int panelWidth = 550;
         int panelHeight = vGapBetweenItem + descriptionHeight + vGapBetweenItem;
 
         // Loop through each label
@@ -267,7 +305,11 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
         totalRevenueTitle = new javax.swing.JLabel();
         totalRevenueCount = new javax.swing.JLabel();
         recentOrderTitle = new javax.swing.JLabel();
-        graphPanel = new javax.swing.JPanel();
+        graphPanel = new javax.swing.JPanel() {
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+            }
+        };
         recentOrderScrollPane = new javax.swing.JScrollPane() {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -308,7 +350,7 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
                 dailyButtonActionPerformed(evt);
             }
         });
-        add(dailyButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(656, 60, 170, 50));
+        add(dailyButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(786, 60, 140, 50));
 
         monthlyButton.setBackground(Color.WHITE);
         monthlyButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -331,7 +373,7 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
                 monthlyButtonActionPerformed(evt);
             }
         });
-        add(monthlyButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(824, 60, 170, 50));
+        add(monthlyButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(924, 60, 140, 50));
 
         quarterlyButton.setBackground(Color.WHITE);
         quarterlyButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -354,7 +396,7 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
                 quarterlyButtonActionPerformed(evt);
             }
         });
-        add(quarterlyButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(992, 60, 170, 50));
+        add(quarterlyButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1062, 60, 140, 50));
 
         yearlyButton.setBackground(Color.WHITE);
         yearlyButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -377,34 +419,36 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
                 yearlyButtonActionPerformed(evt);
             }
         });
-        add(yearlyButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 60, 170, 50));
+        add(yearlyButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 60, 140, 50));
 
         totalOrderTitle.setFont(new java.awt.Font("Arial", 1, 30)); // NOI18N
         totalOrderTitle.setText("<html>Total Order</html>");
-        add(totalOrderTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 140, 240, -1));
+        add(totalOrderTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 140, 240, -1));
 
-        totalOrderCount.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        totalOrderCount.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         totalOrderCount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         totalOrderCount.setText(String.valueOf(
             currentVendor.getOrderCount(timeFrame)
         ));
-        add(totalOrderCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 180, 290, -1));
+        add(totalOrderCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 190, 270, -1));
 
         totalRevenueTitle.setFont(new java.awt.Font("Arial", 1, 30)); // NOI18N
         totalRevenueTitle.setText("Total Revenue");
-        add(totalRevenueTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 140, 290, -1));
+        add(totalRevenueTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 140, 230, -1));
 
-        totalRevenueCount.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        totalRevenueCount.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         totalRevenueCount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         totalRevenueCount.setText("RM" + String.format("%.2f", currentVendor.getTotalEarnings(timeFrame)));
-        add(totalRevenueCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 180, 320, -1));
+        add(totalRevenueCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 190, 240, -1));
 
         recentOrderTitle.setFont(new java.awt.Font("Arial", 1, 30)); // NOI18N
         recentOrderTitle.setText("Recent Orders");
-        add(recentOrderTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 260, -1, -1));
+        add(recentOrderTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 260, -1, -1));
 
-        graphPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        add(graphPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 570, 460));
+        graphPanel.setBackground(new java.awt.Color(255, 255, 255));
+        graphPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        graphPanel.setLayout(null);
+        add(graphPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 700, 470));
 
         recentOrderScrollPane.setBackground(new Color(0, 0, 0, 0));
         recentOrderScrollPane.setBorder(null);
@@ -419,7 +463,7 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
         recentOrderPanel.setLayout(new javax.swing.BoxLayout(recentOrderPanel, javax.swing.BoxLayout.Y_AXIS));
         recentOrderScrollPane.setViewportView(recentOrderPanel);
 
-        add(recentOrderScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 310, 670, 290));
+        add(recentOrderScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 310, 550, 290));
     }// </editor-fold>//GEN-END:initComponents
 
     private void dailyButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dailyButtonMouseEntered
@@ -524,6 +568,9 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
 
             // Update the recent order panel
             updateRecentOrderPanel();
+                        
+            // Update the graph panel
+            updateGraphPanel();
         }
     }//GEN-LAST:event_dailyButtonActionPerformed
 
@@ -565,6 +612,9 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
             
             // Update the recent order panel
             updateRecentOrderPanel();
+                        
+            // Update the graph panel
+            updateGraphPanel();
         }
     }//GEN-LAST:event_monthlyButtonActionPerformed
 
@@ -606,6 +656,9 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
             
             // Update the recent order panel
             updateRecentOrderPanel();
+                        
+            // Update the graph panel
+            updateGraphPanel();
         }
     }//GEN-LAST:event_quarterlyButtonActionPerformed
 
@@ -647,6 +700,9 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
             
             // Update the recent order panel
             updateRecentOrderPanel();
+            
+            // Update the graph panel
+            updateGraphPanel();
         }
     }//GEN-LAST:event_yearlyButtonActionPerformed
 

@@ -10,9 +10,11 @@ import frontend.pop_up.FeedbackPopUp;
 import frontend.utility.RatingStarPanel;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.Box;
+import javax.swing.JLabel;
 
 /**
  *
@@ -59,25 +61,42 @@ public class HomePagePanel extends javax.swing.JPanel {
         // Set the current order list to the list with incomplete orders
         currentOrderList = Order.getIncompleteOrders(currentVendor);
         
-        // Add order details into panel
-        for (Order order : currentOrderList) {
+        // If the order list is empty
+        if (currentOrderList.isEmpty()) {
+        
+            // Change the layout of the panel to null
+            orderDetailsPanel.setLayout(null);
             
-            // Create a details panel based on order details panel in another class
-            OrderDetailsPanel detailsPanel = new OrderDetailsPanel(order) {
-                
-                // Added to make sure that transparency works
-                @Override
-                protected void paintComponent(Graphics g) {
-                    super.paintComponent(g);
+            // Add a label to indicate that no order is available for vendor
+            JLabel emptyLabel = new JLabel("No orders currently.");
+            emptyLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+            emptyLabel.setBounds(0, 0, 300, 30);
+            
+            // Add the label to the panel
+            orderDetailsPanel.add(emptyLabel);
+            
+        } else {
+            
+            // Add order details into panel
+            for (Order order : currentOrderList) {
+
+                // Create a details panel based on order details panel in another class
+                OrderDetailsPanel detailsPanel = new OrderDetailsPanel(order) {
+
+                    // Added to make sure that transparency works
+                    @Override
+                    protected void paintComponent(Graphics g) {
+                        super.paintComponent(g);
+                    }
+                };
+
+                // Add the details panel to the overall panel
+                orderDetailsPanel.add(detailsPanel);
+
+                // Add vertical spacing if this is not the last order
+                if (!order.equals(currentOrderList.getLast())) {
+                    orderDetailsPanel.add(Box.createVerticalStrut(20));
                 }
-            };
-            
-            // Add the details panel to the overall panel
-            orderDetailsPanel.add(detailsPanel);
-            
-            // Add vertical spacing if this is not the last order
-            if (!order.equals(currentOrderList.getLast())) {
-                orderDetailsPanel.add(Box.createVerticalStrut(20));
             }
         }
         
@@ -188,7 +207,7 @@ public class HomePagePanel extends javax.swing.JPanel {
 
         orderListTitle.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         orderListTitle.setText("ORDER LIST");
-        mainPagePanel.add(orderListTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 250, 60));
+        mainPagePanel.add(orderListTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 250, 60));
 
         orderDetailsScrollPane.setBackground(new java.awt.Color(255, 251, 233));
         orderDetailsScrollPane.setBorder(null);
@@ -199,7 +218,7 @@ public class HomePagePanel extends javax.swing.JPanel {
         orderDetailsPanel.setLayout(new javax.swing.BoxLayout(orderDetailsPanel, javax.swing.BoxLayout.Y_AXIS));
         orderDetailsScrollPane.setViewportView(orderDetailsPanel);
 
-        mainPagePanel.add(orderDetailsScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 1330, 290));
+        mainPagePanel.add(orderDetailsScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 1330, 280));
 
         add(mainPagePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 1400, 420));
     }// </editor-fold>//GEN-END:initComponents
