@@ -357,7 +357,7 @@ public class Vendor extends User {
                 .filter(order -> order.getOrderStatus() == Order.OrderStatus.CANCELLED ||
                         order.getOrderStatus() == Order.OrderStatus.COMPLETED)
                 .collect(Collectors.toCollection(ArrayList::new));
-        
+
         // Loop through each order list to calculate earnings
         for (Order order : orderList) earnings += order.getOrderPrice();
 

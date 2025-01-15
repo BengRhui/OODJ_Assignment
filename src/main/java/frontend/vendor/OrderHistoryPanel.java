@@ -63,7 +63,18 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
 
         // Remove all components on the panel
         recentOrderPanel.removeAll();
-        
+
+        // If order list is empty, then add a text to inform that no orders are available
+        if (orderList.isEmpty()) {
+
+            // Generate an empty label to state that the item is unavailable
+            JLabel emptyDescriptionLabel = new JLabel("No order history found.");
+            emptyDescriptionLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+
+            // Add the empty label to the panel and return it
+            recentOrderPanel.add(emptyDescriptionLabel);
+        }
+
         // Loop through each order
         for (Order order : orderList) {
 
@@ -182,8 +193,11 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
         if (descriptionList.isEmpty()) {
 
             // Generate an empty label to state that the item is unavailable
-            JLabel emptyDescriptionLabel = new JLabel("Unavailable item.");
+            JLabel emptyDescriptionLabel = new JLabel(" Item is unavailable (due to previous item deletion).");
             emptyDescriptionLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+
+            // Set a size for the container
+            container.setSize(new Dimension(635, 40));
 
             // Add the empty label to the container panel and return it
             container.add(emptyDescriptionLabel);

@@ -127,15 +127,33 @@ public class OrderDetailsPanel extends JPanel {
             jLabelList.add(itemLabel);
         }
 
-        // Calculate and set the dimension of the panel
-        int rowsInvolved = getSpanningRowNum(jLabelList);
-        int panelWidth = 650;
-        int panelHeight = (rowsInvolved + 1) * 10 + jLabelList.getFirst().getPreferredSize().height * rowsInvolved;
+        // If there is no order involved (should not happen but included just in case)
+        if (jLabelList.isEmpty()) {
 
-        // Based on the calculations, set the sizes for the components
-        foodOrderedPanel.setPreferredSize(new Dimension(panelWidth, panelHeight));
-        foodOrderedPanel.setBounds(0, 0, panelWidth, panelHeight);
-        foodOrderedBaseContainer.setPreferredSize(new Dimension(panelWidth, panelHeight));
+            // Change the layout of the food ordered panel
+            foodOrderedPanel.setLayout(null);
+            foodOrderedPanel.setPreferredSize(new Dimension(300, 100));
+
+            // Generate an empty label to state that the item is unavailable
+            JLabel emptyDescriptionLabel = new JLabel("Unavailable item.");
+            emptyDescriptionLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+            emptyDescriptionLabel.setBounds(0, 0, 200, 20);
+
+            // Add the empty label to the container panel and return it
+            foodOrderedPanel.add(emptyDescriptionLabel);
+
+        } else {
+
+            // Calculate and set the dimension of the panel
+            int rowsInvolved = getSpanningRowNum(jLabelList);
+            int panelWidth = 650;
+            int panelHeight = (rowsInvolved + 1) * 10 + jLabelList.getFirst().getPreferredSize().height * rowsInvolved;
+
+            // Based on the calculations, set the sizes for the components
+            foodOrderedPanel.setPreferredSize(new Dimension(panelWidth, panelHeight));
+            foodOrderedPanel.setBounds(0, 0, panelWidth, panelHeight);
+            foodOrderedBaseContainer.setPreferredSize(new Dimension(panelWidth, panelHeight));
+        }
     }
 
     /**
