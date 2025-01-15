@@ -56,7 +56,7 @@ public class MainPage extends javax.swing.JFrame {
         };
         
         ItemListingPanel itemListingPanel = new ItemListingPanel();
-        OrderHistoryPanel orderHistoryPanel = new OrderHistoryPanel();
+        OrderHistoryPanel orderHistoryPanel = new OrderHistoryPanel(currentVendor);
         
         cardPanel.add(homePagePanel, "homePagePanel");
         cardPanel.add(itemListingPanel, "itemListingPanel");
