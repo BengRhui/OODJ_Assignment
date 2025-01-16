@@ -1,4 +1,4 @@
-package frontend.admin;
+package frontend.admin_CM;
 
 import javax.swing.JFrame;
 import java.awt.Cursor;

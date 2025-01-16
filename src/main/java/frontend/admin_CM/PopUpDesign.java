@@ -1,4 +1,4 @@
-package frontend.admin;
+package frontend.admin_CM;
 
 /**
  *
