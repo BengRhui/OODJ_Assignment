@@ -5,6 +5,7 @@
 package frontend.admin;
 
 import backend.entity.Admin;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JFrame;
@@ -17,18 +18,58 @@ public class MainPage extends javax.swing.JFrame {
 
     public static JFrame currentFrame;
     private static Admin currentAdmin;
+    private static CardLayout cardLayout;
     
     /**
      * Creates new form MainPage
      */
-    public MainPage(Admin admin) {
+    public MainPage() {
         
         // Render GUI components
         initComponents();
         
         // Initialize variables
         currentFrame = this;
+
+        // Prepare the additional card panels
+        ActionPanel actionPanel = new ActionPanel();
+        UserListPanel userlistPanel = new UserListPanel();
+        CustomerCreditPanel customerCreditPanel = new CustomerCreditPanel();
+        StallListPanel storePanel = new StallListPanel();
+       
+        // Add the card panels to the card container panel
+        cardLayoutContainer.add(actionPanel, "actionPanel");
+        cardLayoutContainer.add(userlistPanel, "userlistPanel");
+        cardLayoutContainer.add(customerCreditPanel, "customerCreditPanel");
+        cardLayoutContainer.add(storePanel, "storePanel");
+        
+        // Display action page (main page) as default
+        cardLayout = (CardLayout) cardLayoutContainer.getLayout();
+        cardLayout.show(cardLayoutContainer, "actionPanel");
+    }
+    
+    /**
+     * This method helps to retrieve the admin associated with the current frame.
+     * @return THe Admin associated with the current frame
+     */
+    public static Admin getAdmin() {
+        return currentAdmin;
+    }
+    
+    /**
+     * This method helps to initialize the admin.
+     * @param admin 
+     */
+    public static void setAdmin(Admin admin) {
         currentAdmin = admin;
+    }
+    
+    /**
+     * This method helps to set the card being displayed.
+     * @param cardName The name of the card that will be displayed
+     */
+    public static void setCard(String cardName) {
+        cardLayout.show(cardLayoutContainer, cardName);
     }
 
     /**
@@ -92,14 +133,13 @@ public class MainPage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Admin newAdmin = new Admin("A001", "admin@mail.com", "Abc@1234", "Zheng Hao");
-                new MainPage(newAdmin).setVisible(true);
+                new MainPage().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel backgroundPicture;
-    private javax.swing.JPanel cardLayoutContainer;
+    private static javax.swing.JPanel cardLayoutContainer;
     // End of variables declaration//GEN-END:variables
 }

@@ -305,9 +305,12 @@ public class LoginPage extends javax.swing.JFrame {
                 case Admin admin -> {
                     
                     // Create a new admin page
-                    frontend.admin.MainPage adminPage = new frontend.admin.MainPage(admin);
+                    frontend.admin.MainPage adminPage = new frontend.admin.MainPage();
                     adminPage.setVisible(true);
                     adminPage.setLocationRelativeTo(this);
+                    
+                    // Set the admin
+                    frontend.admin.MainPage.setAdmin(admin);
                 }
                 
                 case Customer customer -> System.out.println(customer);
