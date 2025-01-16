@@ -92,6 +92,7 @@ public class DeliveryRunner extends User {
 
     /**
      * A method to get the availability list for the current system.
+     *
      * @return A Map consisting of the runner ID, with a boolean representing availability
      */
     public static Map<String, Boolean> getAvailabilityList() {
@@ -471,6 +472,22 @@ public class DeliveryRunner extends User {
 
         // Get the second element of the method and cast to int as feedback count
         return (int) getOverallRatingDetails(filter)[1];
+    }
+
+    /**
+     * A method to retrieve the orders associated with the current delivery runner (only one).
+     *
+     * @return The Order item associated with the delivery runner
+     */
+    public Order retrieveCurrentAssociatedOrder() {
+
+        // Filter the current orders and get the incomplete ones that associate with the current runner
+        return Order.getOrderList().stream()
+                .filter(order -> order.getOrderStatus() != Order.OrderStatus.COMPLETED && order.getOrderStatus() != Order.OrderStatus.CANCELLED)
+                .filter(order -> order.getDiningType() == Order.DiningType.DELIVERY && order.getRunnerInCharge() != null)
+                .filter(order -> order.getRunnerInCharge() != null && order.getRunnerInCharge().getUserID().equals(this.userID))
+                .findAny()
+                .orElse(null);
     }
 
     /**
