@@ -86,7 +86,7 @@ public class Graph extends JPanel {
 
                     // Generate charts based on the list
                     if (graphType == 0) generatedChart = createRevenueLineChart(orderList, filter);
-                    else if (graphType == 1) generatedChart = null;
+                    else if (graphType == 1) generatedChart = createDeliveryCountLineChart(orderList, filter);
                 }
 
                 // If the object is feedback type
@@ -119,13 +119,11 @@ public class Graph extends JPanel {
     }
 
     /**
-     * This method helps to generate the revenue line chart.
-     *
-     * @param orderList The order list to be generated as a line chart
-     * @param filter The filter applied towards the list
-     * @return A JFreeChart representing the overall order list
+     * This method helps to generate the corresponding column keys based on the filter applied to the graphs.
+     * @param filter The timeframe applied to the data
+     * @return An object list, where index 0 containing the time frame list in LocalDateTime format, and index 1 representing the string column keys
      */
-    private JFreeChart createRevenueLineChart(ArrayList<Order> orderList, Utility.TimeframeFilter filter) {
+    private Object[][] generateColumnKey(Utility.TimeframeFilter filter) {
 
         // Retrieve the start and ending time based on the filter
         LocalDateTime startTime = Utility.getFilterStartAndEndTime(filter)[0];
@@ -214,6 +212,23 @@ public class Graph extends JPanel {
             default -> throw new IllegalStateException("Error in writing data to graph. Please inspect code.");
         }
 
+        return new Object[][]{timeframeList, columnKey};
+    }
+
+    /**
+     * This method helps to generate the revenue line chart.
+     *
+     * @param orderList The order list to be generated as a line chart
+     * @param filter The filter applied towards the list
+     * @return A JFreeChart representing the overall order list
+     */
+    private JFreeChart createRevenueLineChart(ArrayList<Order> orderList, Utility.TimeframeFilter filter) {
+
+        // Retrieve the relevant column keys to aid in calculation
+        Object[][] generatedColumnKeyObject = generateColumnKey(filter);
+        LocalDateTime[] timeframeList = (LocalDateTime[]) generatedColumnKeyObject[0];
+        String[] columnKey = (String[]) generatedColumnKeyObject[1];
+
         // Declare an initial dataset
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
@@ -244,11 +259,125 @@ public class Graph extends JPanel {
             dataset.addValue(datasetValue[i], "Revenue", columnKey[i]);
         }
 
+        // Get some information for display purpose
+        String startDate = Utility.getFilterStartAndEndTime(filter)[0].format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        String endDate = Utility.getFilterStartAndEndTime(filter)[1].format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+
         // Generate a chart based on the dataset
         JFreeChart generatedChart = ChartFactory.createLineChart(
-                filter + " Revenue (" + startTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + " - " +  endTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))  + ")",
+                filter + " Revenue (" + startDate + " - " +  endDate  + ")",
                 "Time",
                 "Revenue (RM)",
+                dataset,
+                PlotOrientation.VERTICAL,
+                false,
+                false,
+                false
+        );
+
+        // Set font for the title
+        generatedChart.getTitle().setFont(new Font("Arial", Font.BOLD, 24));
+
+        // Get the background of the chart and make it white
+        CategoryPlot chartPlot = generatedChart.getCategoryPlot();
+        chartPlot.setInsets(new RectangleInsets(10, 10, 10, 10));
+        chartPlot.setBackgroundPaint(Color.WHITE);
+        chartPlot.setOutlineVisible(false);
+
+        // Retrieve the render for the chart
+        LineAndShapeRenderer renderer = (LineAndShapeRenderer) chartPlot.getRenderer();
+
+        // change the colour and thickness of the lines
+        renderer.setSeriesPaint(0, new Color(128, 0, 0));
+        BasicStroke stroke = new BasicStroke(2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+        renderer.setSeriesStroke(0, stroke);
+
+        // Add shape to each data point
+        renderer.setSeriesShapesVisible(0, true);
+        renderer.setSeriesShapesFilled(0, true);
+        renderer.setSeriesShape(0, new Rectangle2D.Double(-5, -5, 10, 10)); // Square
+
+        // Let the plot use back the same renderer
+        chartPlot.setRenderer(renderer);
+
+        // Get the x-axis (domain axis)
+        CategoryAxis domainAxis = chartPlot.getDomainAxis();
+
+        // Set the font for x-axis
+        Font labelFont = new Font("Arial", Font.BOLD, 14);
+        Font tickLabelFont = new Font("Arial", Font.PLAIN, 12);
+        domainAxis.setLabelFont(labelFont);
+        domainAxis.setTickLabelFont(tickLabelFont);
+
+        // Change the direction of the x-axis (to show details better)
+        if (filter == Utility.TimeframeFilter.DAILY) domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
+        if (filter == Utility.TimeframeFilter.MONTHLY) domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
+
+        // Set the properties for the tick labels
+        domainAxis.setCategoryMargin(0.2);
+        domainAxis.setMaximumCategoryLabelWidthRatio(2.0f);
+
+        // Customize the y-axis
+        ValueAxis valueAxis = chartPlot.getRangeAxis();
+        valueAxis.setLabelFont(labelFont);
+        valueAxis.setTickLabelFont(tickLabelFont);
+
+        // Return the chart after finish customization
+        return generatedChart;
+    }
+
+    /**
+     * This method helps to generate the delivery count line chart.
+     *
+     * @param orderList The order list to be generated as a line chart
+     * @param filter The filter applied towards the list
+     * @return A JFreeChart representing the overall order list
+     */
+    private JFreeChart createDeliveryCountLineChart(ArrayList<Order> orderList, Utility.TimeframeFilter filter) {
+
+        // Retrieve the relevant column keys to aid in calculation
+        Object[][] generatedColumnKeyObject = generateColumnKey(filter);
+        LocalDateTime[] timeframeList = (LocalDateTime[]) generatedColumnKeyObject[0];
+        String[] columnKey = (String[]) generatedColumnKeyObject[1];
+
+        // Declare an initial dataset
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        // Since data has not been aggregated, we first declare a list to store the aggregated values for each category
+        int[] datasetValue = new int[columnKey.length];
+
+        // Loop through the order list
+        for (Order order : orderList) {
+
+            // Retrieve the information from the order
+            LocalDateTime orderTime = order.getOrderedDate();
+
+            // Loop through each range of time
+            for (int i = 0; i < timeframeList.length; i ++) {
+
+                // If the time does not fall within the range, go to the next loop
+                if (orderTime.isBefore(timeframeList[i]) || orderTime.isAfter(timeframeList[i + 1])) continue;
+
+                // Else, add the revenue to the dataset and stop this inner loop
+                datasetValue[i] += 1;
+                break;
+            }
+        }
+
+        // Add the data into the dataset
+        for (int i = 0; i < columnKey.length; i ++) {
+            dataset.addValue(datasetValue[i], "Delivery Count", columnKey[i]);
+        }
+
+        // Get some information for display purpose
+        String startDate = Utility.getFilterStartAndEndTime(filter)[0].format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        String endDate = Utility.getFilterStartAndEndTime(filter)[1].format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+
+        // Generate a chart based on the dataset
+        JFreeChart generatedChart = ChartFactory.createLineChart(
+                filter + " Delivery Count (" + startDate + " - " +  endDate  + ")",
+                "Time",
+                "Count",
                 dataset,
                 PlotOrientation.VERTICAL,
                 false,
