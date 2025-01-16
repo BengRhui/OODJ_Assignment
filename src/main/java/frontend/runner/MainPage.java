@@ -5,6 +5,7 @@
 package frontend.runner;
 
 import backend.entity.DeliveryRunner;
+import backend.entity.Order;
 import frontend.home_page.HomePage;
 import frontend.pop_up.FeedbackPopUp;
 import frontend.pop_up.NotificationPopUp;
@@ -37,6 +38,9 @@ public class MainPage extends javax.swing.JFrame {
         // A temporary variable for development purpose
         currentRunner = new DeliveryRunner("R001", "abc@123.com", "Abcd@1234", "Jun Hong", "012-3456779");
         initComponents();
+        
+        // Get the order that is associated with the runner currently (only one)
+        Order currentOrder = currentRunner.retrieveCurrentAssociatedOrder();
         
         // Add cards into the current frame
         HomePagePanel homePagePanel = new HomePagePanel();
