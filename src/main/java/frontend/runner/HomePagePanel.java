@@ -4,19 +4,78 @@
  */
 package frontend.runner;
 
+import backend.entity.DeliveryRunner;
+import backend.entity.Order;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import javax.swing.JLabel;
+
 /**
  *
  * @author limbengrhui
  */
 public class HomePagePanel extends javax.swing.JPanel {
 
+    private static DeliveryRunner currentRunner;
+    private static Order currentOrder;
+    
     /**
      * Creates new form HomePagePanel
      */
     public HomePagePanel() {
+        
+        // Initialize values
+        currentRunner = MainPage.getRunner();
+       
+        // Render GUI components
         initComponents();
+        
+        // Update the content panel
+        updatePanel();
     }
+    
+    /**
+     * This method helps to refresh the content panel containing the panels for delivery.
+     */
+    public static void updatePanel() {
+        
+        // Clear the contents of the panel
+        contentPanel.removeAll();
+    
+        // Get the current order for the runner
+        currentOrder = currentRunner.retrieveCurrentAssociatedOrder();
+        
+        // Check if the order is null
+        if (currentOrder == null) {
+            
+            // If yes, add a JLabel to inform that no order is available
+            JLabel noOrderLabel = new JLabel("No order available for now.");
+            noOrderLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+            noOrderLabel.setBounds(0, 0, 300, 30);
+            
+            // Add the label to the panel
+            contentPanel.add(noOrderLabel);
+            
+        } else {
+            
+            // Retrieve the size of the content panel
+            int panelWidth = 1260;
+            int panelHeight = 460;
+            
+            // Generate the details panel
+            DeliveryDetailsPanel detailsPanel = new DeliveryDetailsPanel(currentOrder);
+            detailsPanel.setBounds(0, 0, panelWidth, panelHeight);
 
+            // Add the panel to content panel
+            contentPanel.add(detailsPanel);
+        }
+        
+        // Refresh the panel
+        contentPanel.revalidate();
+        contentPanel.repaint();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,21 +85,24 @@ public class HomePagePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setBackground(new java.awt.Color(204, 255, 204));
+        titleLabel = new javax.swing.JLabel();
+        contentPanel = new javax.swing.JPanel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 650, Short.MAX_VALUE)
-        );
+        setBackground(new java.awt.Color(255, 251, 233));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        titleLabel.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        titleLabel.setText("Current Task");
+        add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, -1));
+
+        contentPanel.setBackground(new java.awt.Color(255, 251, 233));
+        contentPanel.setLayout(null);
+        add(contentPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 1260, 460));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private static javax.swing.JPanel contentPanel;
+    private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }
