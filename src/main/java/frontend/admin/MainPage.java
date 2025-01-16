@@ -70,6 +70,8 @@ public class MainPage extends javax.swing.JFrame {
      */
     public static void setCard(String cardName) {
         cardLayout.show(cardLayoutContainer, cardName);
+        currentFrame.revalidate();
+        currentFrame.repaint();
     }
 
     /**
