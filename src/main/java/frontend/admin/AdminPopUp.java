@@ -1,4 +1,4 @@
-package frontend;
+package frontend.admin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -86,6 +86,7 @@ public class AdminPopUp extends javax.swing.JFrame{
         cancelButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         cancelButton.setText("Cancel");
         cancelButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        cancelButton.setOpaque(true);
         cancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 cancelButtonMouseEntered(evt);
@@ -107,6 +108,7 @@ public class AdminPopUp extends javax.swing.JFrame{
         confirmButton.setForeground(new java.awt.Color(255, 255, 255));
         confirmButton.setText("Confirm");
         confirmButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        confirmButton.setOpaque(true);
         confirmButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 confirmButtonMouseEntered(evt);
@@ -200,6 +202,7 @@ public class AdminPopUp extends javax.swing.JFrame{
         cancelButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         cancelButton.setText("Cancel");
         cancelButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        cancelButton.setOpaque(true);
         cancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 cancelButtonMouseEntered(evt);
@@ -221,6 +224,7 @@ public class AdminPopUp extends javax.swing.JFrame{
         confirmButton.setForeground(new java.awt.Color(255, 255, 255));
         confirmButton.setText("Confirm");
         confirmButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        confirmButton.setOpaque(true);
         confirmButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 confirmButtonMouseEntered(evt);

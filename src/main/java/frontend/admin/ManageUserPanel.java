@@ -1,4 +1,4 @@
-package frontend;
+package frontend.admin;
 
 import java.awt.Cursor;
 
@@ -87,6 +87,7 @@ public class ManageUserPanel extends javax.swing.JPanel {
         backButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         backButton.setText("Back");
         backButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        backButton.setOpaque(true);
         backButton.setPreferredSize(new java.awt.Dimension(200, 50));
         backButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -109,6 +110,7 @@ public class ManageUserPanel extends javax.swing.JPanel {
         registerUser.setForeground(new java.awt.Color(255, 255, 255));
         registerUser.setText("Register New User");
         registerUser.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        registerUser.setOpaque(true);
         registerUser.setPreferredSize(new java.awt.Dimension(200, 50));
         registerUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {

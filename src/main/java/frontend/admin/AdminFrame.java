@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package frontend;
+package frontend.admin;
 
 import java.awt.*;
 
@@ -103,6 +103,7 @@ public class AdminFrame extends javax.swing.JFrame {
         manageStore.setText("Manage Store");
         manageStore.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         manageStore.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        manageStore.setOpaque(true);
         manageStore.setPreferredSize(new java.awt.Dimension(200, 50));
         manageStore.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -125,6 +126,7 @@ public class AdminFrame extends javax.swing.JFrame {
         manageUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/team_icon.png"))); // NOI18N
         manageUser.setText("Manage User");
         manageUser.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        manageUser.setOpaque(true);
         manageUser.setPreferredSize(new java.awt.Dimension(200, 50));
         manageUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -147,6 +149,7 @@ public class AdminFrame extends javax.swing.JFrame {
         topUpCredit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/wallet_icon.png"))); // NOI18N
         topUpCredit.setText("Top Up Credit");
         topUpCredit.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        topUpCredit.setOpaque(true);
         topUpCredit.setPreferredSize(new java.awt.Dimension(200, 50));
         topUpCredit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {

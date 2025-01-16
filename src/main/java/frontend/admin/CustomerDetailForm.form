@@ -45,27 +45,6 @@
                           <EmptySpace min="80" pref="80" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="contactNoLabel" min="-2" pref="140" max="-2" attributes="0"/>
-                                  <EmptySpace min="540" pref="540" max="-2" attributes="0"/>
-                                  <Component id="passwordLabel" min="-2" pref="130" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="contactNumber" min="-2" pref="640" max="-2" attributes="0"/>
-                                  <EmptySpace min="40" pref="40" max="-2" attributes="0"/>
-                                  <Component id="password" min="-2" pref="510" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="deliveryAddressLabel" min="-2" pref="170" max="-2" attributes="0"/>
-                                  <EmptySpace min="510" pref="510" max="-2" attributes="0"/>
-                                  <Component id="confirmPasswordLabel" min="-2" pref="160" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="addressLine1" min="-2" pref="640" max="-2" attributes="0"/>
-                                  <EmptySpace min="40" pref="40" max="-2" attributes="0"/>
-                                  <Component id="confirmPassword" min="-2" pref="510" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="city" min="-2" pref="640" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="addressLine2" min="-2" pref="640" max="-2" attributes="0"/>
                                       <Group type="102" attributes="0">
@@ -73,22 +52,48 @@
                                           <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                                           <Component id="state" min="-2" pref="370" max="-2" attributes="0"/>
                                       </Group>
+                                      <Component id="city" alignment="0" min="-2" pref="640" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="40" pref="40" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="note" min="-2" pref="510" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
                                           <Component id="cancelButton" min="-2" pref="280" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Component id="confirmButton" min="-2" pref="280" max="-2" attributes="0"/>
                                       </Group>
+                                      <Component id="note" max="32767" attributes="0"/>
                                   </Group>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="contactNoLabel" min="-2" pref="140" max="-2" attributes="0"/>
+                                          <EmptySpace min="540" pref="540" max="-2" attributes="0"/>
+                                          <Component id="passwordLabel" min="-2" pref="130" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="deliveryAddressLabel" min="-2" pref="170" max="-2" attributes="0"/>
+                                          <EmptySpace min="510" pref="510" max="-2" attributes="0"/>
+                                          <Component id="confirmPasswordLabel" min="-2" pref="160" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="addressLine1" min="-2" pref="640" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                                          <Component id="confirmPassword" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="contactNumber" min="-2" pref="640" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                                          <Component id="password" min="-2" pref="600" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="customerIdLabel" min="-2" pref="110" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
@@ -100,8 +105,8 @@
                                   <Component id="customerId" min="-2" pref="171" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="customerName" min="-2" pref="450" max="-2" attributes="0"/>
-                                  <EmptySpace min="40" pref="40" max="-2" attributes="0"/>
-                                  <Component id="email" min="-2" pref="510" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="email" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="customerDetails" min="-2" pref="410" max="-2" attributes="0"/>
@@ -156,22 +161,23 @@
                       <Component id="addressLine1" min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="confirmPassword" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" attributes="0">
+                          <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
                           <Component id="addressLine2" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="postcode" min="-2" pref="40" max="-2" attributes="0"/>
                               <Component id="state" min="-2" pref="40" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="city" min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                          <Component id="note" min="-2" pref="110" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="note" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="city" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="confirmButton" alignment="3" min="-2" pref="60" max="-2" attributes="0"/>
@@ -415,6 +421,7 @@
                 <LineBorder roundedCorners="true" thickness="2"/>
               </Border>
             </Property>
+            <Property name="opaque" type="boolean" value="true"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[200, 50]"/>
             </Property>
@@ -439,6 +446,7 @@
                 <LineBorder roundedCorners="true" thickness="2"/>
               </Border>
             </Property>
+            <Property name="opaque" type="boolean" value="true"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[200, 50]"/>
             </Property>
