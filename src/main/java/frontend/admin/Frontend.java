@@ -1,4 +1,4 @@
-package frontend;
+package frontend.admin;
 
 public class Frontend {
     public Frontend() {
