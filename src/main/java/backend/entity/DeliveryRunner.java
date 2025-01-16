@@ -381,6 +381,12 @@ public class DeliveryRunner extends User {
         // Retrieve the order list based on the filter
         ArrayList<Order> orderList = Order.filterOrder(this, filter);
 
+        // Filter the order list with only the completed and cancelled ones
+        orderList = orderList.stream()
+                .filter(order -> order.getOrderStatus() == Order.OrderStatus.COMPLETED ||
+                        order.getOrderStatus() == Order.OrderStatus.CANCELLED)
+                .collect(Collectors.toCollection(ArrayList::new));
+
         // Return the size of the list as delivery count
         return orderList.size();
     }
@@ -396,8 +402,11 @@ public class DeliveryRunner extends User {
         // Initialize a variable to store tips amount
         double tipsAmount = 0;
 
-        // Get the order list based on filter
-        ArrayList<Order> orderList = Order.filterOrder(this, filter);
+        // Get the order list based on filter, and only include completed or cancelled ones
+        ArrayList<Order> orderList = Order.filterOrder(this, filter).stream()
+                .filter(order -> order.getOrderStatus() == Order.OrderStatus.COMPLETED ||
+                        order.getOrderStatus() == Order.OrderStatus.CANCELLED)
+                .collect(Collectors.toCollection(ArrayList::new));
 
         // Loop through the order list
         for (Order order : orderList) {
