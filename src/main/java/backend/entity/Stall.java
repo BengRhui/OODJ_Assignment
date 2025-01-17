@@ -4,9 +4,7 @@ import backend.file_io.StallFileIO;
 import backend.notification.VendorNotification;
 import backend.utility.Utility;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -46,6 +44,33 @@ public class Stall {
      */
     public static ArrayList<Stall> getStallList() {
         return stallList;
+    }
+
+    /**
+     * A method to help retrieve all the names of all the stalls in the system.
+     * @return A string list consisting of all shop names
+     */
+    public static String[] getAllStallName() {
+
+        // Use iterator to loop through an array
+        Iterator<Stall> iterator = getStallList().iterator();
+
+        // Create variable to store the variables to be retrieved
+        List<String> stallNameList = new ArrayList<>();
+
+        // Start iteration
+        while (iterator.hasNext()) {
+
+            // Retrieve ths stall name and add to list
+            Stall iteratedStall = iterator.next();
+            stallNameList.add(iteratedStall.getStallName());
+        }
+
+        // Sort the stall name based on ascending order
+        stallNameList.sort(String::compareTo);
+
+        // Return the stall array
+        return stallNameList.toArray(new String[0]);
     }
 
     /**
