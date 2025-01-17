@@ -4,6 +4,8 @@
  */
 package frontend.admin;
 
+import frontend.home_page.HomePage;
+import frontend.pop_up.SystemPopUp;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -224,7 +226,42 @@ public class ActionPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_topUpButtonMouseExited
 
     private void logoutIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutIconMouseClicked
-        // TODO add your handling code here:
+
+        // Show message to confirm logout
+        SystemPopUp logoutConfirmation = new SystemPopUp(
+                MainPage.currentFrame,
+                "Logout from System",
+                "Are you sure you wish to logout from the system?",
+                new String[]{"No", "Yes"}
+        );
+        logoutConfirmation.setVisible(true);
+        
+        // Get the status of the notification
+        int status = logoutConfirmation.getStatus();
+        
+        // If "Yes" is chosen
+        if (status == 1) {
+            
+            // Display a message to indicate that logout is successful
+            SystemPopUp successLogout = new SystemPopUp(
+                MainPage.currentFrame,
+                "Logout Success",
+                "Thank you for using the system!",
+                new String[]{"OK"}
+            );
+            successLogout.setVisible(true);
+            
+            // Redirect users to home page
+            HomePage homePage = new HomePage();
+            homePage.setVisible(true);
+            homePage.setLocationRelativeTo(this);
+            
+            // Dispose the parent frame
+            MainPage.currentFrame.dispose();
+
+            // Set the runner instance to null (to avoid any errors when login again)
+            MainPage.setAdmin(null);
+        }
     }//GEN-LAST:event_logoutIconMouseClicked
 
 

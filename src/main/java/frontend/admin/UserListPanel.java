@@ -4,19 +4,123 @@
  */
 package frontend.admin;
 
+import backend.entity.Customer;
+import backend.entity.DeliveryRunner;
+import backend.entity.User;
+import backend.entity.Vendor;
+import frontend.pop_up.FilterUserPopUp;
+import java.awt.Color;
+import java.awt.Font;
+import java.util.ArrayList;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 /**
  *
  * @author limbengrhui
  */
 public class UserListPanel extends javax.swing.JPanel {
 
+    private static ArrayList<? extends User> userList;
+    private static String currentUserType;
+    
     /**
      * Creates new form UserListPanel
      */
     public UserListPanel() {
+        
+        // Set current user type as vendor
+        currentUserType = "Vendor";
+        
+        // Render GUI components
         initComponents();
+        
+        // Update the panel with the users
+        updatePanel();
     }
 
+    /**
+     * This method helps to retrieve the current user type displayed.
+     * @return A string representing the current user type
+     */
+    public static String getCurrentUserType() {
+        return currentUserType;
+    }
+    
+    /**
+     * This method helps to set the current user type and update to the panel.
+     * @param userType The user type to be stored
+     */
+    public static void setCurrentUserType(String userType) {
+        currentUserType = userType;
+    }
+    
+    /**
+     * This method helps to update the panel that displays each user panel.
+     */
+    public static void updatePanel() {
+        
+        // Clear the current panel
+        userDetailsContainer.removeAll();
+        
+        // Check the user type
+        switch (currentUserType) {
+            
+            // Initialize different user list based on different user type
+            case "Vendor" -> userList = Vendor.getVendorList();
+            case "Delivery Runner" -> userList = DeliveryRunner.getDeliveryRunnerList();
+            case "Customer" -> userList = Customer.getCustomerList();
+            
+            // Call an exception if the input does not match
+            default -> throw new IllegalStateException("The selection from JComboBox is incorrect. Please inspect code");
+        }
+        
+        // Loop through each user
+        for (User user : userList) {
+            
+            // Create the corresponding user details panel and add to container panel
+            JPanel userDetails = new UserDetailsPanel(user);
+            
+            // Add the individual panel to the container
+            userDetailsContainer.add(userDetails);
+        }
+        
+        // If there is no user, 
+        if (userList.isEmpty()) {
+        
+            // Set the layout of the panel to null
+            userDetailsContainer.setLayout(null);
+            
+            // Generate a empty label to indicate that no user exists
+            JLabel emptyLabel = new JLabel("No user exists in the system.");
+            emptyLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+            emptyLabel.setBounds(2, 0, 350, 30);
+            
+            // Add the label to the container
+            userDetailsContainer.add(emptyLabel);
+            
+        } else if (userList.size() < 4) {
+        
+            // Start a loop to create empty panels to be placed inside the grid layout
+            for (int i = userList.size() + 1; i < 7; i ++) {
+                
+                // Create the empty panel
+                JPanel emptyPanel = new JPanel();
+                emptyPanel.setBackground(new Color(255, 251, 233));
+                
+                // Add the empty panel to the container
+                userDetailsContainer.add(emptyPanel);
+            }
+        }
+        
+        // Update the title
+        userListTitle.setText(currentUserType + " List");
+        
+        // Refresh the pane after all actions
+        userDetailsContainer.revalidate();
+        userDetailsContainer.repaint();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,27 +130,54 @@ public class UserListPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        userListTitle = new javax.swing.JLabel();
+        filterLabel = new javax.swing.JLabel();
+        userDetailsScrollPane = new javax.swing.JScrollPane();
+        userDetailsContainer = new javax.swing.JPanel();
         backButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        registerButton = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 251, 233));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        userListTitle.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        userListTitle.setText(currentUserType + " List");
+        add(userListTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 350, -1));
 
+        filterLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/customize_icon.png"))); // NOI18N
+        filterLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        filterLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                filterLabelMouseClicked(evt);
+            }
+        });
+        add(filterLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(1238, 70, -1, 60));
+
+        userDetailsScrollPane.setBackground(new java.awt.Color(255, 251, 233));
+        userDetailsScrollPane.setBorder(null);
+        userDetailsScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        userDetailsScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        userDetailsContainer.setBackground(new java.awt.Color(255, 251, 233));
+        userDetailsContainer.setLayout(new java.awt.GridLayout(0, 3, 10, 10));
+        userDetailsScrollPane.setViewportView(userDetailsContainer);
+
+        add(userDetailsScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 1220, 480));
+
+        backButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         backButton.setText("Back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(479, 301, -1, -1));
+        add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 670, 190, 60));
 
-        jLabel1.setText("user list");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 110, -1, -1));
-
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, -1, 1410, 800));
+        registerButton.setBackground(new java.awt.Color(0, 0, 0));
+        registerButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        registerButton.setForeground(new java.awt.Color(255, 255, 255));
+        registerButton.setText("+ Register New User");
+        add(registerButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 670, 280, 60));
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
@@ -55,10 +186,20 @@ public class UserListPanel extends javax.swing.JPanel {
         MainPage.setCard("actionPanel");
     }//GEN-LAST:event_backButtonActionPerformed
 
+    private void filterLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_filterLabelMouseClicked
+
+        // Generate pop up to let user choose the user type
+        FilterUserPopUp filterPopUp = new FilterUserPopUp(MainPage.currentFrame);
+        filterPopUp.setVisible(true);
+    }//GEN-LAST:event_filterLabelMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel filterLabel;
+    private javax.swing.JButton registerButton;
+    private static javax.swing.JPanel userDetailsContainer;
+    private static javax.swing.JScrollPane userDetailsScrollPane;
+    private static javax.swing.JLabel userListTitle;
     // End of variables declaration//GEN-END:variables
 }
