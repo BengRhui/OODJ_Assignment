@@ -166,11 +166,16 @@ public class Customer extends User {
             char[] confirmPassword) {
 
         // Check if there is any empty values
-        if (customerName == null || customerName.isBlank() ||
-                addressLine1 == null || addressLine1.isBlank() ||
-                addressLine2 == null || addressLine2.isBlank() ||
-                postcode == null || postcode.isBlank() ||
-                city == null || city.isBlank()
+        if (customerName.equalsIgnoreCase("Enter Name Here") ||
+                contactNumber.equalsIgnoreCase("Contact Number Here (e.g. 012-3456789)") ||
+                addressLine1.equalsIgnoreCase("Address Line 1") ||
+                addressLine2.equalsIgnoreCase("Address Line 2") ||
+                postcode.equalsIgnoreCase("Postcode") ||
+                state == null ||
+                city.equalsIgnoreCase("City") ||
+                email.equalsIgnoreCase("Enter Email Here") ||
+                Utility.generateString(password).equalsIgnoreCase("Enter Password Here") ||
+                Utility.generateString(confirmPassword).equalsIgnoreCase("Retype Password Here")
         ) return 0;
 
         // Check if email is in the correct format (-1)
@@ -262,11 +267,16 @@ public class Customer extends User {
             char[] confirmPassword) {
 
         // Check if there is any empty values
-        if (customerName == null || customerName.isBlank() ||
-                addressLine1 == null || addressLine1.isBlank() ||
-                addressLine2 == null || addressLine2.isBlank() ||
-                postcode == null || postcode.isBlank() ||
-                city == null || city.isBlank()
+        if (customerName.equalsIgnoreCase("Enter Name Here") ||
+                contactNumber.equalsIgnoreCase("Contact Number Here (e.g. 012-3456789)") ||
+                addressLine1.equalsIgnoreCase("Address Line 1") ||
+                addressLine2.equalsIgnoreCase("Address Line 2") ||
+                postcode.equalsIgnoreCase("Postcode") ||
+                state == null ||
+                city.equalsIgnoreCase("City") ||
+                email.equalsIgnoreCase("Enter Email Here") ||
+                Utility.generateString(password).equalsIgnoreCase("Enter Password Here") ||
+                Utility.generateString(confirmPassword).equalsIgnoreCase("Retype Password Here")
         ) return 0;
 
         // Check if email is in the correct format (-1)
