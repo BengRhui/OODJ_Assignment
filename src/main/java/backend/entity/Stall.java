@@ -229,8 +229,8 @@ public class Stall {
      * @param stallName       The name of the stall
      * @param stallCategories The categories of the stall
      * @return {@code 1} if the stall is created successfully<br>
-     * {@code 0} if there exist empty values
-     * {@code -1} if the name has been used by other stalls
+     * {@code 0} if there exist empty values<br>
+     * {@code -1} if the name has been used by other stalls<br>
      * {@code -2} if there exists any invalid category (should not happen but included just in case)
      */
     public static int createNewStall(

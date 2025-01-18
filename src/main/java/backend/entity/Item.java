@@ -243,7 +243,6 @@ public class Item {
         ArrayList<Item> itemsToBeRemoved = Item.getItemList().stream()
                 .filter(item -> item.getStall() != null && item.getStall().getStallID().equals(stallID))
                 .collect(Collectors.toCollection(ArrayList::new));
-        if (itemsToBeRemoved.isEmpty()) return false;
 
         // Remove the items from the list
         for (Item item : itemsToBeRemoved) {

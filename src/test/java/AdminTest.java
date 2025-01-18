@@ -995,7 +995,7 @@ public class AdminTest extends BaseTest {
 
         // Try to remove stall 1 once again (fail coz stall 1 is not in the list anymore)
         deleteStall = stall1.deleteStall();
-        assertEquals(-1, deleteStall); // -1 coz the items have already been deleted
+        assertEquals(-3, deleteStall);
 
         // Check if the items associated with stall 1 still exists
         itemInList = Item.getItemList().stream()
