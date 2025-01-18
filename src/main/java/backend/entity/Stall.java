@@ -436,7 +436,11 @@ public class Stall {
     /**
      * A method to delete the current stall. If there are still vendors associated with the stall, the operation will not proceed.
      *
-     * @return {@code true} if the stall is deleted successfully, else {@code false}
+     * @return {@code 1} if the stall is deleted successfully<br>
+     * {@code 0} if there are still vendors associated with the stall<br>
+     * {@code -1} if the items in the stall cannot be deleted<br>
+     * {@code -2} if the stall cannot be changed to null for the orders<br>
+     * {@code -3} if the stall cannot be removed from the list
      */
     public int deleteStall() {
 
