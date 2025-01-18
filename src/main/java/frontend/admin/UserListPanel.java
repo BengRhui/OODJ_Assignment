@@ -258,13 +258,19 @@ public class UserListPanel extends javax.swing.JPanel {
             case "Vendor" -> {
                 VendorDetailsForm registerVendor = new VendorDetailsForm(null);
                 registerVendor.setVisible(true);
-                registerVendor.setLocationRelativeTo(this);
+                registerVendor.setLocationRelativeTo(MainPage.currentFrame);
+            }
+            
+            case "Delivery Runner" -> {
+                RunnerDetailsForm registerRunner = new RunnerDetailsForm(null);
+                registerRunner.setVisible(true);
+                registerRunner.setLocationRelativeTo(MainPage.currentFrame);
             }
             
             case "Customer" -> {
                 CustomerDetailsForm registerCustomer = new CustomerDetailsForm(null);
                 registerCustomer.setVisible(true);
-                registerCustomer.setLocationRelativeTo(this);
+                registerCustomer.setLocationRelativeTo(MainPage.currentFrame);
             }
         }
         

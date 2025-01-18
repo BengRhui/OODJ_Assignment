@@ -140,12 +140,21 @@ public class UserDetailsPanel extends javax.swing.JPanel {
             case Vendor vendor -> {
                 VendorDetailsForm editForm = new VendorDetailsForm(vendor);
                 editForm.setVisible(true);
+                editForm.setLocationRelativeTo(MainPage.currentFrame);
+            }
+            
+            // For runner
+            case DeliveryRunner runner -> {
+                RunnerDetailsForm editForm = new RunnerDetailsForm(runner);
+                editForm.setVisible(true);
+                editForm.setLocationRelativeTo(MainPage.currentFrame);
             }
             
             // For customer
             case Customer customer -> {
                 CustomerDetailsForm editForm = new CustomerDetailsForm(customer);
                 editForm.setVisible(true);
+                editForm.setLocationRelativeTo(MainPage.currentFrame);
             }
             
             // Throw an exception if the user type is invalid
