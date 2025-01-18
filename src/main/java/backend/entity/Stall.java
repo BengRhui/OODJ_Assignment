@@ -240,8 +240,7 @@ public class Stall {
     ) {
 
         // Check if there is any empty values
-        if (stallID == null || stallID.isBlank() || stallName == null || stallName.isBlank() || stallCategories == null || stallCategories.length == 0)
-            return 0;
+        if (stallName.equalsIgnoreCase("Enter Stall Name")) return 0;
 
         // Check if the name has been used by another stall
         if (checkIfStallNameIsUsed(stallName)) return -1;
@@ -413,13 +412,17 @@ public class Stall {
                 .anyMatch(Objects::isNull);
         if (consistNull) return -2;
 
-        // Create a notification to inform that the details have been changed
-        boolean createNotification = VendorNotification.createNewNotification(
-                "Stall Information Updated",
-                "The stall information has been updated successfully.",
-                this
-        );
-        if (!createNotification) return -3;
+        // Only send notifications when the stall has vendors
+        if (!getVendors(this).isEmpty()) {
+            
+            // Create a notification to inform that the details have been changed
+            boolean createNotification = VendorNotification.createNewNotification(
+                    "Stall Information Updated",
+                    "The stall information has been updated successfully.",
+                    this
+            );
+            if (!createNotification) return -3;
+        }
 
         // Modify the attributes
         this.setStallName(stallName);
