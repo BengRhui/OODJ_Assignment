@@ -4,19 +4,96 @@
  */
 package frontend.manager;
 
+import backend.entity.Feedback;
+import backend.entity.Order;
+import backend.utility.Utility.TimeframeFilter;
+import frontend.utility.Graph;
+import java.util.ArrayList;
+import javax.swing.JPanel;
+
 /**
  *
  * @author limbengrhui
  */
 public class DashboardPanel extends javax.swing.JPanel {
 
+    private static ArrayList<Order> orderData;
+    private static TimeframeFilter orderFilter;
+    private static ArrayList<Feedback> feedbackData;
+    private static TimeframeFilter feedbackFilter;
+    
     /**
      * Creates new form DashboardPanel
      */
     public DashboardPanel() {
+        
+        // Initialize the data
+        setOrderData(
+                Order.filterOrder(TimeframeFilter.YEARLY),
+                TimeframeFilter.YEARLY
+        );
+        
+        setFeedbackData(
+                Feedback.filterFeedback(TimeframeFilter.YEARLY),
+                TimeframeFilter.YEARLY
+        );
+
+        // Render GUI components
         initComponents();
+        
+        // Render the graphs
+        updateRevenueGraph();
+        updateFeedbackGraph();
+    }
+    
+    /**
+     * This method helps to set order-related data so that the graph could generate the correct data.
+     * @param list The order list
+     * @param filter The filter imposed
+     */
+    public static void setOrderData(ArrayList<Order> list, TimeframeFilter filter) {
+        orderData = list;
+        orderFilter = filter;
+    }
+    
+    /**
+     * This method helps to set feedback-related data so that the graph could generate the correct data.
+     * @param list The feedback list
+     * @param filter The filter imposed
+     */
+    public static void setFeedbackData(ArrayList<Feedback> list, TimeframeFilter filter) {
+        feedbackData = list;
+        feedbackFilter = filter;
     }
 
+    /**
+     * This method helps to generate a revenue graph based on current order list and filter.
+     */
+    public static void updateRevenueGraph() {
+        
+        // Remove the existing graph on the panel
+        revenuePanel.removeAll();
+        
+        // Generate the graph and add it to the panel
+        JPanel graph = new Graph(orderData, Graph.REVENUE_GRAPH, orderFilter, 610, 430);
+        graph.setLocation(20, 30);
+        revenuePanel.add(graph);
+    }
+    
+    /**
+     * This method helps to update the feedback graph based on current feedback data and filter.
+     */
+    public static void updateFeedbackGraph() {
+
+        // Remove the existing graph on the panel
+        feedbackPanel.removeAll();
+        
+        // Generate the graph and add it to the panel
+        JPanel graph = new Graph(feedbackData, Graph.FEEDBACK_GRAPH, feedbackFilter, 560, 430);
+        graph.setLocation(20, 30);
+        feedbackPanel.add(graph);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,11 +103,82 @@ public class DashboardPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setBackground(new java.awt.Color(204, 255, 204));
+        revenueTitle = new javax.swing.JLabel();
+        revenueExportIcon = new javax.swing.JLabel();
+        revenueFilterIcon = new javax.swing.JLabel();
+        feedbackTitle = new javax.swing.JLabel();
+        feedbackExportIcon = new javax.swing.JLabel();
+        feedbackFilterIcon = new javax.swing.JLabel();
+        revenuePanel = new javax.swing.JPanel();
+        feedbackPanel = new javax.swing.JPanel();
+
+        setBackground(new java.awt.Color(255, 251, 233));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        revenueTitle.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        revenueTitle.setText("Revenue");
+        add(revenueTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, -1, -1));
+
+        revenueExportIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        revenueExportIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/excel_icon.png"))); // NOI18N
+        add(revenueExportIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, 60, 60));
+
+        revenueFilterIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/customize_icon.png"))); // NOI18N
+        add(revenueFilterIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 40, 70, 60));
+
+        feedbackTitle.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        feedbackTitle.setText("Feedback");
+        add(feedbackTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 50, -1, -1));
+
+        feedbackExportIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        feedbackExportIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/excel_icon.png"))); // NOI18N
+        add(feedbackExportIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 40, 60, 60));
+
+        feedbackFilterIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/customize_icon.png"))); // NOI18N
+        add(feedbackFilterIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 40, 70, 60));
+
+        revenuePanel.setBackground(new java.awt.Color(255, 255, 255));
+        revenuePanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+
+        javax.swing.GroupLayout revenuePanelLayout = new javax.swing.GroupLayout(revenuePanel);
+        revenuePanel.setLayout(revenuePanelLayout);
+        revenuePanelLayout.setHorizontalGroup(
+            revenuePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 646, Short.MAX_VALUE)
+        );
+        revenuePanelLayout.setVerticalGroup(
+            revenuePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 476, Short.MAX_VALUE)
+        );
+
+        add(revenuePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 650, 480));
+
+        feedbackPanel.setBackground(new java.awt.Color(255, 255, 255));
+        feedbackPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+
+        javax.swing.GroupLayout feedbackPanelLayout = new javax.swing.GroupLayout(feedbackPanel);
+        feedbackPanel.setLayout(feedbackPanelLayout);
+        feedbackPanelLayout.setHorizontalGroup(
+            feedbackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 596, Short.MAX_VALUE)
+        );
+        feedbackPanelLayout.setVerticalGroup(
+            feedbackPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 480, Short.MAX_VALUE)
+        );
+
+        add(feedbackPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 110, 600, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel feedbackExportIcon;
+    private javax.swing.JLabel feedbackFilterIcon;
+    private static javax.swing.JPanel feedbackPanel;
+    private javax.swing.JLabel feedbackTitle;
+    private javax.swing.JLabel revenueExportIcon;
+    private javax.swing.JLabel revenueFilterIcon;
+    private static javax.swing.JPanel revenuePanel;
+    private javax.swing.JLabel revenueTitle;
     // End of variables declaration//GEN-END:variables
 }
