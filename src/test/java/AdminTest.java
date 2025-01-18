@@ -970,8 +970,8 @@ public class AdminTest extends BaseTest {
         assertTrue(orderInList);
 
         // Try to remove stall 1 (fail coz vendor 1 is still associated with stall 1)
-        boolean deleteStall = stall1.deleteStall();
-        assertFalse(deleteStall);
+        int deleteStall = stall1.deleteStall();
+        assertEquals(0, deleteStall);
 
         // Remove the vendor
         boolean deleteVendor = vendor1.deleteVendor();
@@ -979,7 +979,7 @@ public class AdminTest extends BaseTest {
 
         // Try to remove stall 1 again (fail coz the items are still associated with the orders)
         deleteStall = stall1.deleteStall();
-        assertFalse(deleteStall);
+        assertEquals(-1, deleteStall);
 
         // Change the associated orders to completed
         order2.setOrderStatus(Order.OrderStatus.COMPLETED);
@@ -987,7 +987,7 @@ public class AdminTest extends BaseTest {
 
         // Try to remove stall 1 again
         deleteStall = stall1.deleteStall();
-        assertTrue(deleteStall);
+        assertEquals(1, deleteStall);
 
         // Check if stall 1 is in the list
         stallInList = Stall.getStallList().contains(stall1);
@@ -995,7 +995,7 @@ public class AdminTest extends BaseTest {
 
         // Try to remove stall 1 once again (fail coz stall 1 is not in the list anymore)
         deleteStall = stall1.deleteStall();
-        assertFalse(deleteStall);
+        assertEquals(-1, deleteStall); // -1 coz the items have already been deleted
 
         // Check if the items associated with stall 1 still exists
         itemInList = Item.getItemList().stream()

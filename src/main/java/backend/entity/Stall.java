@@ -48,6 +48,7 @@ public class Stall {
 
     /**
      * A method to help retrieve all the names of all the stalls in the system.
+     *
      * @return A string list consisting of all shop names
      */
     public static String[] getAllStallName() {
@@ -437,30 +438,53 @@ public class Stall {
      *
      * @return {@code true} if the stall is deleted successfully, else {@code false}
      */
-    public boolean deleteStall() {
+    public int deleteStall() {
 
         // Check if there is any vendors associated with the stall. If yes, the stall cannot be deleted
         boolean stallHasVendors = Vendor.getVendorList().stream()
                 .anyMatch(vendor -> vendor.getStall().getStallID().equals(this.stallID));
-        if (stallHasVendors) return false;
+        if (stallHasVendors) return 0;
 
         // Remove all the items associated with the stall
         boolean deleteItem = Item.deleteItem(this.stallID);
-        if (!deleteItem) return false;
+        if (!deleteItem) return -1;
 
         // Change all the stall attribute to null for relevant orders
         boolean changeStatus = Order.changeStallToNull(this.stallID);
-        if (!changeStatus) return false;
+        if (!changeStatus) return -2;
 
         // Remove stall from list
         boolean removeFromList = stallList.remove(this);
-        if (!removeFromList) return false;
+        if (!removeFromList) return -3;
 
         // Write to file
         StallFileIO.writeFile();
 
         // Return true for successful deletion
-        return true;
+        return 1;
+    }
+
+    /**
+     * A method that helps to generate the category list of a stall as a string.
+     *
+     * @return A string consisting of the list of categories
+     */
+    public String generateCategoryList() {
+
+        // Create a string builder to store category list as string
+        StringBuilder categoryList = new StringBuilder();
+
+        // If there is no stall categories, return null
+        if (this.stallCategories.length == 0) return null;
+
+        // Else, loop through each category and append it to string builder
+        for (StallCategories stallCategory : this.stallCategories) {
+            categoryList.append(stallCategory).append(", ");
+        }
+
+        // Remove the comma at the end after complete appending, then return the string
+        categoryList.delete(categoryList.length() - 2, categoryList.length());
+        return categoryList.toString();
     }
 
     /**
