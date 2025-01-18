@@ -387,9 +387,9 @@ public class Stall {
      * @param stallName       The name of the stall
      * @param stallCategories The category of the stall
      * @return {@code 1} if the stall is created successfully<br>
-     * {@code 0} if there exist empty values
-     * {@code -1} if the name has been used by other stalls
-     * {@code -2} if there exists any invalid category (should not happen but included just in case)
+     * {@code 0} if there exist empty values<br>
+     * {@code -1} if the name has been used by other stalls<br>
+     * {@code -2} if there exists any invalid category (should not happen but included just in case)<br>
      * {@code -3} if the notification cannot be created
      */
     public int modifyStall(
@@ -398,8 +398,7 @@ public class Stall {
     ) {
 
         // Check if there exist any empty values (0)
-        if (stallName == null || stallName.isBlank() || stallCategories == null || stallCategories.length == 0)
-            return 0;
+        if (stallName.equalsIgnoreCase("Enter Stall Name")) return 0;
 
         // Check if the stall name is used by other stalls (-1)
         if (!stallName.equalsIgnoreCase(this.stallName) && checkIfStallNameIsUsed(stallName)) return -1;
