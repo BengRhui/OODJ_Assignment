@@ -80,7 +80,7 @@ public class ActionPanel extends javax.swing.JPanel {
         manageStoreButton.setBackground(Color.WHITE);
         manageStoreButton.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         manageStoreButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/store_icon.png"))); // NOI18N
-        manageStoreButton.setText("Manage Store");
+        manageStoreButton.setText("Manage Stall");
         manageStoreButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         manageStoreButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         manageStoreButton.setFocusPainted(false);
