@@ -414,7 +414,7 @@ public class Stall {
 
         // Only send notifications when the stall has vendors
         if (!getVendors(this).isEmpty()) {
-            
+
             // Create a notification to inform that the details have been changed
             boolean createNotification = VendorNotification.createNewNotification(
                     "Stall Information Updated",
