@@ -478,7 +478,7 @@ public class Stall {
         StringBuilder categoryList = new StringBuilder();
 
         // If there is no stall categories, return null
-        if (this.stallCategories.length == 0) return null;
+        if (this.stallCategories.length == 0) return "-";
 
         // Else, loop through each category and append it to string builder
         for (StallCategories stallCategory : this.stallCategories) {
