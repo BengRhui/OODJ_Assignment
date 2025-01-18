@@ -166,6 +166,17 @@ public class UserListPanel extends javax.swing.JPanel {
 
         backButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         backButton.setText("Back");
+        backButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        backButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backButton.setFocusPainted(false);
+        backButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backButtonMouseExited(evt);
+            }
+        });
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
@@ -177,6 +188,22 @@ public class UserListPanel extends javax.swing.JPanel {
         registerButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         registerButton.setForeground(new java.awt.Color(255, 255, 255));
         registerButton.setText("+ Register New User");
+        registerButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        registerButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        registerButton.setFocusPainted(false);
+        registerButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                registerButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                registerButtonMouseExited(evt);
+            }
+        });
+        registerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerButtonActionPerformed(evt);
+            }
+        });
         add(registerButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 670, 280, 60));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -192,6 +219,59 @@ public class UserListPanel extends javax.swing.JPanel {
         FilterUserPopUp filterPopUp = new FilterUserPopUp(MainPage.currentFrame);
         filterPopUp.setVisible(true);
     }//GEN-LAST:event_filterLabelMouseClicked
+
+    private void backButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseEntered
+
+        // Change the colour of the button
+        backButton.setBackground(new Color(206, 171, 147));
+    }//GEN-LAST:event_backButtonMouseEntered
+
+    private void backButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseExited
+
+        // Change the colour of the button
+        backButton.setBackground(Color.WHITE);
+    }//GEN-LAST:event_backButtonMouseExited
+
+    private void registerButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerButtonMouseEntered
+
+        // Change the colour of the button
+        registerButton.setBackground(new Color(206, 171, 147));
+        
+        // Change the text colour of the button
+        registerButton.setForeground(Color.BLACK);
+    }//GEN-LAST:event_registerButtonMouseEntered
+
+    private void registerButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerButtonMouseExited
+
+        // Change the colour of the button
+        registerButton.setBackground(Color.BLACK);
+        
+        // Change the text colour of the button
+        registerButton.setForeground(Color.WHITE);
+    }//GEN-LAST:event_registerButtonMouseExited
+
+    private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
+
+        // Call different forms depending on the user type
+        switch (currentUserType) {
+            
+            case "Vendor" -> {
+                VendorDetailsForm registerVendor = new VendorDetailsForm(null);
+                registerVendor.setVisible(true);
+                registerVendor.setLocationRelativeTo(this);
+            }
+            
+            case "Customer" -> {
+                CustomerDetailsForm registerCustomer = new CustomerDetailsForm(null);
+                registerCustomer.setVisible(true);
+                registerCustomer.setLocationRelativeTo(this);
+            }
+        }
+        
+        
+        // Disable the current frame
+        MainPage.currentFrame.setEnabled(false);
+    }//GEN-LAST:event_registerButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

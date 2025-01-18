@@ -8,6 +8,7 @@ import backend.entity.Customer;
 import backend.entity.DeliveryRunner;
 import backend.entity.User;
 import backend.entity.Vendor;
+import frontend.pop_up.SystemPopUp;
 
 /**
  *
@@ -15,6 +16,7 @@ import backend.entity.Vendor;
  */
 public class UserDetailsPanel extends javax.swing.JPanel {
 
+    private static User currentUser;
     private static String userID;
     private static String userName;
     private static String userDescription;
@@ -23,6 +25,9 @@ public class UserDetailsPanel extends javax.swing.JPanel {
      * Creates new form UserDetailsPanel
      */
     public UserDetailsPanel(User user) {
+        
+        // Set the current user
+        currentUser = user;
         
         // Retrieve the ID and name to be displayed
         userID = user.getUserID();
@@ -108,13 +113,84 @@ public class UserDetailsPanel extends javax.swing.JPanel {
 
         editIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/edit_icon.png"))); // NOI18N
         editIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        editIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editIconMouseClicked(evt);
+            }
+        });
         add(editIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, -1, 40));
 
         deleteIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         deleteIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/delete_icon.png"))); // NOI18N
         deleteIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        deleteIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteIconMouseClicked(evt);
+            }
+        });
         add(deleteIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 170, 40, 40));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void editIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editIconMouseClicked
+
+        // Call different forms depending on the user type
+        switch (currentUser) {
+            
+            // For vendor
+            case Vendor vendor -> {
+                VendorDetailsForm editForm = new VendorDetailsForm(vendor);
+                editForm.setVisible(true);
+            }
+            
+            // Throw an exception if the user type is invalid
+            default -> throw new IllegalStateException("The user type is invalid. Please inspect code.");
+        }
+        
+        // Disable the main frame
+        MainPage.currentFrame.setEnabled(false);
+    }//GEN-LAST:event_editIconMouseClicked
+
+    private void deleteIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteIconMouseClicked
+
+        // Display a message pop up for confirmation
+        SystemPopUp confirmDelete = new SystemPopUp(
+                MainPage.currentFrame,
+                "Confirm Delete",
+                "Do you wish to delete the user?",
+                new String[]{"No", "Yes"}
+        );
+        confirmDelete.setVisible(true);
+        
+        // Retrieve the status of the message
+        int status = confirmDelete.getStatus();
+        
+        // If user choose "yes"
+        if (status == 1) {
+            
+            switch (currentUser) {
+                
+                // Perform different deletion based on different user
+                case Vendor vendor -> vendor.deleteVendor();
+                case DeliveryRunner runner -> runner.deleteRunner();
+                case Customer customer -> customer.deleteCustomer();
+                
+                // Throw an exception if the user is not correct
+                default -> throw new IllegalStateException("Invalid state. Please inspect code.");
+            }
+            
+            // Show a message to inform that the deletion is successful
+            SystemPopUp successDelete = new SystemPopUp(
+                    MainPage.currentFrame,
+                    "Delete Successful",
+                    "The user is deleted successfully.",
+                    new String[]{"OK"}
+            );
+            successDelete.setVisible(true);
+        }
+        
+        // Update the panel after deletion
+        UserListPanel.updatePanel();
+    }//GEN-LAST:event_deleteIconMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
