@@ -288,6 +288,7 @@ public class VendorDetailsForm extends javax.swing.JFrame {
         confirmButton.setForeground(new java.awt.Color(255, 255, 255));
         confirmButton.setText("Confirm");
         confirmButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        confirmButton.setFocusPainted(false);
         confirmButton.setOpaque(true);
         confirmButton.setPreferredSize(new java.awt.Dimension(200, 50));
         confirmButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -308,6 +309,7 @@ public class VendorDetailsForm extends javax.swing.JFrame {
         cancelButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         cancelButton.setText("Cancel");
         cancelButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        cancelButton.setFocusPainted(false);
         cancelButton.setOpaque(true);
         cancelButton.setPreferredSize(new java.awt.Dimension(200, 50));
         cancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -374,7 +376,7 @@ public class VendorDetailsForm extends javax.swing.JFrame {
         // Retrieve the relevant information
         String vendorIDString = vendorID.getText();
         String vendorNameString = vendorName.getText().strip();
-        String stallName = String.valueOf(stallNameDropDown.getSelectedItem());
+        String stallName = stallNameDropDown.getSelectedItem() == null ? null : stallNameDropDown.getSelectedItem().toString();
         String emailString = email.getText().strip().toLowerCase();
         char[] passwordString = passwordField.getPassword();
         char[] confirmPasswordString = confirmPasswordField.getPassword();

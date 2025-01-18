@@ -142,6 +142,12 @@ public class UserDetailsPanel extends javax.swing.JPanel {
                 editForm.setVisible(true);
             }
             
+            // For customer
+            case Customer customer -> {
+                CustomerDetailsForm editForm = new CustomerDetailsForm(customer);
+                editForm.setVisible(true);
+            }
+            
             // Throw an exception if the user type is invalid
             default -> throw new IllegalStateException("The user type is invalid. Please inspect code.");
         }
