@@ -161,7 +161,7 @@ public class CustomerStoreInCategory extends javax.swing.JFrame {
         top_panel.add(back_icon);
         back_icon.setBounds(1290, 40, 60, 70);
 
-        customer_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/darked_customer_background.jpg"))); // NOI18N
+        customer_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/customer_background.jpg"))); // NOI18N
         customer_background.setText("jLabel1");
         top_panel.add(customer_background);
         customer_background.setBounds(0, 0, 1540, 690);

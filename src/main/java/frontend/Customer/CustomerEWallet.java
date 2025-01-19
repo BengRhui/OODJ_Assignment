@@ -174,7 +174,7 @@ public class CustomerEWallet extends javax.swing.JFrame {
         top_panel.add(back_icon);
         back_icon.setBounds(1290, 40, 60, 70);
 
-        customer_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/darked_customer_background.jpg"))); // NOI18N
+        customer_background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/customer_background.jpg"))); // NOI18N
         customer_background.setText("jLabel1");
         top_panel.add(customer_background);
         customer_background.setBounds(0, 0, 1540, 690);
@@ -200,7 +200,7 @@ public class CustomerEWallet extends javax.swing.JFrame {
         show.setBounds(310, 20, 50, 50);
 
         hide.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        hide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/hide.png"))); // NOI18N
+        hide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/hide_icon.png"))); // NOI18N
         bottom_panel.add(hide);
         hide.setBounds(310, 20, 50, 50);
 
