@@ -1,0 +1,409 @@
+package backend.entity;
+
+import backend.file_io.CredentialsFileIO;
+import backend.file_io.PictureIO;
+import backend.file_io.VendorFileIO;
+import backend.notification.VendorNotification;
+import backend.utility.Utility;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+/**
+ * Class {@code Vendor} represents the hawkers / sellers in the food court.
+ *
+ * @author Beng Rhui (TP068495)
+ */
+public class Vendor extends User {
+
+    /**
+     * Additional attribute for {@code Vendor} class.<br>
+     * An overall list to record all {@code Vendor} objects is also included.
+     */
+    private final static ArrayList<Vendor> vendorList = new ArrayList<>();
+    private Stall stall;
+
+    /**
+     * Constructor to instantiate the class {@code Vendor}.
+     *
+     * @param userID   The ID of the vendor
+     * @param email    Email used to log into the system
+     * @param password Password used to log into the system
+     * @param name     Real-world name of the vendor
+     * @param stall    Stall owned by the vendor
+     */
+    public Vendor(String userID, String email, String password, String name, Stall stall) {
+        super(userID, email, password, name);
+        this.stall = stall;
+    }
+
+    /**
+     * A method to retrieve the list consisting of all vendors.
+     *
+     * @return An ArrayList consisting of all {@code Vendor} objects.
+     */
+    public static ArrayList<Vendor> getVendorList() {
+        return vendorList;
+    }
+
+    /**
+     * A method to add {@code Vendor} objects into the overall list.
+     *
+     * @param vendor {@code Vendor} objects to be added to overall list
+     */
+    public static void addToVendorList(Vendor... vendor) {
+
+        // Throws an error if there is no vendor passed into the argument, or a null vendor is passed into argument
+        if (vendor.length == 0 || Arrays.stream(vendor).anyMatch(Objects::isNull)) {
+            throw new IllegalArgumentException("Arguments should contain at least one Vendor object");
+        }
+
+        // Add all the vendors from the arguments into the list
+        vendorList.addAll(
+                Arrays.asList(vendor)
+        );
+    }
+
+    /**
+     * A method to search for vendor using their names.
+     *
+     * @param name The name of the vendor
+     * @return An array list consisting of the vendors fulfilling the condition
+     */
+    public static ArrayList<Vendor> findVendorByName(String name) {
+
+        // Return the list (for empty strings, return back all values)
+        return vendorList.stream()
+                .filter(vendor -> vendor.getName().toLowerCase().contains(name.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * A method to get the relevant vendor list based on stall name.
+     *
+     * @param stallName The name of the stall
+     * @return The list of filtered vendors
+     */
+    public static ArrayList<Vendor> findVendorByStallName(String stallName) {
+
+        // Return the list (empty strings - return all values)
+        return vendorList.stream()
+                .filter(vendor -> vendor.getStall().getStallName().toLowerCase().contains(stallName.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
+     * A method to retrieve {@code Vendor} object using vendor ID
+     *
+     * @param vendorID The ID of the vendor
+     * @return The {@code Vendor} object associated with the ID
+     */
+    public static Vendor getVendor(String vendorID) {
+
+        // Loop through the list of vendors
+        for (Vendor vendor : vendorList) {
+
+            // Continue loop if the ID does not match
+            if (!vendor.getUserID().equals(vendorID)) {
+                continue;
+            }
+
+            // Return the vendor if ID matches
+            return vendor;
+        }
+
+        // Return null if there is no matching ID
+        return null;
+    }
+
+    /**
+     * A method to generate new vendor ID.
+     *
+     * @return The new vendor ID generated
+     */
+    public static String generateNewID() {
+
+        // Declare variables to record index
+        int index = 1;
+
+        // Start a loop
+        while (true) {
+
+            // Get the generated ID
+            String generatedID = String.format("V%03d", index);
+
+            // Check if the generated ID is in the vendor list
+            boolean generatedIDExists = vendorList.stream()                      // Get the list of vendors
+                    .anyMatch(vendor -> vendor.userID.equals(generatedID));      // Check if there is any match with the existing vendor ID
+
+            // If the ID does not exist among the vendor list, return that ID
+            if (!generatedIDExists) return generatedID;
+
+            // Increment the index if there is a match
+            index++;
+        }
+    }
+
+    /**
+     * A method to create a new vendor account
+     *
+     * @param vendorID        The new ID of the vendor (will be autogenerated)
+     * @param vendorName      The name of the vendor
+     * @param stallName       The store that the vendor belong to
+     * @param email           The email of the vendor
+     * @param password        The password of the vendor
+     * @param confirmPassword The password retyped
+     * @return {@code 1} if the new account is created successfully<br>
+     * {@code 0} if there exist any empty inputs (except those that will be validated later)<br>
+     * {@code -1} if the email is not in the correct format<br>
+     * {@code -2} if the email is not available<br>
+     * {@code -3} if the password does not meet requirement<br>
+     * {@code -4} if the password does not match with "confirm password"<br>
+     * {@code -5} if the stall cannot be retrieved based on the name
+     */
+    public static int createNewVendor(
+            String vendorID,
+            String vendorName,
+            String stallName,
+            String email,
+            char[] password,
+            char[] confirmPassword
+    ) {
+
+        // Check if there is any empty values
+        if (vendorName == null || vendorName.isBlank()) return 0;
+
+        // Check if email matches the format (-1)
+        if (!checkEmailFormat(email)) return -1;
+
+        // Check if email is used by another user (-2)
+        if (!isEmailAvailable(email)) return -2;
+
+        // Check if password matches requirement (-3)
+        if (!validatePassword(
+                Utility.generateString(password)
+        )) return -3;
+
+        // Check if both passwords tally (-4)
+        if (!Arrays.equals(password, confirmPassword)) return -4;
+
+        // Check if stall can be retrieved based on the stall name (-5)
+        Stall associatedStall = Stall.getStallByName(stallName);
+        if (associatedStall == null) return -5;
+
+        // Create the new vendor account
+        Vendor newVendor = new Vendor(
+                vendorID,
+                email,
+                Utility.generateString(password),
+                vendorName,
+                associatedStall
+        );
+
+        // Add the vendor to the list
+        addToVendorList(newVendor);
+
+        // Write to file
+        CredentialsFileIO.writeCredentialsFile();
+        VendorFileIO vendorIO = new VendorFileIO();
+        vendorIO.writeFile();
+
+        // Return 1 for successful operation
+        return 1;
+    }
+
+    /**
+     * A method to modify the details of a vendor.
+     *
+     * @param vendorName      The name of the vendor
+     * @param stallName       The store associated with the vendor
+     * @param email           The email of the vendor
+     * @param password        The password of the vendor
+     * @param confirmPassword The retyped password
+     * @return {@code 1} if the new account is modified successfully<br>
+     * {@code 0} if there is any empty values (except those that will be checked later)<br>
+     * {@code -1} if the email is not in the correct format<br>
+     * {@code -2} if the email is not available<br>
+     * {@code -3} if the password does not meet requirement<br>
+     * {@code -4} if the password does not match with "confirm password"<br>
+     * {@code -5} if the stall cannot be retrieved based on the name<br>
+     * {@code -6} if the notification is unable to be created
+     */
+    public int modifyVendor(
+            String vendorName,
+            String stallName,
+            String email,
+            char[] password,
+            char[] confirmPassword
+    ) {
+
+        // Check if there is any empty values
+        if (vendorName == null || vendorName.isBlank()) return 0;
+
+        // Email is not in correct format (-1)
+        if (!checkEmailFormat(email)) return -1;
+
+        // Email is used by other users (-2)
+        if (!email.equalsIgnoreCase(this.email) && !isEmailAvailable(email)) return -2;
+
+        // Password does not meet requirement (-3)
+        if (!validatePassword(
+                Utility.generateString(password)
+        )) return -3;
+
+        // Passwords do not tally (-4)
+        if (!Arrays.equals(password, confirmPassword)) return -4;
+
+        // Stall cannot be retrieved (-5)
+        Stall associatedStall = Stall.getStallByName(stallName);
+        if (associatedStall == null) return -5;
+
+        // Notifications cannot be created (-6)
+        boolean createNotification = VendorNotification.createNewNotification(
+                "Personal Information Updated",
+                "Your personal information has been updated.",
+                this
+        );
+        if (!createNotification) return -6;
+
+        // Change the details
+        this.setName(vendorName);
+        this.setStall(associatedStall);
+        this.setEmail(email);
+        this.setPassword(
+                Utility.generateString(password)
+        );
+
+        // Write to file
+        CredentialsFileIO.writeCredentialsFile();
+        VendorFileIO vendorIO = new VendorFileIO();
+        vendorIO.writeFile();
+
+        // Return 1 to indicate successful modification
+        return 1;
+    }
+
+    /**
+     * A method to delete a vendor account.
+     *
+     * @return {@code true} if the account is deleted successfully, else {@code false}
+     */
+    public boolean deleteVendor() {
+
+        // Delete related notifications
+        boolean notificationDeleted = VendorNotification.deleteVendorFromNotification(this.getUserID());
+        if (!notificationDeleted) return false;
+
+        // Delete the background picture of the vendor
+        boolean backgroundDeleted = PictureIO.deleteVendorBackgroundPicture(this);
+        if (!backgroundDeleted) return false;
+
+        // Delete vendor from list
+        boolean removeVendorFromList = vendorList.remove(this);
+        if (!removeVendorFromList) return false;
+
+        // Write to file
+        CredentialsFileIO.writeCredentialsFile();
+        VendorFileIO vendorIO = new VendorFileIO();
+        vendorIO.writeFile();
+
+        // Return true for successful modification
+        return true;
+    }
+
+    /**
+     * A method to retrieve the order count for a vendor.
+     *
+     * @return The order count
+     */
+    public int getOrderCount(Utility.TimeframeFilter filter) {
+
+        // Retrieve the list of orders
+        ArrayList<Order> orderList = Order.filterOrder(this, filter);
+
+        // Return -1 if the retrieved list is null
+        if (orderList == null) return -1;
+
+        // Return the size of the order list as order count
+        return orderList.size();
+    }
+
+    /**
+     * A method to calculate the total earnings of a vendor.
+     *
+     * @return The total earnings of vendor
+     */
+    public double getTotalEarnings(Utility.TimeframeFilter filter) {
+
+        // Declare a variable to store earnings
+        double earnings = 0;
+
+        // Retrieve the list of orders
+        ArrayList<Order> orderList = Order.filterOrder(this, filter);
+
+        // Return -1 if the list is null
+        if (orderList == null) return -1;
+
+        // Loop through each order list to calculate earnings
+        for (Order order : orderList) earnings += order.getOrderPrice();
+
+        // Return the earnings
+        return earnings;
+    }
+
+    /**
+     * A method to get the overall ratings for a vendor (same as the associated stall).
+     *
+     * @return The overall ratings of vendor
+     */
+    public double getOverallRatings(Utility.TimeframeFilter filter) {
+
+        // Get the stall associated with the vendor
+        Stall associatedStall = this.getStall();
+
+        // Return the ratings of the stall
+        return associatedStall.getOverallRatings(filter);
+    }
+
+    /**
+     * A method to get the feedback count of a vendor based on the store associated.
+     *
+     * @return The feedback count of vendor
+     */
+    public int getFeedbackCount(Utility.TimeframeFilter filter) {
+
+        // Get the stall associated with the vendor
+        Stall associatedStall = this.getStall();
+
+        // Return the feedback count of the stall
+        return associatedStall.getFeedbackCount(filter);
+    }
+
+    /**
+     * Getter and setter for additional attributes.
+     */
+    public Stall getStall() {
+        return stall;
+    }
+
+    public void setStall(Stall stall) {
+        this.stall = stall;
+    }
+
+    /**
+     * A method to print out information of {@code Vendor} object.
+     *
+     * @return String representation of {@code Vendor} object
+     */
+    @Override
+    public String toString() {
+        return "Vendor ID: " + super.userID + "\n" +
+                "Vendor Email: " + super.email + "\n" +
+                "Vendor Password: " + super.password + "\n" +
+                "Vendor Name: " + super.name + "\n" +
+                "Vendor Stall: " + "\n" +
+                stall.toString();
+    }
+}
