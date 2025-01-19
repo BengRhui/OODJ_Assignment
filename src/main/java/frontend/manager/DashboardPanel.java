@@ -231,7 +231,6 @@ public class DashboardPanel extends javax.swing.JPanel {
         // Create pop up to select time
         TimeFramePopUp selectTime = new TimeFramePopUp(MainPage.currentFrame, orderFilter);
         selectTime.setVisible(true);
-        selectTime.setLocationRelativeTo(MainPage.currentFrame);
         
         // Get the selected filter
         TimeframeFilter filter = selectTime.getFilter();
@@ -279,7 +278,6 @@ public class DashboardPanel extends javax.swing.JPanel {
         // Display the pop up to select filter
         TimeFramePopUp selectTime = new TimeFramePopUp(MainPage.currentFrame, feedbackFilter);
         selectTime.setVisible(true);
-        selectTime.setLocationRelativeTo(MainPage.currentFrame);
         
         // Retrieve the filter
         TimeframeFilter filter = selectTime.getFilter();

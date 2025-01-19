@@ -5,6 +5,7 @@
 package frontend.pop_up;
 
 import backend.utility.Utility.TimeframeFilter;
+import java.awt.Color;
 import javax.swing.JFrame;
 
 /**
@@ -28,6 +29,9 @@ public class TimeFramePopUp extends javax.swing.JDialog {
         // Set current filter and parent frame
         parentFrame = parent;
         currentFilter = filter;
+        
+        // Set position
+        setLocationRelativeTo(parent);
         
         // Select button based on current filter
         initializeButton();
@@ -89,21 +93,25 @@ public class TimeFramePopUp extends javax.swing.JDialog {
         promptText.setText("Select one of the following options:");
         backgroundPanel.add(promptText, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
 
+        dailyButton.setBackground(new java.awt.Color(255, 251, 233));
         buttonGroup.add(dailyButton);
         dailyButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         dailyButton.setText(" Daily");
         backgroundPanel.add(dailyButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, -1));
 
+        monthlyButton.setBackground(new java.awt.Color(255, 251, 233));
         buttonGroup.add(monthlyButton);
         monthlyButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         monthlyButton.setText(" Monthly");
         backgroundPanel.add(monthlyButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
 
+        quarterlyButton.setBackground(new java.awt.Color(255, 251, 233));
         buttonGroup.add(quarterlyButton);
         quarterlyButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         quarterlyButton.setText(" Quarterly");
         backgroundPanel.add(quarterlyButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, -1, -1));
 
+        yearlyButton.setBackground(new java.awt.Color(255, 251, 233));
         buttonGroup.add(yearlyButton);
         yearlyButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         yearlyButton.setText(" Yearly");
@@ -114,6 +122,14 @@ public class TimeFramePopUp extends javax.swing.JDialog {
         cancelButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         cancelButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cancelButton.setFocusPainted(false);
+        cancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cancelButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cancelButtonMouseExited(evt);
+            }
+        });
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
@@ -128,6 +144,14 @@ public class TimeFramePopUp extends javax.swing.JDialog {
         confirmButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         confirmButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         confirmButton.setFocusPainted(false);
+        confirmButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                confirmButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                confirmButtonMouseExited(evt);
+            }
+        });
         confirmButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confirmButtonActionPerformed(evt);
@@ -163,6 +187,36 @@ public class TimeFramePopUp extends javax.swing.JDialog {
         // Dispose the current pop up
         dispose();
     }//GEN-LAST:event_confirmButtonActionPerformed
+
+    private void cancelButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelButtonMouseEntered
+
+        // Change the colour of the button
+        cancelButton.setBackground(new Color(206, 171, 147));
+    }//GEN-LAST:event_cancelButtonMouseEntered
+
+    private void cancelButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelButtonMouseExited
+
+        // Change the colour of the button
+        cancelButton.setBackground(Color.WHITE);
+    }//GEN-LAST:event_cancelButtonMouseExited
+
+    private void confirmButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_confirmButtonMouseEntered
+
+        // Change the colour of the button
+        confirmButton.setBackground(new Color(206, 171, 147));
+        
+        // Change the text colour
+        confirmButton.setForeground(Color.BLACK);
+    }//GEN-LAST:event_confirmButtonMouseEntered
+
+    private void confirmButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_confirmButtonMouseExited
+
+        // Change the colour of the button
+        confirmButton.setBackground(Color.BLACK);
+        
+        // Change the text colour
+        confirmButton.setForeground(Color.WHITE);
+    }//GEN-LAST:event_confirmButtonMouseExited
 
     /**
      * @param args the command line arguments
