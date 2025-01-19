@@ -7,6 +7,8 @@ package frontend.manager;
 import backend.entity.Feedback;
 import backend.entity.Order;
 import backend.utility.Utility.TimeframeFilter;
+import frontend.pop_up.SystemPopUp;
+import frontend.pop_up.TimeFramePopUp;
 import frontend.utility.Graph;
 import java.util.ArrayList;
 import javax.swing.JPanel;
@@ -28,15 +30,10 @@ public class DashboardPanel extends javax.swing.JPanel {
     public DashboardPanel() {
         
         // Initialize the data
-        setOrderData(
-                Order.filterOrder(TimeframeFilter.YEARLY),
-                TimeframeFilter.YEARLY
-        );
-        
-        setFeedbackData(
-                Feedback.filterFeedback(TimeframeFilter.YEARLY),
-                TimeframeFilter.YEARLY
-        );
+        orderData = Order.filterOrder(TimeframeFilter.YEARLY);
+        setOrderFilter(TimeframeFilter.YEARLY);
+        feedbackData = Feedback.filterFeedback(TimeframeFilter.YEARLY);
+        setFeedbackFilter(TimeframeFilter.YEARLY);
 
         // Render GUI components
         initComponents();
@@ -47,22 +44,18 @@ public class DashboardPanel extends javax.swing.JPanel {
     }
     
     /**
-     * This method helps to set order-related data so that the graph could generate the correct data.
-     * @param list The order list
+     * This method helps to set the filter for order-related data.
      * @param filter The filter imposed
      */
-    public static void setOrderData(ArrayList<Order> list, TimeframeFilter filter) {
-        orderData = list;
+    public static void setOrderFilter(TimeframeFilter filter) {
         orderFilter = filter;
     }
     
     /**
-     * This method helps to set feedback-related data so that the graph could generate the correct data.
-     * @param list The feedback list
+     * This method helps to set the filter for feedback-related data.
      * @param filter The filter imposed
      */
-    public static void setFeedbackData(ArrayList<Feedback> list, TimeframeFilter filter) {
-        feedbackData = list;
+    public static void setFeedbackFilter(TimeframeFilter filter) {
         feedbackFilter = filter;
     }
 
@@ -73,6 +66,9 @@ public class DashboardPanel extends javax.swing.JPanel {
         
         // Remove the existing graph on the panel
         revenuePanel.removeAll();
+        
+        // Retrieve the data based on filter
+        orderData = Order.filterOrder(orderFilter);
         
         // Generate the graph and add it to the panel
         JPanel graph = new Graph(orderData, Graph.REVENUE_GRAPH, orderFilter, 610, 430);
@@ -88,9 +84,12 @@ public class DashboardPanel extends javax.swing.JPanel {
         // Remove the existing graph on the panel
         feedbackPanel.removeAll();
         
+        // Retrieve the data based on filter
+        feedbackData = Feedback.filterFeedback(feedbackFilter);
+        
         // Generate the graph and add it to the panel
-        JPanel graph = new Graph(feedbackData, Graph.FEEDBACK_GRAPH, feedbackFilter, 560, 430);
-        graph.setLocation(20, 30);
+        JPanel graph = new Graph(feedbackData, Graph.FEEDBACK_GRAPH, feedbackFilter, 590, 430);
+        graph.setLocation(5, 30);
         feedbackPanel.add(graph);
     }
     
@@ -121,9 +120,21 @@ public class DashboardPanel extends javax.swing.JPanel {
 
         revenueExportIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         revenueExportIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/excel_icon.png"))); // NOI18N
+        revenueExportIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        revenueExportIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                revenueExportIconMouseClicked(evt);
+            }
+        });
         add(revenueExportIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, 60, 60));
 
         revenueFilterIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/customize_icon.png"))); // NOI18N
+        revenueFilterIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        revenueFilterIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                revenueFilterIconMouseClicked(evt);
+            }
+        });
         add(revenueFilterIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 40, 70, 60));
 
         feedbackTitle.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
@@ -132,9 +143,21 @@ public class DashboardPanel extends javax.swing.JPanel {
 
         feedbackExportIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         feedbackExportIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/excel_icon.png"))); // NOI18N
+        feedbackExportIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        feedbackExportIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                feedbackExportIconMouseClicked(evt);
+            }
+        });
         add(feedbackExportIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 40, 60, 60));
 
         feedbackFilterIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/customize_icon.png"))); // NOI18N
+        feedbackFilterIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        feedbackFilterIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                feedbackFilterIconMouseClicked(evt);
+            }
+        });
         add(feedbackFilterIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 40, 70, 60));
 
         revenuePanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -169,6 +192,102 @@ public class DashboardPanel extends javax.swing.JPanel {
 
         add(feedbackPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 110, 600, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void revenueExportIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_revenueExportIconMouseClicked
+
+        // Download the data
+        boolean status = Order.exportDataToExcel(orderFilter);
+        
+        // Display a message to indicate that the download is successful
+        if (status) {
+        
+            // Display download successful message
+            SystemPopUp successMessage = new SystemPopUp(
+                    MainPage.currentFrame,
+                    "Download Successful",
+                    "The Excel file containing order data is downloaded to your computer.",
+                    new String[]{"OK"}
+            );
+            successMessage.setVisible(true);
+            
+        } else {
+            
+            // Display error message
+            SystemPopUp errorMessage = new SystemPopUp(
+                    MainPage.currentFrame,
+                    "Error",
+                    "Error in downloading order file to Excel. Please inspect code.",
+                    new String[]{"OK"}
+            );
+            errorMessage.setVisible(true);
+        }
+    }//GEN-LAST:event_revenueExportIconMouseClicked
+
+    private void revenueFilterIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_revenueFilterIconMouseClicked
+
+        // Disable parent frame
+        MainPage.currentFrame.setEnabled(false);
+
+        // Create pop up to select time
+        TimeFramePopUp selectTime = new TimeFramePopUp(MainPage.currentFrame, orderFilter);
+        selectTime.setVisible(true);
+        selectTime.setLocationRelativeTo(MainPage.currentFrame);
+        
+        // Get the selected filter
+        TimeframeFilter filter = selectTime.getFilter();
+        
+        // Update the filter and graph
+        setOrderFilter(filter);
+        updateRevenueGraph();
+    }//GEN-LAST:event_revenueFilterIconMouseClicked
+
+    private void feedbackExportIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_feedbackExportIconMouseClicked
+
+        // Download the data
+        boolean status = Feedback.exportDataToExcel(feedbackFilter);
+        
+        // Display a message to indicate that the download is successful
+        if (status) {
+        
+            // Display download successful message
+            SystemPopUp successMessage = new SystemPopUp(
+                    MainPage.currentFrame,
+                    "Download Successful",
+                    "The Excel file containing feedback data is downloaded to your computer.",
+                    new String[]{"OK"}
+            );
+            successMessage.setVisible(true);
+            
+        } else {
+            
+            // Display error message
+            SystemPopUp errorMessage = new SystemPopUp(
+                    MainPage.currentFrame,
+                    "Error",
+                    "Error in downloading feedback file to Excel. Please inspect code.",
+                    new String[]{"OK"}
+            );
+            errorMessage.setVisible(true);
+        }
+    }//GEN-LAST:event_feedbackExportIconMouseClicked
+
+    private void feedbackFilterIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_feedbackFilterIconMouseClicked
+
+        // Disable the parent frame
+        MainPage.currentFrame.setEnabled(false);
+
+        // Display the pop up to select filter
+        TimeFramePopUp selectTime = new TimeFramePopUp(MainPage.currentFrame, feedbackFilter);
+        selectTime.setVisible(true);
+        selectTime.setLocationRelativeTo(MainPage.currentFrame);
+        
+        // Retrieve the filter
+        TimeframeFilter filter = selectTime.getFilter();
+        
+        // Update the filter and graph
+        setFeedbackFilter(filter);
+        updateFeedbackGraph();
+    }//GEN-LAST:event_feedbackFilterIconMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
