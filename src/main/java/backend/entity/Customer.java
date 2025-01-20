@@ -663,11 +663,13 @@ public class Customer extends User {
     ) {
 
         // If inputs are null or empty, then reject
-        if (addressLine1 == null || addressLine1.isBlank() ||
-                addressLine2 == null || addressLine2.isBlank() ||
-                postcode == null || postcode.isBlank() ||
+        if (addressLine1.equalsIgnoreCase("Address Line 1") ||
+                addressLine2.equalsIgnoreCase("Address Line 2") ||
+                postcode.equalsIgnoreCase("Postcode") ||
                 state == null ||
-                city == null || city.isBlank()) return false;
+                city.equalsIgnoreCase("City") ||
+                deliveryNote.equalsIgnoreCase("Delivery Note")
+        ) return false;
 
         // Create a new address object
         Address newAddress = new Address(
