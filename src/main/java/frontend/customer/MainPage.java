@@ -34,11 +34,11 @@ public class MainPage extends javax.swing.JFrame {
      */
     public MainPage() {
         
-        // Render GUI components
-        initComponents();
-        
         // A temporary customer object for testing purpose (should be deleted later)
         currentCustomer = Customer.getCustomerList().getFirst();
+        
+        // Render GUI components
+        initComponents();
         
         // Set the current frame and card panel, and declare map to store additional panels
         currentFrame = this;
@@ -68,6 +68,14 @@ public class MainPage extends javax.swing.JFrame {
      */
     public static void setCustomer(Customer customer) {
         currentCustomer = customer;
+    }
+    
+    /**
+     * This method helps to retrieve the current customer involved.
+     * @return The customer involved at the current frame
+     */
+    public static Customer getCustomer() {
+        return currentCustomer;
     }
     
     /**
@@ -116,6 +124,14 @@ public class MainPage extends javax.swing.JFrame {
         
         // Reset the list
         additionalPanels.clear();
+    }
+    
+    /**
+     * This method helps to set the title for the frame.
+     * @param title The title to be set
+     */
+    public static void setFrameTitle(String title) {
+        titleText.setText(title);
     }
     
     /**
@@ -280,7 +296,7 @@ public class MainPage extends javax.swing.JFrame {
 
         titleText.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         titleText.setForeground(new java.awt.Color(255, 255, 255));
-        titleText.setText("Title Here");
+        titleText.setText("Welcome back, " + currentCustomer.getName());
         headerPanel.add(titleText, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, -1));
 
         basePanel.add(headerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1400, 230));
@@ -326,6 +342,9 @@ public class MainPage extends javax.swing.JFrame {
         
         // Remove the additional panels generated
         removeAdditionalPanels();
+        
+        // Set the title of the frame
+        setFrameTitle("Welcome back, " + currentCustomer.getName());
     }//GEN-LAST:event_homePageLabelMouseClicked
 
     private void orderHistoryLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_orderHistoryLabelMouseClicked
@@ -352,6 +371,9 @@ public class MainPage extends javax.swing.JFrame {
         
         // Remove the additional panels generated
         removeAdditionalPanels();
+        
+        // Set the title of the frame
+        setFrameTitle("Order History");
     }//GEN-LAST:event_orderHistoryLabelMouseClicked
 
     private void eWalletLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eWalletLabelMouseClicked
@@ -378,6 +400,9 @@ public class MainPage extends javax.swing.JFrame {
         
         // Remove the additional panels generated
         removeAdditionalPanels();
+        
+        // Set the title of the frame
+        setFrameTitle("E-Wallet");
     }//GEN-LAST:event_eWalletLabelMouseClicked
 
     private void feedbackLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_feedbackLabelMouseClicked
@@ -404,6 +429,9 @@ public class MainPage extends javax.swing.JFrame {
         
         // Remove the additional panels generated
         removeAdditionalPanels();
+        
+        // Set the title of the frame
+        setFrameTitle("Feedback and Support Tickets");
     }//GEN-LAST:event_feedbackLabelMouseClicked
 
     private void homePageLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homePageLabelMouseEntered
@@ -614,6 +642,6 @@ public class MainPage extends javax.swing.JFrame {
     private static javax.swing.JLabel orderHistoryLabel;
     private static javax.swing.JLabel runnerBackground;
     private javax.swing.JLabel settingsIcon;
-    private javax.swing.JLabel titleText;
+    private static javax.swing.JLabel titleText;
     // End of variables declaration//GEN-END:variables
 }

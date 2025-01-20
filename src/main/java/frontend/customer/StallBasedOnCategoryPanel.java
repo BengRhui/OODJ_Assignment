@@ -4,7 +4,17 @@
  */
 package frontend.customer;
 
+import backend.entity.Stall;
+
 import java.awt.CardLayout;
+import java.awt.Cursor;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -12,11 +22,111 @@ import java.awt.CardLayout;
  */
 public class StallBasedOnCategoryPanel extends javax.swing.JPanel {
 
+    private static Stall.StallCategories currentCategory;
+
     /**
      * Creates new form ShopBasedOnCategoryPanel
      */
-    public StallBasedOnCategoryPanel() {
+    public StallBasedOnCategoryPanel(Stall.StallCategories category) {
+
+        // Set current category
+        currentCategory = category;
+        
+        // Render GUI components
         initComponents();
+        
+        // Initialize individual stall panels
+        initializeStallPanels();
+    }
+    
+    /**
+     * This method helps to initialize the stall panels.
+     */
+    private void initializeStallPanels() {
+    
+        // Remove all components
+        stallListPanel.removeAll();
+        
+        // Set the current order list to the list with incomplete orders
+        ArrayList<Stall> stallList = Stall.getStallList(currentCategory);
+        
+        // If the order list is empty
+        if (stallList.isEmpty()) {
+            
+            // Generate a label to panel
+            JPanel emptyPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            
+            // Add a label to indicate that no order is available for vendor
+            JLabel emptyLabel = new JLabel("No stall available for the current category.");
+            emptyLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+            
+            // Add the components
+            emptyPanel.add(emptyLabel);
+            stallListPanel.add(emptyPanel);
+            
+        } else {
+            
+            // Add order details into panel
+            for (Stall stall : stallList) {
+
+                // Create a details panel based on order details panel in another class
+                StallBriefPanel detailsPanel = new StallBriefPanel(stall);
+
+                // Add cursor to the panel
+                detailsPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                
+                // Add mouse listener to the panel
+                detailsPanel.addMouseListener(new MouseListener(){
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        StallDetailsPanel stallMainPage = new StallDetailsPanel(stall);
+                        MainPage.currentCardPanel.add(stallMainPage, "stallMainPage");
+
+                        // Display home page as default
+                        CardLayout cardLayout = (CardLayout) MainPage.currentCardPanel.getLayout();
+                        cardLayout.show(MainPage.currentCardPanel, "stallMainPage");
+                        MainPage.setCardString("stallMainPage");
+
+                        // Set the title of the frame
+                        MainPage.setFrameTitle("Items in Store");
+
+                        // Add to list as a record
+                        MainPage.addAdditionalPanels(stallMainPage);
+                        
+                        // Change the frame title
+                        MainPage.setFrameTitle("Items in Store");
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {}
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {}
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {}
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {}
+                });
+
+                // Add the details panel to the overall panel
+                stallListPanel.add(detailsPanel);
+
+            }
+            
+            // If the size of the list is smaller than 2
+            if (stallList.size() < 2) {
+                
+                // Add an empty panel to the container
+                JPanel emptyPanel = new JPanel();
+                stallListPanel.add(emptyPanel);
+            }
+        }
+        
+        // Refresh the overall panel after modifications
+        stallListPanel.revalidate();
+        stallListPanel.repaint();
     }
 
     /**
@@ -28,47 +138,30 @@ public class StallBasedOnCategoryPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        titleText = new javax.swing.JLabel();
+        stallListScrollPane = new javax.swing.JScrollPane();
+        stallListPanel = new javax.swing.JPanel();
 
-        setBackground(new java.awt.Color(204, 204, 255));
+        setBackground(new java.awt.Color(255, 251, 233));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel1MouseClicked(evt);
-            }
-        });
+        titleText.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        titleText.setText("Shops for " + currentCategory.toString());
+        add(titleText, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 650, 50));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        stallListScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        stallListScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 87, -1, -1));
+        stallListPanel.setLayout(new java.awt.GridLayout(0, 1, 10, 10));
+        stallListScrollPane.setViewportView(stallListPanel);
+
+        add(stallListScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 1280, 410));
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-        // TODO add your handling code here:
-        StallDetailsPanel stallMainPage = new StallDetailsPanel();
-        MainPage.currentCardPanel.add(stallMainPage, "stallMainPage");
-        
-        // Display home page as default
-        CardLayout cardLayout = (CardLayout) MainPage.currentCardPanel.getLayout();
-        cardLayout.show(MainPage.currentCardPanel, "stallMainPage");
-        MainPage.setCardString("stallMainPage");
-       
-        // Add to list as a record
-        MainPage.addAdditionalPanels(stallMainPage);
-    }//GEN-LAST:event_jPanel1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel stallListPanel;
+    private javax.swing.JScrollPane stallListScrollPane;
+    private javax.swing.JLabel titleText;
     // End of variables declaration//GEN-END:variables
 }
