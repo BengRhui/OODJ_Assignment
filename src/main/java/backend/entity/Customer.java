@@ -515,6 +515,15 @@ public class Customer extends User {
     }
 
     /**
+     * A method to clear customer cart.
+     */
+    public void clearCustomerCart() {
+
+        // Clear the map associated with the cart
+        cart.clear();
+    }
+
+    /**
      * A method for customers to update cart based on the chosen dining method.
      *
      * @param diningType The dining type preferred by customers
