@@ -558,15 +558,20 @@ public class Customer extends User {
      * @param diningType    The dining method chosen by customer
      * @param notesToVendor The additional notes provided to vendor
      * @param tableNumber   The table number inputted by customer (only for dine-in)
-     * @return {@code true} if the order is created successfully, else {@code false}
+     * @return {@code 1} if the order is placed successfully<br>
+     * {@code 0} if the cart is empty<br>
+     * {@code -1} if the amount is less than the vendor's e-wallet<br>
+     * {@code -2} if runner is not available for delivery<br>
+     * {@code -3} if notifications fail to be created<br>
+     * {@code -4} if transaction history fails to be created
      */
-    public boolean placeOrder(Stall stall, Map<String, Integer> cart, Order.DiningType diningType, String notesToVendor, String tableNumber) {
+    public int placeOrder(Stall stall, Map<String, Integer> cart, Order.DiningType diningType, String notesToVendor, String tableNumber) {
 
         // If the cart is empty, reject placing order
-        if (cart.isEmpty()) return false;
+        if (cart.isEmpty() || (cart.size() == 1 && cart.containsKey("Delivery Fees"))) return 0;
 
         // If the wallet balance is less than the order amount, return false
-        if (Utility.getTotalAmountForCart(cart) > this.eWalletAmount) return false;
+        if (Utility.getTotalAmountForCart(cart) > this.eWalletAmount) return -1;
 
         // Declare a variable to store runner involved (for delivery)
         DeliveryRunner runnerGenerated = null;
@@ -578,7 +583,7 @@ public class Customer extends User {
             runnerGenerated = DeliveryRunner.getAvailableRunner();
 
             // If there is no runner available, reject the order
-            if (runnerGenerated == null) return false;
+            if (runnerGenerated == null) return -2;
         }
 
         // Create new order
@@ -605,7 +610,7 @@ public class Customer extends User {
                         "Please wait for the vendor and runner (if applicable) to accept your order.",
                 this
         );
-        if (!createCustomerNotification) return false;
+        if (!createCustomerNotification) return -3;
 
         // Create vendor notification for new order
         boolean createVendorNotification = VendorNotification.createNewNotification(
@@ -613,7 +618,7 @@ public class Customer extends User {
                 "A new order with ID " + newOrder.getOrderID() + " is available. You may return to the main menu to check the details.",
                 stall
         );
-        if (!createVendorNotification) return false;
+        if (!createVendorNotification) return -3;
 
         // Create runner notification for new order (if involved)
         if (runnerGenerated != null) {
@@ -622,7 +627,7 @@ public class Customer extends User {
                     "A new order with ID " + newOrder.getOrderID() + " is available. You may return to the main menu to check the details.",
                     runnerGenerated
             );
-            if (!createRunnerNotification) return false;
+            if (!createRunnerNotification) return -3;
         }
 
         // Remove the money from the customer's account
@@ -636,7 +641,7 @@ public class Customer extends User {
                 Transaction.TransactionType.CASH_OUT,
                 Transaction.PaymentMethod.E_WALLET
         );
-        if (!createTransactionHistory) return false;
+        if (!createTransactionHistory) return -4;
 
         // Add to order list
         Order.addToOrderList(newOrder);
@@ -648,7 +653,7 @@ public class Customer extends User {
         this.setCart(new HashMap<>());
 
         // Return true for successful operation
-        return true;
+        return 1;
     }
 
     /**
@@ -672,12 +677,12 @@ public class Customer extends User {
     ) {
 
         // If inputs are null or empty, then reject
-        if (addressLine1.equalsIgnoreCase("Address Line 1") ||
-                addressLine2.equalsIgnoreCase("Address Line 2") ||
-                postcode.equalsIgnoreCase("Postcode") ||
+        if (addressLine1.equalsIgnoreCase("Address Line 1") || addressLine1.isBlank() ||
+                addressLine2.equalsIgnoreCase("Address Line 2") || addressLine2.isBlank() ||
+                postcode.equalsIgnoreCase("Postcode") || postcode.isBlank() ||
                 state == null ||
-                city.equalsIgnoreCase("City") ||
-                deliveryNote.equalsIgnoreCase("Delivery Note")
+                city.equalsIgnoreCase("City") || city.isBlank() ||
+                deliveryNote.equalsIgnoreCase("Delivery Note") || deliveryNote.isBlank()
         ) return false;
 
         // Create a new address object

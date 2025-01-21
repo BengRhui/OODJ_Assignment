@@ -485,14 +485,14 @@ public class CustomerTest extends BaseTest {
         double cartAmount = Utility.getTotalAmountForCart(customer1.getCart());
 
         // Place order - dine-in
-        boolean placeOrderOne = customer1.placeOrder(
+        int placeOrderOne = customer1.placeOrder(
                 item1.getStall(),
                 cart,
                 Order.DiningType.DINE_IN,
                 "Anything would do",
                 "T031"
         );
-        assertTrue(placeOrderOne);
+        assertEquals(1, placeOrderOne);
 
         // Retrieve the order associated
         ArrayList<Order> differentOrder = new ArrayList<>(Order.getOrderList());
@@ -581,14 +581,14 @@ public class CustomerTest extends BaseTest {
         cartAmount = Utility.getTotalAmountForCart(customer1.getCart());
 
         // Place order - delivery
-        boolean placeOrderTwo = customer1.placeOrder(
+        int placeOrderTwo = customer1.placeOrder(
                 stall1,
                 cart,
                 Order.DiningType.DELIVERY,
                 "No spicy please",
                 null
         );
-        assertTrue(placeOrderTwo);
+        assertEquals(1, placeOrderTwo);
 
         // Retrieve the newly created order
         differentOrder = new ArrayList<>(Order.getOrderList());
@@ -665,14 +665,14 @@ public class CustomerTest extends BaseTest {
         assertEquals(Transaction.PaymentMethod.E_WALLET, differentTransaction.getFirst().getPaymentMethod());
 
         // Erroneous order - empty cart
-        boolean errorOrder = customer1.placeOrder(
+        int errorOrder = customer1.placeOrder(
                 stall1,
                 customer1.getCart(),
                 Order.DiningType.DELIVERY,
                 "Hello",
                 null
         );
-        assertFalse(errorOrder);
+        assertEquals(0, errorOrder);
     }
 
     /**
@@ -801,8 +801,8 @@ public class CustomerTest extends BaseTest {
                 "456",
                 "6789",
                 Address.State.PERAK,
-                null,
-                ""
+                " ",
+                "  "
         );
         assertFalse(error);
     }
