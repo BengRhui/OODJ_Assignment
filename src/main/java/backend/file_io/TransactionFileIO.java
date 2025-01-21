@@ -6,6 +6,7 @@ import backend.utility.Utility;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Class {@code TransactionFileIO} consists of the methods to read and write transaction files.
@@ -75,6 +76,9 @@ public class TransactionFileIO extends FileIO {
 
         // Retrieve the list of all transaction objects
         ArrayList<Transaction> transactionList = Transaction.getTransactionList();
+
+        // Sort the transaction list ascending based on ID before writing
+        transactionList.sort(Comparator.comparing(Transaction::getTransactionID));
 
         // Create a list to store data to be written to file
         ArrayList<String[]> information = new ArrayList<>();

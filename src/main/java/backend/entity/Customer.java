@@ -540,7 +540,7 @@ public class Customer extends User {
             // If the dining type is delivery, then the delivery fees has to be included
             case DELIVERY -> cart.putIfAbsent(Item.deliveryFees.getItemID(), 1);
 
-            // If the dining type is dine-in ot takeaway, delivery fees should not be there
+            // If the dining type is dine-in or takeaway, delivery fees should not be there
             case DINE_IN, TAKEAWAY -> {
                 if (cart.get(Item.deliveryFees.getItemID()) != null) cart.remove(Item.deliveryFees.getItemID());
             }
@@ -568,7 +568,7 @@ public class Customer extends User {
     public int placeOrder(Stall stall, Map<String, Integer> cart, Order.DiningType diningType, String notesToVendor, String tableNumber) {
 
         // If the cart is empty, reject placing order
-        if (cart.isEmpty() || (cart.size() == 1 && cart.containsKey("Delivery Fees"))) return 0;
+        if (cart.isEmpty() || (cart.size() == 1 && cart.containsKey(Item.deliveryFees.getItemID()))) return 0;
 
         // If the wallet balance is less than the order amount, return false
         if (Utility.getTotalAmountForCart(cart) > this.eWalletAmount) return -1;
@@ -648,6 +648,8 @@ public class Customer extends User {
 
         // Write to file
         OrderFileIO.writeFile();
+        CustomerFileIO customerIO = new CustomerFileIO();
+        customerIO.writeFile();
 
         // Reset cart
         this.setCart(new HashMap<>());
