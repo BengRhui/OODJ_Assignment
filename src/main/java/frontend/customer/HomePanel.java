@@ -193,7 +193,7 @@ public class HomePanel extends javax.swing.JPanel {
 
         currentOrderTitle.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         currentOrderTitle.setText("Current Orders");
-        add(currentOrderTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, -1, -1));
+        add(currentOrderTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
 
         categoriesTitle.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         categoriesTitle.setText("Categories");
@@ -215,7 +215,7 @@ public class HomePanel extends javax.swing.JPanel {
 
         currentOrderScrollPane.setViewportView(currentOrderContainer);
 
-        add(currentOrderScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 620, 430));
+        add(currentOrderScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 620, 430));
 
         categoryScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         categoryScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);

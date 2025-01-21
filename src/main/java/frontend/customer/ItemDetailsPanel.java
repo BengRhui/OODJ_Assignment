@@ -4,12 +4,8 @@
  */
 package frontend.customer;
 
-import frontend.vendor.*;
 import backend.entity.Item;
 import backend.file_io.PictureIO;
-import frontend.pop_up.HandleItemPopUp;
-import frontend.pop_up.SystemPopUp;
-import java.awt.Cursor;
 import javax.swing.ImageIcon;
 
 /**
@@ -57,7 +53,7 @@ public class ItemDetailsPanel extends javax.swing.JPanel {
             PictureIO.retrieveItemPicture(currentItem).getAbsolutePath()
         ));
         pictureLabel.setOpaque(true);
-        add(pictureLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 395, 170));
+        add(pictureLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 401, 170));
 
         itemTitle.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         itemTitle.setText(currentItem.getItemName());

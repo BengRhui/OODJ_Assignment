@@ -7,6 +7,7 @@ package frontend.customer;
 import backend.entity.Stall;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -120,6 +121,8 @@ public class StallBasedOnCategoryPanel extends javax.swing.JPanel {
                 
                 // Add an empty panel to the container
                 JPanel emptyPanel = new JPanel();
+                emptyPanel.setBackground(new Color(255, 251, 233));
+                
                 stallListPanel.add(emptyPanel);
             }
         }
@@ -149,9 +152,11 @@ public class StallBasedOnCategoryPanel extends javax.swing.JPanel {
         titleText.setText("Shops for " + currentCategory.toString());
         add(titleText, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 650, 50));
 
+        stallListScrollPane.setBorder(null);
         stallListScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         stallListScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
+        stallListPanel.setBackground(new java.awt.Color(255, 251, 233));
         stallListPanel.setLayout(new java.awt.GridLayout(0, 1, 10, 10));
         stallListScrollPane.setViewportView(stallListPanel);
 

@@ -6,6 +6,7 @@ package frontend.customer;
 
 import backend.entity.Customer;
 import backend.entity.Item;
+import backend.entity.Order;
 import backend.entity.Stall;
 import frontend.pop_up.ItemQuantityPopUp;
 import java.awt.Color;
@@ -15,7 +16,6 @@ import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Map;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -25,7 +25,9 @@ import javax.swing.JPanel;
  */
 public class StallDetailsPanel extends javax.swing.JPanel {
 
-    private Stall currentStall;
+    private static Stall currentStall;
+    private static Order.DiningType selectedDiningType;
+    private static String currentTableNumber;
 
     /**
      * Creates new form ShopDetailsPanel
@@ -44,7 +46,34 @@ public class StallDetailsPanel extends javax.swing.JPanel {
         // Initialize panel
         initializePanel();
     }
-
+    
+    /**
+     * This method helps to retrieve the current stall associated.
+     * @return The stall associated with the panel
+     */
+    public static Stall getCurrentStall() {
+        return currentStall;
+    }
+    
+    public static void setDiningType(Order.DiningType diningType) {
+        selectedDiningType = diningType;
+    }
+    
+    public static Order.DiningType getDiningType() {
+        return selectedDiningType;
+    }
+    
+    public static void setTableNumber(String tableNumber) {
+        currentTableNumber = tableNumber;
+    }
+    
+    public static String getTableNumber() {
+        return currentTableNumber;
+    }
+    
+    /**
+     * This method helps to initialize the panels.
+     */
     private void initializePanel() {
     
         // Remove all componentd from the panel
@@ -129,6 +158,8 @@ public class StallDetailsPanel extends javax.swing.JPanel {
                     
                     // Add an empty panel to the container
                     JPanel emptyPanel = new JPanel();
+                    emptyPanel.setBackground(new Color(255, 251, 233));
+                    
                     itemPanel.add(emptyPanel);
                 }
             }
@@ -166,10 +197,10 @@ public class StallDetailsPanel extends javax.swing.JPanel {
         stallNameField.setColumns(20);
         stallNameField.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         stallNameField.setRows(1);
-        stallNameField.setText("Chun Ming Fried Chicken");
+        stallNameField.setText(currentStall.getStallName());
         stallNameScrollPane.setViewportView(stallNameField);
 
-        add(stallNameScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 920, 50));
+        add(stallNameScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 920, 60));
 
         checkCartButton.setBackground(new java.awt.Color(0, 0, 0));
         checkCartButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -191,12 +222,17 @@ public class StallDetailsPanel extends javax.swing.JPanel {
                 checkCartButtonActionPerformed(evt);
             }
         });
-        add(checkCartButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 40, 270, 60));
+        add(checkCartButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 40, 270, 60));
 
-        itemPanel.setLayout(new java.awt.GridLayout(0, 3, 10, 10));
+        itemScrollPane.setBorder(null);
+        itemScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        itemScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        itemPanel.setBackground(new java.awt.Color(255, 251, 233));
+        itemPanel.setLayout(new java.awt.GridLayout(0, 3, 20, 20));
         itemScrollPane.setViewportView(itemPanel);
 
-        add(itemScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 1220, 400));
+        add(itemScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 1260, 400));
     }// </editor-fold>//GEN-END:initComponents
 
     private void checkCartButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkCartButtonMouseEntered
@@ -213,9 +249,13 @@ public class StallDetailsPanel extends javax.swing.JPanel {
 
     private void checkCartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCartButtonActionPerformed
 
-        for (Map.Entry<String, Integer> entry : MainPage.getCustomer().getCart().entrySet()) {
-            System.out.println(entry.getKey() + ":" + entry.getValue());
-        }
+        // Disable current frame
+        MainPage.currentFrame.setEnabled(false);
+        
+        // Display the cart frame
+        CartPopUp cartPopUp = new CartPopUp(MainPage.getCustomer());
+        cartPopUp.setLocationRelativeTo(MainPage.currentFrame);
+        cartPopUp.setVisible(true);
     }//GEN-LAST:event_checkCartButtonActionPerformed
 
 
