@@ -364,8 +364,6 @@ public class ReorderForm extends javax.swing.JDialog {
                     tableNumberField.getText().equals("Enter Table No (if applicable)") ? null : tableNumberField.getText().toUpperCase()
             );
             
-            System.out.println(Utility.getTotalAmountForCart(cart));
-            
             // Go through different cases of order
             switch (placeOrderStatus) {
             
