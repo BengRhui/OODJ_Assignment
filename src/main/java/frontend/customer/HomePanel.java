@@ -4,6 +4,7 @@
  */
 package frontend.customer;
 
+import backend.entity.Order;
 import backend.entity.Stall.StallCategories;
 import backend.file_io.PictureIO;
 import backend.utility.Utility;
@@ -14,7 +15,10 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import javax.imageio.ImageIO;
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -36,8 +40,84 @@ public class HomePanel extends javax.swing.JPanel {
         
         // Initialize categories panel
         initializeCategoryPanel();
+        
+        // Update order panel
+        updateOrderPanel();
     }
     
+    /**
+     * This method helps to refresh the order panels.
+     */
+    public static void updateOrderPanel() {
+    
+        // Remove everything on the panel
+        currentOrderContainer.removeAll();
+        
+        // Retrieve the incomplete orders from customer
+        ArrayList<Order> incompleteOrders = Order.getIncompleteOrders(MainPage.getCustomer());
+        
+        // Sort the orders - pending orders first, then the remaining ones based on time
+        Collections.sort(incompleteOrders, (Order order1, Order order2) -> {
+            
+            // Compare status with pending changes first
+            if (order1.getOrderStatus() == Order.OrderStatus.PENDING_CHANGE && order2.getOrderStatus() != Order.OrderStatus.PENDING_CHANGE) {
+                
+                // Return order 1 (-1)
+                return -1;
+                
+            } else if (order1.getOrderStatus() != Order.OrderStatus.PENDING_CHANGE && order2.getOrderStatus() == Order.OrderStatus.PENDING_CHANGE) {
+                
+                // Return order 2 (1)
+                return 1;
+                
+            } else {
+                
+                // Compare time for other orders
+                return order1.getOrderedDate().compareTo(order2.getOrderedDate());
+            }
+        });
+        
+        // If there is no incomplete orders
+        if (incompleteOrders.isEmpty()) {
+        
+            // Create a JLabel and JPanel to display message
+            JPanel emptyPanel = new JPanel(null);
+            JLabel emptyLabel = new JLabel("No orders available currently.");
+            
+            // Set attributes to the label
+            emptyLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+            emptyLabel.setBounds(0, 0, 500, 30);
+            
+            // Add label to panel
+            emptyPanel.add(emptyLabel);
+            emptyPanel.setBackground(new Color(255, 251, 233));
+            
+            // Add panel to the container
+            currentOrderContainer.add(emptyPanel);
+            
+        } else {
+        
+            // Loop through order list
+            for (Order order : incompleteOrders) {
+
+                // Create panel to show order information
+                OrderDetailsPanel orderDetailsPanel = new OrderDetailsPanel(order);
+                currentOrderContainer.add(orderDetailsPanel);
+                
+                // Add spaces between panels
+                if (!incompleteOrders.getLast().equals(order)) 
+                    currentOrderContainer.add(Box.createVerticalStrut(20));
+            }
+        }
+        
+        // Refresh panel
+        currentOrderContainer.revalidate();
+        currentOrderContainer.repaint();
+    }
+    
+    /**
+     * This method helps to load the category panels.
+     */
     private void initializeCategoryPanel() {
     
         // Declare initial size
@@ -199,27 +279,21 @@ public class HomePanel extends javax.swing.JPanel {
         categoriesTitle.setText("Categories");
         add(categoriesTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 40, -1, -1));
 
+        currentOrderScrollPane.setBorder(null);
         currentOrderScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         currentOrderScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
-        javax.swing.GroupLayout currentOrderContainerLayout = new javax.swing.GroupLayout(currentOrderContainer);
-        currentOrderContainer.setLayout(currentOrderContainerLayout);
-        currentOrderContainerLayout.setHorizontalGroup(
-            currentOrderContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 618, Short.MAX_VALUE)
-        );
-        currentOrderContainerLayout.setVerticalGroup(
-            currentOrderContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 430, Short.MAX_VALUE)
-        );
-
+        currentOrderContainer.setBackground(new java.awt.Color(255, 251, 233));
+        currentOrderContainer.setLayout(new javax.swing.BoxLayout(currentOrderContainer, javax.swing.BoxLayout.Y_AXIS));
         currentOrderScrollPane.setViewportView(currentOrderContainer);
 
-        add(currentOrderScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 620, 430));
+        add(currentOrderScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 630, 430));
 
+        categoryScrollPane.setBorder(null);
         categoryScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         categoryScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
+        categoryContainer.setBackground(new java.awt.Color(255, 251, 233));
         categoryContainer.setLayout(new java.awt.GridLayout(8, 2, 10, 10));
         categoryScrollPane.setViewportView(categoryContainer);
 
@@ -231,7 +305,7 @@ public class HomePanel extends javax.swing.JPanel {
     private javax.swing.JLabel categoriesTitle;
     private javax.swing.JPanel categoryContainer;
     private javax.swing.JScrollPane categoryScrollPane;
-    private javax.swing.JPanel currentOrderContainer;
+    private static javax.swing.JPanel currentOrderContainer;
     private javax.swing.JScrollPane currentOrderScrollPane;
     private javax.swing.JLabel currentOrderTitle;
     // End of variables declaration//GEN-END:variables

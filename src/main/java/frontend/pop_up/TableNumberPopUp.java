@@ -36,17 +36,21 @@ public class TableNumberPopUp extends javax.swing.JDialog {
         initComponents();
         
         // If table number is not null, then set text colour to black
-        tableNumberField.setForeground(Color.BLACK);
+        if (inputTableNumber != null) tableNumberField.setForeground(Color.BLACK);
     }
 
     /**
      * This method helps to retrieve the table number inputted by user.
      * @return The inputted table number
      */
-    public String retrieveTableNumber(){
+    public String retrieveTableNumber() {
         return tableNumber;
     }
     
+    public void removeCancelButton() {
+        backgroundPanel.remove(cancelButton);
+        confirmButton.setBounds(50, 200, 300, 50);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -56,7 +60,7 @@ public class TableNumberPopUp extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        backgroundPanel = new javax.swing.JPanel();
         tableNumberTitle = new javax.swing.JLabel();
         tableNumberField = new javax.swing.JTextField();
         cancelButton = new javax.swing.JButton();
@@ -65,13 +69,13 @@ public class TableNumberPopUp extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 251, 233));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        backgroundPanel.setBackground(new java.awt.Color(255, 251, 233));
+        backgroundPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tableNumberTitle.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         tableNumberTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tableNumberTitle.setText("Table Number");
-        jPanel1.add(tableNumberTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 300, -1));
+        backgroundPanel.add(tableNumberTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 300, -1));
 
         tableNumberField.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         tableNumberField.setForeground(new java.awt.Color(204, 204, 204));
@@ -85,7 +89,7 @@ public class TableNumberPopUp extends javax.swing.JDialog {
                 tableNumberFieldFocusLost(evt);
             }
         });
-        jPanel1.add(tableNumberField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 300, 60));
+        backgroundPanel.add(tableNumberField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 300, 60));
 
         cancelButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         cancelButton.setText("Cancel");
@@ -104,7 +108,7 @@ public class TableNumberPopUp extends javax.swing.JDialog {
                 cancelButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 140, 50));
+        backgroundPanel.add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 140, 50));
 
         confirmButton.setBackground(new java.awt.Color(0, 0, 0));
         confirmButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -125,9 +129,9 @@ public class TableNumberPopUp extends javax.swing.JDialog {
                 confirmButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(confirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 140, 50));
+        backgroundPanel.add(confirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 140, 50));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
+        getContentPane().add(backgroundPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -150,7 +154,7 @@ public class TableNumberPopUp extends javax.swing.JDialog {
         String inputTableNumber = tableNumberField.getText().toUpperCase().strip().replace(" ", "");
         
         // Only perform action if the input is not blank
-        if (!inputTableNumber.isBlank()) {
+        if (!inputTableNumber.equalsIgnoreCase("ENTERTABLENUMBER")) {
             
             // Set the table number
             tableNumber = inputTableNumber;
@@ -158,9 +162,6 @@ public class TableNumberPopUp extends javax.swing.JDialog {
             // Enable the parent frame
             parentFrame.setEnabled(true);
 
-            // Update 
-            
-            
             // Set status to 1
             status = 1;
             
@@ -264,9 +265,9 @@ public class TableNumberPopUp extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel backgroundPanel;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton confirmButton;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField tableNumberField;
     private javax.swing.JLabel tableNumberTitle;
     // End of variables declaration//GEN-END:variables

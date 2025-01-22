@@ -506,7 +506,9 @@ public class CartPopUp extends javax.swing.JFrame {
 
         // Retrieve information
         Stall currentStall = StallDetailsPanel.getCurrentStall();
-        String additionalNotes = additionalNotesField.getText().strip();
+        String additionalNotes = (additionalNotesField.getText().equals("Enter Notes Here") || additionalNotesField.getText().isBlank()) ? 
+                "-" : 
+                additionalNotesField.getText().strip();
         
         // Place the order
         int placeStatus = currentCustomer.placeOrder(currentStall, currentCustomer.getCart(), diningType, additionalNotes, currentTableNumber);
