@@ -390,6 +390,22 @@ public class Order {
     }
 
     /**
+     * A method to retrieve the orders that the customer has placed.
+     *
+     * @param customer The customer that associates with the order
+     * @return A filtered array list consisting of orders that is incomplete
+     */
+    public static ArrayList<Order> getIncompleteOrders(Customer customer) {
+
+        // Filter the order list based on customer
+        return getOrderList().stream()
+                .filter(order -> order.orderingCustomer != null && order.orderingCustomer.userID.equals(customer.userID))
+                .filter(order -> order.orderStatus != OrderStatus.COMPLETED && order.orderStatus != OrderStatus.CANCELLED)
+                .sorted(Comparator.comparing(Order::getOrderedDate).reversed())
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
      * A method to export the associated date to an Excel file.
      *
      * @param filter The timeframe set to export the Excel file
@@ -1071,15 +1087,18 @@ public class Order {
     /**
      * A method for customers to cancel an order (before the vendors and runners accept it)
      *
-     * @return {@code true} if the order is cancelled successfully, else {@code false}
+     * @return {@code 1} if the order is cancelled successfully<br>
+     * {@code 0} if the order status is incorrect<br>
+     * {@code -1} if notifications cannot create<br>
+     * {@code -2} if transaction history cannot be created
      */
-    public boolean customerCancelOrder() {
+    public int customerCancelOrder() {
 
         // Make sure that the correct order is passed into the method (reject methods other than waiting ones)
         if (this.getOrderStatus() != OrderStatus.WAITING_VENDOR_AND_RUNNER &&
                 this.getOrderStatus() != OrderStatus.WAITING_VENDOR &&
                 this.getOrderStatus() != OrderStatus.WAITING_RUNNER &&
-                this.getOrderStatus() != OrderStatus.PENDING_CHANGE) return false;
+                this.getOrderStatus() != OrderStatus.PENDING_CHANGE) return 0;
 
         // Change the status of order to "cancelled"
         this.setOrderStatus(OrderStatus.CANCELLED);
@@ -1090,7 +1109,7 @@ public class Order {
                 "Your order " + this.getOrderID() + " has been cancelled successfully. The order records can be found in the Order History page.",
                 this.getOrderingCustomer()
         );
-        if (!customerNotification) return false;
+        if (!customerNotification) return -1;
 
         // Create notifications to inform vendors
         boolean vendorNotification = VendorNotification.createNewNotification(
@@ -1098,7 +1117,7 @@ public class Order {
                 "Order " + this.getOrderID() + " has been cancelled by the customer.",
                 this.getOrderedStall()
         );
-        if (!vendorNotification) return false;
+        if (!vendorNotification) return -1;
 
         // Check if the order already has a runner
         if (this.getRunnerInCharge() != null) {
@@ -1109,7 +1128,7 @@ public class Order {
                     "The customer has cancelled the order " + this.getOrderID() + ".",
                     this.getRunnerInCharge()
             );
-            if (!runnerNotification) return false;
+            if (!runnerNotification) return -1;
         }
 
         // Return money back to users
@@ -1123,7 +1142,7 @@ public class Order {
                 Transaction.TransactionType.CASH_IN,
                 Transaction.PaymentMethod.E_WALLET
         );
-        if (!generateTransactionHistory) return false;
+        if (!generateTransactionHistory) return -2;
 
         // Write to file
         OrderFileIO.writeFile();
@@ -1131,20 +1150,23 @@ public class Order {
         customerFileIO.writeFile();
 
         // Return true for successful modification
-        return true;
+        return 1;
     }
 
     /**
      * A method to let customer change the order to their preferred dining type due to the lack of delivery runner.
      *
      * @param type The dining type that the customer wishes to change their order to
-     * @return {@code true} if changes are applied successfully, else {@code false}
+     * @return {@code 1} if changes are applied successfully<br>
+     * {@code 0} if the wrong order is applied<br>
+     * {@code -1} if the order cannot be cancelled<br>
+     * {@code -2} if notifications cannot be generated
      */
-    public boolean customerChangeDiningStatus(DiningType type) {
+    public int customerChangeDiningStatus(DiningType type) {
 
         // Make sure that the correct order is passed to this method
         if (this.getDiningType() != DiningType.DELIVERY || this.getOrderStatus() != OrderStatus.PENDING_CHANGE)
-            return false;
+            return 0;
 
         // Perform different operations based on different types
         switch (type) {
@@ -1153,8 +1175,8 @@ public class Order {
             case DELIVERY -> {
 
                 // Perform the cancel order method
-                boolean cancelOrder = this.customerCancelOrder();
-                if (!cancelOrder) return false;
+                int cancelOrder = this.customerCancelOrder();
+                if (cancelOrder != 1) return -1;
             }
 
             // If the user chooses to change either to dine in or takeaway
@@ -1172,22 +1194,28 @@ public class Order {
                         "You have changed the dining method for order " + this.getOrderID() + " to " + this.getOrderStatus() + ". Please wait for the vendor to accept your order.",
                         this.getOrderingCustomer()
                 );
-                if (!customerNotification) return false;
+                if (!customerNotification) return -2;
 
                 boolean vendorNotification = VendorNotification.createNewNotification(
                         "Order Update: Dining Method Changed",
                         "The dining method for order " + this.getOrderID() + " has been changed. Please return to the main page to re-accept the order if you wish to proceed with the order.",
                         this.getOrderedStall()
                 );
-                if (!vendorNotification) return false;
+                if (!vendorNotification) return -2;
+
+                // Return the money to customer
+                double initialWallet = this.orderingCustomer.getEWalletAmount();
+                this.orderingCustomer.setEWalletAmount(initialWallet + this.orderPrice);
             }
         }
 
         // Write to file
         OrderFileIO.writeFile();
+        CustomerFileIO customerFileIO = new CustomerFileIO();
+        customerFileIO.writeFile();
 
         // Return true for successful operation
-        return true;
+        return 1;
     }
 
     /**

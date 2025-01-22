@@ -43,10 +43,10 @@ public class CustomerTest extends BaseTest {
         order1.setOrderStatus(Order.OrderStatus.WAITING_VENDOR);
 
         // Attempt to cancel the order
-        boolean order1Cancelled = order1.customerCancelOrder();
+        int order1Cancelled = order1.customerCancelOrder();
 
         // Check if the order is cancelled successfully
-        assertTrue(order1Cancelled);
+        assertEquals(1, order1Cancelled);
 
         // Check if the status of the order is changed to "cancelled"
         assertEquals(Order.OrderStatus.CANCELLED, order1.getOrderStatus());
@@ -103,10 +103,10 @@ public class CustomerTest extends BaseTest {
         order2.setOrderStatus(Order.OrderStatus.WAITING_VENDOR);
 
         // Attempt to cancel the order
-        boolean order2Cancelled = order2.customerCancelOrder();
+        int order2Cancelled = order2.customerCancelOrder();
 
         // Check if the order is cancelled successfully
-        assertTrue(order2Cancelled);
+        assertEquals(1, order2Cancelled);
 
         // Check if the status of the order is changed to "cancelled"
         assertEquals(Order.OrderStatus.CANCELLED, order2.getOrderStatus());
@@ -150,8 +150,8 @@ public class CustomerTest extends BaseTest {
         );
 
         // Erroneous order 3 (status does not match)
-        boolean errorOrder = order3.customerCancelOrder();
-        assertFalse(errorOrder);
+        int errorOrder = order3.customerCancelOrder();
+        assertEquals(0, errorOrder);
     }
 
     /**
@@ -178,10 +178,10 @@ public class CustomerTest extends BaseTest {
         order2.setOrderStatus(Order.OrderStatus.PENDING_CHANGE);
 
         // Cancel the order for order 2
-        boolean cancelOrder = order2.customerChangeDiningStatus(Order.DiningType.DELIVERY);
+        int cancelOrder = order2.customerChangeDiningStatus(Order.DiningType.DELIVERY);
 
         // Make sure that the operation is successful
-        assertTrue(cancelOrder);
+        assertEquals(1, cancelOrder);
 
         // Make sure that the information is changed correctly
         assertEquals(Order.OrderStatus.CANCELLED, order2.getOrderStatus());
@@ -234,10 +234,10 @@ public class CustomerTest extends BaseTest {
 
         // Change the dining type to dine in (a pop-up should be displayed to ask user to key in table number)
         order3.setTableNumber("T003");
-        boolean changeToDineIn = order3.customerChangeDiningStatus(Order.DiningType.DINE_IN);
+        int changeToDineIn = order3.customerChangeDiningStatus(Order.DiningType.DINE_IN);
 
         // Make sure that the operation is performed successfully
-        assertTrue(changeToDineIn);
+        assertEquals(1, changeToDineIn);
 
         // Make sure that the correct details are modified
         assertEquals(Order.DiningType.DINE_IN, order3.getDiningType());
