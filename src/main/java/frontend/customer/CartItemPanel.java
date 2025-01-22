@@ -60,6 +60,7 @@ public class CartItemPanel extends javax.swing.JPanel {
         itemNameScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         itemNameScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
+        itemNameField.setEditable(false);
         itemNameField.setBackground(new java.awt.Color(255, 251, 233));
         itemNameField.setColumns(20);
         itemNameField.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N

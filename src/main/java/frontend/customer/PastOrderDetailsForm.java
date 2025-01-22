@@ -4,15 +4,18 @@
  */
 package frontend.customer;
 
+import backend.entity.Feedback;
 import backend.entity.Item;
 import backend.entity.Order;
 import frontend.pop_up.ReorderForm;
+import frontend.pop_up.SystemPopUp;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -22,6 +25,7 @@ import javax.swing.JPanel;
  */
 public class PastOrderDetailsForm extends javax.swing.JFrame {
 
+    public static JFrame currentFrame;
     private Order currentOrder;
     
     /**
@@ -30,6 +34,7 @@ public class PastOrderDetailsForm extends javax.swing.JFrame {
     public PastOrderDetailsForm(Order order) {
         
         // Set current frame and customer
+        currentFrame = this;
         currentOrder = order;
         
         // Render GUI components
@@ -227,6 +232,7 @@ public class PastOrderDetailsForm extends javax.swing.JFrame {
         cancelButton.setText("Cancel");
         cancelButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         cancelButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cancelButton.setFocusPainted(false);
         cancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 cancelButtonMouseEntered(evt);
@@ -248,6 +254,7 @@ public class PastOrderDetailsForm extends javax.swing.JFrame {
         reorderButton.setText("Reorder");
         reorderButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         reorderButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        reorderButton.setFocusPainted(false);
         reorderButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 reorderButtonMouseEntered(evt);
@@ -269,6 +276,7 @@ public class PastOrderDetailsForm extends javax.swing.JFrame {
         provideFeedbackButton.setText("Provide Feedback");
         provideFeedbackButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         provideFeedbackButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        provideFeedbackButton.setFocusPainted(false);
         provideFeedbackButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 provideFeedbackButtonMouseEntered(evt);
@@ -350,7 +358,42 @@ public class PastOrderDetailsForm extends javax.swing.JFrame {
     }//GEN-LAST:event_provideFeedbackButtonMouseExited
 
     private void provideFeedbackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_provideFeedbackButtonActionPerformed
-        // TODO add your handling code here:
+
+        // Check if feedback has been filled before
+        boolean vendorFeedbackRequired = Feedback.checkNeedToFillVendorFeedback(currentOrder);
+        boolean runnerFeedbackRequired = Feedback.checkNeedToFillRunnerFeedback(currentOrder);
+        
+        // Inform user that feedback is not required if both feedback are filled
+        if (!vendorFeedbackRequired && !runnerFeedbackRequired) {
+            
+            // Display a message
+            SystemPopUp feedbackMessage = new SystemPopUp(
+                    this,
+                    "Feedback Filled",
+                    "You have filled all the feedback for this order.",
+                    new String[]{"OK"}
+            );
+            feedbackMessage.setVisible(true);
+            
+        } else {
+        
+            // Declare a variable to store status
+            int feedbackStatus;
+            
+            // Based on the check, set different status
+            if (vendorFeedbackRequired && runnerFeedbackRequired) feedbackStatus = 0;
+            else if (vendorFeedbackRequired) feedbackStatus = 1;
+            else if (runnerFeedbackRequired) feedbackStatus = 2;
+            else throw new IllegalStateException("Illegal state for feedback status. Please inspect code.");
+            
+            // Disable the current frame
+            setEnabled(false);
+
+            // Call the feedback panel
+            ProvideOrderFeedbackFrame feedbackFrame = new ProvideOrderFeedbackFrame(currentOrder, feedbackStatus);
+            feedbackFrame.setLocationRelativeTo(this);
+            feedbackFrame.setVisible(true);
+        }
     }//GEN-LAST:event_provideFeedbackButtonActionPerformed
 
     /**
