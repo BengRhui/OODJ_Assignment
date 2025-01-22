@@ -406,6 +406,22 @@ public class Order {
     }
 
     /**
+     * A method to retrieve the past completed and cancelled orders that the customer has placed.
+     *
+     * @param customer The customer that associates with the order
+     * @return A filtered array list consisting of completed and cancelled orders
+     */
+    public static ArrayList<Order> getCompleteOrders(Customer customer) {
+
+        // Filter the order list based on customer
+        return getOrderList().stream()
+                .filter(order -> order.orderingCustomer != null && order.orderingCustomer.userID.equals(customer.userID))
+                .filter(order -> order.orderStatus == OrderStatus.COMPLETED || order.orderStatus == OrderStatus.CANCELLED)
+                .sorted(Comparator.comparing(Order::getOrderedDate).reversed())
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
      * A method to export the associated date to an Excel file.
      *
      * @param filter The timeframe set to export the Excel file
