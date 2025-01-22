@@ -327,7 +327,7 @@ public class CartPopUp extends javax.swing.JFrame {
         additionalNotesScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         additionalNotesScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
-        additionalNotesField.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        additionalNotesField.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         additionalNotesField.setForeground(new java.awt.Color(204, 204, 204));
         additionalNotesField.setLineWrap(true);
         additionalNotesField.setRows(5);
