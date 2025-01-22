@@ -685,7 +685,7 @@ public class CustomerTest extends BaseTest {
         ArrayList<Feedback> initialFeedback = new ArrayList<>(Feedback.getFeedbackList());
 
         // Feedback 1 - provide system feedback
-        boolean createFeedback = Feedback.customerProvideFeedback(
+        int createFeedback = Feedback.customerProvideFeedback(
                 Feedback.Category.SYSTEM,
                 customer1,
                 null,
@@ -694,7 +694,7 @@ public class CustomerTest extends BaseTest {
                 "Everything looks good.",
                 null
         );
-        assertTrue(createFeedback);
+        assertEquals(1, createFeedback);
 
         // Retrieve the created feedback
         ArrayList<Feedback> differentFeedback = new ArrayList<>(Feedback.getFeedbackList());
@@ -720,7 +720,7 @@ public class CustomerTest extends BaseTest {
                 "Service good but not up to par.",
                 null
         );
-        assertTrue(createFeedback);
+        assertEquals(1, createFeedback);
 
         // Retrieve the created feedback
         differentFeedback = new ArrayList<>(Feedback.getFeedbackList());
@@ -746,7 +746,7 @@ public class CustomerTest extends BaseTest {
                 "Runner is very kind.",
                 2.50
         );
-        assertTrue(createFeedback);
+        assertEquals(1, createFeedback);
 
         // Retrieve the newly created feedback
         differentFeedback = new ArrayList<>(Feedback.getFeedbackList());
@@ -760,7 +760,7 @@ public class CustomerTest extends BaseTest {
         assertEquals("Runner is very kind.", differentFeedback.getFirst().getFeedbackDetails());
 
         // Erroneous feedback
-        boolean errorFeedback = Feedback.customerProvideFeedback(
+        int errorFeedback = Feedback.customerProvideFeedback(
                 Feedback.Category.VENDOR,
                 customer1,
                 order1,
@@ -769,7 +769,7 @@ public class CustomerTest extends BaseTest {
                 "This feedback should not be added coz tips is not null",
                 3.50
         );
-        assertFalse(errorFeedback);
+        assertEquals(-1, errorFeedback);
     }
 
     /**
