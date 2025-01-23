@@ -11,7 +11,7 @@ import java.awt.Color;
 
 /**
  *
- * @author Lenovo
+ * @author Jun Hong (TP068580), Beng Rhui (TP068495)
  */
 public class TransactionReceiptPopUp extends javax.swing.JFrame {
 

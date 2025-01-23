@@ -9,7 +9,7 @@ import backend.utility.Utility;
 
 /**
  *
- * @author limbengrhui
+ * @author Jun Hong (TP068580), Beng Rhui (TP068495)
  */
 public class TransactionBriefPanel extends javax.swing.JPanel {
 

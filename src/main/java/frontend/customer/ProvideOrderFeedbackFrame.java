@@ -19,7 +19,7 @@ import javax.swing.JList;
 
 /**
  *
- * @author limbengrhui
+ * @author Jun Hong (TP068580), Beng Rhui (TP068495)
  */
 public class ProvideOrderFeedbackFrame extends javax.swing.JFrame {
 

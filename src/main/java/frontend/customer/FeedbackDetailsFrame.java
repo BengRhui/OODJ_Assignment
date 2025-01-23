@@ -9,7 +9,7 @@ import java.awt.Dimension;
 
 /**
  *
- * @author limbengrhui
+ * @author Jun Hong (TP068580), Beng Rhui (TP068495)
  */
 public class FeedbackDetailsFrame extends javax.swing.JFrame {
 

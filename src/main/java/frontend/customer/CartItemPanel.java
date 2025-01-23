@@ -9,7 +9,7 @@ import frontend.pop_up.SystemPopUp;
 
 /**
  *
- * @author limbengrhui
+ * @author Jun Hong (TP068580), Beng Rhui (TP068495)
  */
 public class CartItemPanel extends javax.swing.JPanel {
 

@@ -14,7 +14,6 @@ import frontend.pop_up.TableNumberPopUp;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.Map;
@@ -28,7 +27,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author limbengrhui
+ * @author Jun Hong (TP068580), Beng Rhui (TP068495)
  */
 public class CartPopUp extends javax.swing.JFrame {
 

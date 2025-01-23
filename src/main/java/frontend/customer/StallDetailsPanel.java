@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author limbengrhui
+ * @author Jun Hong (TP068580), Beng Rhui (TP068495)
  */
 public class StallDetailsPanel extends javax.swing.JPanel {
 

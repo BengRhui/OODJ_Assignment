@@ -26,7 +26,7 @@ import javax.swing.SwingConstants;
 
 /**
  *
- * @author limbengrhui
+ * @author Jun Hong (TP068580), Beng Rhui (TP068495)
  */
 public class HomePanel extends javax.swing.JPanel {
 
