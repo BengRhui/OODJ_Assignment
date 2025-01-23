@@ -32,17 +32,20 @@ public class FeedbackPopUp extends javax.swing.JFrame {
     /**
      * Creates new form FeedbackPopUp
      * 
-     * @param user The user object that is involved in the feedback
+     * @param object The object that is involved in the feedback
      */
-    public FeedbackPopUp(User user) {
+    public FeedbackPopUp(Object object) {
         
         // Retrieve the list of feedback from different users
-        switch (user) {
+        switch (object) {
             
             // When vendor, delivery runner and customer are passed into constructor
             case Vendor vendor -> feedbackList = Feedback.getFeedbackList(vendor.getStall());
             case DeliveryRunner runner -> feedbackList = Feedback.getFeedbackList(runner);
             case Customer customer -> feedbackList = Feedback.getFeedbackList(customer);
+            
+            // When stall is passed
+            case Stall stall -> feedbackList = Feedback.getFeedbackList(stall);
             
             // If other user types are passed into the constructor
             default -> throw new IllegalArgumentException(

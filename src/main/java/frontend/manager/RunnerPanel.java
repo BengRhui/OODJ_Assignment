@@ -104,6 +104,7 @@ public class RunnerPanel extends javax.swing.JPanel {
             }
         }
         
+        // Refresh panel
         runnerDetailsPanel.revalidate();
         runnerDetailsPanel.repaint();
     }

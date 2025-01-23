@@ -8,6 +8,7 @@ import backend.entity.Customer;
 import backend.entity.Item;
 import backend.entity.Order;
 import backend.entity.Stall;
+import frontend.pop_up.FeedbackPopUp;
 import frontend.pop_up.ItemQuantityPopUp;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -181,6 +182,7 @@ public class StallDetailsPanel extends javax.swing.JPanel {
 
         stallNameScrollPane = new javax.swing.JScrollPane();
         stallNameField = new javax.swing.JTextArea();
+        viewFeedbackButton = new javax.swing.JButton();
         checkCartButton = new javax.swing.JButton();
         itemScrollPane = new javax.swing.JScrollPane();
         itemPanel = new javax.swing.JPanel();
@@ -200,7 +202,28 @@ public class StallDetailsPanel extends javax.swing.JPanel {
         stallNameField.setText(currentStall.getStallName());
         stallNameScrollPane.setViewportView(stallNameField);
 
-        add(stallNameScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 920, 60));
+        add(stallNameScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 760, 60));
+
+        viewFeedbackButton.setBackground(Color.WHITE);
+        viewFeedbackButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        viewFeedbackButton.setText("View Feedback");
+        viewFeedbackButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        viewFeedbackButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        viewFeedbackButton.setFocusPainted(false);
+        viewFeedbackButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                viewFeedbackButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                viewFeedbackButtonMouseExited(evt);
+            }
+        });
+        viewFeedbackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewFeedbackButtonActionPerformed(evt);
+            }
+        });
+        add(viewFeedbackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 40, 190, 60));
 
         checkCartButton.setBackground(new java.awt.Color(0, 0, 0));
         checkCartButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -258,6 +281,26 @@ public class StallDetailsPanel extends javax.swing.JPanel {
         cartPopUp.setVisible(true);
     }//GEN-LAST:event_checkCartButtonActionPerformed
 
+    private void viewFeedbackButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewFeedbackButtonMouseEntered
+        
+        // Change background
+        viewFeedbackButton.setBackground(new Color(206, 171, 147));
+    }//GEN-LAST:event_viewFeedbackButtonMouseEntered
+
+    private void viewFeedbackButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewFeedbackButtonMouseExited
+
+        // Change background
+        viewFeedbackButton.setBackground(Color.WHITE);
+    }//GEN-LAST:event_viewFeedbackButtonMouseExited
+
+    private void viewFeedbackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewFeedbackButtonActionPerformed
+
+        // Call the notification panel
+        FeedbackPopUp feedbackPopUp = new FeedbackPopUp(currentStall);
+        feedbackPopUp.setLocationRelativeTo(MainPage.currentFrame);
+        feedbackPopUp.setVisible(true);
+    }//GEN-LAST:event_viewFeedbackButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton checkCartButton;
@@ -265,5 +308,6 @@ public class StallDetailsPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane itemScrollPane;
     private javax.swing.JTextArea stallNameField;
     private javax.swing.JScrollPane stallNameScrollPane;
+    private javax.swing.JButton viewFeedbackButton;
     // End of variables declaration//GEN-END:variables
 }
