@@ -76,6 +76,8 @@ public class ProvideOrderFeedbackFrame extends javax.swing.JFrame {
         fourText = new javax.swing.JLabel();
         scoreFiveTitle = new javax.swing.JPanel();
         fiveText = new javax.swing.JLabel();
+        unsatisfactoryLabel = new javax.swing.JLabel();
+        perfectLabel = new javax.swing.JLabel();
         tipsAmount = new javax.swing.JLabel();
         tipsField = new javax.swing.JTextField();
         titleLabel = new javax.swing.JLabel();
@@ -255,6 +257,15 @@ public class ProvideOrderFeedbackFrame extends javax.swing.JFrame {
         scoreFiveTitle.add(fiveText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 50));
 
         backgroundPanel.add(scoreFiveTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(556, 150, 50, 50));
+
+        unsatisfactoryLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        unsatisfactoryLabel.setText("Unsatisfactory");
+        backgroundPanel.add(unsatisfactoryLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 210, -1, -1));
+
+        perfectLabel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        perfectLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        perfectLabel.setText("Perfect");
+        backgroundPanel.add(perfectLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(545, 210, 60, -1));
 
         tipsAmount.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         tipsAmount.setText("Tips (RM)");
@@ -842,6 +853,7 @@ public class ProvideOrderFeedbackFrame extends javax.swing.JFrame {
     private javax.swing.JLabel fiveText;
     private javax.swing.JLabel fourText;
     private javax.swing.JLabel oneText;
+    private javax.swing.JLabel perfectLabel;
     private javax.swing.JPanel scoreFiveTitle;
     private javax.swing.JPanel scoreFourTitle;
     private javax.swing.JPanel scoreOneTitle;
@@ -855,5 +867,6 @@ public class ProvideOrderFeedbackFrame extends javax.swing.JFrame {
     private javax.swing.JTextField titleField;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JLabel twoText;
+    private javax.swing.JLabel unsatisfactoryLabel;
     // End of variables declaration//GEN-END:variables
 }
