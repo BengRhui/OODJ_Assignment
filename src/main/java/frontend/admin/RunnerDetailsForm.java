@@ -13,7 +13,7 @@ import java.awt.Cursor;
 
 /**
  *
- * @author limbengrhui
+ * @author Chun Ming (TP068983), Beng Rhui (TP068495)
  */
 public class RunnerDetailsForm extends javax.swing.JFrame {
 

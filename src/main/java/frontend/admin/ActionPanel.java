@@ -12,7 +12,7 @@ import java.awt.Graphics;
 
 /**
  *
- * @author limbengrhui
+ * @author Chun Ming (TP068983), Beng Rhui (TP068495)
  */
 public class ActionPanel extends javax.swing.JPanel {
 
