@@ -6,14 +6,12 @@ package frontend.runner;
 
 import backend.entity.DeliveryRunner;
 import backend.entity.Order;
-import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
 import javax.swing.JLabel;
 
 /**
  *
- * @author limbengrhui
+ * @author Jun Hong (TP068580), Beng Rhui (TP068495)
  */
 public class HomePagePanel extends javax.swing.JPanel {
 
