@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author Beng Rhui (TP068495), Xuan Jack (TP067678)
+ * @author Xuan Jack (TP067678), Beng Rhui (TP068495)
  */
 public class LoginPage extends javax.swing.JFrame {
 
