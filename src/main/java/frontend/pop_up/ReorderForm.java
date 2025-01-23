@@ -6,13 +6,11 @@ package frontend.pop_up;
 
 import backend.entity.Order;
 import backend.entity.Stall;
-import backend.utility.Utility;
 import frontend.customer.MainPage;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.stream.Collectors;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
@@ -22,7 +20,7 @@ import javax.swing.JList;
 
 /**
  *
- * @author limbengrhui
+ * @author Beng Rhui (TP068495)
  */
 public class ReorderForm extends javax.swing.JDialog {
 

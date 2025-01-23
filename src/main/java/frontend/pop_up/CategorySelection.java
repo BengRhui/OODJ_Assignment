@@ -19,7 +19,7 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author limbengrhui
+ * @author Beng Rhui (TP068495)
  */
 public class CategorySelection extends javax.swing.JDialog {
 

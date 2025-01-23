@@ -16,7 +16,7 @@ import javax.swing.JList;
 
 /**
  *
- * @author limbengrhui
+ * @author Beng Rhui (TP068495)
  */
 public class ChangeDiningPopUp extends javax.swing.JDialog {
 

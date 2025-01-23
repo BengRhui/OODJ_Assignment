@@ -8,7 +8,6 @@ import backend.entity.Customer;
 import backend.entity.DeliveryRunner;
 import backend.entity.Feedback;
 import backend.entity.Stall;
-import backend.entity.User;
 import backend.entity.Vendor;
 import frontend.utility.RatingStarPanel;
 import java.awt.Color;
@@ -23,7 +22,7 @@ import javax.swing.*;
 
 /**
  *
- * @author limbengrhui
+ * @author Beng Rhui (TP068495)
  */
 public class FeedbackPopUp extends javax.swing.JFrame {
 

@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author limbengrhui
+ * @author Beng Rhui (TP068495)
  */
 public class TableNumberPopUp extends javax.swing.JDialog {
 
