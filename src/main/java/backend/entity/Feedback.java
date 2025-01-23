@@ -389,9 +389,9 @@ public class Feedback {
     }
 
     /**
-     * A method to check if vendor feedback has been created by the customer
+     * A method to check if vendor feedback has been filled for that order
      *
-     * @param customer The customer that will be checked
+     * @param order The order that will be checked
      * @return {@code true} if vendor feedback is filled, else {@code false}
      */
     public static boolean checkNeedToFillVendorFeedback(Order order) {
@@ -404,9 +404,9 @@ public class Feedback {
     }
 
     /**
-     * A method to check if runner feedback has been created by the customer
+     * A method to check if runner feedback has been filled
      *
-     * @param customer The customer that will be checked
+     * @param order The order that will be checked
      * @return {@code true} if runner feedback is filled, else {@code false}
      */
     public static boolean checkNeedToFillRunnerFeedback(Order order) {
