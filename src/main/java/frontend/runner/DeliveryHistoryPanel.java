@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package frontend.vendor;
+package frontend.runner;
 
+import backend.entity.DeliveryRunner;
 import backend.entity.Item;
 import backend.entity.Order;
-import backend.entity.Vendor;
 import backend.utility.Utility.TimeframeFilter;
 import frontend.utility.Graph;
 
@@ -22,9 +22,9 @@ import javax.swing.*;
  *
  * @author limbengrhui
  */
-public class OrderHistoryPanel extends javax.swing.JPanel {
+public class DeliveryHistoryPanel extends javax.swing.JPanel {
 
-    private static Vendor currentVendor;
+    private static DeliveryRunner currentRunner;
     private static TimeframeFilter timeFrame;
     private static ArrayList<Order> orderList;
     private final static Font boldFont = new Font("Arial", Font.BOLD, 18);
@@ -32,16 +32,14 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
     private final static Color brownColour = new Color(227, 202, 165);
     
     /**
-     * Creates new form OrderHistoryPanel
-     * 
-     * @param vendor The vendor logged into the system
+     * Creates new form DeliveryHistoryPanel
      */
-    public OrderHistoryPanel(Vendor vendor) {
+    public DeliveryHistoryPanel() {
         
         // Initialize values
-        currentVendor = vendor;
+        currentRunner = MainPage.getRunner();
         timeFrame = TimeframeFilter.DAILY;
-        orderList = Order.filterOrder(vendor, timeFrame).stream()
+        orderList = Order.filterOrder(currentRunner, timeFrame).stream()
                 .filter(order -> order.getOrderStatus() == Order.OrderStatus.COMPLETED ||
                         order.getOrderStatus() == Order.OrderStatus.CANCELLED)
                 .sorted(Comparator.comparing(Order::getOrderedDate).reversed())
@@ -66,17 +64,17 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
         graphPanel.removeAll();
         
         // Generate the graph and set location
-        Graph revenueGraph = new Graph(
+        Graph deliveryCountGraph = new Graph(
                 orderList,
-                Graph.REVENUE_GRAPH,
+                Graph.DELIVERY_COUNT_GRAPH,
                 timeFrame,
                 650,
                 425
         );
-        revenueGraph.setLocation(20, 30);
+        deliveryCountGraph.setLocation(20, 30);
         
         // Add the graph to the panel, then refresh
-        graphPanel.add(revenueGraph);
+        graphPanel.add(deliveryCountGraph);
         graphPanel.revalidate();
         graphPanel.repaint();
     }
@@ -87,39 +85,39 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
     private void updateRecentOrderPanel() {
 
         // Obtain the order history list (only take the completed and cancelled ones)
-        orderList = Order.filterOrder(currentVendor, timeFrame).stream()
+        orderList = Order.filterOrder(currentRunner, timeFrame).stream()
                 .filter(order -> order.getOrderStatus() == Order.OrderStatus.COMPLETED ||
                                  order.getOrderStatus() == Order.OrderStatus.CANCELLED)
                 .sorted(Comparator.comparing(Order::getOrderedDate).reversed())
                 .collect(Collectors.toCollection(ArrayList::new));
 
         // Remove all components on the panel
-        recentOrderPanel.removeAll();
+        recentDeliveryPanel.removeAll();
 
         // If order list is empty, then add a text to inform that no orders are available
         if (orderList.isEmpty()) {
 
             // Generate an empty label to state that the item is unavailable
-            JLabel emptyDescriptionLabel = new JLabel("No order history found.");
+            JLabel emptyDescriptionLabel = new JLabel("No delivery history found.");
             emptyDescriptionLabel.setFont(new Font("Arial", Font.PLAIN, 24));
 
             // Add the empty label to the panel and return it
-            recentOrderPanel.add(emptyDescriptionLabel);
+            recentDeliveryPanel.add(emptyDescriptionLabel);
         }
 
         // Loop through each order
         for (Order order : orderList) {
 
             // Add the generated individual panels to the panel
-            recentOrderPanel.add(generateIndividualOrderPanel(order));
+            recentDeliveryPanel.add(generateIndividualOrderPanel(order));
 
             // Add a gap if the order is not the last order
-            if (!orderList.getLast().equals(order)) recentOrderPanel.add(Box.createVerticalStrut(20));
+            if (!orderList.getLast().equals(order)) recentDeliveryPanel.add(Box.createVerticalStrut(20));
         }
 
         // Refresh the panel
-        recentOrderPanel.revalidate();
-        recentOrderPanel.repaint();
+        recentDeliveryPanel.revalidate();
+        recentDeliveryPanel.repaint();
     }
 
     /**
@@ -149,7 +147,7 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
         
         // Generate description label
         JPanel descriptionPanel = generateItemListGUI(order);
-        descriptionPanel.setLocation(5, 55);
+        descriptionPanel.setLocation(5, 65);
 
         // Calculate and set the size of the panel
         int panelWidth = 550;
@@ -179,6 +177,7 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
 
         // Declare a JPanel to store the items and set properties
         JPanel container = new JPanel() {
+            @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
             }
@@ -295,28 +294,28 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        revenueTitle = new javax.swing.JLabel();
+        deliveryCountTitle = new javax.swing.JLabel();
         dailyButton = new javax.swing.JButton();
         monthlyButton = new javax.swing.JButton();
         quarterlyButton = new javax.swing.JButton();
         yearlyButton = new javax.swing.JButton();
-        totalOrderTitle = new javax.swing.JLabel();
-        totalOrderCount = new javax.swing.JLabel();
-        totalRevenueTitle = new javax.swing.JLabel();
-        totalRevenueCount = new javax.swing.JLabel();
-        recentOrderTitle = new javax.swing.JLabel();
+        totalDeliveryTitle = new javax.swing.JLabel();
+        totalDeliveryCount = new javax.swing.JLabel();
+        totalEarningsTitle = new javax.swing.JLabel();
+        totalEarningsCount = new javax.swing.JLabel();
+        recentDeliveryTitle = new javax.swing.JLabel();
         graphPanel = new javax.swing.JPanel() {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
             }
         };
-        recentOrderScrollPane = new javax.swing.JScrollPane() {
+        recentDeliveryScrollPane = new javax.swing.JScrollPane() {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
             }
         }
         ;
-        recentOrderPanel = new javax.swing.JPanel() {
+        recentDeliveryPanel = new javax.swing.JPanel() {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
             }
@@ -325,9 +324,9 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 251, 233));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        revenueTitle.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        revenueTitle.setText("REVENUE");
-        add(revenueTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 580, 70));
+        deliveryCountTitle.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        deliveryCountTitle.setText("DELIVERY COUNT");
+        add(deliveryCountTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 580, 70));
 
         dailyButton.setBackground(brownColour);
         dailyButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -421,49 +420,49 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
         });
         add(yearlyButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 60, 140, 50));
 
-        totalOrderTitle.setFont(new java.awt.Font("Arial", 1, 30)); // NOI18N
-        totalOrderTitle.setText("<html>Total Order</html>");
-        add(totalOrderTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 140, 240, -1));
+        totalDeliveryTitle.setFont(new java.awt.Font("Arial", 1, 30)); // NOI18N
+        totalDeliveryTitle.setText("<html>Total Delivery</html>");
+        add(totalDeliveryTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 140, 240, -1));
 
-        totalOrderCount.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        totalOrderCount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        totalOrderCount.setText(String.valueOf(
-            currentVendor.getOrderCount(timeFrame)
+        totalDeliveryCount.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        totalDeliveryCount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        totalDeliveryCount.setText(String.valueOf(
+            currentRunner.getDeliveryCount(timeFrame)
         ));
-        add(totalOrderCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 190, 250, -1));
+        add(totalDeliveryCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 190, 240, -1));
 
-        totalRevenueTitle.setFont(new java.awt.Font("Arial", 1, 30)); // NOI18N
-        totalRevenueTitle.setText("Total Revenue");
-        add(totalRevenueTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 140, 230, -1));
+        totalEarningsTitle.setFont(new java.awt.Font("Arial", 1, 30)); // NOI18N
+        totalEarningsTitle.setText("Total Earnings");
+        add(totalEarningsTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 140, 230, -1));
 
-        totalRevenueCount.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        totalRevenueCount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        totalRevenueCount.setText("RM" + String.format("%.2f", currentVendor.getTotalEarnings(timeFrame)));
-        add(totalRevenueCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 190, 240, -1));
+        totalEarningsCount.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        totalEarningsCount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        totalEarningsCount.setText("RM" + String.format("%.2f", currentRunner.getTipsAmount(timeFrame)));
+        add(totalEarningsCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 190, 240, -1));
 
-        recentOrderTitle.setFont(new java.awt.Font("Arial", 1, 30)); // NOI18N
-        recentOrderTitle.setText("Recent Orders");
-        add(recentOrderTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 260, -1, -1));
+        recentDeliveryTitle.setFont(new java.awt.Font("Arial", 1, 30)); // NOI18N
+        recentDeliveryTitle.setText("Recent Delivery");
+        add(recentDeliveryTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 260, -1, -1));
 
         graphPanel.setBackground(new java.awt.Color(255, 255, 255));
         graphPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         graphPanel.setLayout(null);
         add(graphPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 700, 470));
 
-        recentOrderScrollPane.setBackground(new Color(0, 0, 0, 0));
-        recentOrderScrollPane.setBorder(null);
-        recentOrderScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        recentOrderScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        recentOrderScrollPane.setOpaque(false);
-        recentOrderScrollPane.setViewportView(null);
-        recentOrderScrollPane.getViewport().setOpaque(false);
+        recentDeliveryScrollPane.setBackground(new Color(0, 0, 0, 0));
+        recentDeliveryScrollPane.setBorder(null);
+        recentDeliveryScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        recentDeliveryScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        recentDeliveryScrollPane.setOpaque(false);
+        recentDeliveryScrollPane.setViewportView(null);
+        recentDeliveryScrollPane.getViewport().setOpaque(false);
 
-        recentOrderPanel.setBackground(new Color(0, 0, 0, 0));
-        recentOrderPanel.setOpaque(false);
-        recentOrderPanel.setLayout(new javax.swing.BoxLayout(recentOrderPanel, javax.swing.BoxLayout.Y_AXIS));
-        recentOrderScrollPane.setViewportView(recentOrderPanel);
+        recentDeliveryPanel.setBackground(new Color(0, 0, 0, 0));
+        recentDeliveryPanel.setOpaque(false);
+        recentDeliveryPanel.setLayout(new javax.swing.BoxLayout(recentDeliveryPanel, javax.swing.BoxLayout.Y_AXIS));
+        recentDeliveryScrollPane.setViewportView(recentDeliveryPanel);
 
-        add(recentOrderScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 310, 550, 290));
+        add(recentDeliveryScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 310, 550, 290));
     }// </editor-fold>//GEN-END:initComponents
 
     private void dailyButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dailyButtonMouseEntered
@@ -552,17 +551,17 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
             }
 
             // Update the order count
-            totalOrderCount.setText(
+            totalDeliveryCount.setText(
                     String.valueOf(
-                            currentVendor.getOrderCount(TimeframeFilter.DAILY)
+                            currentRunner.getDeliveryCount(TimeframeFilter.DAILY)
                     )
             );
                         
             // Update total revenue count
-            totalRevenueCount.setText(
+            totalEarningsCount.setText(
                     "RM" + String.format(
                             "%.2f", 
-                            currentVendor.getTotalEarnings(TimeframeFilter.DAILY)
+                            currentRunner.getTipsAmount(TimeframeFilter.DAILY)
                     )
             );
 
@@ -596,17 +595,17 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
             }
             
             // Update the order count
-            totalOrderCount.setText(
+            totalDeliveryCount.setText(
                     String.valueOf(
-                            currentVendor.getOrderCount(TimeframeFilter.MONTHLY)
+                            currentRunner.getDeliveryCount(TimeframeFilter.MONTHLY)
                     )
             );
-            
+                        
             // Update total revenue count
-            totalRevenueCount.setText(
+            totalEarningsCount.setText(
                     "RM" + String.format(
                             "%.2f", 
-                            currentVendor.getTotalEarnings(TimeframeFilter.MONTHLY)
+                            currentRunner.getTipsAmount(TimeframeFilter.MONTHLY)
                     )
             );
             
@@ -640,17 +639,17 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
             }
 
             // Update the order count
-            totalOrderCount.setText(
+            totalDeliveryCount.setText(
                     String.valueOf(
-                            currentVendor.getOrderCount(TimeframeFilter.QUARTERLY)
+                            currentRunner.getDeliveryCount(TimeframeFilter.QUARTERLY)
                     )
             );
-            
+                        
             // Update total revenue count
-            totalRevenueCount.setText(
+            totalEarningsCount.setText(
                     "RM" + String.format(
                             "%.2f", 
-                            currentVendor.getTotalEarnings(TimeframeFilter.QUARTERLY)
+                            currentRunner.getTipsAmount(TimeframeFilter.QUARTERLY)
                     )
             );
             
@@ -684,17 +683,17 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
             }
 
             // Update the order count
-            totalOrderCount.setText(
+            totalDeliveryCount.setText(
                     String.valueOf(
-                            currentVendor.getOrderCount(TimeframeFilter.YEARLY)
+                            currentRunner.getDeliveryCount(TimeframeFilter.YEARLY)
                     )
             );
-            
+                        
             // Update total revenue count
-            totalRevenueCount.setText(
+            totalEarningsCount.setText(
                     "RM" + String.format(
                             "%.2f", 
-                            currentVendor.getTotalEarnings(TimeframeFilter.YEARLY)
+                            currentRunner.getTipsAmount(TimeframeFilter.YEARLY)
                     )
             );
             
@@ -709,17 +708,17 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton dailyButton;
+    private javax.swing.JLabel deliveryCountTitle;
     private javax.swing.JPanel graphPanel;
     private javax.swing.JButton monthlyButton;
     private javax.swing.JButton quarterlyButton;
-    private javax.swing.JPanel recentOrderPanel;
-    private javax.swing.JScrollPane recentOrderScrollPane;
-    private javax.swing.JLabel recentOrderTitle;
-    private javax.swing.JLabel revenueTitle;
-    private javax.swing.JLabel totalOrderCount;
-    private javax.swing.JLabel totalOrderTitle;
-    private javax.swing.JLabel totalRevenueCount;
-    private javax.swing.JLabel totalRevenueTitle;
+    private javax.swing.JPanel recentDeliveryPanel;
+    private javax.swing.JScrollPane recentDeliveryScrollPane;
+    private javax.swing.JLabel recentDeliveryTitle;
+    private javax.swing.JLabel totalDeliveryCount;
+    private javax.swing.JLabel totalDeliveryTitle;
+    private javax.swing.JLabel totalEarningsCount;
+    private javax.swing.JLabel totalEarningsTitle;
     private javax.swing.JButton yearlyButton;
     // End of variables declaration//GEN-END:variables
 }

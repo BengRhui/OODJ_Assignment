@@ -23,12 +23,12 @@
     <Property name="useNullLayout" type="boolean" value="false"/>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="revenueTitle">
+    <Component class="javax.swing.JLabel" name="deliveryCountTitle">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="36" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="REVENUE"/>
+        <Property name="text" type="java.lang.String" value="DELIVERY COUNT"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -164,12 +164,12 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="totalOrderTitle">
+    <Component class="javax.swing.JLabel" name="totalDeliveryTitle">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="30" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;Total Order&lt;/html&gt;"/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;Total Delivery&lt;/html&gt;"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -177,28 +177,28 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="totalOrderCount">
+    <Component class="javax.swing.JLabel" name="totalDeliveryCount">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="36" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="String.valueOf(&#xa;    currentVendor.getOrderCount(timeFrame)&#xa;)" type="code"/>
+          <Connection code="String.valueOf(&#xa;    currentRunner.getDeliveryCount(timeFrame)&#xa;)" type="code"/>
         </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="810" y="190" width="250" height="-1"/>
+          <AbsoluteConstraints x="810" y="190" width="240" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="totalRevenueTitle">
+    <Component class="javax.swing.JLabel" name="totalEarningsTitle">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="30" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Total Revenue"/>
+        <Property name="text" type="java.lang.String" value="Total Earnings"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -206,14 +206,14 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="totalRevenueCount">
+    <Component class="javax.swing.JLabel" name="totalEarningsCount">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="36" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="&quot;RM&quot; + String.format(&quot;%.2f&quot;, currentVendor.getTotalEarnings(timeFrame))" type="code"/>
+          <Connection code="&quot;RM&quot; + String.format(&quot;%.2f&quot;, currentRunner.getTipsAmount(timeFrame))" type="code"/>
         </Property>
       </Properties>
       <Constraints>
@@ -222,12 +222,12 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="recentOrderTitle">
+    <Component class="javax.swing.JLabel" name="recentDeliveryTitle">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="30" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Recent Orders"/>
+        <Property name="text" type="java.lang.String" value="Recent Delivery"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -259,7 +259,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
-    <Container class="javax.swing.JScrollPane" name="recentOrderScrollPane">
+    <Container class="javax.swing.JScrollPane" name="recentDeliveryScrollPane">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="new Color(0, 0, 0, 0)" type="code"/>
@@ -270,7 +270,7 @@
         <Property name="horizontalScrollBarPolicy" type="int" value="31"/>
         <Property name="verticalScrollBarPolicy" type="int" value="21"/>
         <Property name="opaque" type="boolean" value="false"/>
-        <Property name="viewportView" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor" postCode="recentOrderScrollPane.getViewport().setOpaque(false);">
+        <Property name="viewportView" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor" postCode="recentDeliveryScrollPane.getViewport().setOpaque(false);">
           <ComponentRef name="null"/>
         </Property>
       </Properties>
@@ -285,7 +285,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="recentOrderPanel">
+        <Container class="javax.swing.JPanel" name="recentDeliveryPanel">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new Color(0, 0, 0, 0)" type="code"/>
