@@ -367,29 +367,6 @@ public class Order {
     }
 
     /**
-     * A method to retrieve the orders that the vendor needs to handle.
-     *
-     * @param vendor The vendor that associates with the order
-     * @return A filtered array list consisting of orders that is incomplete
-     */
-    public static ArrayList<Order> getIncompleteOrders(Vendor vendor) {
-
-        // Filter the order list based on vendor, and include a few statuses that has to be handled by vendor
-        return getOrderList().stream()
-                .filter(order -> order.orderedStall != null &&
-                        new ArrayList<>(Arrays.asList(
-                                OrderStatus.WAITING_VENDOR,
-                                OrderStatus.WAITING_VENDOR_AND_RUNNER,
-                                OrderStatus.WAITING_RUNNER,
-                                OrderStatus.VENDOR_PREPARING,
-                                OrderStatus.READY_FOR_PICK_UP
-                        )).contains(order.orderStatus) &&
-                        vendor.getStall().getStallID().equals(order.orderedStall.getStallID()))
-                .sorted(Comparator.comparing(Order::getOrderedDate).reversed())
-                .collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    /**
      * A method to export the associated date to an Excel file.
      *
      * @param filter The timeframe set to export the Excel file

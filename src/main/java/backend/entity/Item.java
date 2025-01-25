@@ -247,7 +247,7 @@ public class Item {
 
         // Remove the items from the list
         for (Item item : itemsToBeRemoved) {
-            if (item.deleteItem() != 1) return false;
+            if (!item.deleteItem()) return false;
         }
 
         // Return true for successful deletion
@@ -292,34 +292,19 @@ public class Item {
     /**
      * A method to delete an item from the list
      *
-     * @return {@code 1} if the item is deleted successfully
-     * {@code 0} if the item is still in the order list
-     * {@code -1} if the item picture could not be deleted
-     * {@code -2} if the item cannot be removed from the item list
+     * @return Status indicating if the item is successfully deleted
      */
-    public int deleteItem() {
-
-        // Stop deletion if the item is currently ordered by others
-        boolean itemInOrder = Order.getOrderList().stream()                                 // Convert list to stream
-                .filter(order -> order.getOrderStatus() != Order.OrderStatus.COMPLETED &&   // Avoid involving completed and cancelled orders
-                        order.getOrderStatus() != Order.OrderStatus.CANCELLED)
-                .anyMatch(                                                                  // Check if there is any orders matching condition
-                        order -> order.getOrderItem().keySet().stream()                     // Condition is that:
-                                .anyMatch(                                                  // Find if there's any match
-                                        item -> item.getItemID().equals(this.itemID)        // For the items in each order
-                                )
-                );
-        if (itemInOrder) return 0;
+    public boolean deleteItem() {
 
         // Delete the picture of the item
-        if (!PictureIO.deleteItemPicture(this)) return -1;
+        if (!PictureIO.deleteItemPicture(this)) return false;
 
         // Return false if the item was not found in the list (cannot be deleted)
-        if (!Item.getItemList().remove(this)) return -2;
+        if (!Item.getItemList().remove(this)) return false;
 
         // Write to file and return true after deletion
         ItemFileIO.writeFile();
-        return 1;
+        return true;
     }
 
     /**
@@ -330,7 +315,7 @@ public class Item {
     public boolean managerDeleteItem() {
 
         // Delete the item and return its value
-        if (this.deleteItem() != 1) return false;
+        if (!this.deleteItem()) return false;
 
         // Create notification to notify vendor that the item is deleted
         return VendorNotification.createNewNotification(
@@ -397,39 +382,6 @@ public class Item {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    /**
-     * A method to update the details of an item.
-     * @param name
-     * @param price
-     * @param description
-     * @param picture
-     * @return
-     */
-    public boolean updateItem(String name, double price, String description, File picture) {
-
-        // Upload the picture to the system if it's not the empty picture
-        if (!picture.getName().contains("empty_picture")) {
-            if (!PictureIO.uploadVendorItemPicture(picture, this)) return false;
-        }
-        
-        // Validation is made at frontend, so set values to the item
-        this.setItemName(name);
-        this.setPrice(price);
-        this.setDescription(description);
-
-        // Create notification for the stall
-        boolean createNotification = VendorNotification.createNewNotification(
-                "Item updated successfully",
-                "Details for item (" + this.getItemID() + ") are updated successfully.",
-                this.getStall()
-        );
-        if (!createNotification) return false;
-
-        // Write the changes to file and return true
-        ItemFileIO.writeFile();
-        return true;
     }
 
     /**

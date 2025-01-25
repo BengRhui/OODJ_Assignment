@@ -243,39 +243,6 @@ public class Feedback {
     }
 
     /**
-     * A method to retrieve the feedback list associated to the delivery runner.
-     *
-     * @param runner The delivery runner involved
-     * @return The filtered feedback list
-     */
-    public static ArrayList<Feedback> getFeedbackList(DeliveryRunner runner) {
-
-        // Filter and sort feedback list from latest to oldest based on the stall
-        return getFeedbackList().stream()
-                .filter(feedback -> feedback.getFeedbackCategory() == Category.DELIVERY_RUNNER &&
-                        feedback.getOrderAssociated() != null &&
-                        feedback.getOrderAssociated().getRunnerInCharge() != null &&
-                        feedback.getOrderAssociated().getRunnerInCharge().getUserID().equals(runner.userID))
-                .sorted(Comparator.comparing(Feedback::getFeedbackSubmissionTime).reversed())
-                .collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    /**
-     * A method to retrieve the feedback list associated to a customer.
-     *
-     * @param customer The customer involved
-     * @return The filtered feedback list
-     */
-    public static ArrayList<Feedback> getFeedbackList(Customer customer) {
-
-        // Filter and sort feedback list from latest to oldest based on the stall
-        return getFeedbackList().stream()
-                .filter(feedback -> feedback.customerAssociated != null && feedback.customerAssociated.userID.equals(customer.userID))
-                .sorted(Comparator.comparing(Feedback::getFeedbackSubmissionTime).reversed())
-                .collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    /**
      * A method to arrange and retrieve the list of feedbacks.
      *
      * @param category The feedback category involved
