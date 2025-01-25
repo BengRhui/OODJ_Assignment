@@ -369,6 +369,14 @@ public class Transaction {
         QR_PAYMENT, CASH, DEBIT_CREDIT_CARD, E_WALLET;
 
         /**
+         * A list of payment method that contains the possible top-up methods.
+         */
+        public final static String[] TOP_UP_METHOD = Arrays.stream(values())
+                .filter(method -> method != E_WALLET)
+                .map(PaymentMethod::toString)
+                .toArray(String[]::new);
+
+        /**
          * A method to convert string into {@code PaymentMethod}
          *
          * @param paymentMethod The string input of payment method

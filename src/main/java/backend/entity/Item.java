@@ -243,7 +243,6 @@ public class Item {
         ArrayList<Item> itemsToBeRemoved = Item.getItemList().stream()
                 .filter(item -> item.getStall() != null && item.getStall().getStallID().equals(stallID))
                 .collect(Collectors.toCollection(ArrayList::new));
-        if (itemsToBeRemoved.isEmpty()) return false;
 
         // Remove the items from the list
         for (Item item : itemsToBeRemoved) {
@@ -401,6 +400,7 @@ public class Item {
 
     /**
      * A method to update the details of an item.
+     *
      * @param name
      * @param price
      * @param description
@@ -413,7 +413,7 @@ public class Item {
         if (!picture.getName().contains("empty_picture")) {
             if (!PictureIO.uploadVendorItemPicture(picture, this)) return false;
         }
-        
+
         // Validation is made at frontend, so set values to the item
         this.setItemName(name);
         this.setPrice(price);

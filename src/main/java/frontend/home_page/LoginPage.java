@@ -292,11 +292,27 @@ public class LoginPage extends javax.swing.JFrame {
         String userEmail = emailInput.getText().toLowerCase().strip();
         String userPassword = Utility.generateString(passwordInput.getPassword());
 
+        // Retrieve the current user from the email and password
         User currentUser = User.getUser(userEmail, userPassword);
 
+        // Check if the user is not null
         if (currentUser != null) {
+            
+            // Go through different users using switch
             switch (currentUser) {
-                case Admin admin -> System.out.println(admin);
+                
+                // If the user is an admin
+                case Admin admin -> {
+                    
+                    // Create a new admin page
+                    frontend.admin.MainPage adminPage = new frontend.admin.MainPage();
+                    adminPage.setVisible(true);
+                    adminPage.setLocationRelativeTo(this);
+                    
+                    // Set the admin
+                    frontend.admin.MainPage.setAdmin(admin);
+                }
+                
                 case Customer customer -> System.out.println(customer);
                 
                 case DeliveryRunner runner -> {

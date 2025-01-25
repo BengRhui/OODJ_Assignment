@@ -5,6 +5,7 @@ import backend.file_io.PictureIO;
 import backend.file_io.VendorFileIO;
 import backend.notification.VendorNotification;
 import backend.utility.Utility;
+import jdk.jshell.execution.Util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -173,7 +174,12 @@ public class Vendor extends User {
     ) {
 
         // Check if there is any empty values
-        if (vendorName == null || vendorName.isBlank()) return 0;
+        if (vendorName.equalsIgnoreCase("Enter Name Here") ||
+                stallName == null ||
+                email.equalsIgnoreCase("Enter Email Here") ||
+                Utility.generateString(password).equalsIgnoreCase("Enter Password Here") ||
+                Utility.generateString(confirmPassword).equalsIgnoreCase("Retype Password Here")
+        ) return 0;
 
         // Check if email matches the format (-1)
         if (!checkEmailFormat(email)) return -1;
@@ -240,7 +246,12 @@ public class Vendor extends User {
     ) {
 
         // Check if there is any empty values
-        if (vendorName == null || vendorName.isBlank()) return 0;
+        if (vendorName.equalsIgnoreCase("Enter Name Here") ||
+                stallName == null ||
+                email.equalsIgnoreCase("Enter Email Here") ||
+                Utility.generateString(password).equalsIgnoreCase("Enter Password Here") ||
+                Utility.generateString(confirmPassword).equalsIgnoreCase("Retype Password Here")
+        ) return 0;
 
         // Email is not in correct format (-1)
         if (!checkEmailFormat(email)) return -1;

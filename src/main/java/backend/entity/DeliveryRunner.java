@@ -223,10 +223,11 @@ public class DeliveryRunner extends User {
             char[] confirmPassword) {
 
         // Check if there is any empty values
-        if (name == null || name.isBlank() ||
-                contactNumber == null || contactNumber.isBlank() ||
-                email == null || email.isBlank() ||
-                password == null || password.length == 0
+        if (name.equalsIgnoreCase("Enter Name Here") ||
+                contactNumber.equalsIgnoreCase("Enter Contact Number (e.g. 012-3456789)") ||
+                email.equalsIgnoreCase("Enter Email Here") ||
+                Utility.generateString(password).equalsIgnoreCase("Enter Password Here") ||
+                Utility.generateString(confirmPassword).equalsIgnoreCase("Retype Password Here")
         ) return 0;
 
         // Case 1: Check if the email format is correct (-1)
@@ -295,7 +296,12 @@ public class DeliveryRunner extends User {
             char[] confirmPassword) {
 
         // Check if there is any empty values
-        if (name == null || name.isBlank()) return 0;
+        if (name.equalsIgnoreCase("Enter Name Here") ||
+                contactNumber.equalsIgnoreCase("Enter Contact Number (e.g. 012-3456789)") ||
+                email.equalsIgnoreCase("Enter Email Here") ||
+                Utility.generateString(password).equalsIgnoreCase("Enter Password Here") ||
+                Utility.generateString(confirmPassword).equalsIgnoreCase("Retype Password Here")
+        ) return 0;
 
         // Check if email is in correct format
         if (!checkEmailFormat(email)) return -1;

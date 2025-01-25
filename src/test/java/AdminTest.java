@@ -269,10 +269,10 @@ public class AdminTest extends BaseTest {
         ArrayList<Transaction> initialTransactionList = new ArrayList<>(Transaction.getTransactionList());
 
         // Perform top up
-        boolean topUpStatus = customer1.topUpWallet(10.1264, "QR Payment");
+        int topUpStatus = customer1.topUpWallet(10.1264, "QR Payment");
 
         // Check if top up is successful
-        assertTrue(topUpStatus);
+        assertEquals(1, topUpStatus);
 
         // Check if top up amount tallies
         assertEquals(initialAmount + 10.13, customer1.getEWalletAmount());
@@ -312,12 +312,12 @@ public class AdminTest extends BaseTest {
         );
 
         // Erroneous input: wrong value inserted into method
-        boolean wrongInput = customer1.topUpWallet(-100, "Cash");
-        assertFalse(wrongInput);
+        int wrongInput = customer1.topUpWallet(-100, "Cash");
+        assertEquals(0, wrongInput);
 
         // Erroneous input: wrong payment method passed into method
         wrongInput = customer1.topUpWallet(100, "Wrong method");
-        assertFalse(wrongInput);
+        assertEquals(-1, wrongInput);
     }
 
     /**
@@ -970,8 +970,8 @@ public class AdminTest extends BaseTest {
         assertTrue(orderInList);
 
         // Try to remove stall 1 (fail coz vendor 1 is still associated with stall 1)
-        boolean deleteStall = stall1.deleteStall();
-        assertFalse(deleteStall);
+        int deleteStall = stall1.deleteStall();
+        assertEquals(0, deleteStall);
 
         // Remove the vendor
         boolean deleteVendor = vendor1.deleteVendor();
@@ -979,7 +979,7 @@ public class AdminTest extends BaseTest {
 
         // Try to remove stall 1 again (fail coz the items are still associated with the orders)
         deleteStall = stall1.deleteStall();
-        assertFalse(deleteStall);
+        assertEquals(-1, deleteStall);
 
         // Change the associated orders to completed
         order2.setOrderStatus(Order.OrderStatus.COMPLETED);
@@ -987,7 +987,7 @@ public class AdminTest extends BaseTest {
 
         // Try to remove stall 1 again
         deleteStall = stall1.deleteStall();
-        assertTrue(deleteStall);
+        assertEquals(1, deleteStall);
 
         // Check if stall 1 is in the list
         stallInList = Stall.getStallList().contains(stall1);
@@ -995,7 +995,7 @@ public class AdminTest extends BaseTest {
 
         // Try to remove stall 1 once again (fail coz stall 1 is not in the list anymore)
         deleteStall = stall1.deleteStall();
-        assertFalse(deleteStall);
+        assertEquals(-3, deleteStall);
 
         // Check if the items associated with stall 1 still exists
         itemInList = Item.getItemList().stream()

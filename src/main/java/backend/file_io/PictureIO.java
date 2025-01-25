@@ -110,17 +110,24 @@ public class PictureIO {
             if (!initialItem.delete()) return false;
         }
 
-        // Generate file name
-        String[] initialFileName = uploadedFile.getName().split("\\.");
-        String fileExtension = initialFileName[initialFileName.length - 1];
-        String newFileName = fileName + "." + fileExtension;
+        // Save the file if the picture is not null
+        if (uploadedFile != null) {
 
-        // Retrieve the file in the directory to be copied to
-        String pathToSavePicture = PARENT_PATH_TO_ITEM_DIRECTORY + newFileName;
-        File targetFileLocation = new File(pathToSavePicture);
+            // Generate file name
+            String[] initialFileName = uploadedFile.getName().split("\\.");
+            String fileExtension = initialFileName[initialFileName.length - 1];
+            String newFileName = fileName + "." + fileExtension;
 
-        // Pass arguments to upload picture method and return boolean
-        return uploadPicture(uploadedFile, targetFileLocation);
+            // Retrieve the file in the directory to be copied to
+            String pathToSavePicture = PARENT_PATH_TO_ITEM_DIRECTORY + newFileName;
+            File targetFileLocation = new File(pathToSavePicture);
+
+            // Pass arguments to upload picture method and return boolean
+            return uploadPicture(uploadedFile, targetFileLocation);
+        }
+
+        // Return true for null pictures
+        return true;
     }
 
     /**

@@ -9,6 +9,7 @@ import backend.utility.Utility;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -742,14 +743,24 @@ public class VendorTest extends BaseTest {
     @Test
     void testVendorGetStatistics() {
 
+        // Set the current time as 17 December 2024
+        Utility.setCurrentTime(LocalDateTime.of(2024, 12, 17, 0, 0, 0));
+
+
+        // Modify order to ease calculation
+        order1.setOrderStatus(Order.OrderStatus.COMPLETED);
+        order2.setOrderStatus(Order.OrderStatus.CANCELLED);
+        order3.setOrderStatus(Order.OrderStatus.COMPLETED);
+
         // Use vendor 1 to get the statistics - using YEARLY filter
         int vendorOrderCount = vendor1.getOrderCount(Utility.TimeframeFilter.YEARLY);
         double vendorTotalEarnings = vendor1.getTotalEarnings(Utility.TimeframeFilter.YEARLY);
         double vendorRatings = vendor1.getOverallRatings(Utility.TimeframeFilter.YEARLY);
         int vendorFeedbackCount = vendor1.getFeedbackCount(Utility.TimeframeFilter.YEARLY);
 
-        // Check if the calculations are correct
+        // Check if the calculations are correct - we only consider completed or cancelled orders
         assertEquals(3, vendorOrderCount);
+
         assertEquals(
                 order1.getOrderPrice() + order2.getOrderPrice() + order3.getOrderPrice(),
                 vendorTotalEarnings
