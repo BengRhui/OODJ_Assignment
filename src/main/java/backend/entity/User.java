@@ -1,7 +1,5 @@
 package backend.entity;
 
-import backend.file_io.CredentialsFileIO;
-
 import java.util.ArrayList;
 
 /**
@@ -111,14 +109,12 @@ public class User {
      *
      * @param email       The email of the user
      * @param newPassword The new password of the user
-     * @return {@code 1} is the password resets successfully<br>
-     * {@code 0} if email is not available<br>
-     * {@code -1} if password does not meet requirements
+     * @return True if password is reset successfully, else false
      */
-    public static int resetPassword(String email, String newPassword) {
+    public static boolean resetPassword(String email, String newPassword) {
 
         // Return false if the new password does not match
-        if (!validatePassword(newPassword)) return -1;
+        if (!validatePassword(newPassword)) return false;
 
         // Loop through the list of users
         for (User user : getUserList()) {
@@ -130,16 +126,11 @@ public class User {
 
             // Set the new password
             user.setPassword(newPassword.strip());
-
-            // Write to file after password is changed
-            CredentialsFileIO.writeCredentialsFile();
-
-            // Return 1 for successful modification
-            return 1;
+            return true;
         }
 
         // Return false if there is no matching email
-        return 0;
+        return false;
     }
 
     /**

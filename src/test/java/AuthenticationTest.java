@@ -47,7 +47,7 @@ public class AuthenticationTest extends BaseTest {
 
         // User who fills in the correct information
         String modifiedPassword = "New@pass123";
-        assertEquals(1, User.resetPassword(customer1.getEmail(), modifiedPassword));   // Make sure true is returned
+        assertTrue(User.resetPassword(customer1.getEmail(), modifiedPassword));   // Make sure true is returned
         assertEquals(modifiedPassword, customer1.getPassword());                  // Make sure password is changed
 
         // User who fills in password that does not match requirement
@@ -57,15 +57,15 @@ public class AuthenticationTest extends BaseTest {
         String passwordNotSatisfyReq4 = "NoNumbers";
         String passwordNotSatisfyReq5 = "1234567890";
 
-        assertEquals(-1, User.resetPassword(admin1.getEmail(), passwordNotSatisfyReq1));
-        assertEquals(-1,User.resetPassword(vendor1.getEmail(), passwordNotSatisfyReq2));
-        assertEquals(-1,User.resetPassword(runner1.getEmail(), passwordNotSatisfyReq3));
-        assertEquals(-1,User.resetPassword(manager1.getEmail(), passwordNotSatisfyReq4));
-        assertEquals(-1,User.resetPassword(customer1.getEmail(), passwordNotSatisfyReq5));
+        assertFalse(User.resetPassword(admin1.getEmail(), passwordNotSatisfyReq1));
+        assertFalse(User.resetPassword(vendor1.getEmail(), passwordNotSatisfyReq2));
+        assertFalse(User.resetPassword(runner1.getEmail(), passwordNotSatisfyReq3));
+        assertFalse(User.resetPassword(manager1.getEmail(), passwordNotSatisfyReq4));
+        assertFalse(User.resetPassword(customer1.getEmail(), passwordNotSatisfyReq5));
 
         // User who fills in the wrong email
         String wrongEmail = "invalid_email";
-        assertEquals(0, User.resetPassword(wrongEmail, modifiedPassword));
+        assertFalse(User.resetPassword(wrongEmail, modifiedPassword));
     }
 
     @Test

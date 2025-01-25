@@ -142,30 +142,4 @@ public class FileIO {
     public static void setParentPathToFile(String parentPath) {
         PARENT_PATH_TO_FILE = parentPath;
     }
-
-    /**
-     * A method to read all the files involved in the system.
-     */
-    public static void readAllFIle() {
-
-        // Read stall file first (vendor requires stall details)
-        StallFileIO.readFile();
-
-        // Read all user file
-        UserFileIO[] userIOList = new UserFileIO[]{
-                new AdminFileIO(),
-                new CustomerFileIO(),
-                new DeliveryRunnerFileIO(),
-                new ManagerFileIO(),
-                new VendorFileIO()
-        };
-        for (UserFileIO userIO : userIOList) userIO.readFile();
-
-        // Read the remaining files
-        ItemFileIO.readFile();
-        NotificationIO.readFile();
-        OrderFileIO.readFile();
-        TransactionFileIO.readFile();
-        FeedbackFileIO.readFile();
-    }
 }
