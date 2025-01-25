@@ -97,7 +97,7 @@ public class CustomerFileIO extends UserFileIO {
             record[5] = customer.getAddress().getPostcode();
             record[6] = customer.getAddress().getCity();
             record[7] = customer.getAddress().getState().toString();
-            record[8] = String.format("%.2f", customer.getEWalletAmount());
+            record[8] = String.valueOf(customer.getEWalletAmount());
             record[9] = customer.getDeliveryNote();
 
             // Add the string array to the overall array

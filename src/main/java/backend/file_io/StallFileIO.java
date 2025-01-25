@@ -51,26 +51,13 @@ public class StallFileIO extends FileIO {
         String stallID = recordFromFile[0];
         String stallName = recordFromFile[1];
 
-        // Declare an empty variable to store categories
-        Stall.StallCategories[] stallCategories;
-
-        // Check if the categories are blank
-        if (recordFromFile[2].isBlank()) {
-
-            // Create an empty list for categories
-            stallCategories = new Stall.StallCategories[0];
-
-        } else {
-
-            // Convert stall categories from string to StallCategory type
-            String[] unformattedStallCategories = recordFromFile[2].split(",");                  // Retrieve categories
-            Arrays.sort(unformattedStallCategories);                                             // Sort the categories
-
-            stallCategories = Arrays.stream(unformattedStallCategories)                          // Pass into array stream
-                    .map(String::strip)                                                          // Strip each string
-                    .map(Stall.StallCategories::generateFromString)                              // Map to correct category
-                    .toArray(Stall.StallCategories[]::new);                                      // Return as string array
-        }
+        // Convert stall categories from string to StallCategory type
+        String[] unformattedStallCategories = recordFromFile[2].split(",");                  // Retrieve categories
+        Arrays.sort(unformattedStallCategories);                                             // Sort the categories
+        Stall.StallCategories[] stallCategories = Arrays.stream(unformattedStallCategories)  // Pass into array stream
+                .map(String::strip)                                                          // Strip each string
+                .map(Stall.StallCategories::generateFromString)                              // Map to correct category
+                .toArray(Stall.StallCategories[]::new);                                      // Return as string array
 
         // Create a stall object
         return new Stall(stallID, stallName, stallCategories);
