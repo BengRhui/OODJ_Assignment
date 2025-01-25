@@ -67,7 +67,7 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
         
         // Generate the graph and set location
         Graph revenueGraph = new Graph(
-                orderList,
+                new ArrayList<Order>(),
                 Graph.REVENUE_GRAPH,
                 timeFrame,
                 650,
@@ -430,7 +430,7 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
         totalOrderCount.setText(String.valueOf(
             currentVendor.getOrderCount(timeFrame)
         ));
-        add(totalOrderCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 190, 250, -1));
+        add(totalOrderCount, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 190, 270, -1));
 
         totalRevenueTitle.setFont(new java.awt.Font("Arial", 1, 30)); // NOI18N
         totalRevenueTitle.setText("Total Revenue");

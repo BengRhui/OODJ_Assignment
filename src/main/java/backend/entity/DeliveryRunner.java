@@ -92,7 +92,6 @@ public class DeliveryRunner extends User {
 
     /**
      * A method to get the availability list for the current system.
-     *
      * @return A Map consisting of the runner ID, with a boolean representing availability
      */
     public static Map<String, Boolean> getAvailabilityList() {
@@ -381,12 +380,6 @@ public class DeliveryRunner extends User {
         // Retrieve the order list based on the filter
         ArrayList<Order> orderList = Order.filterOrder(this, filter);
 
-        // Filter the order list with only the completed and cancelled ones
-        orderList = orderList.stream()
-                .filter(order -> order.getOrderStatus() == Order.OrderStatus.COMPLETED ||
-                        order.getOrderStatus() == Order.OrderStatus.CANCELLED)
-                .collect(Collectors.toCollection(ArrayList::new));
-
         // Return the size of the list as delivery count
         return orderList.size();
     }
@@ -402,11 +395,8 @@ public class DeliveryRunner extends User {
         // Initialize a variable to store tips amount
         double tipsAmount = 0;
 
-        // Get the order list based on filter, and only include completed or cancelled ones
-        ArrayList<Order> orderList = Order.filterOrder(this, filter).stream()
-                .filter(order -> order.getOrderStatus() == Order.OrderStatus.COMPLETED ||
-                        order.getOrderStatus() == Order.OrderStatus.CANCELLED)
-                .collect(Collectors.toCollection(ArrayList::new));
+        // Get the order list based on filter
+        ArrayList<Order> orderList = Order.filterOrder(this, filter);
 
         // Loop through the order list
         for (Order order : orderList) {
@@ -481,22 +471,6 @@ public class DeliveryRunner extends User {
 
         // Get the second element of the method and cast to int as feedback count
         return (int) getOverallRatingDetails(filter)[1];
-    }
-
-    /**
-     * A method to retrieve the orders associated with the current delivery runner (only one).
-     *
-     * @return The Order item associated with the delivery runner
-     */
-    public Order retrieveCurrentAssociatedOrder() {
-
-        // Filter the current orders and get the incomplete ones that associate with the current runner
-        return Order.getOrderList().stream()
-                .filter(order -> order.getOrderStatus() != Order.OrderStatus.COMPLETED && order.getOrderStatus() != Order.OrderStatus.CANCELLED)
-                .filter(order -> order.getDiningType() == Order.DiningType.DELIVERY && order.getRunnerInCharge() != null)
-                .filter(order -> order.getRunnerInCharge() != null && order.getRunnerInCharge().getUserID().equals(this.userID))
-                .findAny()
-                .orElse(null);
     }
 
     /**
