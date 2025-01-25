@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author limbengrhui
+ * @author Beng Rhui (TP068495)
  */
 public class SystemPopUp extends javax.swing.JDialog {
 

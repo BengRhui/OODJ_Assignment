@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author limbengrhui
+ * @author Chun Ming (TP068983), Beng Rhui (TP068495)
  */
 public class MainPage extends javax.swing.JFrame {
 

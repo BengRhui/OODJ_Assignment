@@ -9,7 +9,7 @@ import frontend.pop_up.TopUpPopUp;
 
 /**
  *
- * @author limbengrhui
+ * @author Chun Ming (TP068983), Beng Rhui (TP068495)
  */
 public class CustomerCreditDetails extends javax.swing.JPanel {
 

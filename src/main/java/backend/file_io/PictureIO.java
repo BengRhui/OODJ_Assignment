@@ -1,6 +1,7 @@
 package backend.file_io;
 
 import backend.entity.Item;
+import backend.entity.Stall;
 import backend.entity.Vendor;
 import backend.utility.Utility;
 
@@ -165,6 +166,30 @@ public class PictureIO {
 
         // Retrieve the name of the file to be extracted
         String fileName = vendor.getStall().getStallID() + "_background";
+
+        // Get the list of files in the directory
+        File[] directory = new File(PARENT_PATH_TO_STORE_DIRECTORY).listFiles();
+
+        // Retrieve the relevant picture
+        File retrievedPicture = Utility.retrieveFileWithoutExtension(directory, fileName);
+
+        // Return the empty picture if the picture is not found
+        if (retrievedPicture == null) return getEmptyPicture();
+
+        // If not null, the picture is returned
+        return retrievedPicture;
+    }
+
+    /**
+     * A method to retrieve the background picture of a stall from the directory
+     *
+     * @param stall The stall associated with the background picture
+     * @return The background picture of the stall
+     */
+    public static File retrieveBackgroundPicture(Stall stall) {
+
+        // Retrieve the name of the file to be extracted
+        String fileName = stall.getStallID() + "_background";
 
         // Get the list of files in the directory
         File[] directory = new File(PARENT_PATH_TO_STORE_DIRECTORY).listFiles();

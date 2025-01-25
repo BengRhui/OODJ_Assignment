@@ -47,6 +47,20 @@ public class Stall {
     }
 
     /**
+     * A method to retrieve stall list based on category.
+     *
+     * @param category The category used to filter the stalls
+     * @return The filtered stall list
+     */
+    public static ArrayList<Stall> getStallList(StallCategories category) {
+
+        // Filter stall list based on categories
+        return getStallList().stream()
+                .filter(stall -> Arrays.stream(stall.getStallCategories()).anyMatch(stallCategory -> stallCategory == category))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
      * A method to help retrieve all the names of all the stalls in the system.
      *
      * @return A string list consisting of all shop names

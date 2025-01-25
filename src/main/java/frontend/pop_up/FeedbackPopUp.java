@@ -8,7 +8,6 @@ import backend.entity.Customer;
 import backend.entity.DeliveryRunner;
 import backend.entity.Feedback;
 import backend.entity.Stall;
-import backend.entity.User;
 import backend.entity.Vendor;
 import frontend.utility.RatingStarPanel;
 import java.awt.Color;
@@ -23,7 +22,7 @@ import javax.swing.*;
 
 /**
  *
- * @author limbengrhui
+ * @author Beng Rhui (TP068495)
  */
 public class FeedbackPopUp extends javax.swing.JFrame {
 
@@ -32,17 +31,20 @@ public class FeedbackPopUp extends javax.swing.JFrame {
     /**
      * Creates new form FeedbackPopUp
      * 
-     * @param user The user object that is involved in the feedback
+     * @param object The object that is involved in the feedback
      */
-    public FeedbackPopUp(User user) {
+    public FeedbackPopUp(Object object) {
         
         // Retrieve the list of feedback from different users
-        switch (user) {
+        switch (object) {
             
             // When vendor, delivery runner and customer are passed into constructor
             case Vendor vendor -> feedbackList = Feedback.getFeedbackList(vendor.getStall());
             case DeliveryRunner runner -> feedbackList = Feedback.getFeedbackList(runner);
             case Customer customer -> feedbackList = Feedback.getFeedbackList(customer);
+            
+            // When stall is passed
+            case Stall stall -> feedbackList = Feedback.getFeedbackList(stall);
             
             // If other user types are passed into the constructor
             default -> throw new IllegalArgumentException(

@@ -25,7 +25,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author limbengrhui
+ * @author Xuan Jack (TP067678), Beng Rhui (TP068495)
  */
 public class MainPage extends javax.swing.JFrame {
 

@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author limbengrhui
+ * @author Chun Ming (TP068983), Beng Rhui (TP068495)
  */
 public class RunnerPanel extends javax.swing.JPanel {
 
@@ -104,6 +104,7 @@ public class RunnerPanel extends javax.swing.JPanel {
             }
         }
         
+        // Refresh panel
         runnerDetailsPanel.revalidate();
         runnerDetailsPanel.repaint();
     }

@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author limbengrhui
+ * @author Beng Rhui (TP068495)
  */
 public class TimeFramePopUp extends javax.swing.JDialog {
 

@@ -10,7 +10,7 @@ import java.awt.Color;
 
 /**
  *
- * @author limbengrhui
+ * @author Chun Ming (TP068983), Beng Rhui (TP068495)
  */
 public class StallDetailsPanel extends javax.swing.JPanel {
 

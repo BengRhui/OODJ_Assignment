@@ -12,7 +12,7 @@ import frontend.pop_up.SystemPopUp;
 
 /**
  *
- * @author limbengrhui
+ * @author Chun Ming (TP068983), Beng Rhui (TP068495)
  */
 public class UserDetailsPanel extends javax.swing.JPanel {
 

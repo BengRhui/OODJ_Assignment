@@ -13,7 +13,7 @@ import java.awt.event.KeyEvent;
 
 /**
  *
- * @author jack
+ * @author Xuan Jack (TP067678), Beng Rhui (TP068495)
  */
 public class ResetPassword extends javax.swing.JFrame {
 

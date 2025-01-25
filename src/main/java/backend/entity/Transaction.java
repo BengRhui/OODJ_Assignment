@@ -2,20 +2,7 @@ package backend.entity;
 
 import backend.file_io.TransactionFileIO;
 import backend.utility.Utility;
-import com.itextpdf.io.font.constants.StandardFonts;
-import com.itextpdf.io.image.ImageData;
-import com.itextpdf.io.image.ImageDataFactory;
-import com.itextpdf.kernel.font.PdfFont;
-import com.itextpdf.kernel.font.PdfFontFactory;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Image;
-import com.itextpdf.layout.element.Paragraph;
 
-import java.awt.*;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -109,6 +96,24 @@ public class Transaction {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    /**
+     * A method to help calculate the total cash out amount of a customer.
+     *
+     * @return The total amount of cash out
+     */
+    public static double getTotalCashFlow(Customer customer, TransactionType transactionType) {
+
+        // Filter the transaction list
+        ArrayList<Transaction> transactionList = getTransactionList(customer, transactionType);
+
+        // Calculate total based on the list
+        double totalCashFlow = 0;
+        for (Transaction transaction : transactionList)
+            totalCashFlow += transaction.getTransactionAmount();
+
+        // Return the amount
+        return totalCashFlow;
+    }
 
     /**
      * A method to add transactions into an overall list.
@@ -296,6 +301,7 @@ public class Transaction {
 
     /**
      * A method to generate receipt in PDF format for transactions.
+     *
      * @return {@code true} if the receipt is generated successfully, else {@code false}
      */
     public boolean generateReceipt() {

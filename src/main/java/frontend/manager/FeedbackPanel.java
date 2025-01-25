@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author limbengrhui
+ * @author Chun Ming (TP068983), Beng Rhui (TP068495)
  */
 public class FeedbackPanel extends javax.swing.JPanel {
 

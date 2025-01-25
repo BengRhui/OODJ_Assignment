@@ -4,17 +4,14 @@
  */
 package frontend.manager;
 
-import frontend.vendor.*;
 import backend.entity.Item;
 import backend.file_io.PictureIO;
-import frontend.manager.UserOverviewPopUp;
 import frontend.pop_up.SystemPopUp;
-import java.awt.Cursor;
 import javax.swing.ImageIcon;
 
 /**
  *
- * @author limbengrhui
+ * @author Chun Ming (TP068983), Beng Rhui (TP068495)
  */
 public class ItemDetailsPanel extends javax.swing.JPanel {
 
