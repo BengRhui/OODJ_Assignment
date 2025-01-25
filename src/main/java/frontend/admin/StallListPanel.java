@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Chun Ming (TP068983), Beng Rhui (TP068495)
+ * @author limbengrhui
  */
 public class StallListPanel extends javax.swing.JPanel {
 

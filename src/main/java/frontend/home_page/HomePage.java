@@ -463,7 +463,7 @@ public class HomePage extends javax.swing.JFrame {
     contentPanel.add(halfTransparentPanel6);
     halfTransparentPanel6.setBounds(930, 680, 400, 100);
 
-    foodPicture6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/beverages_food.jpg"))); // NOI18N
+    foodPicture6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/beverages.jpg"))); // NOI18N
     foodPicture6.addMouseListener(new java.awt.event.MouseAdapter() {
         public void mouseEntered(java.awt.event.MouseEvent evt) {
             foodPicture6MouseEntered(evt);

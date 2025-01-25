@@ -10,7 +10,7 @@ import backend.entity.Vendor;
 
 /**
  *
- * @author Chun Ming (TP068983), Beng Rhui (TP068495)
+ * @author limbengrhui
  */
 public class UserInformationPanel extends javax.swing.JPanel {
 

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Xuan Jack (TP067678), Beng Rhui (TP068495)
+ * @author limbengrhui
  */
 public class ItemListingPanel extends javax.swing.JPanel {
 

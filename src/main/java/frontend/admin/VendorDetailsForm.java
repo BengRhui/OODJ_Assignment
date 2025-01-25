@@ -19,7 +19,7 @@ import javax.swing.JList;
 
 /**
  *
- * @author Chun Ming (TP068983), Beng Rhui (TP068495)
+ * @author limbengrhui
  */
 public class VendorDetailsForm extends javax.swing.JFrame {
 

@@ -26,7 +26,7 @@ import javax.swing.text.DefaultCaret;
 
 /**
  *
- * @author Xuan Jack (TP067678), Beng Rhui (TP068495)
+ * @author limbengrhui
  */
 public class OrderDetailsPanel extends JPanel {
 

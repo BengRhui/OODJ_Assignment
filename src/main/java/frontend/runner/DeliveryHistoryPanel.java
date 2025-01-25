@@ -20,7 +20,7 @@ import javax.swing.*;
 
 /**
  *
- * @author Jun Hong (TP068580), Beng Rhui (TP068495)
+ * @author limbengrhui
  */
 public class DeliveryHistoryPanel extends javax.swing.JPanel {
 

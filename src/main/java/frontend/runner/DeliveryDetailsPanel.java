@@ -25,10 +25,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 
 /**
  *
- * @author Jun Hong (TP068580), Beng Rhui (TP068495)
+ * @author limbengrhui
  */
 public class DeliveryDetailsPanel extends javax.swing.JPanel {
 

@@ -18,7 +18,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
- * @author Beng Rhui (TP068495)
+ * @author jack
  */
 public class HandleItemPopUp extends javax.swing.JFrame {
 

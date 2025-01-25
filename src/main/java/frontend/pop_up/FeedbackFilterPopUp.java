@@ -9,12 +9,13 @@ import static backend.entity.Feedback.Filter.HIGH_TO_LOW_RATING;
 import static backend.entity.Feedback.Filter.LATEST_TO_OLDEST;
 import static backend.entity.Feedback.Filter.LOW_TO_HIGH_RATING;
 import static backend.entity.Feedback.Filter.OLDEST_TO_LATEST;
+import backend.utility.Utility.TimeframeFilter;
 import java.awt.Color;
 import javax.swing.JFrame;
 
 /**
  *
- * @author Beng Rhui (TP068495)
+ * @author limbengrhui
  */
 public class FeedbackFilterPopUp extends javax.swing.JDialog {
 

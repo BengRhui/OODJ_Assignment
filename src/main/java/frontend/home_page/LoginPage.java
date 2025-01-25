@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author Xuan Jack (TP067678), Beng Rhui (TP068495)
+ * @author Beng Rhui (TP068495), Xuan Jack (TP067678)
  */
 public class LoginPage extends javax.swing.JFrame {
 
@@ -313,16 +313,7 @@ public class LoginPage extends javax.swing.JFrame {
                     frontend.admin.MainPage.setAdmin(admin);
                 }
                 
-                case Customer customer -> {
-                    
-                    // Create a new customer page
-                    frontend.customer.MainPage customerPage = new frontend.customer.MainPage();
-                    customerPage.setVisible(true);
-                    customerPage.setLocationRelativeTo(this);
-                    
-                    // Set the admin
-                    frontend.customer.MainPage.setCustomer(customer);
-                }
+                case Customer customer -> System.out.println(customer);
                 
                 case DeliveryRunner runner -> {
                     
@@ -336,11 +327,7 @@ public class LoginPage extends javax.swing.JFrame {
                 }
                 
                 case Manager manager -> {
-                    
-                    // Create a new manager page
-                    frontend.manager.MainPage managerPage = new frontend.manager.MainPage();
-                    managerPage.setVisible(true);
-                    managerPage.setLocationRelativeTo(this);
+                    System.out.println(manager);
                 }
                 
                 case Vendor vendor -> {

@@ -8,7 +8,7 @@ import backend.entity.Feedback;
 
 /**
  *
- * @author Chun Ming (TP068983), Beng Rhui (TP068495)
+ * @author limbengrhui
  */
 public class FeedbackDetailsPanel extends javax.swing.JPanel {
 

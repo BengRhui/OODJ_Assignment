@@ -19,7 +19,7 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author Beng Rhui (TP068495)
+ * @author limbengrhui
  */
 public class CategorySelection extends javax.swing.JDialog {
 
@@ -206,7 +206,7 @@ public class CategorySelection extends javax.swing.JDialog {
                 cancelButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 160, 50));
+        jPanel1.add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 160, 40));
 
         confirmButton.setBackground(new java.awt.Color(0, 0, 0));
         confirmButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -227,7 +227,7 @@ public class CategorySelection extends javax.swing.JDialog {
                 confirmButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(confirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 260, 160, 50));
+        jPanel1.add(confirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 270, 160, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 350));
 

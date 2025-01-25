@@ -311,14 +311,9 @@ public class Feedback {
      * @param title       The title of the feedback
      * @param description The description of feedback
      * @param tips        The tips for runner (if applicable)
-     * @return {@code 1} if the feedback is created successfully<br>
-     * {@code 0} if null values exist<br>
-     * {@code -1} if the category and order does not match<br>
-     * {@code -2} if the tips is invalid<br>
-     * {@code -3} if the e-wallet amount is insufficient to pay for the tips<br>
-     * {@code -4} if transaction history cannot be created
+     * @return {@code true} if the feedback is created successfully, else {@code false}
      */
-    public static int customerProvideFeedback(
+    public static boolean customerProvideFeedback(
             Category category,
             Customer customer,
             Order order,
@@ -329,20 +324,19 @@ public class Feedback {
     ) {
 
         // Avoid null values for some parameters
-        if (category == null ||
-                customer == null ||
+        if (customer == null ||
                 score <= 0 ||
-                title == null || title.isBlank() || title.equals("Enter Feedback Title") ||
-                description == null || description.isBlank() || description.equals("Enter Description Here")) return 0;
+                title == null || title.isBlank() ||
+                description == null || description.isBlank()) return false;
 
         // Check if the input is correct
-        if (category != Category.DELIVERY_RUNNER && tips != null) return -1;
-        if (category == Category.SYSTEM && order != null) return -1;
+        if (category != Category.DELIVERY_RUNNER && tips != null) return false;
+        if (category == Category.SYSTEM && order != null) return false;
         if (order != null && order.getOrderingCustomer() != null &&
-                !order.getOrderingCustomer().getUserID().equals(customer.getUserID())) return -1;
+                !order.getOrderingCustomer().getUserID().equals(customer.getUserID())) return false;
 
         // Check if the input is valid
-        if (tips != null && tips < 0) return -2;
+        if (tips != null && tips < 0) return false;
 
         // Create feedback object
         Feedback submittedFeedback = new Feedback(
@@ -361,7 +355,7 @@ public class Feedback {
         if (category == Category.DELIVERY_RUNNER && (tips != null && tips > 0)) {
 
             // Reject if the tips is more than the customer's e-wallet amount
-            if (customer.getEWalletAmount() < tips) return -3;
+            if (customer.getEWalletAmount() < tips) return false;
 
             // Subtract tips from customer's e-wallet
             double walletAmountAfterDelivery = customer.getEWalletAmount() - tips;
@@ -374,7 +368,7 @@ public class Feedback {
                     Transaction.TransactionType.CASH_IN,
                     Transaction.PaymentMethod.E_WALLET
             );
-            if (!createTransaction) return -4;
+            if (!createTransaction) return false;
 
         }
 
@@ -385,37 +379,37 @@ public class Feedback {
         FeedbackFileIO.writeFile();
 
         // Return true for successful operation
-        return 1;
+        return true;
     }
 
     /**
-     * A method to check if vendor feedback has been filled for that order
+     * A method to check if vendor feedback has been created by the customer
      *
-     * @param order The order that will be checked
+     * @param customer The customer that will be checked
      * @return {@code true} if vendor feedback is filled, else {@code false}
      */
-    public static boolean checkNeedToFillVendorFeedback(Order order) {
+    public static boolean checkNeedToFillVendorFeedback(Customer customer) {
 
         // Find if there is any matching vendor feedback from the customer
         return feedbackList.stream()
                 .noneMatch(feedback -> feedback.feedbackCategory == Category.VENDOR &&
-                        feedback.orderAssociated != null &&
-                        feedback.orderAssociated.getOrderID().equals(order.getOrderID()));
+                        feedback.customerAssociated != null &&
+                        feedback.customerAssociated.userID.equals(customer.userID));
     }
 
     /**
-     * A method to check if runner feedback has been filled
+     * A method to check if runner feedback has been created by the customer
      *
-     * @param order The order that will be checked
+     * @param customer The customer that will be checked
      * @return {@code true} if runner feedback is filled, else {@code false}
      */
-    public static boolean checkNeedToFillRunnerFeedback(Order order) {
+    public static boolean checkNeedToFillRunnerFeedback(Customer customer) {
 
         // Find if there is any matching vendor feedback from the customer
         return feedbackList.stream()
                 .noneMatch(feedback -> feedback.feedbackCategory == Category.DELIVERY_RUNNER &&
-                        feedback.orderAssociated != null &&
-                        feedback.orderAssociated.getOrderID().equals(order.getOrderID()));
+                        feedback.customerAssociated != null &&
+                        feedback.customerAssociated.userID.equals(customer.userID));
     }
 
     /**
@@ -573,10 +567,9 @@ public class Feedback {
         /**
          * The list of available categories in list
          */
-        public final static String[] ORDER_CATEGORY_OPTIONS = Arrays.stream(Category.values())      // Get the fields
-                .filter(category -> category != SYSTEM)                                             // Remove system
-                .map(Category::toString)                                                            // Map to values in toString
-                .toArray(String[]::new);                                                            // Return as string array
+        public final static String[] CATEGORY_OPTIONS = Arrays.stream(Category.values())  // Get the fields
+                .map(Category::toString)                                                  // Map to values in toString
+                .toArray(String[]::new);                                                  // Return as string array
 
         /**
          * A method to retrieve {@code Category} based on string input

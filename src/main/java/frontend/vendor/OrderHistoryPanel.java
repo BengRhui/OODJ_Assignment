@@ -20,7 +20,7 @@ import javax.swing.*;
 
 /**
  *
- * @author Xuan Jack (TP067678), Beng Rhui (TP068495)
+ * @author limbengrhui
  */
 public class OrderHistoryPanel extends javax.swing.JPanel {
 

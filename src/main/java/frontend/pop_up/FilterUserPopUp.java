@@ -16,7 +16,7 @@ import javax.swing.JList;
 
 /**
  *
- * @author Beng Rhui (TP068495)
+ * @author limbengrhui
  */
 public class FilterUserPopUp extends javax.swing.JDialog {
 

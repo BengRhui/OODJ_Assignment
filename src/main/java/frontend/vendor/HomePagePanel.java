@@ -18,7 +18,7 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author Xuan Jack (TP067678), Beng Rhui (TP068495)
+ * @author limbengrhui
  */
 public class HomePagePanel extends javax.swing.JPanel {
 

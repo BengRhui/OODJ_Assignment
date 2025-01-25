@@ -39,7 +39,7 @@ public class Utility {
     /**
      * Static variables to be used in the methods.
      */
-    private final static String SYSTEM_PICTURE_PATH = "src/main/resources/asset/system/logo_dark_with_text.png";
+    private final static String SYSTEM_PICTURE_PATH = "src/main/resources/asset/system/full_system_logo.png";
     private final static String CONTACT_ME_ICON_PATH = "src/main/resources/asset/system/contact_icon.png";
     private final static String JAPANESE_FONT_PATH = "src/main/resources/asset/font/NotoSansJP.ttf";
     private final static String FOOD_COURT_NAME = "Beng の Best";

@@ -6,6 +6,7 @@ package frontend.pop_up;
 
 import backend.entity.Customer;
 import backend.entity.Transaction;
+import frontend.admin.CustomerCreditDetails;
 import frontend.admin.CustomerCreditPanel;
 import frontend.admin.MainPage;
 import java.awt.Color;
@@ -18,7 +19,7 @@ import javax.swing.JList;
 
 /**
  *
- * @author Beng Rhui (TP068495)
+ * @author limbengrhui
  */
 public class TopUpPopUp extends javax.swing.JFrame {
 

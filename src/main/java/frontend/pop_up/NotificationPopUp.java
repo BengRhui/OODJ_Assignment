@@ -23,10 +23,12 @@ import java.awt.Graphics;
 
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicHTML;
+import javax.swing.text.View;
 
 /**
  *
- * @author Beng Rhui (TP068495)
+ * @author limbengrhui
  */
 public class NotificationPopUp extends javax.swing.JFrame {
 

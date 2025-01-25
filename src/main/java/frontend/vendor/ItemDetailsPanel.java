@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Xuan Jack (TP067678), Beng Rhui (TP068495)
+ * @author limbengrhui
  */
 public class ItemDetailsPanel extends javax.swing.JPanel {
 
