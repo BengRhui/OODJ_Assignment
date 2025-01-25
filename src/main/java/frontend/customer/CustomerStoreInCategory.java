@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package frontend.Customer;
+package frontend.customer;
 
 /**
  *
  * @author Lenovo
  */
-public class CustomerEWallet extends javax.swing.JFrame {
+public class CustomerStoreInCategory extends javax.swing.JFrame {
 
     /**
      * Creates new form CustomerHomePage
      */
-    public CustomerEWallet() {
+    public CustomerStoreInCategory() {
         initComponents();
     }
 
@@ -32,29 +32,16 @@ public class CustomerEWallet extends javax.swing.JFrame {
         order_history = new javax.swing.JLabel();
         e_wallet = new javax.swing.JLabel();
         issue_and_support = new javax.swing.JLabel();
-        e_wallet_text = new javax.swing.JLabel();
+        list_of_shops_text = new javax.swing.JLabel();
         settings_icon = new javax.swing.JLabel();
         notification_icon = new javax.swing.JLabel();
         back_icon = new javax.swing.JLabel();
         customer_background = new javax.swing.JLabel();
         bottom_panel = new javax.swing.JPanel();
-        current_balance_text = new javax.swing.JLabel();
-        show = new javax.swing.JLabel();
-        hide = new javax.swing.JLabel();
-        current_balance_value = new javax.swing.JLabel();
-        cash_flow_text = new javax.swing.JLabel();
-        total_cash_in_text = new javax.swing.JLabel();
-        total_cash_in_value = new javax.swing.JLabel();
-        total_cash_out_text = new javax.swing.JLabel();
-        total_cash_out_value = new javax.swing.JLabel();
-        transaction_history_text = new javax.swing.JLabel();
-        overall_icon = new javax.swing.JButton();
-        cash_in_icon = new javax.swing.JButton();
-        cash_out_icon = new javax.swing.JButton();
-        current_orders_panel = new javax.swing.JScrollPane();
+        shops_for_fried_chicken = new javax.swing.JLabel();
+        shops_of_fried_chicken_scrollpanel = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1400, 800));
         setPreferredSize(new java.awt.Dimension(1400, 800));
         setSize(new java.awt.Dimension(1400, 800));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -93,7 +80,7 @@ public class CustomerEWallet extends javax.swing.JFrame {
         top_panel.add(order_history);
         order_history.setBounds(420, 60, 150, 30);
 
-        e_wallet.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        e_wallet.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         e_wallet.setForeground(new java.awt.Color(255, 255, 255));
         e_wallet.setText("E-Wallet");
         e_wallet.setAlignmentY(0.0F);
@@ -119,18 +106,18 @@ public class CustomerEWallet extends javax.swing.JFrame {
         top_panel.add(issue_and_support);
         issue_and_support.setBounds(770, 60, 210, 30);
 
-        e_wallet_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        e_wallet_text.setForeground(new java.awt.Color(255, 255, 255));
-        e_wallet_text.setText("E-Wallet");
-        e_wallet_text.setAlignmentY(0.0F);
-        e_wallet_text.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        e_wallet_text.setIconTextGap(0);
-        e_wallet_text.setMaximumSize(new java.awt.Dimension(130, 30));
-        e_wallet_text.setMinimumSize(new java.awt.Dimension(130, 30));
-        e_wallet_text.setName(""); // NOI18N
-        e_wallet_text.setPreferredSize(new java.awt.Dimension(130, 30));
-        top_panel.add(e_wallet_text);
-        e_wallet_text.setBounds(70, 140, 130, 30);
+        list_of_shops_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        list_of_shops_text.setForeground(new java.awt.Color(255, 255, 255));
+        list_of_shops_text.setText("List of Shops based on Category");
+        list_of_shops_text.setAlignmentY(0.0F);
+        list_of_shops_text.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        list_of_shops_text.setIconTextGap(0);
+        list_of_shops_text.setMaximumSize(new java.awt.Dimension(130, 30));
+        list_of_shops_text.setMinimumSize(new java.awt.Dimension(130, 30));
+        list_of_shops_text.setName(""); // NOI18N
+        list_of_shops_text.setPreferredSize(new java.awt.Dimension(130, 30));
+        top_panel.add(list_of_shops_text);
+        list_of_shops_text.setBounds(70, 140, 420, 30);
 
         settings_icon.setBackground(new java.awt.Color(255, 255, 255));
         settings_icon.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
@@ -187,90 +174,18 @@ public class CustomerEWallet extends javax.swing.JFrame {
         bottom_panel.setPreferredSize(new java.awt.Dimension(1400, 600));
         bottom_panel.setLayout(null);
 
-        current_balance_text.setBackground(new java.awt.Color(0, 0, 0));
-        current_balance_text.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        current_balance_text.setForeground(new java.awt.Color(0, 0, 0));
-        current_balance_text.setText("Current Balance");
-        bottom_panel.add(current_balance_text);
-        current_balance_text.setBounds(30, 19, 290, 48);
+        shops_for_fried_chicken.setBackground(new java.awt.Color(0, 0, 0));
+        shops_for_fried_chicken.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        shops_for_fried_chicken.setForeground(new java.awt.Color(0, 0, 0));
+        shops_for_fried_chicken.setText("Shops for Fried Chicken");
+        bottom_panel.add(shops_for_fried_chicken);
+        shops_for_fried_chicken.setBounds(50, 30, 660, 48);
 
-        show.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        show.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/show.png"))); // NOI18N
-        bottom_panel.add(show);
-        show.setBounds(310, 20, 50, 50);
+        shops_of_fried_chicken_scrollpanel.setBackground(new java.awt.Color(255, 251, 233));
+        bottom_panel.add(shops_of_fried_chicken_scrollpanel);
+        shops_of_fried_chicken_scrollpanel.setBounds(50, 90, 1300, 450);
 
-        hide.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        hide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/hide.png"))); // NOI18N
-        bottom_panel.add(hide);
-        hide.setBounds(310, 20, 50, 50);
-
-        current_balance_value.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        current_balance_value.setForeground(new java.awt.Color(0, 0, 0));
-        current_balance_value.setText("RM ");
-        bottom_panel.add(current_balance_value);
-        current_balance_value.setBounds(30, 90, 370, 60);
-
-        cash_flow_text.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        cash_flow_text.setForeground(new java.awt.Color(0, 0, 0));
-        cash_flow_text.setText("Cash Flow");
-        bottom_panel.add(cash_flow_text);
-        cash_flow_text.setBounds(700, 20, 169, 48);
-
-        total_cash_in_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        total_cash_in_text.setForeground(new java.awt.Color(0, 0, 0));
-        total_cash_in_text.setText("Total Cash In");
-        bottom_panel.add(total_cash_in_text);
-        total_cash_in_text.setBounds(700, 70, 169, 48);
-
-        total_cash_in_value.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        total_cash_in_value.setForeground(new java.awt.Color(0, 0, 0));
-        total_cash_in_value.setText("RM ");
-        bottom_panel.add(total_cash_in_value);
-        total_cash_in_value.setBounds(700, 110, 220, 50);
-
-        total_cash_out_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        total_cash_out_text.setForeground(new java.awt.Color(0, 0, 0));
-        total_cash_out_text.setText("Total Cash Out");
-        bottom_panel.add(total_cash_out_text);
-        total_cash_out_text.setBounds(930, 70, 190, 48);
-
-        total_cash_out_value.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        total_cash_out_value.setForeground(new java.awt.Color(0, 0, 0));
-        total_cash_out_value.setText("RM ");
-        bottom_panel.add(total_cash_out_value);
-        total_cash_out_value.setBounds(930, 110, 260, 50);
-
-        transaction_history_text.setBackground(new java.awt.Color(0, 0, 0));
-        transaction_history_text.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        transaction_history_text.setForeground(new java.awt.Color(0, 0, 0));
-        transaction_history_text.setText("Transaction History");
-        bottom_panel.add(transaction_history_text);
-        transaction_history_text.setBounds(30, 210, 350, 48);
-
-        overall_icon.setBackground(new java.awt.Color(255, 255, 255));
-        overall_icon.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        overall_icon.setForeground(new java.awt.Color(0, 0, 0));
-        overall_icon.setText("Overall");
-        bottom_panel.add(overall_icon);
-        overall_icon.setBounds(760, 210, 200, 45);
-
-        cash_in_icon.setBackground(new java.awt.Color(255, 255, 255));
-        cash_in_icon.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        cash_in_icon.setForeground(new java.awt.Color(0, 0, 0));
-        cash_in_icon.setText("Cash In");
-        bottom_panel.add(cash_in_icon);
-        cash_in_icon.setBounds(960, 210, 200, 45);
-
-        cash_out_icon.setBackground(new java.awt.Color(255, 255, 255));
-        cash_out_icon.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        cash_out_icon.setForeground(new java.awt.Color(0, 0, 0));
-        cash_out_icon.setText("Cash Out");
-        bottom_panel.add(cash_out_icon);
-        cash_out_icon.setBounds(1160, 210, 200, 45);
-        bottom_panel.add(current_orders_panel);
-        current_orders_panel.setBounds(30, 270, 1330, 300);
-
-        getContentPane().add(bottom_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1400, 600));
+        getContentPane().add(bottom_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -292,13 +207,13 @@ public class CustomerEWallet extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CustomerEWallet.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerStoreInCategory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CustomerEWallet.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerStoreInCategory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CustomerEWallet.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerStoreInCategory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CustomerEWallet.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerStoreInCategory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -306,7 +221,7 @@ public class CustomerEWallet extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CustomerEWallet().setVisible(true);
+                new CustomerStoreInCategory().setVisible(true);
             }
         });
     }
@@ -314,29 +229,17 @@ public class CustomerEWallet extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel back_icon;
     private javax.swing.JPanel bottom_panel;
-    private javax.swing.JLabel cash_flow_text;
-    private javax.swing.JButton cash_in_icon;
-    private javax.swing.JButton cash_out_icon;
-    private javax.swing.JLabel current_balance_text;
-    private javax.swing.JLabel current_balance_value;
-    private javax.swing.JScrollPane current_orders_panel;
     private javax.swing.JLabel customer_background;
     private javax.swing.JLabel e_wallet;
-    private javax.swing.JLabel e_wallet_text;
-    private javax.swing.JLabel hide;
     private javax.swing.JLabel home_page;
     private javax.swing.JLabel issue_and_support;
+    private javax.swing.JLabel list_of_shops_text;
     private javax.swing.JLabel logo_light;
     private javax.swing.JLabel notification_icon;
     private javax.swing.JLabel order_history;
-    private javax.swing.JButton overall_icon;
     private javax.swing.JLabel settings_icon;
-    private javax.swing.JLabel show;
+    private javax.swing.JLabel shops_for_fried_chicken;
+    private javax.swing.JScrollPane shops_of_fried_chicken_scrollpanel;
     public javax.swing.JPanel top_panel;
-    private javax.swing.JLabel total_cash_in_text;
-    private javax.swing.JLabel total_cash_in_value;
-    private javax.swing.JLabel total_cash_out_text;
-    private javax.swing.JLabel total_cash_out_value;
-    private javax.swing.JLabel transaction_history_text;
     // End of variables declaration//GEN-END:variables
 }
