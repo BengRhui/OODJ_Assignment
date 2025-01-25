@@ -8,7 +8,6 @@ import backend.utility.Utility;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -203,24 +202,6 @@ public class VendorNotification implements Notification {
     }
 
     /**
-     * A method to retrieve the list of notifications related to a vendor.
-     *
-     * @param vendor The vendor involved in the notification
-     * @return The filtered notification list
-     */
-    public static ArrayList<Notification> getNotificationList(Vendor vendor) {
-
-        // Retrieve the list of customer notifications
-        ArrayList<VendorNotification> notificationList = new ArrayList<>(VendorNotification.getVendorNotificationList());
-
-        // Filter the notification list based on vendor ID then arrange them in descending order based on time
-        return notificationList.stream()
-                .filter(notification -> notification.vendor.getUserID().equals(vendor.getUserID()))
-                .sorted(Comparator.comparing(VendorNotification::getNotificationTime).reversed())
-                .collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    /**
      * Getters and setters associated with the {@code VendorNotification} class.
      */
     @Override
@@ -302,12 +283,7 @@ public class VendorNotification implements Notification {
      */
     @Override
     public void markAsRead() {
-
-        // Change the status
         this.readStatus = NotificationStatus.READ;
-
-        // Write to file
-        NotificationIO.writeFile();
     }
 
     /**

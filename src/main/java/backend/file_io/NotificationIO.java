@@ -21,7 +21,7 @@ public class NotificationIO extends FileIO {
      */
     public final static String NOTIFICATION_FILE_NAME = "notifications.txt";
     public final static int NUMBER_OF_INFORMATION_IN_FILE = 6;
-    public final static int[] SPACING_SIZE = {5, 5, 20, 10, 50, 100};
+    public final static int[] SPACING_SIZE = {5, 5, 20, 10, 25, 80};
 
     /**
      * A method to read notification file and instantiate different {@code Notification} objects
@@ -42,7 +42,7 @@ public class NotificationIO extends FileIO {
             // Retrieve the associated notification ID
             String ID = record[0];
 
-            // Check the second letter of the ID and create respective notifications
+            // Check the first letter of the ID and create respective notifications
             switch (ID.charAt(1)) {
                 case 'V' -> createVendorNotification(record);
                 case 'R' -> createDeliveryRunnerNotification(record);

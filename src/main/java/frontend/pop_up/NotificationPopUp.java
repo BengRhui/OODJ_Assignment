@@ -1,210 +1,150 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package frontend.pop_up;
 
-import backend.entity.Customer;
-import backend.entity.DeliveryRunner;
-import backend.entity.Stall;
-import backend.entity.User;
-import backend.entity.Vendor;
-import backend.notification.CustomerNotification;
-import backend.notification.DeliveryRunnerNotification;
-import backend.notification.Notification;
-import backend.notification.NotificationStatus;
-import backend.notification.VendorNotification;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
-
-import java.util.ArrayList;
-import javax.swing.*;
-import javax.swing.plaf.basic.BasicHTML;
-import javax.swing.text.View;
+import java.awt.Frame;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 /**
  *
  * @author limbengrhui
  */
-public class NotificationPopUp extends javax.swing.JFrame {
+public class NotificationPopUp extends javax.swing.JDialog {
 
-    private static ArrayList<? extends Notification> notificationList;
-    
+    private static int status = -1;
+    private static JButton[] buttonList;
+    private Frame parent;
+    private String popUpTitle;
+    private String popUpDescription;
+    private String[] popUpOptions;
+
     /**
-     * Creates new form NotificationPopUp
-     * 
-     * @param user The user object that is involved in the notification
+     * Creates new form Testing
+     *
+     * @param parent The parent frame of the JDialog
      */
-    public NotificationPopUp(User user) {
-        
-        // Retrieve the list of notifications from different users
-        switch (user) {
-            
-            // When vendor, delivery runner and customer are passed into constructor
-            case Vendor vendor -> notificationList = VendorNotification.getNotificationList(vendor);
-            case DeliveryRunner runner -> notificationList = DeliveryRunnerNotification.getNotificationList(runner);
-            case Customer customer -> notificationList = CustomerNotification.getNotificationList(customer);
-            
-            // If other user types are passed into the constructor
-            default -> throw new IllegalArgumentException(
-                    "Invalid user type passed into method. User type should be either Vendor, DeliveryRunner or Customer."
-            );
+    public NotificationPopUp(java.awt.Frame parent, String title, String description, String[] optionList) {
+        super(parent, "Confirmation", true);
+
+        // Validate the inputs
+        if (title == null || title.isBlank() ||
+                description == null || description.isBlank() ||
+                optionList == null || (optionList.length != 1 && optionList.length != 2)) {
+
+            // Throw an exception when input is incorrect
+            throw new IllegalArgumentException("Invalid arguments. The input should not be null or empty.");
         }
-        
-        // Render GUI
+
+        // Set the inputs into the private variables
+        this.parent = parent;
+        this.popUpTitle = title;
+        this.popUpDescription = description;
+        this.popUpOptions = optionList;
+
         initComponents();
 
-        // Declare variables to store vertical gap
-        int verticalGap = 20;
+        addButtonToPanel(buttonPanel, popUpOptions);
+
+    }
+
+    private void addButtonToPanel(JPanel panel, String[] optionList) {
+
+        // Get the information for adding buttons
+        int gapBetweenButtons = 30;
+        int numOfButtons = optionList.length;
+        int buttonWidth = (panel.getWidth() - gapBetweenButtons * (numOfButtons - 1)) / numOfButtons ;
+        int buttonHeight = panel.getHeight();
+
+        // Create the JButton list
+        buttonList = new JButton[numOfButtons];
         
-        // Initialize the list of JPanels (used to calculate size later)
-        ArrayList<JPanel> jPanelList = new ArrayList<>();
-        
-        // If there is no notifications
-        if (notificationList.isEmpty()) {
-            
-            // Create the no notification label
-            JLabel noNotificationText = new JLabel();
-            noNotificationText.setText("No notifications available for now.");
-            noNotificationText.setFont(new Font("Arial", Font.PLAIN, 24));
-            noNotificationText.setBounds(0, 0, contentPanel.getWidth(), 50);
-            noNotificationText.setHorizontalAlignment(SwingConstants.LEADING);
-            noNotificationText.setVerticalAlignment(SwingConstants.TOP);
-            
-            // Add label to panel
-            contentPanel.add(noNotificationText);
-            
-        } else {
-            
-            // Loop through each notification
-            for (Notification notification : notificationList) {
+        // Loop through the list of text
+        for (int i = 0; i < numOfButtons; i ++) {
 
-                // Create a JPanel for the notification
-                JPanel notificationPanel = createPanel(notification);
+            // Create a new button
+            JButton newButton = new JButton();
+            newButton.setText(optionList[i]);
+            newButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
+            newButton.setFont(new Font("Arial", Font.BOLD, 18));
 
-                // Add the panel to the JPanel list
-                jPanelList.add(notificationPanel);
+            // Set the colour of the button
+            int indexFromBack = (numOfButtons - 1 - i) % 2;
+            if (indexFromBack == 0) {
+                newButton.setForeground(Color.WHITE);
+                newButton.setBackground(Color.BLACK);
+            } else {
+                newButton.setForeground(Color.BLACK);
+                newButton.setBackground(Color.WHITE);
+            }
 
-                // Add the JPanel to the content panel
-                contentPanel.add(notificationPanel);
+            // Set the border and other small details of the button
+            newButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3, true));
+            newButton.setFocusable(false);
+            newButton.setOpaque(true);
 
-                // Check if the current notification is the last notification
-                if (!notification.equals(notificationList.getLast())) {
+            // Add mouse listener to the buttons (change cursor and colour when hovered)
+            newButton.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {}
 
-                    // Create a gap if its not the last notification
-                    contentPanel.add(Box.createVerticalStrut(verticalGap));
+                @Override
+                public void mousePressed(MouseEvent e) {}
+
+                @Override
+                public void mouseReleased(MouseEvent e) {}
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    newButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    newButton.setForeground(Color.BLACK);
+                    newButton.setBackground(new Color(206, 171, 147));
                 }
 
-                // Set notification status to read after viewing
-                notification.markAsRead();
-            }
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    newButton.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                    if (indexFromBack == 0) {
+                        newButton.setForeground(Color.WHITE);
+                        newButton.setBackground(Color.BLACK);
+                    } else {
+                        newButton.setForeground(Color.BLACK);
+                        newButton.setBackground(Color.WHITE);
+                    }
+                }
+            });
 
-            // Calculate the height of the container
-            int calculatedContainerHeight = verticalGap * (jPanelList.size() - 1);
-            for (JPanel panel : jPanelList) calculatedContainerHeight += panel.getHeight();
+            // Add action listener to button
+            int buttonIndex = i;
+            newButton.addActionListener(e -> {
+                status = buttonIndex;
+                dispose();
+            });
 
-            // If the container height exceeds the current content panel height
-            if (calculatedContainerHeight > contentPanel.getHeight()) {
-
-                // Set the preferred size, minimum size and the maximum size
-                contentPanel.setPreferredSize(new Dimension(contentPanel.getWidth(), calculatedContainerHeight));
-                contentPanel.setMinimumSize(new Dimension(contentPanel.getWidth(), calculatedContainerHeight));
-                contentPanel.setMaximumSize(new Dimension(contentPanel.getWidth(), calculatedContainerHeight));
-            }
+            // Add the button to button panel
+            panel.add(newButton);
+            
+            // Add the button to button list
+            buttonList[i] = newButton;
         }
     }
 
     /**
-     * This method helps to generate panels for notifications.
-     * @param notification The notification object to be involved
-     * @return A JPanel containing information for the notifications
+     * A method to return the status of the notification after it is disposed.
+     * @return The status of the notification
      */
-    public static JPanel createPanel(Notification notification) {
-
-        // Firstly get the width for all components
-        int panelWidth = contentPanel.getPreferredSize().width;
-        int descriptionWidth = panelWidth - 60;
-
-        // Get the font for title and description
-        Font titleFont = new Font("Arial", Font.BOLD, 20);
-        Font descriptionFont = new Font("Arial", Font.PLAIN, 18);
-
-        // Generate the description (have to calculate the height)
-        JLabel notificationText = new JLabel();
-        notificationText.setText("<html><div style='text-align: justify;'>" + notification.getNotificationDetails() + "</div></html>");
-        notificationText.setFont(descriptionFont);
-
-        // Based on the newly created JLabel, measure the initial width and hence calculate the size
-        double initialDescriptionWidth = notificationText.getPreferredSize().width;
-        int initialDescriptionHeight = notificationText.getPreferredSize().height;
-        int numOfDescriptionLine = (int) Math.ceil(initialDescriptionWidth / descriptionWidth);
-        
-        // Get the height for all components
-        int descriptionHeight = initialDescriptionHeight * numOfDescriptionLine;
-        int panelHeight = 80 + descriptionHeight;
-        int titleHeight = 25;
-        
-        // Get the position for the "New" word
-        int newWordWidth = 60;
-        int newWordX = panelWidth - 30 - newWordWidth;
-        
-        // Set the dimension of the panel
-        Dimension panelDimension = new Dimension(panelWidth, panelHeight);
-                
-        // Generate the panel
-        JPanel notificationPanel = new JPanel();
-        notificationPanel.setLayout(null);
-        notificationPanel.setMaximumSize(panelDimension);
-        notificationPanel.setPreferredSize(panelDimension);
-        notificationPanel.setMinimumSize(panelDimension);
-        notificationPanel.setSize(panelDimension);
-        notificationPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        notificationPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3, true));
-        notificationPanel.setBackground(Color.WHITE);
-        notificationPanel.setOpaque(true);
-
-        // Generate the title
-        JLabel notificationTitle = new JLabel();
-        notificationTitle.setText(notification.getNotificationTitle());
-        notificationTitle.setFont(titleFont);
-        notificationTitle.setBounds(30, 25, descriptionWidth, titleHeight);
-        notificationTitle.setHorizontalAlignment(SwingConstants.LEADING);
-        notificationTitle.setVerticalAlignment(SwingConstants.CENTER);
-        
-        // Continue setting the description details
-        notificationText.setBounds(30, 55, descriptionWidth, descriptionHeight);
-        notificationText.setHorizontalAlignment(SwingConstants.LEADING);
-        notificationText.setVerticalAlignment(SwingConstants.TOP);
-
-        // If the notification is unread
-        if (notification.getReadStatus() == NotificationStatus.UNREAD) {
-            
-            // Create a JLabel to indicate that the notification is a new notification
-            JLabel newNotificationText = new JLabel();
-            newNotificationText.setText("NEW!");
-            newNotificationText.setFont(titleFont);
-            newNotificationText.setForeground(Color.RED);
-            newNotificationText.setBounds(newWordX, 25, newWordWidth, titleHeight);
-            newNotificationText.setHorizontalAlignment(SwingConstants.RIGHT);
-            newNotificationText.setVerticalAlignment(SwingConstants.CENTER);
-            
-            // Add to panel
-            notificationPanel.add(newNotificationText);
-            
-            // Change the colour of the panel to light brown
-            notificationPanel.setBackground(new Color(227, 202, 165));
-        }
-        
-        // Add to panel
-        notificationPanel.add(notificationTitle);
-        notificationPanel.add(notificationText);
-
-        // Return the JPanel after creation
-        return notificationPanel;
+    public int getStatus() {
+        return status;
     }
 
     /**
@@ -217,93 +157,83 @@ public class NotificationPopUp extends javax.swing.JFrame {
     private void initComponents() {
 
         backgroundPanel = new javax.swing.JPanel();
-        closeButton = new javax.swing.JButton();
         titleText = new javax.swing.JLabel();
-        contentScrollPane = new javax.swing.JScrollPane() {
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-            }
-        };
-        contentPanel = new javax.swing.JPanel() {
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-            }
-        };
+        descriptionText = new javax.swing.JLabel();
+        buttonPanel = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Notification");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Message");
         setAlwaysOnTop(true);
-        setName("notificationFrame"); // NOI18N
+        setLocation(parent.getX() + (parent.getWidth() - 500) / 2,
+            parent.getY() + (parent.getHeight() - 350) / 2);
+        setName("notificationDialog"); // NOI18N
         setResizable(false);
-        setSize(new java.awt.Dimension(1000, 600));
+        setSize(new java.awt.Dimension(500, 350));
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                formKeyReleased(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         backgroundPanel.setBackground(new java.awt.Color(255, 251, 233));
         backgroundPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        closeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/cancel_icon.png"))); // NOI18N
-        closeButton.setBorderPainted(false);
-        closeButton.setContentAreaFilled(false);
-        closeButton.setFocusPainted(false);
-        closeButton.setFocusable(false);
-        closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                closeButtonMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                closeButtonMouseExited(evt);
-            }
-        });
-        closeButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                closeButtonActionPerformed(evt);
-            }
-        });
-        backgroundPanel.add(closeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 50, 40, 50));
+        titleText.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        titleText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleText.setText(popUpTitle);
+        backgroundPanel.add(titleText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 500, -1));
 
-        titleText.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        titleText.setText("Notification List");
-        backgroundPanel.add(titleText, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 280, 50));
+        descriptionText.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        descriptionText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        descriptionText.setText("<html><div style='text-align: center;'>" + popUpDescription + "</div></html>");
+        descriptionText.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        backgroundPanel.add(descriptionText, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, 100, 500, 90));
 
-        contentScrollPane.setBackground(new Color(0, 0, 0, 0));
-        contentScrollPane.setBorder(null);
-        contentScrollPane.setViewportBorder(null);
-        contentScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        contentScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        contentScrollPane.setOpaque(false);
-        contentScrollPane.getViewport().setOpaque(false);
-        contentScrollPane.setPreferredSize(new java.awt.Dimension(880, 420));
+        buttonPanel.setBackground(new java.awt.Color(255, 251, 233));
+        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 15, 0);
+        flowLayout1.setAlignOnBaseline(true);
+        buttonPanel.setLayout(flowLayout1);
+        backgroundPanel.add(buttonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 380, 60));
 
-        contentPanel.setBackground(new Color(0, 0, 0, 0));
-        contentPanel.setOpaque(false);
-        contentPanel.setPreferredSize(new java.awt.Dimension(880, 420));
-        contentPanel.setLayout(new javax.swing.BoxLayout(contentPanel, javax.swing.BoxLayout.Y_AXIS));
-        contentScrollPane.setViewportView(contentPanel);
-
-        backgroundPanel.add(contentScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 880, 420));
-
-        getContentPane().add(backgroundPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 600));
+        getContentPane().add(backgroundPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 350));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void closeButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeButtonMouseEntered
+    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
+        
+        // Get the button to be taken action (the rightmost button)
+        JButton button = buttonList[buttonList.length - 1];
+        
+        // When the enter key is entered
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
+            // Reset the colour of the button
+            button.setForeground(Color.WHITE);
+            button.setBackground(Color.BLACK);
+            
+            // Hit the rightmost button
+            button.doClick();
+        }
+    }//GEN-LAST:event_formKeyReleased
 
-        // Set the cursor
-        closeButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_closeButtonMouseEntered
-
-    private void closeButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeButtonMouseExited
-
-        // Set the cursor
-        closeButton.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_closeButtonMouseExited
-
-    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
-
-        // Dispose the current pop up
-        dispose();
-    }//GEN-LAST:event_closeButtonActionPerformed
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        
+        // Get the button to be taken action
+        JButton button = buttonList[buttonList.length - 1];
+        
+        // When the enter key is pressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
+            // Change the colour of the button
+            button.setForeground(Color.BLACK);
+            button.setBackground(new Color(206, 171, 147));
+        }
+    }//GEN-LAST:event_formKeyPressed
 
     /**
      * @param args the command line arguments
@@ -312,7 +242,7 @@ public class NotificationPopUp extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -331,21 +261,27 @@ public class NotificationPopUp extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(NotificationPopUp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Vendor currentVendor = new Vendor("V001", "vendor@mail.com", "Mno@3456", "Muhammad Abdul Ali bin Ahmad Ghazali", new Stall("S001", "Big Fish and Chips Western", new Stall.StallCategories[]{Stall.StallCategories.LOCAL, Stall.StallCategories.WESTERN, Stall.StallCategories.HALAL}));
-                new NotificationPopUp(currentVendor).setVisible(true);
+                NotificationPopUp dialog = new NotificationPopUp(new javax.swing.JFrame(), "ABC", "123", new String[]{"Okay"});
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backgroundPanel;
-    private javax.swing.JButton closeButton;
-    private static javax.swing.JPanel contentPanel;
-    private javax.swing.JScrollPane contentScrollPane;
+    private javax.swing.JPanel buttonPanel;
+    private javax.swing.JLabel descriptionText;
     private javax.swing.JLabel titleText;
     // End of variables declaration//GEN-END:variables
 }

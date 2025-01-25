@@ -6,8 +6,7 @@ package frontend.home_page;
 
 import backend.entity.*;
 import backend.utility.Utility;
-import frontend.pop_up.SystemPopUp;
-import frontend.vendor.MainPage;
+import frontend.pop_up.NotificationPopUp;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.KeyEvent;
@@ -288,6 +287,7 @@ public class LoginPage extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
 
+        // RMB TO ADD BACK BUTTON
         // Process the input from user
         String userEmail = emailInput.getText().toLowerCase().strip();
         String userPassword = Utility.generateString(passwordInput.getPassword());
@@ -300,32 +300,15 @@ public class LoginPage extends javax.swing.JFrame {
                 case Customer customer -> System.out.println(customer);
                 case DeliveryRunner runner -> System.out.println(runner);
                 case Manager manager -> System.out.println(manager);
-                case Vendor vendor -> {
-                    
-                    // Create a new vendor page
-                    MainPage vendorPage = new MainPage();
-                    vendorPage.setVisible(true);
-                    vendorPage.setLocationRelativeTo(this);
-                    
-                    // Set the vendor to the new vendor page
-                    MainPage.setVendor(vendor);
-                }
-                
+                case Vendor vendor -> System.out.println(vendor);
                 default -> {
-                    
-                    // Create a try again message if the current user retrieved is not in the user type (should not happen)
-                    SystemPopUp tryAgainMessage = new SystemPopUp(this, "System Error", "Sorry, something wrong has happened.<br>Please try another credentials.", new String[]{"OK"});
+                    NotificationPopUp tryAgainMessage = new NotificationPopUp(this, "System Error", "Sorry, something wrong has happened.<br>Please try another credentials.", new String[]{"OK"});
                     tryAgainMessage.setVisible(true);
                 }
 
             }
-            
-            // Dispose the current frame and the home page frame once user logins
-            dispose();
-            HomePage.currentFrame.dispose();
-            
         } else {
-            SystemPopUp tryAgainMessage = new SystemPopUp(this, "Incorrect Credentials", "The credentials entered are incorrect.<br>Please try again.", new String[]{"OK"});
+            NotificationPopUp tryAgainMessage = new NotificationPopUp(this, "Incorrect Credentials", "The credentials entered are incorrect.<br>Please try again.", new String[]{"OK"});
             tryAgainMessage.setVisible(true);
         }
 
