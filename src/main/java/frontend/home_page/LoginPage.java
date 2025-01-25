@@ -298,31 +298,17 @@ public class LoginPage extends javax.swing.JFrame {
             switch (currentUser) {
                 case Admin admin -> System.out.println(admin);
                 case Customer customer -> System.out.println(customer);
-                
-                case DeliveryRunner runner -> {
-                    
-                    // Create a new runner page
-                    frontend.runner.MainPage runnerPage = new frontend.runner.MainPage();
-                    runnerPage.setVisible(true);
-                    runnerPage.setLocationRelativeTo(this);
-                    
-                    // Set the runner to the new page
-                    frontend.runner.MainPage.setRunner(runner);
-                }
-                
-                case Manager manager -> {
-                    System.out.println(manager);
-                }
-                
+                case DeliveryRunner runner -> System.out.println(runner);
+                case Manager manager -> System.out.println(manager);
                 case Vendor vendor -> {
                     
                     // Create a new vendor page
-                    frontend.vendor.MainPage vendorPage = new frontend.vendor.MainPage();
+                    MainPage vendorPage = new MainPage();
                     vendorPage.setVisible(true);
                     vendorPage.setLocationRelativeTo(this);
                     
                     // Set the vendor to the new vendor page
-                    frontend.vendor.MainPage.setVendor(vendor);
+                    MainPage.setVendor(vendor);
                 }
                 
                 default -> {
