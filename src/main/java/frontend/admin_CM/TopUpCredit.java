@@ -1,0 +1,207 @@
+package frontend.admin_CM;
+
+import java.awt.Cursor;
+
+/**
+ *
+ * @author Chun Ming
+ */
+public class TopUpCredit extends javax.swing.JPanel {
+
+    public AdminFrame adminFrame;
+    NotificationPopUp notificationPopUp = new NotificationPopUp();
+    AdminPopUp adminPopUp = new AdminPopUp();
+
+    public TopUpCredit() {
+        initComponents();
+        textFormatter();
+        initLayout();
+    }
+
+    private void textFormatter() {
+        //This function is to set the text and format of the JLabel
+        byName.setText("<html>Search <br> by Name:</html>");
+        byContactNo.setText("<html>Search by<br>Contact No.</html>");
+    }
+
+    private void initLayout(){
+        bgLayer.setBackground(new java.awt.Color(255, 251, 233, 180));
+    }
+
+    public void setAdminFrame(AdminFrame adminFrame) {
+        this.adminFrame = adminFrame;
+    }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        bgLayer = new javax.swing.JPanel();
+        searchIcon = new javax.swing.JLabel();
+        customerCredit = new javax.swing.JLabel();
+        logout = new javax.swing.JLabel();
+        back = new javax.swing.JButton();
+        userListScroll = new javax.swing.JScrollPane();
+        byName = new javax.swing.JLabel();
+        searchByName = new javax.swing.JTextField();
+        byContactNo = new javax.swing.JLabel();
+        searchByContact = new javax.swing.JTextField();
+        topUpTest = new javax.swing.JLabel();
+        background = new javax.swing.JLabel();
+
+        setLayout(null);
+
+        bgLayer.setBackground(new java.awt.Color(255, 251, 233));
+        bgLayer.setLayout(null);
+
+        searchIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/search_icon.png"))); // NOI18N
+        bgLayer.add(searchIcon);
+        searchIcon.setBounds(1240, 160, 60, 60);
+
+        customerCredit.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        customerCredit.setText("Customer Credit");
+        bgLayer.add(customerCredit);
+        customerCredit.setBounds(80, 50, 390, 70);
+
+        logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/logout_icon_1.png"))); // NOI18N
+        logout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                logoutMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                logoutMouseExited(evt);
+            }
+        });
+        bgLayer.add(logout);
+        logout.setBounds(1230, 60, 70, 60);
+
+        back.setBackground(new java.awt.Color(173, 139, 115));
+        back.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        back.setForeground(new java.awt.Color(255, 255, 255));
+        back.setText("Back");
+        back.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        back.setOpaque(true);
+        back.setPreferredSize(new java.awt.Dimension(200, 50));
+        back.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                backMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backMouseExited(evt);
+            }
+        });
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
+        bgLayer.add(back);
+        back.setBounds(1070, 710, 230, 60);
+
+        userListScroll.setBackground(new java.awt.Color(255, 255, 255));
+        userListScroll.setForeground(new java.awt.Color(255, 255, 255));
+        bgLayer.add(userListScroll);
+        userListScroll.setBounds(90, 230, 1210, 450);
+
+        byName.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        byName.setText("Search \nby Name:");
+        byName.setToolTipText("");
+        bgLayer.add(byName);
+        byName.setBounds(90, 160, 110, 60);
+
+        searchByName.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        searchByName.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        bgLayer.add(searchByName);
+        searchByName.setBounds(240, 160, 470, 60);
+
+        byContactNo.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        byContactNo.setText("Search by \nContact No.:");
+        bgLayer.add(byContactNo);
+        byContactNo.setBounds(740, 160, 120, 60);
+
+        searchByContact.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        searchByContact.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        bgLayer.add(searchByContact);
+        searchByContact.setBounds(860, 160, 370, 60);
+
+        topUpTest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/top_up_icon.png"))); // NOI18N
+        topUpTest.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                topUpTestMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                topUpTestMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                topUpTestMouseExited(evt);
+            }
+        });
+        bgLayer.add(topUpTest);
+        topUpTest.setBounds(1090, 50, 110, 80);
+
+        add(bgLayer);
+        bgLayer.setBounds(0, 0, 1400, 800);
+
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/customer_credit.jpg"))); // NOI18N
+        add(background);
+        background.setBounds(0, 0, 1460, 800);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void backMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseEntered
+        back.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        back.setBackground(new java.awt.Color(173, 120, 110));
+    }//GEN-LAST:event_backMouseEntered
+
+    private void backMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseExited
+        back.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        back.setBackground(new java.awt.Color(173, 139, 115));
+    }//GEN-LAST:event_backMouseExited
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        adminFrame.cardLayout.show(adminFrame.getPageHolder(), "adminHome");
+    }//GEN-LAST:event_backActionPerformed
+
+    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
+        // Here will redirect to MainHome
+    }//GEN-LAST:event_logoutMouseClicked
+
+    private void logoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseEntered
+        logout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_logoutMouseEntered
+
+    private void logoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseExited
+        logout.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_logoutMouseExited
+
+    private void topUpTestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_topUpTestMouseClicked
+        adminPopUp.userTopUp(adminFrame);
+        adminFrame.setEnabled(false);
+    }//GEN-LAST:event_topUpTestMouseClicked
+
+    private void topUpTestMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_topUpTestMouseEntered
+        topUpTest.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_topUpTestMouseEntered
+
+    private void topUpTestMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_topUpTestMouseExited
+        topUpTest.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_topUpTestMouseExited
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton back;
+    private javax.swing.JLabel background;
+    private javax.swing.JPanel bgLayer;
+    private javax.swing.JLabel byContactNo;
+    private javax.swing.JLabel byName;
+    private javax.swing.JLabel customerCredit;
+    private javax.swing.JLabel logout;
+    private javax.swing.JTextField searchByContact;
+    private javax.swing.JTextField searchByName;
+    private javax.swing.JLabel searchIcon;
+    private javax.swing.JLabel topUpTest;
+    private javax.swing.JScrollPane userListScroll;
+    // End of variables declaration//GEN-END:variables
+}
