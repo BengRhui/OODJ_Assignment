@@ -166,8 +166,17 @@ public class Customer extends User {
             char[] confirmPassword) {
 
         // Check if there is any empty values
-        if (checkEmptyInputs(customerName, contactNumber, addressLine1, addressLine2, postcode, state, city, email, password, confirmPassword))
-            return 0;
+        if (customerName.equalsIgnoreCase("Enter Name Here") ||
+                contactNumber.equalsIgnoreCase("Contact Number Here (e.g. 012-3456789)") ||
+                addressLine1.equalsIgnoreCase("Address Line 1") ||
+                addressLine2.equalsIgnoreCase("Address Line 2") ||
+                postcode.equalsIgnoreCase("Postcode") ||
+                state == null ||
+                city.equalsIgnoreCase("City") ||
+                email.equalsIgnoreCase("Enter Email Here") ||
+                Utility.generateString(password).equalsIgnoreCase("Enter Password Here") ||
+                Utility.generateString(confirmPassword).equalsIgnoreCase("Retype Password Here")
+        ) return 0;
 
         // Check if email is in the correct format (-1)
         boolean isEmailFormatCorrect = checkEmailFormat(email);
@@ -224,47 +233,6 @@ public class Customer extends User {
     }
 
     /**
-     * This method helps to check if there exists any missing values when users input values into text fields.
-     *
-     * @param customerName    The name of customer
-     * @param contactNumber   The contact number of customer
-     * @param addressLine1    The address line 1 of customer
-     * @param addressLine2    The address line 2 of customer
-     * @param postcode        The postcode of address
-     * @param state           The state of address
-     * @param city            The city of address
-     * @param email           The email of customer
-     * @param password        The password of customer
-     * @param confirmPassword The retyped password of customer
-     * @return {@code true} if there is empty inputs, else {@code false}
-     */
-    private static boolean checkEmptyInputs(
-            String customerName,
-            String contactNumber,
-            String addressLine1,
-            String addressLine2,
-            String postcode,
-            String state,
-            String city,
-            String email,
-            char[] password,
-            char[] confirmPassword
-    ) {
-
-        // Check the conditions, if yes then empty values exist
-        return customerName.equalsIgnoreCase("Enter Name Here") ||
-                contactNumber.equalsIgnoreCase("Contact Number Here (e.g. 012-3456789)") ||
-                addressLine1.equalsIgnoreCase("Address Line 1") ||
-                addressLine2.equalsIgnoreCase("Address Line 2") ||
-                postcode.equalsIgnoreCase("Postcode") ||
-                state == null ||
-                city.equalsIgnoreCase("City") ||
-                email.equalsIgnoreCase("Enter Email Here") ||
-                Utility.generateString(password).equalsIgnoreCase("Enter Password Here") ||
-                Utility.generateString(confirmPassword).equalsIgnoreCase("Retype Password Here");
-    }
-
-    /**
      * A method to modify the existing details of a customer
      *
      * @param customerName    The name of the customer
@@ -299,8 +267,17 @@ public class Customer extends User {
             char[] confirmPassword) {
 
         // Check if there is any empty values
-        if (checkEmptyInputs(customerName, contactNumber, addressLine1, addressLine2, postcode, state, city, email, password, confirmPassword))
-            return 0;
+        if (customerName.equalsIgnoreCase("Enter Name Here") ||
+                contactNumber.equalsIgnoreCase("Contact Number Here (e.g. 012-3456789)") ||
+                addressLine1.equalsIgnoreCase("Address Line 1") ||
+                addressLine2.equalsIgnoreCase("Address Line 2") ||
+                postcode.equalsIgnoreCase("Postcode") ||
+                state == null ||
+                city.equalsIgnoreCase("City") ||
+                email.equalsIgnoreCase("Enter Email Here") ||
+                Utility.generateString(password).equalsIgnoreCase("Enter Password Here") ||
+                Utility.generateString(confirmPassword).equalsIgnoreCase("Retype Password Here")
+        ) return 0;
 
         // Check if email is in the correct format (-1)
         if (!checkEmailFormat(email)) return -1;
@@ -538,6 +515,15 @@ public class Customer extends User {
     }
 
     /**
+     * A method to clear customer cart.
+     */
+    public void clearCustomerCart() {
+
+        // Clear the map associated with the cart
+        cart.clear();
+    }
+
+    /**
      * A method for customers to update cart based on the chosen dining method.
      *
      * @param diningType The dining type preferred by customers
@@ -681,7 +667,7 @@ public class Customer extends User {
      * @param state        The state for the address
      * @param city         The city for the address
      * @param deliveryNote The delivery note that customer wishes to tell to runner
-     * @return {@code true} if the address is updated successfully, else {@code false}
+     * @return {@code true} if the address is updated sccessfully, else {@code false}
      */
     public boolean modifyAddressAndDeliveryNotes(
             String addressLine1,
