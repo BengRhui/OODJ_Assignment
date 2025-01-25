@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package frontend.customer;
+package frontend.Customer;
 
 /**
  *
  * @author Lenovo
  */
-public class CustomerOrderHistory extends javax.swing.JFrame {
+public class CustomerHomePage extends javax.swing.JFrame {
 
     /**
      * Creates new form CustomerHomePage
      */
-    public CustomerOrderHistory() {
+    public CustomerHomePage() {
         initComponents();
     }
 
@@ -38,9 +38,13 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
         back_icon = new javax.swing.JLabel();
         customer_background = new javax.swing.JLabel();
         bottom_panel = new javax.swing.JPanel();
-        order_history_scrollpanel = new javax.swing.JScrollPane();
+        current_orders_text = new javax.swing.JLabel();
+        current_orders_panel = new javax.swing.JScrollPane();
+        current_orders_text1 = new javax.swing.JLabel();
+        categories_panel = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1400, 800));
         setSize(new java.awt.Dimension(1400, 800));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -52,7 +56,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
         top_panel.add(logo_light);
         logo_light.setBounds(-10, 0, 250, 150);
 
-        home_page.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        home_page.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         home_page.setForeground(new java.awt.Color(255, 255, 255));
         home_page.setText("Home Page");
         home_page.setAlignmentY(0.0F);
@@ -65,7 +69,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
         top_panel.add(home_page);
         home_page.setBounds(230, 60, 130, 30);
 
-        order_history.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        order_history.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         order_history.setForeground(new java.awt.Color(255, 255, 255));
         order_history.setText("Order History");
         order_history.setAlignmentY(0.0F);
@@ -76,7 +80,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
         order_history.setName(""); // NOI18N
         order_history.setPreferredSize(new java.awt.Dimension(130, 30));
         top_panel.add(order_history);
-        order_history.setBounds(420, 60, 160, 30);
+        order_history.setBounds(420, 60, 150, 30);
 
         e_wallet.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         e_wallet.setForeground(new java.awt.Color(255, 255, 255));
@@ -106,7 +110,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
 
         welcome_text.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         welcome_text.setForeground(new java.awt.Color(255, 255, 255));
-        welcome_text.setText("Order History");
+        welcome_text.setText("Welcome, ");
         welcome_text.setAlignmentY(0.0F);
         welcome_text.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         welcome_text.setIconTextGap(0);
@@ -115,7 +119,7 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
         welcome_text.setName(""); // NOI18N
         welcome_text.setPreferredSize(new java.awt.Dimension(130, 30));
         top_panel.add(welcome_text);
-        welcome_text.setBounds(70, 140, 170, 30);
+        welcome_text.setBounds(70, 140, 130, 30);
 
         settings_icon.setBackground(new java.awt.Color(255, 255, 255));
         settings_icon.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
@@ -164,17 +168,32 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
         top_panel.add(customer_background);
         customer_background.setBounds(0, 0, 1540, 690);
 
-        getContentPane().add(top_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1400, 200));
+        getContentPane().add(top_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1452, 200));
 
         bottom_panel.setBackground(new java.awt.Color(255, 251, 233));
         bottom_panel.setAlignmentX(0.0F);
         bottom_panel.setAlignmentY(0.0F);
         bottom_panel.setPreferredSize(new java.awt.Dimension(1400, 600));
         bottom_panel.setLayout(null);
-        bottom_panel.add(order_history_scrollpanel);
-        order_history_scrollpanel.setBounds(50, 30, 1290, 500);
 
-        getContentPane().add(bottom_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1400, -1));
+        current_orders_text.setBackground(new java.awt.Color(0, 0, 0));
+        current_orders_text.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        current_orders_text.setForeground(new java.awt.Color(0, 0, 0));
+        current_orders_text.setText("Current Orders");
+        bottom_panel.add(current_orders_text);
+        current_orders_text.setBounds(30, 19, 650, 48);
+        bottom_panel.add(current_orders_panel);
+        current_orders_panel.setBounds(30, 73, 650, 450);
+
+        current_orders_text1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        current_orders_text1.setForeground(new java.awt.Color(0, 0, 0));
+        current_orders_text1.setText("Categories");
+        bottom_panel.add(current_orders_text1);
+        current_orders_text1.setBounds(700, 20, 650, 48);
+        bottom_panel.add(categories_panel);
+        categories_panel.setBounds(700, 70, 650, 450);
+
+        getContentPane().add(bottom_panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -196,21 +215,20 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CustomerOrderHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerHomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CustomerOrderHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerHomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CustomerOrderHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerHomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CustomerOrderHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerHomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CustomerOrderHistory().setVisible(true);
+                new CustomerHomePage().setVisible(true);
             }
         });
     }
@@ -218,6 +236,10 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel back_icon;
     private javax.swing.JPanel bottom_panel;
+    private javax.swing.JScrollPane categories_panel;
+    private javax.swing.JScrollPane current_orders_panel;
+    private javax.swing.JLabel current_orders_text;
+    private javax.swing.JLabel current_orders_text1;
     private javax.swing.JLabel customer_background;
     private javax.swing.JLabel e_wallet;
     private javax.swing.JLabel home_page;
@@ -225,7 +247,6 @@ public class CustomerOrderHistory extends javax.swing.JFrame {
     private javax.swing.JLabel logo_light;
     private javax.swing.JLabel notification_icon;
     private javax.swing.JLabel order_history;
-    private javax.swing.JScrollPane order_history_scrollpanel;
     private javax.swing.JLabel settings_icon;
     public javax.swing.JPanel top_panel;
     private javax.swing.JLabel welcome_text;
