@@ -15,6 +15,9 @@ import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.StandardBarPainter;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.chart.ui.RectangleInsets;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -28,7 +31,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
- *
  * @author limbengrhui
  */
 public class Graph extends JPanel {
@@ -102,7 +104,7 @@ public class Graph extends JPanel {
                     }
 
                     // Generate the bar chart based on the feedback
-                    if (graphType == 3) generatedChart = null;
+                    if (graphType == 2) generatedChart = createFeedbackCountBarChart(feedbackList, filter);
                 }
 
                 // Else, throw a new exception for any other types of data list is provided
@@ -120,6 +122,7 @@ public class Graph extends JPanel {
 
     /**
      * This method helps to generate the corresponding column keys based on the filter applied to the graphs.
+     *
      * @param filter The timeframe applied to the data
      * @return An object list, where index 0 containing the time frame list in LocalDateTime format, and index 1 representing the string column keys
      */
@@ -219,7 +222,7 @@ public class Graph extends JPanel {
      * This method helps to generate the revenue line chart.
      *
      * @param orderList The order list to be generated as a line chart
-     * @param filter The filter applied towards the list
+     * @param filter    The filter applied towards the list
      * @return A JFreeChart representing the overall order list
      */
     private JFreeChart createRevenueLineChart(ArrayList<Order> orderList, Utility.TimeframeFilter filter) {
@@ -243,7 +246,7 @@ public class Graph extends JPanel {
             LocalDateTime orderTime = order.getOrderedDate();
 
             // Loop through each range of time
-            for (int i = 0; i < timeframeList.length; i ++) {
+            for (int i = 0; i < timeframeList.length; i++) {
 
                 // If the time does not fall within the range, go to the next loop
                 if (orderTime.isBefore(timeframeList[i]) || orderTime.isAfter(timeframeList[i + 1])) continue;
@@ -255,7 +258,7 @@ public class Graph extends JPanel {
         }
 
         // Add the data into the dataset
-        for (int i = 0; i < columnKey.length; i ++) {
+        for (int i = 0; i < columnKey.length; i++) {
             dataset.addValue(datasetValue[i], "Revenue", columnKey[i]);
         }
 
@@ -265,7 +268,7 @@ public class Graph extends JPanel {
 
         // Generate a chart based on the dataset
         JFreeChart generatedChart = ChartFactory.createLineChart(
-                filter + " Revenue (" + startDate + " - " +  endDate  + ")",
+                filter + " Revenue\n(" + startDate + " - " + endDate + ")",
                 "Time",
                 "Revenue (RM)",
                 dataset,
@@ -311,7 +314,8 @@ public class Graph extends JPanel {
 
         // Change the direction of the x-axis (to show details better)
         if (filter == Utility.TimeframeFilter.DAILY) domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
-        if (filter == Utility.TimeframeFilter.MONTHLY) domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
+        if (filter == Utility.TimeframeFilter.MONTHLY)
+            domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
 
         // Set the properties for the tick labels
         domainAxis.setCategoryMargin(0.2);
@@ -330,7 +334,7 @@ public class Graph extends JPanel {
      * This method helps to generate the delivery count line chart.
      *
      * @param orderList The order list to be generated as a line chart
-     * @param filter The filter applied towards the list
+     * @param filter    The filter applied towards the list
      * @return A JFreeChart representing the overall order list
      */
     private JFreeChart createDeliveryCountLineChart(ArrayList<Order> orderList, Utility.TimeframeFilter filter) {
@@ -353,7 +357,7 @@ public class Graph extends JPanel {
             LocalDateTime orderTime = order.getOrderedDate();
 
             // Loop through each range of time
-            for (int i = 0; i < timeframeList.length; i ++) {
+            for (int i = 0; i < timeframeList.length; i++) {
 
                 // If the time does not fall within the range, go to the next loop
                 if (orderTime.isBefore(timeframeList[i]) || orderTime.isAfter(timeframeList[i + 1])) continue;
@@ -365,7 +369,7 @@ public class Graph extends JPanel {
         }
 
         // Add the data into the dataset
-        for (int i = 0; i < columnKey.length; i ++) {
+        for (int i = 0; i < columnKey.length; i++) {
             dataset.addValue(datasetValue[i], "Delivery Count", columnKey[i]);
         }
 
@@ -375,7 +379,7 @@ public class Graph extends JPanel {
 
         // Generate a chart based on the dataset
         JFreeChart generatedChart = ChartFactory.createLineChart(
-                filter + " Delivery Count (" + startDate + " - " +  endDate  + ")",
+                filter + " Delivery Count\n(" + startDate + " - " + endDate + ")",
                 "Time",
                 "Count",
                 dataset,
@@ -421,7 +425,125 @@ public class Graph extends JPanel {
 
         // Change the direction of the x-axis (to show details better)
         if (filter == Utility.TimeframeFilter.DAILY) domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
-        if (filter == Utility.TimeframeFilter.MONTHLY) domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
+        if (filter == Utility.TimeframeFilter.MONTHLY)
+            domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
+
+        // Set the properties for the tick labels
+        domainAxis.setCategoryMargin(0.2);
+        domainAxis.setMaximumCategoryLabelWidthRatio(2.0f);
+
+        // Customize the y-axis
+        ValueAxis valueAxis = chartPlot.getRangeAxis();
+        valueAxis.setLabelFont(labelFont);
+        valueAxis.setTickLabelFont(tickLabelFont);
+
+        // Return the chart after finish customization
+        return generatedChart;
+    }
+
+    /**
+     * A method to generate a bar chart based on feedback data.
+     *
+     * @param feedbackList The feedback list to generate data
+     * @param filter       The timeframe to filter the feedback list
+     * @return A JFreeChart object that contains the bar chart
+     */
+    private JFreeChart createFeedbackCountBarChart(ArrayList<Feedback> feedbackList, Utility.TimeframeFilter filter) {
+
+        // Retrieve the relevant column keys to aid in calculation
+        Object[][] generatedColumnKeyObject = generateColumnKey(filter);
+        LocalDateTime[] timeframeList = (LocalDateTime[]) generatedColumnKeyObject[0];
+        String[] columnKey = (String[]) generatedColumnKeyObject[1];
+
+        // Declare an initial dataset
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        // Since data has not been aggregated, we first declare a list to store the aggregated values for each category
+        int[] datasetValue = new int[columnKey.length];
+
+        // Loop through the feedback list
+        for (Feedback feedback : feedbackList) {
+
+            // Retrieve the information from the order
+            LocalDateTime feedbackTime = feedback.getFeedbackSubmissionTime();
+
+            // Loop through each range of time
+            for (int i = 0; i < timeframeList.length; i++) {
+
+                // If the time does not fall within the range, go to the next loop
+                if (feedbackTime.isBefore(timeframeList[i]) || feedbackTime.isAfter(timeframeList[i + 1])) continue;
+
+                // Else, add the revenue to the dataset and stop this inner loop
+                datasetValue[i] += 1;
+                break;
+            }
+        }
+
+        // Add the data into the dataset
+        for (int i = 0; i < columnKey.length; i++) {
+            dataset.addValue(datasetValue[i], "Feedback Count", columnKey[i]);
+        }
+
+        // Get some information for display purpose
+        String startDate = Utility.getFilterStartAndEndTime(filter)[0].format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        String endDate = Utility.getFilterStartAndEndTime(filter)[1].format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+
+        // Generate a chart based on the dataset
+        JFreeChart generatedChart = ChartFactory.createBarChart(
+                filter + " Feedback Count\n(" + startDate + " - " + endDate + ")",
+                "Time",
+                "Count",
+                dataset,
+                PlotOrientation.VERTICAL,
+                false,
+                false,
+                false
+        );
+
+        // Set font for the title
+        generatedChart.getTitle().setFont(new Font("Arial", Font.BOLD, 24));
+
+        // Get the background of the chart and make it white
+        CategoryPlot chartPlot = generatedChart.getCategoryPlot();
+        chartPlot.setInsets(new RectangleInsets(10, 10, 10, 10));
+        chartPlot.setBackgroundPaint(Color.WHITE);
+        chartPlot.setOutlineVisible(false);
+
+        // Customize the renderer to generate bars with different colours
+        BarRenderer renderer = new BarRenderer() {
+            private final Paint[] colors = {
+                    new Color(88, 38, 48),
+                    new Color(43, 65, 65),
+                    new Color(33, 15, 4)
+            };
+
+            // Set the colours
+            @Override
+            public Paint getItemPaint(int row, int column) {
+                return colors[column % colors.length];
+            }
+        };
+
+        // Remove the gloss and shadow from the bar
+        renderer.setBarPainter(new StandardBarPainter());
+        renderer.setShadowVisible(false);
+
+        // Let the plot use the renderer
+        chartPlot.setRenderer(renderer);
+
+        // Get the x-axis (domain axis)
+        CategoryAxis domainAxis = chartPlot.getDomainAxis();
+
+        // Set the font for x-axis
+        Font labelFont = new Font("Arial", Font.BOLD, 14);
+        Font tickLabelFont = new Font("Arial", Font.PLAIN, 12);
+        domainAxis.setLabelFont(labelFont);
+        domainAxis.setTickLabelFont(tickLabelFont);
+
+        // Change the direction of the x-axis (to show details better)
+        if (filter == Utility.TimeframeFilter.DAILY) domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
+        if (filter == Utility.TimeframeFilter.MONTHLY)
+            domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
 
         // Set the properties for the tick labels
         domainAxis.setCategoryMargin(0.2);
@@ -448,12 +570,12 @@ public class Graph extends JPanel {
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
