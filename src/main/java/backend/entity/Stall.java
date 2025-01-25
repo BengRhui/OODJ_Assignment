@@ -257,7 +257,7 @@ public class Stall {
         for (Feedback feedback : feedbackList) {
 
             // Record the rating if the feedback is vendor type and the stall matches
-            if (feedback.getFeedbackCategory() == Feedback.Category.VENDOR && feedback.getOrderAssociated().getOrderedStall().equals(this)) {
+            if (feedback.getFeedbackCategory() == Feedback.Category.VENDOR && feedback.getOrderAssociated().getOrderedStall().stallID.equals(this.stallID)) {
                 totalRating += feedback.getRatings();
                 feedbackCount++;
             }

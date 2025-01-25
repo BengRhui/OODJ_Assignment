@@ -1,5 +1,7 @@
 package backend.file_io;
 
+import backend.entity.DeliveryRunner;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -167,5 +169,8 @@ public class FileIO {
         OrderFileIO.readFile();
         TransactionFileIO.readFile();
         FeedbackFileIO.readFile();
+
+        // Other actions to take place
+        DeliveryRunner.initializeAvailabilityList();
     }
 }

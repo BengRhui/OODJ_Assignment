@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,16 +34,18 @@ public class ManagerTest extends BaseTest {
         Vendor vendor2 = new Vendor("V002", "blade@hunters.abc", "bLaDe@123", "Mr Blade", stall2);
         Customer customer2 = new Customer("C002", "steele@trailblaze.com", "Steele@R0bin", "Steele the Trailblazer", "013-5681646", address1, 48.95, "No note needed for me");
         DeliveryRunner runner2 = new DeliveryRunner("R002", "cyclone@mail.com", "Cyc@345", "Cyclone Crane", "014-9561947");
+        Item item3 = new Item("I003", "Soul Glad", stall1, 102.34, "A happy soda water.");
 
         // Add these entities into lists
         Stall.addStallToList(stall2);
         Vendor.addToVendorList(vendor2);
         Customer.addToCustomerList(customer2);
         DeliveryRunner.addToRunnerList(runner2);
+        Item.addItemToList(item3);
 
         // The order list to be written to file
         String orderList = """
-                ORD00001  ; C001 ; S002 ; R002 ; 5.0      ; Dine In        ; T045 ; Please call upon arrival.                                   ; 128.06    ; 02/01/2025 23:04:14 ; Waiting for Delivery Confirmation                 ; I002 - 5, I001 - 3                                                                                                                                                                                     \s
+                ORD00001  ; C001 ; S002 ; R002 ; 5.0      ; Dine In        ; T045 ; Please call upon arrival.                                   ; 128.06    ; 02/01/2025 23:04:14 ; Waiting for Delivery Confirmation                 ; I002 - 5, I001 - 3, I003 - 1                                                                                                                                                                                     \s
                 ORD00002  ; C002 ; S001 ; R002 ; 5.0      ; Delivery       ; T042 ; Need cutlery included.                                      ; 81.47     ; 02/01/2025 06:57:54 ; Completed                                         ; I002 - 4, I001 - 2                                                                                                                                                                                     \s
                 ORD00003  ; C002 ; S002 ; R002 ; 5.0      ; Dine In        ; T010 ; Please call upon arrival.                                   ; 101.44    ; 02/01/2025 17:07:09 ; Completed                                         ; I002 - 2, I001 - 2                                                                                                                                                                                     \s
                 ORD00004  ; C002 ; S001 ; R001 ; 5.0      ; Takeaway       ; T001 ; Please call upon arrival.                                   ; 78.62     ; 02/01/2025 22:54:36 ; Waiting for Delivery Confirmation                 ; I002 - 1, I001 - 2                                                                                                                                                                                     \s
@@ -234,8 +237,11 @@ public class ManagerTest extends BaseTest {
     @Test
     void managerDeleteItem() {
 
-        // Make sure that item 1 is in the item list
-        boolean itemInList = Item.getItemList().contains(item1);
+        // Make sure that item 3 is in the item list
+        Item item3 = Item.getItem("I003");
+        assertNotNull(item3);
+
+        boolean itemInList = Item.getItemList().contains(item3);
         assertTrue(itemInList);
 
         // Retrieve the notification list
@@ -243,14 +249,25 @@ public class ManagerTest extends BaseTest {
                 VendorNotification.getVendorNotificationList()
         );
 
-        // Delete item 1
-        boolean deleteItem = item1.managerDeleteItem();
+        // Delete item 3
+        boolean deleteItem = item3.managerDeleteItem();
+
+        // Try to delete item 3 (fail coz the item is still associated with orders)
+        assertFalse(deleteItem);
+
+        // Change the order status
+        Order order1 = Order.getOrder("ORD00001");
+        assertNotNull(order1);
+        order1.setOrderStatus(Order.OrderStatus.COMPLETED);
+
+        // Try to delete item 1 again
+        deleteItem = item3.managerDeleteItem();
 
         // Make sure that the deletion is successful
         assertTrue(deleteItem);
 
         // Make sure that item 1 is not found in the list anymore
-        itemInList = Item.getItemList().contains(item1);
+        itemInList = Item.getItemList().contains(item3);
         assertFalse(itemInList);
 
         // Retrieve the newly created notification
@@ -264,7 +281,7 @@ public class ManagerTest extends BaseTest {
 
         // Make sure that the description is correct
         assertEquals(
-                "The item " + item1.getItemName() + " (" + item1.getItemID() + ") has been removed by the manager due to its inappropriate nature for sale on this platform.",
+                "The item " + item3.getItemName() + " (" + item3.getItemID() + ") has been removed by the manager due to its inappropriate nature for sale on this platform.",
                 differentNotification.getFirst().getNotificationDetails()
         );
     }

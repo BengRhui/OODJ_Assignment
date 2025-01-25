@@ -712,9 +712,17 @@ public class VendorTest extends BaseTest {
         int initialSize = initialArray.size();
         String pictureName = item1.getStall().getStallID() + "_" + item1.getItemID();
 
-        // Delete item 1
-        boolean deleteStatus = item1.deleteItem();
-        assertTrue(deleteStatus);
+        // Try to delete item 1 (fail coz item 1 is still associated with orders)
+        int deleteStatus = item1.deleteItem();
+        assertEquals(0, deleteStatus);
+
+        // Set order 2 and 3 to complete before delete item
+        order2.setOrderStatus(Order.OrderStatus.COMPLETED);
+        order3.setOrderStatus(Order.OrderStatus.COMPLETED);
+
+        // Check if the item can be deleted
+        deleteStatus = item1.deleteItem();
+        assertEquals(1, deleteStatus);
 
         // Make sure that the array size reduces
         assertEquals(initialSize - 1, Item.getItemList().size());

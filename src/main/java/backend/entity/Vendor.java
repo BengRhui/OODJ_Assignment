@@ -326,6 +326,12 @@ public class Vendor extends User {
         // Return -1 if the retrieved list is null
         if (orderList == null) return -1;
 
+        // Filter the order list to only include completed and cancelled orders
+        orderList = orderList.stream()
+                .filter(order -> order.getOrderStatus() == Order.OrderStatus.CANCELLED ||
+                        order.getOrderStatus() == Order.OrderStatus.COMPLETED)
+                .collect(Collectors.toCollection(ArrayList::new));
+
         // Return the size of the order list as order count
         return orderList.size();
     }
@@ -345,6 +351,12 @@ public class Vendor extends User {
 
         // Return -1 if the list is null
         if (orderList == null) return -1;
+
+        // Filter the order list to only include completed and cancelled orders
+        orderList = orderList.stream()
+                .filter(order -> order.getOrderStatus() == Order.OrderStatus.CANCELLED ||
+                        order.getOrderStatus() == Order.OrderStatus.COMPLETED)
+                .collect(Collectors.toCollection(ArrayList::new));
 
         // Loop through each order list to calculate earnings
         for (Order order : orderList) earnings += order.getOrderPrice();
