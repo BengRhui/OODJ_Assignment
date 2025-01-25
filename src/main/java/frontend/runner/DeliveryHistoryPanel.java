@@ -121,7 +121,7 @@ public class DeliveryHistoryPanel extends javax.swing.JPanel {
     }
 
     /**
-     * This method helps to generate an individual delivery history panel.
+     * This method helps to generate an individual order panel.
      * @param order The order involved in the panel
      * @return A JPanel consisting of the dine in method and the ordered items of an order
      */

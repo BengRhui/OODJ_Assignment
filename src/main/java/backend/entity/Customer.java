@@ -166,16 +166,11 @@ public class Customer extends User {
             char[] confirmPassword) {
 
         // Check if there is any empty values
-        if (customerName.equalsIgnoreCase("Enter Name Here") ||
-                contactNumber.equalsIgnoreCase("Contact Number Here (e.g. 012-3456789)") ||
-                addressLine1.equalsIgnoreCase("Address Line 1") ||
-                addressLine2.equalsIgnoreCase("Address Line 2") ||
-                postcode.equalsIgnoreCase("Postcode") ||
-                state == null ||
-                city.equalsIgnoreCase("City") ||
-                email.equalsIgnoreCase("Enter Email Here") ||
-                Utility.generateString(password).equalsIgnoreCase("Enter Password Here") ||
-                Utility.generateString(confirmPassword).equalsIgnoreCase("Retype Password Here")
+        if (customerName == null || customerName.isBlank() ||
+                addressLine1 == null || addressLine1.isBlank() ||
+                addressLine2 == null || addressLine2.isBlank() ||
+                postcode == null || postcode.isBlank() ||
+                city == null || city.isBlank()
         ) return 0;
 
         // Check if email is in the correct format (-1)
@@ -267,16 +262,11 @@ public class Customer extends User {
             char[] confirmPassword) {
 
         // Check if there is any empty values
-        if (customerName.equalsIgnoreCase("Enter Name Here") ||
-                contactNumber.equalsIgnoreCase("Contact Number Here (e.g. 012-3456789)") ||
-                addressLine1.equalsIgnoreCase("Address Line 1") ||
-                addressLine2.equalsIgnoreCase("Address Line 2") ||
-                postcode.equalsIgnoreCase("Postcode") ||
-                state == null ||
-                city.equalsIgnoreCase("City") ||
-                email.equalsIgnoreCase("Enter Email Here") ||
-                Utility.generateString(password).equalsIgnoreCase("Enter Password Here") ||
-                Utility.generateString(confirmPassword).equalsIgnoreCase("Retype Password Here")
+        if (customerName == null || customerName.isBlank() ||
+                addressLine1 == null || addressLine1.isBlank() ||
+                addressLine2 == null || addressLine2.isBlank() ||
+                postcode == null || postcode.isBlank() ||
+                city == null || city.isBlank()
         ) return 0;
 
         // Check if email is in the correct format (-1)
@@ -372,20 +362,16 @@ public class Customer extends User {
      *
      * @param amount        The top-up value
      * @param paymentMethod The way customer pay to admin
-     * @return {@code 1} if top-up is successful<br>
-     * {@code 0} if amount is less than 0<br>
-     * {@code -1} if the transaction type is invalid<br>
-     * {@code -2} if notification cannot be generated<br>
-     * {@code -3} if transaction record cannot be generated
+     * @return {@code true} if top-up is successful, else {@code false}
      */
-    public int topUpWallet(double amount, String paymentMethod) {
+    public boolean topUpWallet(double amount, String paymentMethod) {
 
         // Return false if amount is less than or equals to 0
-        if (amount <= 0) return 0;
+        if (amount <= 0) return false;
 
         // If payment method is not correct (should not happen but included for validation purpose)
         Transaction.PaymentMethod wayToPay = Transaction.PaymentMethod.getType(paymentMethod);
-        if (wayToPay == null) return -1;
+        if (wayToPay == null) return false;
 
         // Get the initial amount
         double initialAmount = this.getEWalletAmount();
@@ -399,7 +385,7 @@ public class Customer extends User {
                 "Thank you for paying using " + wayToPay + ". RM" + topUpAmount + " has been successfully topped up to your e-wallet.",
                 this
         );
-        if (!createNotification) return -2;
+        if (!createNotification) return false;
 
         // Create transaction history for customer
         boolean transactionRecordCreated = Transaction.createTransactionHistory(
@@ -408,17 +394,13 @@ public class Customer extends User {
                 Transaction.TransactionType.CASH_IN,
                 wayToPay
         );
-        if (!transactionRecordCreated) return -3;
+        if (!transactionRecordCreated) return false;
 
         // Set the new amount
         this.setEWalletAmount(initialAmount + topUpAmount);
 
-        // Write changes to file
-        CustomerFileIO customerIO = new CustomerFileIO();
-        customerIO.writeFile();
-
         // Return true for successful operation
-        return 1;
+        return true;
     }
 
     /**

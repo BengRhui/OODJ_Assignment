@@ -80,7 +80,7 @@ public class ItemDetailsPanel extends javax.swing.JPanel {
         add(itemDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 220, 50));
 
         editIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        editIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/edit_icon.png"))); // NOI18N
+        editIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/edit_icon.jpg"))); // NOI18N
         editIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 editIconMouseClicked(evt);
