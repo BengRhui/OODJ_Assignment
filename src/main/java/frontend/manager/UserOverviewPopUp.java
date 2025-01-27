@@ -99,7 +99,7 @@ public class UserOverviewPopUp extends javax.swing.JFrame {
             );
             graph.setLocation(10, 15);
             graphPanel.add(graph);
-            System.out.println(runner.getRatings(filterApplied));
+
             // Update total order, earnings and overall ratings
             totalCountField.setText(String.valueOf(runner.getDeliveryCount(filterApplied)));
             totalEarningsLabel.setText("RM" + runner.getTipsAmount(filterApplied));
