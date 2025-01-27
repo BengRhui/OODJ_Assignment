@@ -268,31 +268,8 @@ public class OrderDetailsPanel extends JPanel {
             HomePagePanel.updateOrderPanel();
         });
 
-        // Add mouse listener to the buttons (set the cursors and colour)
-        acceptButton.addMouseListener(new MouseListener() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                acceptButton.setBackground(new Color(0, 51, 0));
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                acceptButton.setBackground(new Color(0, 102, 0));
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                acceptButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                acceptButton.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-            }
-
-            @Override
-            public void mouseClicked(MouseEvent e) {}
-        });
+        // Add cursor to button
+        acceptButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         // Create decline button
         JButton declineButton = new JButton("  Decline");
@@ -326,31 +303,8 @@ public class OrderDetailsPanel extends JPanel {
             HomePagePanel.updateOrderPanel();
         });
 
-        // Add mouse listener to button (set colour and cursor)
-        declineButton.addMouseListener(new MouseListener() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                declineButton.setBackground(new Color(193, 40, 27));
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                declineButton.setBackground(new Color(233, 67, 55));
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                declineButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                declineButton.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-            }
-
-            @Override
-            public void mouseClicked(MouseEvent e) {}
-        });
+        // Add cursor to button
+        declineButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         // Add buttons into the panel and return it
         newPanel.add(acceptButton);
