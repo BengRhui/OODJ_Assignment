@@ -259,17 +259,6 @@ public class CustomerNotification implements Notification {
     }
 
     /**
-     * A method to retrieve the message portion of customer notifications.
-     *
-     * @return The message details of customer notification
-     */
-    @Override
-    public String getMessage() {
-        return "Notification Title: " + notificationTitle + "\n" +
-                "Notification Details: " + notificationDetails;
-    }
-
-    /**
      * A method to switch the status of notifications from "unread" to "read".
      */
     @Override

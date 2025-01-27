@@ -68,8 +68,6 @@ public interface Notification {
     /**
      * Basic methods in {@code Notification} interface
      */
-    String getMessage();
-
     void markAsRead();
 
     String getNotificationID();

@@ -258,17 +258,6 @@ public class DeliveryRunnerNotification implements Notification {
     }
 
     /**
-     * A method to retrieve the message portion of the {@code DeliveryRunnerNotification} object
-     *
-     * @return The message part of the notifications for delivery runner
-     */
-    @Override
-    public String getMessage() {
-        return "Notification Title: " + notificationTitle + "\n" +
-                "Notification Details: " + notificationDetails;
-    }
-
-    /**
      * A method that changes the status of notification from "unread" to "read".
      */
     @Override

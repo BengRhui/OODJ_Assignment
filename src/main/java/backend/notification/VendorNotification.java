@@ -287,17 +287,6 @@ public class VendorNotification implements Notification {
     }
 
     /**
-     * A method to return the message portion of the vendor notification.
-     *
-     * @return String representation of the message part of {@code VendorNotification} object
-     */
-    @Override
-    public String getMessage() {
-        return "Notification Title: " + notificationTitle + "\n" +
-                "Notification Details: " + notificationDetails;
-    }
-
-    /**
      * A method to change the status of notification from "unread" to "read".
      */
     @Override
