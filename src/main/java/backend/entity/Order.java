@@ -896,6 +896,9 @@ public class Order {
                 );
                 if (!runnerNotification) return false;
 
+                // Update runner availability
+                this.getRunnerInCharge().updateAvailability(false);
+
                 // Change status
                 this.setOrderStatus(OrderStatus.WAITING_VENDOR);
             }
@@ -924,6 +927,9 @@ public class Order {
                         this.getRunnerInCharge()
                 );
                 if (!runnerNotification) return false;
+
+                // Update runner availability
+                this.getRunnerInCharge().updateAvailability(false);
 
                 // Change status
                 this.setOrderStatus(OrderStatus.VENDOR_PREPARING);
@@ -1145,6 +1151,9 @@ public class Order {
                     this.getRunnerInCharge()
             );
             if (!runnerNotification) return -1;
+
+            // Update runner availability
+            this.getRunnerInCharge().updateAvailability(true);
         }
 
         // Return money back to users
