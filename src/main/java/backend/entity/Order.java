@@ -333,40 +333,6 @@ public class Order {
     }
 
     /**
-     * A method to return a filtered order list based on vendor.
-     *
-     * @param vendor The vendor associated with the order
-     * @return A filtered array list based on stall associated with vendor
-     */
-    public static ArrayList<Order> filterOrder(Vendor vendor) {
-
-        // Return null if the vendor is null
-        if (vendor == null) return null;
-
-        // Filter order list based on the associated stall ID
-        return getOrderList().stream()
-                .filter(order -> order.getOrderedStall() != null && order.getOrderedStall().getStallID().equals(vendor.getStall().getStallID()))
-                .collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    /**
-     * A method to filter order list based on the delivery runner.
-     *
-     * @param runner The delivery runner associated with the order
-     * @return A filtered list of orders based on delivery runner
-     */
-    public static ArrayList<Order> filterOrder(DeliveryRunner runner) {
-
-        // Return null if the input is null
-        if (runner == null) return null;
-
-        // Filter order list based on runner
-        return getOrderList().stream()
-                .filter(order -> order.getRunnerInCharge() != null && order.getRunnerInCharge().getUserID().equals(runner.getUserID()))
-                .collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    /**
      * A method to retrieve the orders that the vendor needs to handle.
      *
      * @param vendor The vendor that associates with the order
