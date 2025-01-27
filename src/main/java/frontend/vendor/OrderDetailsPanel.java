@@ -300,7 +300,7 @@ public class OrderDetailsPanel extends JPanel {
         declineButton.setFont(new Font("Arial", Font.BOLD, 18));
         declineButton.setIcon(rejectButtonIcon);
         declineButton.setForeground(Color.WHITE);
-        declineButton.setBackground(new Color(233, 67, 55));
+        declineButton.setBackground(new Color(224, 46, 56));
         declineButton.setFocusable(false);
         declineButton.setFocusPainted(false);
         declineButton.setContentAreaFilled(false);
