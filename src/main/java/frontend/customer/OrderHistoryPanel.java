@@ -48,7 +48,7 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
             JLabel emptyLabel = new JLabel("No order history available.");
             
             // Set attributes to the label
-            emptyLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+            emptyLabel.setFont(new Font("Arial", Font.PLAIN, 24));
             emptyLabel.setBounds(0, 0, 500, 30);
             
             // Add label to panel
