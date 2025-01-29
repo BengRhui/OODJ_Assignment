@@ -57,6 +57,7 @@ public class TransactionReceiptPopUp extends javax.swing.JFrame {
         paymentMethodTitle = new javax.swing.JLabel();
         paymentMethodField = new javax.swing.JLabel();
         generateReceiptButton = new javax.swing.JButton();
+        closeButton = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -159,6 +160,16 @@ public class TransactionReceiptPopUp extends javax.swing.JFrame {
         });
         backgroundPanel.add(generateReceiptButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 400, 275, 60));
 
+        closeButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        closeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/cancel_icon.png"))); // NOI18N
+        closeButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                closeButtonMouseClicked(evt);
+            }
+        });
+        backgroundPanel.add(closeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 50, 40, 40));
+
         getContentPane().add(backgroundPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 550));
 
         pack();
@@ -214,6 +225,15 @@ public class TransactionReceiptPopUp extends javax.swing.JFrame {
         generateReceiptButton.setForeground(Color.WHITE);
     }//GEN-LAST:event_generateReceiptButtonMouseExited
 
+    private void closeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeButtonMouseClicked
+
+        // Enable the parent frame
+        MainPage.currentFrame.setEnabled(true);
+        
+        // Dispose the current pop up
+        dispose();
+    }//GEN-LAST:event_closeButtonMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -254,6 +274,7 @@ public class TransactionReceiptPopUp extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel amountField;
     private javax.swing.JPanel backgroundPanel;
+    private javax.swing.JLabel closeButton;
     private javax.swing.JLabel currencyText;
     private javax.swing.JLabel dateField;
     private javax.swing.JLabel dateTitle;
