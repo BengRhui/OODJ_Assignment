@@ -58,7 +58,10 @@ public class FeedbackBriefPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(227, 202, 165));
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        setMaximumSize(new java.awt.Dimension(610, 135));
+        setMinimumSize(new java.awt.Dimension(610, 135));
         setPreferredSize(new java.awt.Dimension(610, 135));
+        setSize(new java.awt.Dimension(610, 135));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
