@@ -5,7 +5,6 @@
 package frontend.admin;
 
 import backend.entity.DeliveryRunner;
-import backend.entity.Vendor;
 import backend.utility.Utility;
 import frontend.pop_up.SystemPopUp;
 import java.awt.Color;
@@ -371,7 +370,7 @@ public class RunnerDetailsForm extends javax.swing.JFrame {
             case -2 -> errorMessage = "Your email has been used by another user. Please try another email.";
             case -3 -> errorMessage = "Your password does not meet the requirement. Please use another password.";
             case -4 -> errorMessage = "Both passwords do not match. Please try again.";
-            case -5 -> errorMessage = "Your contace number is not in the correct format. Please try again";
+            case -5 -> errorMessage = "Your contact number is not in the correct format. Please try again.";
             case -6 -> errorMessage = "Unable to generate notification for the vendor. Please inspect code.";
         }
         
