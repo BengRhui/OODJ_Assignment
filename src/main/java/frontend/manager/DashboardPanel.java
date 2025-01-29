@@ -11,6 +11,7 @@ import frontend.pop_up.SystemPopUp;
 import frontend.pop_up.TimeFramePopUp;
 import frontend.utility.Graph;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 import javax.swing.JPanel;
 
 /**
@@ -67,8 +68,10 @@ public class DashboardPanel extends javax.swing.JPanel {
         // Remove the existing graph on the panel
         revenuePanel.removeAll();
         
-        // Retrieve the data based on filter
-        orderData = Order.filterOrder(orderFilter);
+        // Retrieve the data based on filter (only capture completed orders)
+        orderData = Order.filterOrder(orderFilter).stream()
+                .filter(order -> order.getOrderStatus() == Order.OrderStatus.COMPLETED)
+                .collect(Collectors.toCollection(ArrayList::new));
         
         // Generate the graph and add it to the panel
         JPanel graph = new Graph(orderData, Graph.REVENUE_GRAPH, orderFilter, 610, 430);
