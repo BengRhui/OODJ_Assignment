@@ -410,7 +410,7 @@ public class Item {
     public boolean updateItem(String name, double price, String description, File picture) {
 
         // Upload the picture to the system if it's not the empty picture
-        if (!picture.getName().contains("empty_picture")) {
+        if (picture != null && !picture.getName().contains("empty_picture")) {
             if (!PictureIO.uploadVendorItemPicture(picture, this)) return false;
         }
 

@@ -25,7 +25,7 @@ public class HandleItemPopUp extends javax.swing.JFrame {
     private JFrame parentFrame;
     private Item currentItem;
     private String title;
-    private File itemPictureFile;
+    private File itemPictureFile = null;
     public static final int ADD_ITEMS = 0;
     public static final int MODIFY_ITEMS = 1;
     
@@ -65,7 +65,6 @@ public class HandleItemPopUp extends javax.swing.JFrame {
         nameInput.setText(currentItem.getItemName());
         priceInput.setText(String.format("%.2f", currentItem.getPrice()));
         descriptionInput.setText(currentItem.getDescription());
-        itemPictureFile = PictureIO.retrieveItemPicture(currentItem);
         
         // Set the colour to black
         nameInput.setForeground(Color.BLACK);
