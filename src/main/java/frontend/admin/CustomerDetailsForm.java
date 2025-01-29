@@ -25,7 +25,7 @@ import javax.swing.JList;
  */
 public class CustomerDetailsForm extends javax.swing.JFrame {
 
-    private static Customer currentCustomer;
+    private Customer currentCustomer;
     
     /**
      * Creates new form VendorDetailsForm

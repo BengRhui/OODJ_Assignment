@@ -17,7 +17,7 @@ import java.awt.Cursor;
  */
 public class RunnerDetailsForm extends javax.swing.JFrame {
 
-    private static DeliveryRunner currentRunner;
+    private DeliveryRunner currentRunner;
     
     /**
      * Creates new form VendorDetailsForm

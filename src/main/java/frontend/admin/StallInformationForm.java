@@ -24,7 +24,7 @@ import javax.swing.JLabel;
  */
 public class StallInformationForm extends javax.swing.JFrame {
 
-    private static Stall currentStall;
+    private Stall currentStall;
     private static StallCategories[] currentCategories;
 
     /**
