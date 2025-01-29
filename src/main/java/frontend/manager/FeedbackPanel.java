@@ -59,12 +59,13 @@ public class FeedbackPanel extends javax.swing.JPanel {
         if (systemFeedback.isEmpty()) {
             
             // Generate an empty label and panel to accommodate the message
-            JPanel emptyPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            JPanel emptyPanel = new JPanel(null);
             JLabel emptyLabel = new JLabel("No feedback available to reply.");
             
             // Customize the label and panel
             emptyPanel.setBackground(new Color(255, 251, 233));
-            emptyLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+            emptyLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+            emptyLabel.setBounds(0, 0, 400, 30);
             
             // Add label to panel, and add panel to container
             emptyPanel.add(emptyLabel);
@@ -115,12 +116,13 @@ public class FeedbackPanel extends javax.swing.JPanel {
         if (vendorFeedback.isEmpty()) {
             
             // Generate an empty label and panel to accommodate the message
-            JPanel emptyPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            JPanel emptyPanel = new JPanel(null);
             JLabel emptyLabel = new JLabel("No feedback available to reply.");
             
             // Customize the label and panel
             emptyPanel.setBackground(new Color(255, 251, 233));
-            emptyLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+            emptyLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+            emptyLabel.setBounds(0, 0, 400, 30);
             
             // Add label to panel, and add panel to container
             emptyPanel.add(emptyLabel);
@@ -172,12 +174,13 @@ public class FeedbackPanel extends javax.swing.JPanel {
         if (runnerFeedback.isEmpty()) {
             
             // Generate an empty label and panel to accommodate the message
-            JPanel emptyPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            JPanel emptyPanel = new JPanel(null);
             JLabel emptyLabel = new JLabel("No feedback available to reply.");
             
             // Customize the label and panel
             emptyPanel.setBackground(new Color(255, 251, 233));
-            emptyLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+            emptyLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+            emptyLabel.setBounds(0, 0, 400, 30);
             
             // Add label to panel, and add panel to container
             emptyPanel.add(emptyLabel);
@@ -240,7 +243,7 @@ public class FeedbackPanel extends javax.swing.JPanel {
 
         systemTitle.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         systemTitle.setText("System");
-        add(systemTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, -1, -1));
+        add(systemTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 50, 130, -1));
 
         systemFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/customize_icon.png"))); // NOI18N
         systemFilter.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -249,11 +252,11 @@ public class FeedbackPanel extends javax.swing.JPanel {
                 systemFilterMouseClicked(evt);
             }
         });
-        add(systemFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 70, 70));
+        add(systemFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 40, 70, 70));
 
         vendorTitle.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         vendorTitle.setText("Vendor");
-        add(vendorTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, -1, -1));
+        add(vendorTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, 140, -1));
 
         vendorFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/customize_icon.png"))); // NOI18N
         vendorFilter.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -262,7 +265,7 @@ public class FeedbackPanel extends javax.swing.JPanel {
                 vendorFilterMouseClicked(evt);
             }
         });
-        add(vendorFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 40, 70, 70));
+        add(vendorFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 40, 70, 70));
 
         runnerTitle.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         runnerTitle.setText("Runner");
