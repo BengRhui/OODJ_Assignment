@@ -14,7 +14,7 @@ import java.awt.Color;
  */
 public class StallDetailsPanel extends javax.swing.JPanel {
 
-    private static Stall currentStall;
+    private Stall currentStall;
     
     /**
      * Creates new form StallDetailsPanel

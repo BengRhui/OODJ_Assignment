@@ -16,10 +16,10 @@ import frontend.pop_up.SystemPopUp;
  */
 public class UserDetailsPanel extends javax.swing.JPanel {
 
-    private static User currentUser;
-    private static String userID;
-    private static String userName;
-    private static String userDescription;
+    private User currentUser;
+    private String userID;
+    private String userName;
+    private String userDescription;
     
     /**
      * Creates new form UserDetailsPanel
