@@ -532,7 +532,7 @@ public class DeliveryRunner extends User {
                                 !order.getOrderStatus().equals(Order.OrderStatus.CANCELLED) &&
                                 !(order.getRunnerInCharge() == null)
                 )
-                .noneMatch(order -> order.getRunnerInCharge().equals(this));                        // Return true if runner is not in the list
+                .noneMatch(order -> order.getRunnerInCharge().userID.equals(this.userID));                        // Return true if runner is not in the list
     }
 
     /**

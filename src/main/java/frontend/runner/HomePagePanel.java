@@ -6,7 +6,10 @@ package frontend.runner;
 
 import backend.entity.DeliveryRunner;
 import backend.entity.Order;
+import java.awt.Color;
 import java.awt.Font;
+import java.util.Map;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
 /**
@@ -31,6 +34,51 @@ public class HomePagePanel extends javax.swing.JPanel {
         
         // Update the content panel
         updatePanel();
+        
+        // Update panel to check availability
+        updateAvailabilityButton();
+    }
+    
+    /**
+     * This method helps to update the availability button that allows runner to toggle their availability.
+     */
+    public static void updateAvailabilityButton() {
+        
+        // If there is associated order - runner is definitely busy
+        if (currentOrder != null) {
+        
+            // Hide the availability button
+            availableButton.setVisible(false);
+            
+        } else {
+
+            // Retrieve the availability list
+            Map<String, Boolean> availabilityList = DeliveryRunner.getAvailabilityList();
+
+            // Check if the runner is free
+            Boolean availabilityStatus = availabilityList.get(currentRunner.getUserID());
+            
+            // Changes the button colour accordingly
+            if (availabilityStatus) {
+            
+                // Display green button with available text
+                availableButton.setBackground(new Color(204, 255, 204));
+                availableButton.setForeground(new Color(0, 153, 0));
+                availableButton.setBorder(BorderFactory.createLineBorder(new Color(0, 153, 0), 2, true));
+                availableButton.setText("Available");
+                
+            } else {
+            
+                // Display red button with not available text
+                availableButton.setBackground(new Color(255, 204, 204));
+                availableButton.setForeground(new Color(204, 0, 0));
+                availableButton.setBorder(BorderFactory.createLineBorder(new Color(204, 0, 0), 2, true));
+                availableButton.setText("Not Available");
+            }
+            
+            // Display the button
+            availableButton.setVisible(true);
+        }
     }
     
     /**
@@ -85,6 +133,7 @@ public class HomePagePanel extends javax.swing.JPanel {
 
         titleLabel = new javax.swing.JLabel();
         contentPanel = new javax.swing.JPanel();
+        availableButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 251, 233));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -96,10 +145,37 @@ public class HomePagePanel extends javax.swing.JPanel {
         contentPanel.setBackground(new java.awt.Color(255, 251, 233));
         contentPanel.setLayout(null);
         add(contentPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 1260, 460));
+
+        availableButton.setBackground(new java.awt.Color(204, 255, 204));
+        availableButton.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        availableButton.setForeground(new java.awt.Color(0, 153, 0));
+        availableButton.setText("Available");
+        availableButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 153, 0), 2, true));
+        availableButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        availableButton.setFocusPainted(false);
+        availableButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                availableButtonActionPerformed(evt);
+            }
+        });
+        add(availableButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 60, 260, 60));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void availableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_availableButtonActionPerformed
+
+        // Retrieve status
+        Map<String, Boolean> availabilityList = DeliveryRunner.getAvailabilityList();
+        Boolean availabilityStatus = availabilityList.get(currentRunner.getUserID());
+        
+        // Switch to the opposite of the current status
+        currentRunner.updateAvailability(!availabilityStatus);
+        
+        // Update panel
+        updateAvailabilityButton();
+    }//GEN-LAST:event_availableButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private static javax.swing.JButton availableButton;
     private static javax.swing.JPanel contentPanel;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables

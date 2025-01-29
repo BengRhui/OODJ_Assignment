@@ -294,6 +294,9 @@ public class DeliveryDetailsPanel extends javax.swing.JPanel {
 
             // Refresh the order panel
             HomePagePanel.updatePanel();
+            
+            // Update the availability button
+            HomePagePanel.updateAvailabilityButton();
         });
 
         // Add cursor to button
