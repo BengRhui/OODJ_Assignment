@@ -132,7 +132,7 @@ public class ItemListingPanel extends javax.swing.JPanel {
         itemDetailsContainer.setLayout(new java.awt.GridLayout(0, 3, 35, 25));
         itemDetailScrollPane.setViewportView(itemDetailsContainer);
 
-        add(itemDetailScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 1270, 400));
+        add(itemDetailScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 1270, 402));
     }// </editor-fold>//GEN-END:initComponents
 
     private void addItemButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addItemButtonMouseEntered
