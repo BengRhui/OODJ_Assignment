@@ -497,7 +497,7 @@ public class HandleItemPopUp extends javax.swing.JFrame {
             
             // If the price is lesser than 0, throw an exception
             if (itemPrice <= 0) throw new NumberFormatException();
-            
+
             // Update the information for the operations
             boolean updateStatus;
             switch (title) {

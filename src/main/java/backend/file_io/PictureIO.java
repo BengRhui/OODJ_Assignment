@@ -106,13 +106,14 @@ public class PictureIO {
         // Retrieve the item picture
         File initialItem = Utility.retrieveFileWithoutExtension(directory, fileName);
 
-        // Remove the picture and return true
-        if (initialItem != null) {
+        // Remove the picture and return true (if the initial picture and uploaded file is different)
+        // Picture will be same if no files are uploaded
+        if (initialItem != null && !initialItem.equals(uploadedFile)) {
             if (!initialItem.delete()) return false;
         }
 
-        // Save the file if the picture is not null
-        if (uploadedFile != null) {
+        // Save the file if the picture is not null and the picture is not the same picture
+        if (uploadedFile != null && !uploadedFile.equals(initialItem)) {
 
             // Generate file name
             String[] initialFileName = uploadedFile.getName().split("\\.");
