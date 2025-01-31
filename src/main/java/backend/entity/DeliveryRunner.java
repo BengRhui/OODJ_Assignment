@@ -100,34 +100,6 @@ public class DeliveryRunner extends User {
     }
 
     /**
-     * A method to retrieve the list of delivery runners based on their names.
-     *
-     * @param name The name of the runner
-     * @return The filtered list of runners
-     */
-    public static ArrayList<DeliveryRunner> searchRunnerByName(String name) {
-
-        // Filter the overall runner list using name as input
-        return getDeliveryRunnerList().stream()
-                .filter(runner -> runner.name.toLowerCase().contains(name.toLowerCase()))
-                .collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    /**
-     * A method to retrieve the list of delivery runners based on their contact number.
-     *
-     * @param contactNumber The contact number of runner
-     * @return A filtered list of runners
-     */
-    public static ArrayList<DeliveryRunner> searchRunnerByContactNumber(String contactNumber) {
-
-        // Filter overall runner list based on contact number
-        return getDeliveryRunnerList().stream()
-                .filter(runner -> runner.contactNumber.contains(contactNumber))
-                .collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    /**
      * A method to add multiple instances of {@code DeliveryRunner} to the overall list
      *
      * @param runner The {@code DeliveryRunner} objects to be added into the list
