@@ -696,10 +696,10 @@ public class VendorTest extends BaseTest {
         );
         assertTrue(noPicture);
 
-        // Make sure that the empty picture is retrieved when no picture is added for item
+        // Make sure that the initial picture is retrieved when no picture is added for item
         File blankPicture = PictureIO.retrieveItemPicture(item1);
         assertNotNull(blankPicture);
-        assertEquals("empty_picture.jpg", blankPicture.getName());
+        assertEquals(item1.getStall().getStallID() + "_" + item1.getItemID() + ".jpg", blankPicture.getName());
     }
 
     /**
