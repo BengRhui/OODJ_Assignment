@@ -228,10 +228,6 @@ public class VendorNotification implements Notification {
         return notificationID;
     }
 
-    public void setNotificationID(String notificationID) {
-        this.notificationID = notificationID;
-    }
-
     public Vendor getVendor() {
         return vendor;
     }
@@ -245,26 +241,14 @@ public class VendorNotification implements Notification {
         return notificationTime;
     }
 
-    public void setNotificationTime(LocalDateTime notificationTime) {
-        this.notificationTime = notificationTime;
-    }
-
     @Override
     public NotificationStatus getReadStatus() {
         return readStatus;
     }
 
-    public void setReadStatus(NotificationStatus readStatus) {
-        this.readStatus = readStatus;
-    }
-
     @Override
     public String getNotificationTitle() {
         return notificationTitle;
-    }
-
-    public void setNotificationTitle(String notificationTitle) {
-        this.notificationTitle = notificationTitle;
     }
 
     @Override
