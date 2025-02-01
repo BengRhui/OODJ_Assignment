@@ -346,12 +346,30 @@ public class HandleItemPopUp extends javax.swing.JFrame {
         // If a file is chosen
         if (status == JFileChooser.APPROVE_OPTION) {
 
-            // Retrieve the selected file
-            itemPictureFile = fileChooser.getSelectedFile();
+            // Retrieve the name of the file
+            String uploadedFileName = fileChooser.getSelectedFile().getName().toLowerCase();
+            
+            // Check the file type
+            if (!uploadedFileName.endsWith(".jpg") && !uploadedFileName.endsWith(".jpeg") && !uploadedFileName.endsWith(".png")) {
+            
+                // Display an error message
+                SystemPopUp wrongFile = new SystemPopUp(
+                        this,
+                        "Wrong File",
+                        "The file cannot be uploaded due to its wrong format. Please convert your file to .jpg, .jpeg or .png before proceed.",
+                        new String[]{"OK"}
+                );
+                wrongFile.setVisible(true);
+                
+            } else {
+                
+                // Retrieve the selected file
+                itemPictureFile = fileChooser.getSelectedFile();
 
-            // Display the file name
-            fileNameText.setText(itemPictureFile.getName());
-            fileNameText.setFont(new Font("Arial", Font.BOLD, 14));
+                // Display the file name
+                fileNameText.setText(itemPictureFile.getName());
+                fileNameText.setFont(new Font("Arial", Font.BOLD, 14));
+            }
         }
     }//GEN-LAST:event_uploadButtonActionPerformed
 
