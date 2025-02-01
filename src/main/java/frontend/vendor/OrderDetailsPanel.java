@@ -525,7 +525,7 @@ public class OrderDetailsPanel extends JPanel {
         orderIDPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         orderIDText.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        orderIDText.setText("ORD00001 - Eat In (T003)");
+        orderIDText.setText(currentOrder.getOrderID() + " - " + currentOrder.getDiningType().toString() + (currentOrder.getTableNumber().equals("-") ? "" : String.format(" (%s)", currentOrder.getTableNumber())));
         orderIDPanel.add(orderIDText, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 480, 100));
 
         actionContainer.setBackground(new Color(0, 0, 0, 0));
