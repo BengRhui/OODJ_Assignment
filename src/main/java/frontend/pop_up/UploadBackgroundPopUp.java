@@ -257,12 +257,30 @@ public class UploadBackgroundPopUp extends javax.swing.JFrame {
         // If a file is chosen
         if (status == JFileChooser.APPROVE_OPTION) {
             
-            // Retrieve the selected file
-            uploadedBackgroundPicture = fileChooser.getSelectedFile();
+            // Retrieve the name of the file
+            String uploadedFileName = fileChooser.getSelectedFile().getName().toLowerCase();
             
-            // Display the file name
-            fileNameText.setText(uploadedBackgroundPicture.getName());
-            fileNameText.setFont(new Font("Arial", Font.BOLD, 14));
+            // Check the file type
+            if (!uploadedFileName.endsWith(".jpg") && !uploadedFileName.endsWith(".jpeg") && !uploadedFileName.endsWith(".png")) {
+            
+                // Display an error message
+                SystemPopUp wrongFile = new SystemPopUp(
+                        this,
+                        "Wrong File",
+                        "The file cannot be uploaded due to its wrong format. Please convert your file to .jpg, .jpeg or .png before proceed.",
+                        new String[]{"OK"}
+                );
+                wrongFile.setVisible(true);
+                
+            } else {
+                
+                // Retrieve the selected file
+                uploadedBackgroundPicture = fileChooser.getSelectedFile();
+
+                // Display the file name
+                fileNameText.setText(uploadedBackgroundPicture.getName());
+                fileNameText.setFont(new Font("Arial", Font.BOLD, 14));
+            }
         }
     }//GEN-LAST:event_uploadButtonActionPerformed
 
