@@ -184,10 +184,6 @@ public class CustomerNotification implements Notification {
         return notificationID;
     }
 
-    public void setNotificationID(String notificationID) {
-        this.notificationID = notificationID;
-    }
-
     public Customer getCustomer() {
         return customer;
     }
@@ -199,10 +195,6 @@ public class CustomerNotification implements Notification {
     @Override
     public LocalDateTime getNotificationTime() {
         return notificationTime;
-    }
-
-    public void setNotificationTime(LocalDateTime notificationTime) {
-        this.notificationTime = notificationTime;
     }
 
     @Override
@@ -219,17 +211,9 @@ public class CustomerNotification implements Notification {
         return notificationTitle;
     }
 
-    public void setNotificationTitle(String notificationTitle) {
-        this.notificationTitle = notificationTitle;
-    }
-
     @Override
     public String getNotificationDetails() {
         return notificationDetails;
-    }
-
-    public void setNotificationDetails(String notificationDetails) {
-        this.notificationDetails = notificationDetails;
     }
 
     /**

@@ -183,10 +183,6 @@ public class DeliveryRunnerNotification implements Notification {
         return notificationID;
     }
 
-    public void setNotificationID(String notificationID) {
-        this.notificationID = notificationID;
-    }
-
     public DeliveryRunner getRunner() {
         return runner;
     }
@@ -200,17 +196,9 @@ public class DeliveryRunnerNotification implements Notification {
         return notificationTime;
     }
 
-    public void setNotificationTime(LocalDateTime notificationTime) {
-        this.notificationTime = notificationTime;
-    }
-
     @Override
     public NotificationStatus getReadStatus() {
         return readStatus;
-    }
-
-    public void setReadStatus(NotificationStatus readStatus) {
-        this.readStatus = readStatus;
     }
 
     @Override
@@ -225,10 +213,6 @@ public class DeliveryRunnerNotification implements Notification {
     @Override
     public String getNotificationDetails() {
         return notificationDetails;
-    }
-
-    public void setNotificationDetails(String notificationDetails) {
-        this.notificationDetails = notificationDetails;
     }
 
     /**
