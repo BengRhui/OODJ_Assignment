@@ -243,7 +243,7 @@ public class FeedbackPanel extends javax.swing.JPanel {
 
         systemTitle.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         systemTitle.setText("System");
-        add(systemTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 50, 130, -1));
+        add(systemTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 130, -1));
 
         systemFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/customize_icon.png"))); // NOI18N
         systemFilter.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -252,11 +252,11 @@ public class FeedbackPanel extends javax.swing.JPanel {
                 systemFilterMouseClicked(evt);
             }
         });
-        add(systemFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 40, 70, 70));
+        add(systemFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 40, 70, 70));
 
         vendorTitle.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         vendorTitle.setText("Vendor");
-        add(vendorTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, 140, -1));
+        add(vendorTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, 140, -1));
 
         vendorFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/customize_icon.png"))); // NOI18N
         vendorFilter.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -265,7 +265,7 @@ public class FeedbackPanel extends javax.swing.JPanel {
                 vendorFilterMouseClicked(evt);
             }
         });
-        add(vendorFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 40, 70, 70));
+        add(vendorFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 40, 70, 70));
 
         runnerTitle.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         runnerTitle.setText("Runner");
@@ -288,7 +288,7 @@ public class FeedbackPanel extends javax.swing.JPanel {
         systemPanel.setLayout(new java.awt.GridLayout(0, 1, 10, 10));
         systemScrollPane.setViewportView(systemPanel);
 
-        add(systemScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 410, 470));
+        add(systemScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 410, 470));
 
         vendorScrollPane.setBorder(null);
         vendorScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -298,7 +298,7 @@ public class FeedbackPanel extends javax.swing.JPanel {
         vendorPanel.setLayout(new java.awt.GridLayout(0, 1, 10, 10));
         vendorScrollPane.setViewportView(vendorPanel);
 
-        add(vendorScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 120, 410, 470));
+        add(vendorScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 120, 410, 470));
 
         runnerScrollPane.setBorder(null);
         runnerScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

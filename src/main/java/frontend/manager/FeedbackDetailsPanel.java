@@ -54,7 +54,7 @@ public class FeedbackDetailsPanel extends javax.swing.JPanel {
 
         feedbackTItleLabel.setBackground(new java.awt.Color(227, 202, 165));
         feedbackTItleLabel.setColumns(20);
-        feedbackTItleLabel.setFont(new java.awt.Font("Arial", 1, 30)); // NOI18N
+        feedbackTItleLabel.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         feedbackTItleLabel.setRows(1);
         feedbackTItleLabel.setText(currentFeedback.getFeedbackTitle());
         feedbackTItleLabel.setBorder(null);
@@ -62,7 +62,7 @@ public class FeedbackDetailsPanel extends javax.swing.JPanel {
         feedbackTItleLabel.setCaretPosition(0);
         feedbackTitleScrollPane.setViewportView(feedbackTItleLabel);
 
-        add(feedbackTitleScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 280, 40));
+        add(feedbackTitleScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 280, 30));
 
         feedbackDescriptionScrollPane.setBorder(null);
         feedbackDescriptionScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -80,7 +80,7 @@ public class FeedbackDetailsPanel extends javax.swing.JPanel {
         feedbackDescriptionLabel.setCaretPosition(0);
         feedbackDescriptionScrollPane.setViewportView(feedbackDescriptionLabel);
 
-        add(feedbackDescriptionScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 330, 40));
+        add(feedbackDescriptionScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 330, 50));
 
         lookIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lookIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/search_icon.png"))); // NOI18N
@@ -90,7 +90,7 @@ public class FeedbackDetailsPanel extends javax.swing.JPanel {
                 lookIconMouseClicked(evt);
             }
         });
-        add(lookIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, 50, 60));
+        add(lookIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, 50, 60));
     }// </editor-fold>//GEN-END:initComponents
 
     private void lookIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lookIconMouseClicked
