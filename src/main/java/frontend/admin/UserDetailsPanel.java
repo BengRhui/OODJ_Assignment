@@ -37,7 +37,7 @@ public class UserDetailsPanel extends javax.swing.JPanel {
         switch (user) {
             
             // Generate a different description for each user
-            case Vendor vendor -> userDescription = "Store: " + vendor.getStall().getStallName();
+            case Vendor vendor -> userDescription = "Stall: " + vendor.getStall().getStallName();
             case DeliveryRunner runner -> userDescription = "Contact No: " + runner.getContactNumber();
             case Customer customer -> userDescription = "Contact No: " + customer.getContactNumber();
             
