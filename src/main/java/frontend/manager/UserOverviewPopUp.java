@@ -86,7 +86,6 @@ public class UserOverviewPopUp extends javax.swing.JFrame {
                 totalCountField.setText(String.valueOf(vendor.getOrderCount(filterApplied)));
                 totalEarningsLabel.setText("RM" + vendor.getTotalEarnings(filterApplied));
                 overallRatingsLabel.setText(vendor.getOverallRatings(filterApplied) == -1.0 ? "-" : String.valueOf(vendor.getOverallRatings(filterApplied)));
-                
             }
             
             // If delivery runner is involved
