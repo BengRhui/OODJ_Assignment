@@ -59,51 +59,64 @@ public class UserOverviewPopUp extends javax.swing.JFrame {
         // Remove the components of the panel
         graphPanel.removeAll();
         
-        if (currentUser instanceof Vendor vendor) {
+        // Determine the user involved
+        switch (currentUser) {
             
-            ArrayList<Order> filteredList = Order.filterOrder(vendor, filterApplied).stream()
-                    .filter(order -> order.getOrderStatus() == OrderStatus.COMPLETED ||
-                            order.getOrderStatus() == OrderStatus.CANCELLED)
-                    .collect(Collectors.toCollection(ArrayList::new));
+            // If it's vendor
+            case Vendor vendor -> {
+                
+                // Retrieve the orders
+                ArrayList<Order> filteredList = Order.filterOrder(vendor, filterApplied).stream()
+                        .filter(order -> order.getOrderStatus() == OrderStatus.COMPLETED ||
+                                order.getOrderStatus() == OrderStatus.CANCELLED)
+                        .collect(Collectors.toCollection(ArrayList::new));
+                
+                // Update graph
+                JPanel graph = new Graph(
+                        filteredList,
+                        Graph.REVENUE_GRAPH,
+                        filterApplied,
+                        620,
+                        440
+                );
+                graph.setLocation(10, 15);
+                graphPanel.add(graph);
+                
+                // Update total order, earnings and overall ratings
+                totalCountField.setText(String.valueOf(vendor.getOrderCount(filterApplied)));
+                totalEarningsLabel.setText("RM" + vendor.getTotalEarnings(filterApplied));
+                overallRatingsLabel.setText(vendor.getOverallRatings(filterApplied) == -1.0 ? "-" : String.valueOf(vendor.getOverallRatings(filterApplied)));
+                
+            }
             
-            // Update graph
-            JPanel graph = new Graph(
-                    filteredList,
-                    Graph.REVENUE_GRAPH, 
-                    filterApplied,
-                    620, 
-                    440
-            );
-            graph.setLocation(10, 15);
-            graphPanel.add(graph);
+            // If delivery runner is involved
+            case DeliveryRunner runner -> {
+                
+                // Retrieve orders
+                ArrayList<Order> filteredList = Order.filterOrder(runner, filterApplied).stream()
+                        .filter(order -> order.getOrderStatus() == OrderStatus.COMPLETED ||
+                                order.getOrderStatus() == OrderStatus.CANCELLED)
+                        .collect(Collectors.toCollection(ArrayList::new));
+                
+                // Update graph
+                JPanel graph = new Graph(
+                        filteredList,
+                        Graph.DELIVERY_COUNT_GRAPH,
+                        filterApplied,
+                        620,
+                        440
+                );
+                graph.setLocation(10, 15);
+                graphPanel.add(graph);
+                
+                // Update total order, earnings and overall ratings
+                totalCountField.setText(String.valueOf(runner.getDeliveryCount(filterApplied)));
+                totalEarningsLabel.setText("RM" + runner.getTipsAmount(filterApplied));
+                overallRatingsLabel.setText(runner.getRatings(filterApplied) == -1.0 ? "-" : String.valueOf(runner.getRatings(filterApplied)));
+            }
             
-            // Update total order, earnings and overall ratings
-            totalCountField.setText(String.valueOf(vendor.getOrderCount(filterApplied)));
-            totalEarningsLabel.setText("RM" + vendor.getTotalEarnings(filterApplied));
-            overallRatingsLabel.setText(vendor.getOverallRatings(filterApplied) == -1.0 ? "-" : String.valueOf(vendor.getOverallRatings(filterApplied)));
-
-        } else if (currentUser instanceof DeliveryRunner runner) {
-        
-            ArrayList<Order> filteredList = Order.filterOrder(runner, filterApplied).stream()
-                    .filter(order -> order.getOrderStatus() == OrderStatus.COMPLETED ||
-                            order.getOrderStatus() == OrderStatus.CANCELLED)
-                    .collect(Collectors.toCollection(ArrayList::new));
-            
-            // Update graph
-            JPanel graph = new Graph(
-                    filteredList,
-                    Graph.DELIVERY_COUNT_GRAPH, 
-                    filterApplied,
-                    620, 
-                    440
-            );
-            graph.setLocation(10, 15);
-            graphPanel.add(graph);
-
-            // Update total order, earnings and overall ratings
-            totalCountField.setText(String.valueOf(runner.getDeliveryCount(filterApplied)));
-            totalEarningsLabel.setText("RM" + runner.getTipsAmount(filterApplied));
-            overallRatingsLabel.setText(runner.getRatings(filterApplied) == -1.0 ? "-" : String.valueOf(runner.getRatings(filterApplied)));
+            // For any other users (should not happen but just included in case)
+            default -> throw new IllegalStateException("Invalid user type. Please inspect code.");
         }
         
         // Refresh panel
