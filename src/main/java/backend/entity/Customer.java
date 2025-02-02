@@ -687,17 +687,15 @@ public class Customer extends User {
                 deliveryNote.equalsIgnoreCase("Delivery Note") || deliveryNote.isBlank()
         ) return false;
 
-        // Create a new address object
-        Address newAddress = new Address(
-                addressLine1,
-                addressLine2,
-                postcode,
-                city,
-                state
-        );
+        // Retrieve the initial address of customer
+        Address customerAddress = this.getAddress();
 
-        // Update address to customer
-        this.setAddress(newAddress);
+        // Update the address
+        customerAddress.setAddressLine1(addressLine1);
+        customerAddress.setAddressLine2(addressLine2);
+        customerAddress.setPostcode(postcode);
+        customerAddress.setCity(city);
+        customerAddress.setState(state);
 
         // Update delivery note for customer
         this.setDeliveryNote(deliveryNote);
