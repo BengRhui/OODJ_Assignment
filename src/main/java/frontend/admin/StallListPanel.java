@@ -101,7 +101,7 @@ public class StallListPanel extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelTitle.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        panelTitle.setText("Store List");
+        panelTitle.setText("Stall List");
         add(panelTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, -1, -1));
 
         stallPanelScrollPane.setBackground(new java.awt.Color(255, 251, 233));
