@@ -84,7 +84,7 @@ public class UserOverviewPopUp extends javax.swing.JFrame {
                 
                 // Update total order, earnings and overall ratings
                 totalCountField.setText(String.valueOf(vendor.getOrderCount(filterApplied)));
-                totalEarningsLabel.setText("RM" + vendor.getTotalEarnings(filterApplied));
+                totalEarningsLabel.setText(String.format("RM%.2f", vendor.getTotalEarnings(filterApplied)));
                 overallRatingsLabel.setText(vendor.getOverallRatings(filterApplied) == -1.0 ? "-" : String.valueOf(vendor.getOverallRatings(filterApplied)));
             }
             
@@ -110,7 +110,7 @@ public class UserOverviewPopUp extends javax.swing.JFrame {
                 
                 // Update total order, earnings and overall ratings
                 totalCountField.setText(String.valueOf(runner.getDeliveryCount(filterApplied)));
-                totalEarningsLabel.setText("RM" + runner.getTipsAmount(filterApplied));
+                totalEarningsLabel.setText(String.format("RM%.2f", runner.getTipsAmount(filterApplied)));
                 overallRatingsLabel.setText(runner.getRatings(filterApplied) == -1.0 ? "-" : String.valueOf(runner.getRatings(filterApplied)));
             }
             
