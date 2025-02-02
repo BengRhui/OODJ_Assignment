@@ -529,6 +529,9 @@ public class Utility {
                 // Skip the item-related columns (column 8, 9 and 10, minus 1 for index)
                 if (6 < i && i < 10) continue;
 
+                // SKip if there is only one item (no merge is required)
+                if (numOfItems == 1) continue;
+
                 // Merge the rows
                 sheet.addMergedRegion(
                         new CellRangeAddress(rowIndex, rowIndex + numOfItems - 1, i, i)
