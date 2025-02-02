@@ -137,7 +137,7 @@ public class StallListPanel extends javax.swing.JPanel {
         registerButton.setBackground(new java.awt.Color(0, 0, 0));
         registerButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         registerButton.setForeground(new java.awt.Color(255, 255, 255));
-        registerButton.setText("+ Add New Store");
+        registerButton.setText("+ Add New Stall");
         registerButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         registerButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         registerButton.setFocusPainted(false);
