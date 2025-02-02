@@ -525,10 +525,10 @@ public class DeliveryRunner extends User {
      */
     @Override
     public String toString() {
-        return "Runner ID: " + super.userID + "\n" +
-                "Runner Email: " + super.email + "\n" +
-                "Runner Password: " + super.password + "\n" +
-                "Runner Name: " + super.name + "\n" +
-                "Runner Contact No: " + contactNumber;
+        return "Runner ID: " + this.userID + "\n" +
+                "Runner Email: " + this.email + "\n" +
+                "Runner Password: " + this.password + "\n" +
+                "Runner Name: " + this.name + "\n" +
+                "Runner Contact No: " + this.contactNumber;
     }
 }
