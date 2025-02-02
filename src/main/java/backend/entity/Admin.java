@@ -87,9 +87,9 @@ public class Admin extends User {
      */
     @Override
     public String toString() {
-        return "Admin ID: " + super.userID + "\n" +
-                "Admin Email: " + super.email + "\n" +
-                "Admin Password: " + super.password + "\n" +
-                "Admin Name: " + super.name;
+        return "Admin ID: " + this.userID + "\n" +
+                "Admin Email: " + this.email + "\n" +
+                "Admin Password: " + this.password + "\n" +
+                "Admin Name: " + this.name;
     }
 }
