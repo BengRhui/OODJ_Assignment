@@ -5,7 +5,7 @@ import backend.entity.User;
 import java.util.ArrayList;
 
 /**
- * Abstract class {@code UserFileIO} contains the general methods to read and write login credentials file.
+ * Class {@code CredentialsFileIO} contains the general methods to read and write login credentials file.
  *
  * @author Beng Rhui (TP068495)
  */
