@@ -1,1 +1,4 @@
-NV001 ; V001 ; 08/12/2024 01:10:03   ; UNREAD    ; Order Accepted      ; You have accepted order ORD001 (item: char kuey teow x 1)
+NC001; C001 ; 04/02/2025 23:02:49 ; Unread    ; Order Accepted by Runner                          ; Your order ORD00001 is accepted by runner Muhammad Nabil Naim bin Zainal Abidin. Please give us a moment for vendors to accept this order.
+NC002; C001 ; 04/02/2025 23:05:24 ; Unread    ; E-Wallet Top Up                                   ; Thank you for paying using Cash. RM200.0 has been successfully topped up to your e-wallet.          
+ND001; R001 ; 04/02/2025 23:02:49 ; Unread    ; Order Accepted                                    ; You have accepted the order ORD00001. Please wait for the confirmation from the vendor side (S001). 
+NV001; V001 ; 08/12/2024 01:10:03 ; Unread    ; Order Accepted                                    ; You have accepted order ORD001 (item: char kuey teow x 1)                                           

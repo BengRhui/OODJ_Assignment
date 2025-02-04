@@ -195,6 +195,7 @@ public class StallDetailsPanel extends javax.swing.JPanel {
         stallNameScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         stallNameScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
+        stallNameField.setEditable(false);
         stallNameField.setBackground(new java.awt.Color(255, 251, 233));
         stallNameField.setColumns(20);
         stallNameField.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
