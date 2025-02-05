@@ -30,7 +30,7 @@ public class EWalletPanel extends javax.swing.JPanel {
      * Creates new form EWalletPanel
      */
     public EWalletPanel() {
-        
+
         // Initialize customer
         currentCustomer = MainPage.getCustomer();
         currentFilter = null;
@@ -39,6 +39,20 @@ public class EWalletPanel extends javax.swing.JPanel {
         initComponents();
         
         // Generate transaction panels
+        updateTransactionHistoryPanel();
+    }
+    
+    /**
+     * This method helps to refresh the entire e-wallet panel.
+     */
+    public static void refreshPanel() {
+    
+        // Refresh the amounts
+        walletAmountField.setText(String.format("%.2f", currentCustomer.getEWalletAmount()));
+        cashInAmount.setText(String.format("RM%.2f", Transaction.getTotalCashFlow(currentCustomer, Transaction.TransactionType.CASH_IN)));
+        cashOutAmount.setText(String.format("RM%.2f", Transaction.getTotalCashFlow(currentCustomer, Transaction.TransactionType.CASH_OUT)));
+        
+        // Refresh the transaction history panel
         updateTransactionHistoryPanel();
     }
     
@@ -434,12 +448,12 @@ public class EWalletPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cashFlowTitle;
-    private javax.swing.JLabel cashInAmount;
+    private static javax.swing.JLabel cashInAmount;
     private javax.swing.JLabel cashInIcon;
     private javax.swing.JPanel cashInPanel;
     private javax.swing.JLabel cashInText;
     private javax.swing.JLabel cashInTitle;
-    private javax.swing.JLabel cashOutAmount;
+    private static javax.swing.JLabel cashOutAmount;
     private javax.swing.JLabel cashOutIcon;
     private javax.swing.JPanel cashOutPanel;
     private javax.swing.JLabel cashOutText;
@@ -452,6 +466,6 @@ public class EWalletPanel extends javax.swing.JPanel {
     private static javax.swing.JPanel transactionHistoryPanel;
     private javax.swing.JLabel transactionHistoryTitle;
     private javax.swing.JScrollPane trasactionHistoryScrollPane;
-    private javax.swing.JLabel walletAmountField;
+    private static javax.swing.JLabel walletAmountField;
     // End of variables declaration//GEN-END:variables
 }
