@@ -41,7 +41,7 @@ public class OrderHistoryBriefPanel extends javax.swing.JPanel {
         stallNameScrollPane = new javax.swing.JScrollPane();
         stallNameField = new javax.swing.JTextArea();
         totalLabel = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        orderAmount = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(227, 202, 165));
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
@@ -81,10 +81,10 @@ public class OrderHistoryBriefPanel extends javax.swing.JPanel {
         totalLabel.setText("Total");
         add(totalLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText(String.format("RM%.2f", currentOrder.getOrderPrice()));
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 140, 240, -1));
+        orderAmount.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        orderAmount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        orderAmount.setText(String.format("RM%.2f", currentOrder.getOrderPrice()));
+        add(orderAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 140, 240, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
@@ -98,7 +98,7 @@ public class OrderHistoryBriefPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel dateField;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel orderAmount;
     private javax.swing.JTextArea stallNameField;
     private javax.swing.JScrollPane stallNameScrollPane;
     private javax.swing.JLabel totalLabel;

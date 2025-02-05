@@ -40,11 +40,37 @@ public class PastOrderDetailsForm extends javax.swing.JFrame {
         // Render GUI components
         initComponents();
         
+        // Check if reorder button should be placed
+        updateReorderButton();
+        
         // Initialize the panel
         updateCartPanel();
     }
     
-
+    /**
+     * This method helps to check if reorder button should be placed. If stall is unavailable, we can't reorder stuffs, so reorder button should be removed in this case.
+     */
+    public void updateReorderButton() {
+    
+        // Check if the order still has a stall
+        if (currentOrder.getOrderedStall() == null) {
+            
+            // Remove the reorder button and relocate the cancel button
+            containerPanel.remove(reorderButton);
+            
+            // Reposition the cancel button
+            containerPanel.remove(cancelButton);
+            containerPanel.add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 490, 180, 50));
+        }
+        
+        // Refresh the container panel
+        containerPanel.revalidate();
+        containerPanel.repaint();
+    }
+    
+    /**
+     * This method helps to update the cart panel based on the associated order.
+     */
     public void updateCartPanel() {
         
         // Remove everything in the panel
@@ -121,7 +147,7 @@ public class PastOrderDetailsForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        containerPanel = new javax.swing.JPanel();
         orderDetailsTitle = new javax.swing.JLabel();
         itemOrderedTitle = new javax.swing.JLabel();
         quantityTitle = new javax.swing.JLabel();
@@ -144,26 +170,26 @@ public class PastOrderDetailsForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 251, 233));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        containerPanel.setBackground(new java.awt.Color(255, 251, 233));
+        containerPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         orderDetailsTitle.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         orderDetailsTitle.setText("Order Details - " + currentOrder.getOrderID());
-        jPanel1.add(orderDetailsTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 620, -1));
+        containerPanel.add(orderDetailsTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 620, -1));
 
         itemOrderedTitle.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         itemOrderedTitle.setText("Item Ordered");
-        jPanel1.add(itemOrderedTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 190, 30));
+        containerPanel.add(itemOrderedTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 190, 30));
 
         quantityTitle.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         quantityTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         quantityTitle.setText("Quantity");
-        jPanel1.add(quantityTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 140, 30));
+        containerPanel.add(quantityTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 140, 30));
 
         priceTitle.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         priceTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         priceTitle.setText("Price");
-        jPanel1.add(priceTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 140, 30));
+        containerPanel.add(priceTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 140, 30));
 
         orderedItemScrollPane.setBorder(null);
         orderedItemScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -173,7 +199,7 @@ public class PastOrderDetailsForm extends javax.swing.JFrame {
         orderedItemPanel.setLayout(new java.awt.GridLayout(0, 1));
         orderedItemScrollPane.setViewportView(orderedItemPanel);
 
-        jPanel1.add(orderedItemScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 620, 260));
+        containerPanel.add(orderedItemScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 620, 260));
 
         totalAmountPanel.setBackground(new java.awt.Color(255, 251, 233));
         totalAmountPanel.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(0, 0, 0)));
@@ -188,29 +214,29 @@ public class PastOrderDetailsForm extends javax.swing.JFrame {
         totalAmountField.setText(String.format("RM%.2f", currentOrder.getOrderPrice()));
         totalAmountPanel.add(totalAmountField, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, 140, 40));
 
-        jPanel1.add(totalAmountPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 620, 60));
+        containerPanel.add(totalAmountPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 620, 60));
 
         diningMethodTitle.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         diningMethodTitle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         diningMethodTitle.setText("Dining Method");
-        jPanel1.add(diningMethodTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 100, 140, -1));
+        containerPanel.add(diningMethodTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 100, 140, -1));
 
         tableNumberLabel.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         tableNumberLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         tableNumberLabel.setText(currentOrder.getTableNumber() == null ? "" : "Table Number: " + currentOrder.getTableNumber());
-        jPanel1.add(tableNumberLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 100, 160, 20));
+        containerPanel.add(tableNumberLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 100, 160, 20));
 
         diningMethodField.setBackground(new java.awt.Color(255, 255, 255));
         diningMethodField.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         diningMethodField.setText(currentOrder.getDiningType().toString());
         diningMethodField.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), javax.swing.BorderFactory.createEmptyBorder(2, 15, 2, 15)));
         diningMethodField.setOpaque(true);
-        jPanel1.add(diningMethodField, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 130, 310, 50));
+        containerPanel.add(diningMethodField, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 130, 310, 50));
 
         additionalNotesTitle.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         additionalNotesTitle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         additionalNotesTitle.setText("Additional Notes for Vendor");
-        jPanel1.add(additionalNotesTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 200, 310, -1));
+        containerPanel.add(additionalNotesTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 200, 310, -1));
 
         additionalNotesScrollPane.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         additionalNotesScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -226,7 +252,7 @@ public class PastOrderDetailsForm extends javax.swing.JFrame {
         additionalNotesField.setBorder(javax.swing.BorderFactory.createEmptyBorder(12, 15, 12, 15));
         additionalNotesScrollPane.setViewportView(additionalNotesField);
 
-        jPanel1.add(additionalNotesScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 230, 310, 230));
+        containerPanel.add(additionalNotesScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 230, 310, 230));
 
         cancelButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         cancelButton.setText("Cancel");
@@ -246,7 +272,7 @@ public class PastOrderDetailsForm extends javax.swing.JFrame {
                 cancelButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 490, 180, 50));
+        containerPanel.add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 490, 180, 50));
 
         reorderButton.setBackground(new java.awt.Color(0, 0, 0));
         reorderButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -268,7 +294,7 @@ public class PastOrderDetailsForm extends javax.swing.JFrame {
                 reorderButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(reorderButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 490, 220, 50));
+        containerPanel.add(reorderButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 490, 220, 50));
 
         provideFeedbackButton.setBackground(new java.awt.Color(0, 0, 0));
         provideFeedbackButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -290,9 +316,9 @@ public class PastOrderDetailsForm extends javax.swing.JFrame {
                 provideFeedbackButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(provideFeedbackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 490, 310, 50));
+        containerPanel.add(provideFeedbackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 490, 310, 50));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 600));
+        getContentPane().add(containerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -438,10 +464,10 @@ public class PastOrderDetailsForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane additionalNotesScrollPane;
     private javax.swing.JLabel additionalNotesTitle;
     private javax.swing.JButton cancelButton;
+    private javax.swing.JPanel containerPanel;
     private javax.swing.JLabel diningMethodField;
     private javax.swing.JLabel diningMethodTitle;
     private javax.swing.JLabel itemOrderedTitle;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel orderDetailsTitle;
     private static javax.swing.JPanel orderedItemPanel;
     private javax.swing.JScrollPane orderedItemScrollPane;
