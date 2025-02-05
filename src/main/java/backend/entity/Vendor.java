@@ -335,10 +335,9 @@ public class Vendor extends User {
         // Return -1 if the list is null
         if (orderList == null) return -1;
 
-        // Filter the order list to only include completed and cancelled orders
+        // Filter the order list to only include completed orders (cancelled orders do not have revenue)
         orderList = orderList.stream()
-                .filter(order -> order.getOrderStatus() == Order.OrderStatus.CANCELLED ||
-                        order.getOrderStatus() == Order.OrderStatus.COMPLETED)
+                .filter(order -> order.getOrderStatus() == Order.OrderStatus.COMPLETED)
                 .collect(Collectors.toCollection(ArrayList::new));
 
         // Loop through each order list to calculate earnings
