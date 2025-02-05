@@ -67,8 +67,7 @@ public class UserOverviewPopUp extends javax.swing.JFrame {
                 
                 // Retrieve the orders
                 ArrayList<Order> filteredList = Order.filterOrder(vendor, filterApplied).stream()
-                        .filter(order -> order.getOrderStatus() == OrderStatus.COMPLETED ||
-                                order.getOrderStatus() == OrderStatus.CANCELLED)
+                        .filter(order -> order.getOrderStatus() == OrderStatus.COMPLETED)
                         .collect(Collectors.toCollection(ArrayList::new));
                 
                 // Update graph
@@ -93,8 +92,7 @@ public class UserOverviewPopUp extends javax.swing.JFrame {
                 
                 // Retrieve orders
                 ArrayList<Order> filteredList = Order.filterOrder(runner, filterApplied).stream()
-                        .filter(order -> order.getOrderStatus() == OrderStatus.COMPLETED ||
-                                order.getOrderStatus() == OrderStatus.CANCELLED)
+                        .filter(order -> order.getOrderStatus() == OrderStatus.COMPLETED)
                         .collect(Collectors.toCollection(ArrayList::new));
                 
                 // Update graph
