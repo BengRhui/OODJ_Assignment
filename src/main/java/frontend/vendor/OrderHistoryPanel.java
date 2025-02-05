@@ -65,9 +65,14 @@ public class OrderHistoryPanel extends javax.swing.JPanel {
         // Remove all components on the graph panel
         graphPanel.removeAll();
         
+        // Only take completed orders for graph (history can contain both cancelled and completed ones)
+        ArrayList<Order> listForGraph = orderList.stream()
+                .filter(order -> order.getOrderStatus() == Order.OrderStatus.COMPLETED)
+                .collect(Collectors.toCollection(ArrayList::new));
+        
         // Generate the graph and set location
         Graph revenueGraph = new Graph(
-                orderList,
+                listForGraph,
                 Graph.REVENUE_GRAPH,
                 timeFrame,
                 650,
