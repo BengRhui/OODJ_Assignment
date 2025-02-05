@@ -467,6 +467,9 @@ public class OrderStatusFrame extends javax.swing.JFrame {
                 HomePanel.updateOrderPanel();
                 MainPage.currentFrame.setEnabled(true);
                 
+                // Update the e-wallet panel
+                EWalletPanel.refreshPanel();
+                
                 // Dispose the current frame
                 dispose();
                 

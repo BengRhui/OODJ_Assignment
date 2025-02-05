@@ -530,6 +530,9 @@ public class CartPopUp extends javax.swing.JFrame {
             // Update the order panel
             HomePanel.updateOrderPanel();
             
+            // Update the e-wallet panel
+            EWalletPanel.refreshPanel();
+            
             // Dispose the cart panel
             dispose();
             
