@@ -307,7 +307,7 @@ public class Order {
 
         // Get the list of orders associated to vendor
         return overallOrder.stream()
-                .filter(order -> order.getOrderedStall().getStallID().equals(vendor.getStall().getStallID()))
+                .filter(order -> order.getOrderedStall() != null && order.getOrderedStall().getStallID().equals(vendor.getStall().getStallID()))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
