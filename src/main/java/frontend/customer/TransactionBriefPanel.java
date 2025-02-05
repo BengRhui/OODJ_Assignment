@@ -51,12 +51,13 @@ public class TransactionBriefPanel extends javax.swing.JPanel {
 
         descriptionField.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         descriptionField.setText(String.format(
-            "%s RM%.2f into account.",
+            "%s RM%.2f %s account.",
             currentTransaction.getTransactionType().toString().substring(0, 1).toUpperCase() + currentTransaction.getTransactionType().toString().substring(1).toLowerCase(),
-            currentTransaction.getTransactionAmount()
+            currentTransaction.getTransactionAmount(),
+            currentTransaction.getTransactionType() == Transaction.TransactionType.CASH_IN ? "into" : "from"
         )
     );
-    add(descriptionField, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 270, 30));
+    add(descriptionField, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 290, 30));
 
     transactionIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     transactionIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/transaction_icon.png"))); // NOI18N
