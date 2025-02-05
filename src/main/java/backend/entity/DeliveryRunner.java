@@ -361,8 +361,7 @@ public class DeliveryRunner extends User {
 
         // Filter the order list with only the completed and cancelled ones
         orderList = orderList.stream()
-                .filter(order -> order.getOrderStatus() == Order.OrderStatus.COMPLETED ||
-                        order.getOrderStatus() == Order.OrderStatus.CANCELLED)
+                .filter(order -> order.getOrderStatus() == Order.OrderStatus.COMPLETED)
                 .collect(Collectors.toCollection(ArrayList::new));
 
         // Return the size of the list as delivery count
