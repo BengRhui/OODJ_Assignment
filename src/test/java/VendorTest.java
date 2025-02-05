@@ -761,10 +761,13 @@ public class VendorTest extends BaseTest {
         // Check if the calculations are correct - we only consider completed or cancelled orders
         assertEquals(3, vendorOrderCount);
 
+        // We only consider completed orders here
         assertEquals(
-                order1.getOrderPrice() + order2.getOrderPrice() + order3.getOrderPrice(),
+                order1.getOrderPrice() + order3.getOrderPrice(),
                 vendorTotalEarnings
         );
+
+        // Both completed and incomplete orders
         assertEquals(1, vendorFeedbackCount);
         assertEquals(
                 feedback3.getRatings(),
