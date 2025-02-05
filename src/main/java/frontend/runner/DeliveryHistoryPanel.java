@@ -63,9 +63,14 @@ public class DeliveryHistoryPanel extends javax.swing.JPanel {
         // Remove all components on the graph panel
         graphPanel.removeAll();
                 
+        // Only take completed orders
+        ArrayList<Order> listForGraph = orderList.stream()
+                .filter(order -> order.getOrderStatus() == Order.OrderStatus.COMPLETED)
+                .collect(Collectors.toCollection(ArrayList::new));
+        
         // Generate the graph and set location
         Graph deliveryCountGraph = new Graph(
-                orderList,
+                listForGraph,
                 Graph.DELIVERY_COUNT_GRAPH,
                 timeFrame,
                 650,
