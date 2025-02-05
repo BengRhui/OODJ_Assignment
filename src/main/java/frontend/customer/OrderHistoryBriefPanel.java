@@ -71,7 +71,7 @@ public class OrderHistoryBriefPanel extends javax.swing.JPanel {
         stallNameField.setColumns(20);
         stallNameField.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         stallNameField.setRows(1);
-        stallNameField.setText(currentOrder.getOrderedStall().getStallName());
+        stallNameField.setText(currentOrder.getOrderedStall() == null ? "[Stall not available]" : currentOrder.getOrderedStall().getStallName());
         stallNameField.setBorder(null);
         stallNameScrollPane.setViewportView(stallNameField);
 

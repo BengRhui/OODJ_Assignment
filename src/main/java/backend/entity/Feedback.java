@@ -396,6 +396,9 @@ public class Feedback {
      */
     public static boolean checkNeedToFillVendorFeedback(Order order) {
 
+        // Check if the order is associated with a stall, if no then no need for feedback
+        if (order.getOrderedStall() == null) return false;
+
         // Find if there is any matching vendor feedback from the customer
         return feedbackList.stream()
                 .noneMatch(feedback -> feedback.feedbackCategory == Category.VENDOR &&
@@ -410,6 +413,9 @@ public class Feedback {
      * @return {@code true} if runner feedback is filled, else {@code false}
      */
     public static boolean checkNeedToFillRunnerFeedback(Order order) {
+
+        // Check if the order is associated with a delivery runner, if no then there's no need for feedback
+        if (order.getRunnerInCharge() == null) return false;
 
         // Find if there is any matching vendor feedback from the customer
         return feedbackList.stream()

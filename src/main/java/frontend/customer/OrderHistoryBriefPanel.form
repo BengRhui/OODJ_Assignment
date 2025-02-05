@@ -93,7 +93,7 @@
             </Property>
             <Property name="rows" type="int" value="1"/>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="currentOrder.getOrderedStall().getStallName()" type="code"/>
+              <Connection code="currentOrder.getOrderedStall() == null ? &quot;[Stall not available]&quot; : currentOrder.getOrderedStall().getStallName()" type="code"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
