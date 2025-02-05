@@ -91,8 +91,8 @@ public class DashboardPanel extends javax.swing.JPanel {
         feedbackData = Feedback.filterFeedback(feedbackFilter);
         
         // Generate the graph and add it to the panel
-        JPanel graph = new Graph(feedbackData, Graph.FEEDBACK_GRAPH, feedbackFilter, 590, 430);
-        graph.setLocation(5, 30);
+        JPanel graph = new Graph(feedbackData, Graph.FEEDBACK_GRAPH, feedbackFilter, 565, 430);
+        graph.setLocation(20, 30);
         feedbackPanel.add(graph);
     }
     
