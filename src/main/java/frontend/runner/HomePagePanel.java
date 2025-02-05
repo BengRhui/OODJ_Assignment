@@ -44,6 +44,9 @@ public class HomePagePanel extends javax.swing.JPanel {
      */
     public static void updateAvailabilityButton() {
         
+        // Check if the runner is associated with an order
+        currentOrder = currentRunner.retrieveCurrentAssociatedOrder();
+        
         // If there is associated order - runner is definitely busy
         if (currentOrder != null) {
         
@@ -57,7 +60,7 @@ public class HomePagePanel extends javax.swing.JPanel {
 
             // Check if the runner is free
             Boolean availabilityStatus = availabilityList.get(currentRunner.getUserID());
-            
+
             // Changes the button colour accordingly
             if (availabilityStatus) {
             
@@ -85,6 +88,9 @@ public class HomePagePanel extends javax.swing.JPanel {
      * This method helps to refresh the content panel containing the panels for delivery.
      */
     public static void updatePanel() {
+        
+        // Update the availability button
+        updateAvailabilityButton();
         
         // Clear the contents of the panel
         contentPanel.removeAll();

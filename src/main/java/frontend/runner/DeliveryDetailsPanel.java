@@ -517,6 +517,7 @@ public class DeliveryDetailsPanel extends javax.swing.JPanel {
         newPanel.add(iconLabel);
         newPanel.add(textLabel);
         
+        // The panel is returned
         return newPanel;
     }
     
