@@ -53,7 +53,7 @@ public class PastOrderDetailsForm extends javax.swing.JFrame {
         // Retrieve the cart
         Map<Item, Integer> customerCart = currentOrder.getOrderItem();
         
-        // Sort the cart based on ordered date
+        // Sort the cart based on item ID
         customerCart = customerCart.entrySet().stream()
                 .sorted(Comparator.comparing(entry -> entry.getKey().getItemID()))
                 .collect(Collectors.toMap(
