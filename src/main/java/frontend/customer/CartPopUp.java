@@ -527,6 +527,9 @@ public class CartPopUp extends javax.swing.JFrame {
             // Enable the parent frame
             MainPage.currentFrame.setEnabled(true);
             
+            // Update the order panel
+            HomePanel.updateOrderPanel();
+            
             // Dispose the cart panel
             dispose();
             
