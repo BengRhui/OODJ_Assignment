@@ -62,7 +62,7 @@ public class DeliveryHistoryPanel extends javax.swing.JPanel {
         
         // Remove all components on the graph panel
         graphPanel.removeAll();
-        
+                
         // Generate the graph and set location
         Graph deliveryCountGraph = new Graph(
                 orderList,

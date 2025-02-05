@@ -54,8 +54,9 @@ public class OrderHistoryBriefPanel extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         dateField.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        dateField.setText(currentOrder.getOrderedDate().format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
-        add(dateField, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 220, 50));
+        dateField.setText(currentOrder.getOrderedDate().format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
+            + (currentOrder.getOrderStatus() == Order.OrderStatus.CANCELLED ? " (Cancelled)" : ""));
+        add(dateField, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 300, 50));
 
         viewIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         viewIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/search_icon.png"))); // NOI18N
