@@ -187,10 +187,15 @@ public class User {
         if (email.contains("..")) return false;
 
         // If the part after "@" has special characters, return false
-        boolean partAfterAtHasSpecial = email.split("@")[1].matches(".*[!#$%^&*(),?\":{}|<>_].*");
+        if (email.split("@")[1].matches(".*[!#$%^&*(),?\":{}|<>_].*")) return false;
+
+        // If the part before "@" has special characters, return false
+        if (email.split("@")[0].matches(".*[!#$%^&*(),?\":{}|<>_].*")) return false;
+
+        // If the last part of the email (called TLD) has less than 2 english characters, return false
+        return email.split("\\.")[email.split("\\.").length - 1].matches("[a-zA-Z]{2,}$");
 
         // This marks the end of email validation
-        return !partAfterAtHasSpecial;
     }
 
     /**

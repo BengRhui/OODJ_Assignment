@@ -100,7 +100,8 @@ public class AuthenticationTest extends BaseTest {
                 "user@domain.c@om",
                 "user@domain_com.com",
                 "user@domain#example.com",
-                "@example.com"
+                "@example.com",
+                "random@1.11"
         };
 
         // Check if the method is able to identify correct and wrong emails
