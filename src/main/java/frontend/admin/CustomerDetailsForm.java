@@ -6,8 +6,6 @@ package frontend.admin;
 
 import backend.entity.Address;
 import backend.entity.Customer;
-import backend.entity.Stall;
-import backend.entity.Vendor;
 import backend.utility.Utility;
 import frontend.pop_up.SystemPopUp;
 import java.awt.Color;
