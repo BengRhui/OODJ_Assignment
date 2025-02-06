@@ -228,7 +228,7 @@ public class NotificationPopUp extends javax.swing.JFrame {
             }
         };
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Notification");
         setAlwaysOnTop(true);
         setName("notificationFrame"); // NOI18N

@@ -167,7 +167,8 @@ public class PastOrderDetailsForm extends javax.swing.JFrame {
         reorderButton = new javax.swing.JButton();
         provideFeedbackButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Order Details");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         containerPanel.setBackground(new java.awt.Color(255, 251, 233));

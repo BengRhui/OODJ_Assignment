@@ -59,7 +59,8 @@ public class FeedbackDetailsFrame extends javax.swing.JFrame {
         replyDescriptionScrollPane = new javax.swing.JScrollPane();
         replyDescriptionField = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Feedback Details");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         backgroundPanel.setBackground(new java.awt.Color(255, 251, 233));
