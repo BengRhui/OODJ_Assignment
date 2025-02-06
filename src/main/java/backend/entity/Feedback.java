@@ -1,5 +1,6 @@
 package backend.entity;
 
+import backend.file_io.CustomerFileIO;
 import backend.file_io.FeedbackFileIO;
 import backend.notification.CustomerNotification;
 import backend.utility.Utility;
@@ -371,7 +372,7 @@ public class Feedback {
             boolean createTransaction = Transaction.createTransactionHistory(
                     customer,
                     tips,
-                    Transaction.TransactionType.CASH_IN,
+                    Transaction.TransactionType.CASH_OUT,
                     Transaction.PaymentMethod.E_WALLET
             );
             if (!createTransaction) return -4;
@@ -383,6 +384,8 @@ public class Feedback {
 
         // Write to file
         FeedbackFileIO.writeFile();
+        CustomerFileIO customerIO = new CustomerFileIO();
+        customerIO.writeFile();
 
         // Return true for successful operation
         return 1;

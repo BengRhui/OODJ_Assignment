@@ -9,3 +9,9 @@ TRANS0008 ; C002 ; 06/02/2025 20:56:50 ; 22.0      ; Cash Out  ; E-Wallet
 TRANS0009 ; C002 ; 06/02/2025 21:12:38 ; 5.0       ; Cash In   ; E-Wallet            
 TRANS0010 ; C002 ; 06/02/2025 21:13:46 ; 22.0      ; Cash Out  ; E-Wallet            
 TRANS0011 ; C002 ; 06/02/2025 21:15:04 ; 22.0      ; Cash In   ; E-Wallet            
+TRANS0012 ; C002 ; 06/02/2025 21:23:26 ; 22.0      ; Cash Out  ; E-Wallet            
+TRANS0013 ; C002 ; 06/02/2025 21:26:13 ; 2.0       ; Cash In   ; E-Wallet            
+TRANS0014 ; C002 ; 06/02/2025 21:26:27 ; 22.0      ; Cash Out  ; E-Wallet            
+TRANS0015 ; C002 ; 06/02/2025 21:31:46 ; 22.0      ; Cash In   ; E-Wallet            
+TRANS0016 ; C002 ; 06/02/2025 21:40:46 ; 22.0      ; Cash Out  ; E-Wallet            
+TRANS0017 ; C002 ; 06/02/2025 21:46:47 ; 100.0     ; Cash Out  ; E-Wallet            
