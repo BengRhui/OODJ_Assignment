@@ -87,6 +87,9 @@ public class DeliveryRunner extends User {
      * @return An ArrayList containing all instances of {@code DeliveryRunner} objects
      */
     public static ArrayList<DeliveryRunner> getDeliveryRunnerList() {
+
+        // Sort runner based on ID and return array
+        deliveryRunnerList.sort(Comparator.comparing(DeliveryRunner::getUserID));
         return deliveryRunnerList;
     }
 

@@ -57,6 +57,9 @@ public class Customer extends User {
      * @return An ArrayList containing all {@code Customer} objects
      */
     public static ArrayList<Customer> getCustomerList() {
+
+        // Sort customer based on customer ID and return it
+        customerList.sort(Comparator.comparing(Customer::getUserID));
         return customerList;
     }
 

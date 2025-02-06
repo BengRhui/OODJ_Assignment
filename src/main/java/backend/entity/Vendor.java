@@ -9,6 +9,7 @@ import jdk.jshell.execution.Util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -46,6 +47,9 @@ public class Vendor extends User {
      * @return An ArrayList consisting of all {@code Vendor} objects.
      */
     public static ArrayList<Vendor> getVendorList() {
+
+        // Sort vendor list based on ID and return it
+        vendorList.sort(Comparator.comparing(Vendor::getUserID));
         return vendorList;
     }
 
