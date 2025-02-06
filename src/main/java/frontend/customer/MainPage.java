@@ -171,11 +171,16 @@ public class MainPage extends javax.swing.JFrame {
         };
         runnerBackground = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Food Court System");
         setMinimumSize(new java.awt.Dimension(1400, 800));
         setName("vendorMainFrame"); // NOI18N
         setSize(new java.awt.Dimension(1400, 800));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         backgroundPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -592,6 +597,42 @@ public class MainPage extends javax.swing.JFrame {
         notificationFrame.setVisible(true);
         notificationFrame.setLocationRelativeTo(this);
     }//GEN-LAST:event_notificationIconMouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        
+        // Display a messsage to confirm logout
+        SystemPopUp logoutConfirmation = new SystemPopUp(
+                this,
+                "Logout from System",
+                "Are you sure you wish to logout from the system?",
+                new String[]{"No", "Yes"}
+        );
+        logoutConfirmation.setVisible(true);
+        
+        // Get the status of the notification
+        int status = logoutConfirmation.getStatus();
+        
+        // If "Yes" is chosen
+        if (status == 1) {
+            
+            // Display a message to indicate that logout is successful
+            SystemPopUp successLogout = new SystemPopUp(
+                this,
+                "Logout Success",
+                "Thank you for using the system!",
+                new String[]{"OK"}
+            );
+            successLogout.setVisible(true);
+            
+            // Redirect users to home page
+            HomePage homePage = new HomePage();
+            homePage.setVisible(true);
+            homePage.setLocationRelativeTo(this);
+            
+            // Dispose the current frame
+            dispose();
+        }  
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
