@@ -56,6 +56,7 @@ public class CustomerCreditDetails extends javax.swing.JPanel {
         customerNameScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         customerNameScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
+        customerNameLabel.setEditable(false);
         customerNameLabel.setBackground(new java.awt.Color(227, 202, 165));
         customerNameLabel.setColumns(20);
         customerNameLabel.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N

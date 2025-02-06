@@ -99,6 +99,7 @@ public class UserDetailsPanel extends javax.swing.JPanel {
         userDescriptionScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         userDescriptionScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
+        userDescriptionTextArea.setEditable(false);
         userDescriptionTextArea.setBackground(new java.awt.Color(227, 202, 165));
         userDescriptionTextArea.setColumns(20);
         userDescriptionTextArea.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
