@@ -576,6 +576,9 @@ public class MainPage extends javax.swing.JFrame {
             
             // Dispose the current frame
             dispose();
+            
+            // Reset customer to null to avoid any errors when logging into system again
+            currentCustomer = null;
         }
     }//GEN-LAST:event_logoutIconMouseClicked
 
@@ -631,6 +634,9 @@ public class MainPage extends javax.swing.JFrame {
             
             // Dispose the current frame
             dispose();
+            
+            // Reset customer to null to avoid any errors when logging into system again
+            currentCustomer = null;
         }  
     }//GEN-LAST:event_formWindowClosing
 
