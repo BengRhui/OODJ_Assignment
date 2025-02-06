@@ -633,6 +633,7 @@ public class DeliveryDetailsPanel extends javax.swing.JPanel {
         customerNameLabel.setBorder(null);
         customerNameLabel.setCaretColor(new java.awt.Color(255, 255, 255));
         customerNameLabel.setCaretPosition(0);
+        customerNameLabel.setSelectionColor(new java.awt.Color(255, 255, 255));
         customerNameScrollPane.setViewportView(customerNameLabel);
 
         deliveryDetailsPanel.add(customerNameScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 40, 480, 30));
@@ -667,6 +668,8 @@ public class DeliveryDetailsPanel extends javax.swing.JPanel {
         deliveryNoteScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         deliveryNoteScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
+        deliveryNoteLabel.setEditable(false);
+        deliveryNoteLabel.setBackground(new java.awt.Color(255, 255, 255));
         deliveryNoteLabel.setColumns(20);
         deliveryNoteLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         deliveryNoteLabel.setLineWrap(true);
@@ -674,7 +677,9 @@ public class DeliveryDetailsPanel extends javax.swing.JPanel {
         deliveryNoteLabel.setText(currentOrder.getNoteToVendor());
         deliveryNoteLabel.setWrapStyleWord(true);
         deliveryNoteLabel.setBorder(null);
+        deliveryNoteLabel.setCaretColor(new java.awt.Color(255, 255, 255));
         deliveryNoteLabel.setCaretPosition(0);
+        deliveryNoteLabel.setSelectionColor(new java.awt.Color(255, 255, 255));
         deliveryNoteScrollPane.setViewportView(deliveryNoteLabel);
 
         deliveryDetailsPanel.add(deliveryNoteScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 220, 390, 80));

@@ -152,7 +152,7 @@ public class DeliveryHistoryPanel extends javax.swing.JPanel {
         
         // Generate description label
         JPanel descriptionPanel = generateItemListGUI(order);
-        descriptionPanel.setLocation(5, 65);
+        descriptionPanel.setLocation(5, 55);
 
         // Calculate and set the size of the panel
         int panelWidth = 550;
