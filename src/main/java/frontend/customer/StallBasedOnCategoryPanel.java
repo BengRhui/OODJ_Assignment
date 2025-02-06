@@ -55,11 +55,13 @@ public class StallBasedOnCategoryPanel extends javax.swing.JPanel {
         if (stallList.isEmpty()) {
             
             // Generate a label to panel
-            JPanel emptyPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            JPanel emptyPanel = new JPanel(null);
+            emptyPanel.setBackground(new Color(255, 251, 233));
             
             // Add a label to indicate that no order is available for vendor
             JLabel emptyLabel = new JLabel("No stall available for the current category.");
             emptyLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+            emptyLabel.setBounds(0, 0, 500, 30);
             
             // Add the components
             emptyPanel.add(emptyLabel);
