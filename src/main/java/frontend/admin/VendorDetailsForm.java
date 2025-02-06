@@ -168,6 +168,11 @@ public class VendorDetailsForm extends javax.swing.JFrame {
                 vendorNameFocusLost(evt);
             }
         });
+        vendorName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                vendorNameKeyTyped(evt);
+            }
+        });
         jPanel1.add(vendorName, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, 450, 50));
 
         stallNameLabel.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
@@ -178,6 +183,7 @@ public class VendorDetailsForm extends javax.swing.JFrame {
         stallNameDropDown.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         stallNameDropDown.setForeground(new java.awt.Color(204, 204, 204));
         stallNameDropDown.setSelectedIndex(-1);
+        stallNameDropDown.setSelectedItem(null);
         stallNameDropDown.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         stallNameDropDown.setFocusable(false);
         stallNameDropDown.setOpaque(true);
@@ -190,13 +196,13 @@ public class VendorDetailsForm extends javax.swing.JFrame {
                 JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
                 if (index == -1 && value == null) {
-                    label.setText("Select Store Here");
+                    label.setText("Select Stall Here");
                     label.setForeground(new Color(204, 204, 204));
                 } else {
                     label.setForeground(Color.BLACK);
                 }
 
-                // Apply your existing custom rendering (size and border)
+                // Apply existing custom rendering (size and border)
                 label.setPreferredSize(new Dimension(label.getPreferredSize().width, 40));
                 label.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 
@@ -226,6 +232,11 @@ public class VendorDetailsForm extends javax.swing.JFrame {
                 emailFocusLost(evt);
             }
         });
+        email.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                emailKeyTyped(evt);
+            }
+        });
         jPanel1.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 190, 580, 50));
 
         passwordLabel.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
@@ -245,6 +256,11 @@ public class VendorDetailsForm extends javax.swing.JFrame {
                 passwordFieldFocusLost(evt);
             }
         });
+        passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                passwordFieldKeyTyped(evt);
+            }
+        });
         jPanel1.add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 310, 580, 50));
 
         confirmPasswordLabel.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
@@ -262,6 +278,11 @@ public class VendorDetailsForm extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 confirmPasswordFieldFocusLost(evt);
+            }
+        });
+        confirmPasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                confirmPasswordFieldKeyTyped(evt);
             }
         });
         jPanel1.add(confirmPasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 430, 580, 50));
@@ -594,6 +615,46 @@ public class VendorDetailsForm extends javax.swing.JFrame {
             confirmPasswordField.setEchoChar((char) 0);
         }
     }//GEN-LAST:event_confirmPasswordFieldFocusLost
+
+    private void vendorNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_vendorNameKeyTyped
+
+        // If the key entered is ";"
+        if (evt.getKeyChar() == ';') {
+            
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_vendorNameKeyTyped
+
+    private void emailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyTyped
+
+        // If the key entered is ";"
+        if (evt.getKeyChar() == ';') {
+            
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_emailKeyTyped
+
+    private void passwordFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyTyped
+
+        // If the key entered is ";"
+        if (evt.getKeyChar() == ';') {
+            
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_passwordFieldKeyTyped
+
+    private void confirmPasswordFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_confirmPasswordFieldKeyTyped
+
+        // If the key entered is ";"
+        if (evt.getKeyChar() == ';') {
+            
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_confirmPasswordFieldKeyTyped
 
     /**
      * @param args the command line arguments
