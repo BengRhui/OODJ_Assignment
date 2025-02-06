@@ -57,7 +57,6 @@ public class UploadBackgroundPopUp extends javax.swing.JFrame {
         setAlwaysOnTop(true);
         setMinimumSize(new java.awt.Dimension(600, 450));
         setName("uploadBackgroundPopUp"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(600, 450));
         setResizable(false);
         setSize(new java.awt.Dimension(600, 450));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -142,6 +141,7 @@ public class UploadBackgroundPopUp extends javax.swing.JFrame {
         });
         backgroundPanel.add(confirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 300, 191, 60));
 
+        cancelButton.setBackground(Color.WHITE);
         cancelButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         cancelButton.setText("Cancel");
         cancelButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));

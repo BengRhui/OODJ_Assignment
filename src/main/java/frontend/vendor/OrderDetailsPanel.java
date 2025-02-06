@@ -590,6 +590,7 @@ public class OrderDetailsPanel extends JPanel {
                 // Do nothing
             }
         });
+        vendorNoteTextArea.setSelectionColor(new java.awt.Color(255, 255, 255));
         vendorNoteScrollPane.setViewportView(vendorNoteTextArea);
 
         orderDetailsPanel.add(vendorNoteScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 80, 340, 70));

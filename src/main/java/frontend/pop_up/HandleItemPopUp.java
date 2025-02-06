@@ -130,15 +130,15 @@ public class HandleItemPopUp extends javax.swing.JFrame {
                 closeButtonActionPerformed(evt);
             }
         });
-        backgroundPanel.add(closeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 50, 40, 50));
+        backgroundPanel.add(closeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 50, 40, 50));
 
         nameTitleLabel.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         nameTitleLabel.setText("Name");
-        backgroundPanel.add(nameTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
+        backgroundPanel.add(nameTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, -1, -1));
 
         priceTitleLabel.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         priceTitleLabel.setText("Price (RM)");
-        backgroundPanel.add(priceTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 110, -1, 40));
+        backgroundPanel.add(priceTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 120, -1, 40));
 
         nameInput.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         nameInput.setForeground(new java.awt.Color(204, 204, 204));
@@ -159,7 +159,7 @@ public class HandleItemPopUp extends javax.swing.JFrame {
                 nameInputKeyTyped(evt);
             }
         });
-        backgroundPanel.add(nameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 400, 50));
+        backgroundPanel.add(nameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 420, 50));
 
         priceInput.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         priceInput.setForeground(new java.awt.Color(204, 204, 204));
@@ -180,11 +180,11 @@ public class HandleItemPopUp extends javax.swing.JFrame {
                 priceInputKeyTyped(evt);
             }
         });
-        backgroundPanel.add(priceInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, 150, 50));
+        backgroundPanel.add(priceInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 150, 50));
 
         picturePromptLabel.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         picturePromptLabel.setText("Item Picture:");
-        backgroundPanel.add(picturePromptLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, -1, 45));
+        backgroundPanel.add(picturePromptLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, -1, 45));
 
         uploadButton.setBackground(new java.awt.Color(0, 0, 0));
         uploadButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -207,20 +207,20 @@ public class HandleItemPopUp extends javax.swing.JFrame {
                 uploadButtonActionPerformed(evt);
             }
         });
-        backgroundPanel.add(uploadButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 240, 140, 50));
+        backgroundPanel.add(uploadButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, 140, 50));
 
         fileNameText.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         fileNameText.setText("(No files chosen)");
         fileNameText.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        backgroundPanel.add(fileNameText, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 240, 240, 25));
+        backgroundPanel.add(fileNameText, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 250, 240, 25));
 
         fileFormatText.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         fileFormatText.setText("Supported formats: .png, .jpeg, .jpg");
-        backgroundPanel.add(fileFormatText, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 270, 230, -1));
+        backgroundPanel.add(fileFormatText, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, 230, -1));
 
         descriptionTitleLabel.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         descriptionTitleLabel.setText("Description");
-        backgroundPanel.add(descriptionTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, -1, -1));
+        backgroundPanel.add(descriptionTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, -1, 30));
 
         descriptionScrollPane.setBorder(null);
         descriptionScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -256,10 +256,10 @@ public class HandleItemPopUp extends javax.swing.JFrame {
         });
         descriptionScrollPane.setViewportView(descriptionInput);
 
-        backgroundPanel.add(descriptionScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 560, 130));
+        backgroundPanel.add(descriptionScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 360, 580, 130));
 
         confirmButton.setBackground(new java.awt.Color(0, 0, 0));
-        confirmButton.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        confirmButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         confirmButton.setForeground(new java.awt.Color(255, 255, 255));
         confirmButton.setText("OK");
         confirmButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
@@ -278,10 +278,10 @@ public class HandleItemPopUp extends javax.swing.JFrame {
                 confirmButtonActionPerformed(evt);
             }
         });
-        backgroundPanel.add(confirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 520, 270, 56));
+        backgroundPanel.add(confirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 510, 280, 60));
 
         cancelButton.setBackground(Color.WHITE);
-        cancelButton.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        cancelButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         cancelButton.setText("Cancel");
         cancelButton.setToolTipText("");
         cancelButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
@@ -300,7 +300,7 @@ public class HandleItemPopUp extends javax.swing.JFrame {
                 cancelButtonActionPerformed(evt);
             }
         });
-        backgroundPanel.add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 520, 270, 56));
+        backgroundPanel.add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 510, 280, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
