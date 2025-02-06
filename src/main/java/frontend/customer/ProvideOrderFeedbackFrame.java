@@ -348,6 +348,7 @@ public class ProvideOrderFeedbackFrame extends javax.swing.JFrame {
 
         backgroundPanel.add(descriptionScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 390, 790, 170));
 
+        cancelButton.setBackground(Color.WHITE);
         cancelButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         cancelButton.setText("Cancel");
         cancelButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));

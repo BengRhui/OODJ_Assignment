@@ -310,6 +310,7 @@ public class OrderStatusFrame extends javax.swing.JFrame {
         stallNameField.setText(currentOrder.getOrderedStall().getStallName());
         stallNameField.setBorder(null);
         stallNameField.setCaretColor(new java.awt.Color(255, 251, 233));
+        stallNameField.setSelectionColor(new java.awt.Color(255, 251, 233));
         stallNameScrollPane.setViewportView(stallNameField);
 
         backgroundPanel.add(stallNameScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 240, 500, 30));
@@ -347,6 +348,7 @@ public class OrderStatusFrame extends javax.swing.JFrame {
         buttonPanel.setBackground(new java.awt.Color(255, 251, 233));
         buttonPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
+        backButton.setBackground(Color.WHITE);
         backButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         backButton.setText("Back");
         backButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
@@ -460,7 +462,7 @@ public class OrderStatusFrame extends javax.swing.JFrame {
                 SystemPopUp successMessage = new SystemPopUp(
                         this,
                         "Order Cancelled Successfully",
-                        "The current order is cancelled successfully. The payment has been refunded to your account.",
+                        "<html>The current order is cancelled successfully.<br>The payment has been refunded to your account.</html>",
                         new String[]{"OK"}
                 );
                 successMessage.setVisible(true);

@@ -73,6 +73,9 @@ public class OrderHistoryBriefPanel extends javax.swing.JPanel {
         stallNameField.setRows(1);
         stallNameField.setText(currentOrder.getOrderedStall() == null ? "[Stall not available]" : currentOrder.getOrderedStall().getStallName());
         stallNameField.setBorder(null);
+        stallNameField.setCaretColor(new java.awt.Color(227, 202, 165));
+        stallNameField.setCaretPosition(0);
+        stallNameField.setSelectionColor(new java.awt.Color(227, 202, 165));
         stallNameScrollPane.setViewportView(stallNameField);
 
         add(stallNameScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 350, 30));

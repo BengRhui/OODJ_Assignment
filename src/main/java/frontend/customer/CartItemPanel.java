@@ -67,6 +67,9 @@ public class CartItemPanel extends javax.swing.JPanel {
         itemNameField.setRows(1);
         itemNameField.setText(currentItem.getItemName());
         itemNameField.setBorder(null);
+        itemNameField.setCaretColor(new java.awt.Color(255, 251, 233));
+        itemNameField.setCaretPosition(0);
+        itemNameField.setSelectionColor(new java.awt.Color(255, 251, 233));
         itemNameScrollPane.setViewportView(itemNameField);
 
         add(itemNameScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 260, 25));

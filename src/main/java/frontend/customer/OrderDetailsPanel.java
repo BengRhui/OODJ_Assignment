@@ -193,6 +193,7 @@ public class OrderDetailsPanel extends javax.swing.JPanel {
         stallNameField.setBorder(null);
         stallNameField.setCaretColor(new java.awt.Color(227, 202, 165));
         stallNameField.setCaretPosition(0);
+        stallNameField.setSelectionColor(new java.awt.Color(227, 202, 165));
         stallNameScrollPane.setViewportView(stallNameField);
 
         add(stallNameScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 500, 30));

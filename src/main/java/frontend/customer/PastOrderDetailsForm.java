@@ -252,10 +252,14 @@ public class PastOrderDetailsForm extends javax.swing.JFrame {
         additionalNotesField.setText(currentOrder.getNoteToVendor() == null ? "-" : currentOrder.getNoteToVendor());
         additionalNotesField.setWrapStyleWord(true);
         additionalNotesField.setBorder(javax.swing.BorderFactory.createEmptyBorder(12, 15, 12, 15));
+        additionalNotesField.setCaretColor(new java.awt.Color(255, 255, 255));
+        additionalNotesField.setCaretPosition(0);
+        additionalNotesField.setSelectionColor(new java.awt.Color(255, 255, 255));
         additionalNotesScrollPane.setViewportView(additionalNotesField);
 
         containerPanel.add(additionalNotesScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 230, 310, 230));
 
+        cancelButton.setBackground(Color.WHITE);
         cancelButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         cancelButton.setText("Cancel");
         cancelButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));

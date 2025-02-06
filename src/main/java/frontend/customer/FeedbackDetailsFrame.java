@@ -73,6 +73,7 @@ public class FeedbackDetailsFrame extends javax.swing.JFrame {
 
         closeIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         closeIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/cancel_icon.png"))); // NOI18N
+        closeIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         closeIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 closeIconMouseClicked(evt);
@@ -90,6 +91,9 @@ public class FeedbackDetailsFrame extends javax.swing.JFrame {
         titleField.setRows(1);
         titleField.setText(currentFeedback.getFeedbackTitle());
         titleField.setBorder(null);
+        titleField.setCaretColor(new java.awt.Color(255, 251, 233));
+        titleField.setCaretPosition(0);
+        titleField.setSelectionColor(new java.awt.Color(255, 251, 233));
         titkeScrollPane.setViewportView(titleField);
 
         backgroundPanel.add(titkeScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 780, 40));
@@ -105,6 +109,9 @@ public class FeedbackDetailsFrame extends javax.swing.JFrame {
         descriptionField.setText(currentFeedback.getFeedbackDetails());
         descriptionField.setWrapStyleWord(true);
         descriptionField.setBorder(null);
+        descriptionField.setCaretColor(new java.awt.Color(255, 251, 233));
+        descriptionField.setCaretPosition(0);
+        descriptionField.setSelectionColor(new java.awt.Color(255, 251, 233));
         descriptionField.setSize(new java.awt.Dimension(780, 89));
         descriptionScrollPane.setViewportView(descriptionField);
 
@@ -123,6 +130,9 @@ public class FeedbackDetailsFrame extends javax.swing.JFrame {
         replyTitleField.setRows(1);
         replyTitleField.setText("Reply from Manager");
         replyTitleField.setBorder(null);
+        replyTitleField.setCaretColor(new java.awt.Color(227, 202, 165));
+        replyTitleField.setCaretPosition(0);
+        replyTitleField.setSelectionColor(new java.awt.Color(227, 202, 165));
         replyTitleScrollPane.setViewportView(replyTitleField);
 
         managerReplyPanel.add(replyTitleScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 720, 40));
@@ -139,7 +149,10 @@ public class FeedbackDetailsFrame extends javax.swing.JFrame {
         replyDescriptionField.setText(currentFeedback.getReplyFromManager());
         replyDescriptionField.setWrapStyleWord(true);
         replyDescriptionField.setBorder(null);
+        replyDescriptionField.setCaretColor(new java.awt.Color(227, 202, 165));
+        replyDescriptionField.setCaretPosition(0);
         replyDescriptionField.setPreferredSize(new java.awt.Dimension(720, 22));
+        replyDescriptionField.setSelectionColor(new java.awt.Color(227, 202, 165));
         replyDescriptionScrollPane.setViewportView(replyDescriptionField);
 
         managerReplyPanel.add(replyDescriptionScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, 120));

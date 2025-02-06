@@ -130,6 +130,7 @@ public class ItemQuantityPopUp extends javax.swing.JDialog {
         });
         jPanel1.add(confirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 130, 50));
 
+        cancelButton.setBackground(Color.WHITE);
         cancelButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         cancelButton.setText("Cancel");
         cancelButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));

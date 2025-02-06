@@ -356,10 +356,12 @@ public class CartPopUp extends javax.swing.JFrame {
 
         jPanel1.add(additionalNotesScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 230, 310, 230));
 
+        cancelButton.setBackground(Color.WHITE);
         cancelButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         cancelButton.setText("Cancel");
         cancelButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         cancelButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cancelButton.setFocusPainted(false);
         cancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 cancelButtonMouseEntered(evt);
@@ -381,6 +383,7 @@ public class CartPopUp extends javax.swing.JFrame {
         paymentButton.setText("Pay via E-Wallet");
         paymentButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
         paymentButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        paymentButton.setFocusPainted(false);
         paymentButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 paymentButtonMouseEntered(evt);
@@ -530,7 +533,7 @@ public class CartPopUp extends javax.swing.JFrame {
             SystemPopUp successMessage = new SystemPopUp(
                     this,
                     "Order Placed Successfully",
-                    "Your order has been placed successfully. You may return to the home page to track your order details.",
+                    "<html>Your order has been placed successfully. You may<br>return to the home page to track your order details.</html>",
                     new String[]{"OK"}
             );
             successMessage.setVisible(true);
@@ -554,7 +557,7 @@ public class CartPopUp extends javax.swing.JFrame {
             
             // Generate error message based on different error code
             switch (placeStatus) {
-                case 0 -> errorString = "Cart is empty. Please add items before placing your order.";
+                case 0 -> errorString = "<html>Cart is empty. Please add items<br>before placing your order.</html>";
                 case -1 -> errorString = "Insufficient e-wallet balance. Please top up before proceeding with the order.";
                 case -2 -> errorString = "Sorry, there is no available delivery runners now. Please change your dining method or try again later.";
                 case -3 -> errorString = "Notification failed to be created. Please inspect code.";

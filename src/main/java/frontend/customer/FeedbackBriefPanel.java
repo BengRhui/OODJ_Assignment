@@ -82,6 +82,9 @@ public class FeedbackBriefPanel extends javax.swing.JPanel {
         titleField.setRows(1);
         titleField.setText(currentFeedback.getFeedbackTitle());
         titleField.setBorder(null);
+        titleField.setCaretColor(new java.awt.Color(227, 202, 165));
+        titleField.setCaretPosition(0);
+        titleField.setSelectionColor(new java.awt.Color(227, 202, 165));
         titleScrollPane.setViewportView(titleField);
 
         add(titleScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 440, 30));

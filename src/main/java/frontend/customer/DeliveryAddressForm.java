@@ -255,6 +255,7 @@ public class DeliveryAddressForm extends javax.swing.JFrame {
 
         jPanel1.add(deliveryNoteScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 380, 100));
 
+        cancelButton.setBackground(Color.WHITE);
         cancelButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         cancelButton.setText("Cancel");
         cancelButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
