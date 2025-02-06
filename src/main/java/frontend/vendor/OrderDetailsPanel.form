@@ -51,7 +51,7 @@
               <Font name="Arial" size="36" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="currentOrder.getOrderID() + &quot; - &quot; + currentOrder.getDiningType().toString() + (currentOrder.getTableNumber().equals(&quot;-&quot;) ? &quot;&quot; : String.format(&quot; (%s)&quot;, currentOrder.getTableNumber()))" type="code"/>
+              <Connection code="currentOrder.getOrderID() + &quot; - &quot; + currentOrder.getDiningType().toString() + (currentOrder.getTableNumber() == null || currentOrder.getTableNumber().equals(&quot;-&quot;) ? &quot;&quot; : String.format(&quot; (%s)&quot;, currentOrder.getTableNumber()))" type="code"/>
             </Property>
           </Properties>
           <Constraints>
