@@ -5,6 +5,8 @@
 package frontend.admin;
 
 import backend.entity.Admin;
+import frontend.home_page.HomePage;
+import frontend.pop_up.SystemPopUp;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -90,9 +92,14 @@ public class MainPage extends javax.swing.JFrame {
         };
         backgroundPicture = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Food Court System");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cardLayoutContainer.setBackground(new Color(0, 0, 0, 0));
@@ -104,6 +111,45 @@ public class MainPage extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+
+        // Show message to confirm logout
+        SystemPopUp logoutConfirmation = new SystemPopUp(
+                currentFrame,
+                "Logout from System",
+                "Are you sure you wish to logout from the system?",
+                new String[]{"No", "Yes"}
+        );
+        logoutConfirmation.setVisible(true);
+        
+        // Get the status of the notification
+        int status = logoutConfirmation.getStatus();
+        
+        // If "Yes" is chosen
+        if (status == 1) {
+            
+            // Display a message to indicate that logout is successful
+            SystemPopUp successLogout = new SystemPopUp(
+                currentFrame,
+                "Logout Success",
+                "Thank you for using the system!",
+                new String[]{"OK"}
+            );
+            successLogout.setVisible(true);
+            
+            // Redirect users to home page
+            HomePage homePage = new HomePage();
+            homePage.setVisible(true);
+            homePage.setLocationRelativeTo(this);
+            
+            // Dispose the parent frame
+            currentFrame.dispose();
+
+            // Set the runner instance to null (to avoid any errors when login again)
+            setAdmin(null);
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
