@@ -232,6 +232,11 @@ public class StallInformationForm extends javax.swing.JFrame {
                 stallNameFieldFocusLost(evt);
             }
         });
+        stallNameField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                stallNameFieldKeyTyped(evt);
+            }
+        });
         contentHolder.add(stallNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 420, 50));
 
         categoryTitle.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -491,6 +496,16 @@ public class StallInformationForm extends javax.swing.JFrame {
             stallNameField.setForeground(new Color(204, 204, 204));
         }
     }//GEN-LAST:event_stallNameFieldFocusLost
+
+    private void stallNameFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stallNameFieldKeyTyped
+
+        // If the key entered is ";"
+        if (evt.getKeyChar() == ';') {
+            
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_stallNameFieldKeyTyped
 
     /**
      * @param args the command line arguments
