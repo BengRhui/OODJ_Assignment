@@ -201,6 +201,8 @@ public class StallDetailsPanel extends javax.swing.JPanel {
         stallNameField.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         stallNameField.setRows(1);
         stallNameField.setText(currentStall.getStallName());
+        stallNameField.setCaretColor(new java.awt.Color(255, 251, 233));
+        stallNameField.setCaretPosition(0);
         stallNameScrollPane.setViewportView(stallNameField);
 
         add(stallNameScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 760, 60));
