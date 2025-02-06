@@ -16,6 +16,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.swing.BorderFactory;
@@ -341,6 +342,14 @@ public class CartPopUp extends javax.swing.JFrame {
                 additionalNotesFieldFocusLost(evt);
             }
         });
+        additionalNotesField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                additionalNotesFieldKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                additionalNotesFieldKeyTyped(evt);
+            }
+        });
         additionalNotesScrollPane.setViewportView(additionalNotesField);
 
         jPanel1.add(additionalNotesScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 230, 310, 230));
@@ -590,6 +599,26 @@ public class CartPopUp extends javax.swing.JFrame {
             additionalNotesField.setForeground(new Color(204, 204, 204));
         }
     }//GEN-LAST:event_additionalNotesFieldFocusLost
+
+    private void additionalNotesFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_additionalNotesFieldKeyTyped
+
+        // If the key entered is ";"
+        if (evt.getKeyChar() == ';') {
+            
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_additionalNotesFieldKeyTyped
+
+    private void additionalNotesFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_additionalNotesFieldKeyPressed
+
+        // If enter key is pressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_additionalNotesFieldKeyPressed
 
     /**
      * @param args the command line arguments

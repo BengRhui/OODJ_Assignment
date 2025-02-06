@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
@@ -304,6 +305,11 @@ public class ProvideOrderFeedbackFrame extends javax.swing.JFrame {
                 titleFieldFocusLost(evt);
             }
         });
+        titleField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                titleFieldKeyTyped(evt);
+            }
+        });
         backgroundPanel.add(titleField, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, 790, 50));
 
         descriptionLabel.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -326,6 +332,14 @@ public class ProvideOrderFeedbackFrame extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 descriptionFieldFocusLost(evt);
+            }
+        });
+        descriptionField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                descriptionFieldKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                descriptionFieldKeyTyped(evt);
             }
         });
         descriptionScrollPane.setViewportView(descriptionField);
@@ -804,6 +818,36 @@ public class ProvideOrderFeedbackFrame extends javax.swing.JFrame {
             numberErrorMessage.setVisible(true);
         }
     }//GEN-LAST:event_submitButtonActionPerformed
+
+    private void titleFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_titleFieldKeyTyped
+
+        // If ';' is pressed
+        if (evt.getKeyChar() == ';') {
+        
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_titleFieldKeyTyped
+
+    private void descriptionFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descriptionFieldKeyPressed
+
+        // If enter key is pressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_descriptionFieldKeyPressed
+
+    private void descriptionFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descriptionFieldKeyTyped
+
+        // If ';' is pressed
+        if (evt.getKeyChar() == ';') {
+        
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_descriptionFieldKeyTyped
 
     /**
      * @param args the command line arguments

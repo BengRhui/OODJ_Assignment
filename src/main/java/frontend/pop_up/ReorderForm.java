@@ -11,6 +11,7 @@ import frontend.customer.MainPage;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javax.swing.BorderFactory;
@@ -157,6 +158,14 @@ public class ReorderForm extends javax.swing.JDialog {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 additionalNotesFieldFocusLost(evt);
+            }
+        });
+        additionalNotesField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                additionalNotesFieldKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                additionalNotesFieldKeyTyped(evt);
             }
         });
         additonalNotesScrollPane.setViewportView(additionalNotesField);
@@ -395,6 +404,26 @@ public class ReorderForm extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_confirmButtonActionPerformed
+
+    private void additionalNotesFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_additionalNotesFieldKeyPressed
+
+        // If enter key is pressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_additionalNotesFieldKeyPressed
+
+    private void additionalNotesFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_additionalNotesFieldKeyTyped
+
+        // If ';' is pressed
+        if (evt.getKeyChar() == ';') {
+        
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_additionalNotesFieldKeyTyped
 
     /**
      * @param args the command line arguments

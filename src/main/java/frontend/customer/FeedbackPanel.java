@@ -9,6 +9,7 @@ import frontend.pop_up.SystemPopUp;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.Box;
 import javax.swing.JLabel;
@@ -136,6 +137,11 @@ public class FeedbackPanel extends javax.swing.JPanel {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 titleFieldFocusLost(evt);
+            }
+        });
+        titleField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                titleFieldKeyTyped(evt);
             }
         });
         add(titleField, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 340, 50));
@@ -288,6 +294,14 @@ public class FeedbackPanel extends javax.swing.JPanel {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 descriptionFieldFocusLost(evt);
+            }
+        });
+        descriptionField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                descriptionFieldKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                descriptionFieldKeyTyped(evt);
             }
         });
         descriptionScrollPane.setViewportView(descriptionField);
@@ -681,6 +695,36 @@ public class FeedbackPanel extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_submitButtonActionPerformed
+
+    private void titleFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_titleFieldKeyTyped
+
+        // If ';' is pressed
+        if (evt.getKeyChar() == ';') {
+        
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_titleFieldKeyTyped
+
+    private void descriptionFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descriptionFieldKeyPressed
+
+        // If enter key is pressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_descriptionFieldKeyPressed
+
+    private void descriptionFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descriptionFieldKeyTyped
+
+        // If ';' is pressed
+        if (evt.getKeyChar() == ';') {
+        
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_descriptionFieldKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

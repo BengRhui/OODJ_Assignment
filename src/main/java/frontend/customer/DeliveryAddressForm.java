@@ -10,6 +10,7 @@ import frontend.pop_up.SystemPopUp;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
@@ -121,6 +122,11 @@ public class DeliveryAddressForm extends javax.swing.JFrame {
                 addressLineOneFieldFocusLost(evt);
             }
         });
+        addressLineOneField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                addressLineOneFieldKeyTyped(evt);
+            }
+        });
         jPanel1.add(addressLineOneField, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 380, 50));
 
         addressLineTwoField.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -133,6 +139,11 @@ public class DeliveryAddressForm extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 addressLineTwoFieldFocusLost(evt);
+            }
+        });
+        addressLineTwoField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                addressLineTwoFieldKeyTyped(evt);
             }
         });
         jPanel1.add(addressLineTwoField, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 380, 50));
@@ -149,6 +160,11 @@ public class DeliveryAddressForm extends javax.swing.JFrame {
                 postcodeFieldFocusLost(evt);
             }
         });
+        postcodeField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                postcodeFieldKeyTyped(evt);
+            }
+        });
         jPanel1.add(postcodeField, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 120, 50));
 
         cityField.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -161,6 +177,11 @@ public class DeliveryAddressForm extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 cityFieldFocusLost(evt);
+            }
+        });
+        cityField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cityFieldKeyTyped(evt);
             }
         });
         jPanel1.add(cityField, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, 250, 50));
@@ -218,6 +239,14 @@ public class DeliveryAddressForm extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 deliveryNoteFieldFocusLost(evt);
+            }
+        });
+        deliveryNoteField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                deliveryNoteFieldKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                deliveryNoteFieldKeyTyped(evt);
             }
         });
         deliveryNoteScrollPane.setViewportView(deliveryNoteField);
@@ -484,6 +513,66 @@ public class DeliveryAddressForm extends javax.swing.JFrame {
             errorMessage.setVisible(true);
         }
     }//GEN-LAST:event_confirmButtonMouseClicked
+
+    private void addressLineOneFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_addressLineOneFieldKeyTyped
+
+        // If ';' is pressed
+        if (evt.getKeyChar() == ';') {
+        
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_addressLineOneFieldKeyTyped
+
+    private void addressLineTwoFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_addressLineTwoFieldKeyTyped
+
+        // If ';' is pressed
+        if (evt.getKeyChar() == ';') {
+        
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_addressLineTwoFieldKeyTyped
+
+    private void postcodeFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_postcodeFieldKeyTyped
+
+        // If ';' is pressed
+        if (evt.getKeyChar() == ';') {
+        
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_postcodeFieldKeyTyped
+
+    private void cityFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cityFieldKeyTyped
+
+        // If ';' is pressed
+        if (evt.getKeyChar() == ';') {
+        
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_cityFieldKeyTyped
+
+    private void deliveryNoteFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_deliveryNoteFieldKeyTyped
+
+        // If ';' is pressed
+        if (evt.getKeyChar() == ';') {
+        
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_deliveryNoteFieldKeyTyped
+
+    private void deliveryNoteFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_deliveryNoteFieldKeyPressed
+
+        // If enter key is pressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_deliveryNoteFieldKeyPressed
 
     /**
      * @param args the command line arguments
