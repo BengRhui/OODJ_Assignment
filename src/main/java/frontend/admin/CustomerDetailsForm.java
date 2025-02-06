@@ -595,6 +595,9 @@ public class CustomerDetailsForm extends javax.swing.JFrame {
             // Refresh the panel
             UserListPanel.updatePanel();
             
+            // Refresh the top up page for new customers
+            CustomerCreditPanel.updatePanel();
+            
             // Dispose the current form
             dispose();
             
