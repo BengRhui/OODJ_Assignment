@@ -83,7 +83,8 @@ public class FeedbackFilterPopUp extends javax.swing.JDialog {
         cancelButton = new javax.swing.JButton();
         confirmButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Timeframe Selection");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         backgroundPanel.setBackground(new java.awt.Color(255, 251, 233));
@@ -101,24 +102,28 @@ public class FeedbackFilterPopUp extends javax.swing.JDialog {
         buttonGroup.add(latestToOldestButton);
         latestToOldestButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         latestToOldestButton.setText(" Latest to Oldest");
+        latestToOldestButton.setFocusPainted(false);
         backgroundPanel.add(latestToOldestButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, -1));
 
         oldestToLatestButton.setBackground(new java.awt.Color(255, 251, 233));
         buttonGroup.add(oldestToLatestButton);
         oldestToLatestButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         oldestToLatestButton.setText(" Oldest to Latest");
+        oldestToLatestButton.setFocusPainted(false);
         backgroundPanel.add(oldestToLatestButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
 
         highestRatingToLowestButton.setBackground(new java.awt.Color(255, 251, 233));
         buttonGroup.add(highestRatingToLowestButton);
         highestRatingToLowestButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         highestRatingToLowestButton.setText(" Highest Rating to Lowest");
+        highestRatingToLowestButton.setFocusPainted(false);
         backgroundPanel.add(highestRatingToLowestButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, -1, -1));
 
         lowestRatingToHighestButton.setBackground(new java.awt.Color(255, 251, 233));
         buttonGroup.add(lowestRatingToHighestButton);
         lowestRatingToHighestButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lowestRatingToHighestButton.setText(" Lowest Rating to Highest");
+        lowestRatingToHighestButton.setFocusPainted(false);
         backgroundPanel.add(lowestRatingToHighestButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, -1, -1));
 
         cancelButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N

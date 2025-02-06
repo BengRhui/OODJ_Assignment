@@ -79,7 +79,8 @@ public class TimeFramePopUp extends javax.swing.JDialog {
         cancelButton = new javax.swing.JButton();
         confirmButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Timeframe Filter");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         backgroundPanel.setBackground(new java.awt.Color(255, 251, 233));
@@ -97,24 +98,28 @@ public class TimeFramePopUp extends javax.swing.JDialog {
         buttonGroup.add(dailyButton);
         dailyButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         dailyButton.setText(" Daily");
+        dailyButton.setFocusPainted(false);
         backgroundPanel.add(dailyButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, -1));
 
         monthlyButton.setBackground(new java.awt.Color(255, 251, 233));
         buttonGroup.add(monthlyButton);
         monthlyButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         monthlyButton.setText(" Monthly");
+        monthlyButton.setFocusPainted(false);
         backgroundPanel.add(monthlyButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
 
         quarterlyButton.setBackground(new java.awt.Color(255, 251, 233));
         buttonGroup.add(quarterlyButton);
         quarterlyButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         quarterlyButton.setText(" Quarterly");
+        quarterlyButton.setFocusPainted(false);
         backgroundPanel.add(quarterlyButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, -1, -1));
 
         yearlyButton.setBackground(new java.awt.Color(255, 251, 233));
         buttonGroup.add(yearlyButton);
         yearlyButton.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         yearlyButton.setText(" Yearly");
+        yearlyButton.setFocusPainted(false);
         backgroundPanel.add(yearlyButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, -1, -1));
 
         cancelButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N

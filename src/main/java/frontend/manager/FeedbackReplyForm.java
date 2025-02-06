@@ -56,7 +56,8 @@ public class FeedbackReplyForm extends javax.swing.JFrame {
         cancelButton = new javax.swing.JButton();
         submitButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Feedback Details");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         backgroundPanel.setBackground(new java.awt.Color(255, 251, 233));

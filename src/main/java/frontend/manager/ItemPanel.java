@@ -96,7 +96,8 @@ public class ItemPanel extends javax.swing.JFrame {
         itemPanelScrollPane = new javax.swing.JScrollPane();
         itemPanel = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Vendor Item Listing");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         backgroundPanel.setBackground(new java.awt.Color(255, 251, 233));
