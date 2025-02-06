@@ -23,7 +23,7 @@ public class MainPage extends javax.swing.JFrame {
     private static String currentCard;
     
     /**
-     * Creates new form RunnerMainPage
+     * Creates new form ManagerMainPage
      */
     public MainPage() {
 

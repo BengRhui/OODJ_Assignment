@@ -33,10 +33,7 @@ public class MainPage extends javax.swing.JFrame {
      * Creates new form CustomerMainPage
      */
     public MainPage() {
-        
-        // A temporary customer object for testing purpose (should be deleted later)
-        currentCustomer = Customer.getCustomerList().getFirst();
-        
+
         // Render GUI components
         initComponents();
         

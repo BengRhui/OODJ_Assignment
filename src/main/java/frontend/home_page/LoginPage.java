@@ -295,7 +295,7 @@ public class LoginPage extends javax.swing.JFrame {
 
         // Retrieve the current user from the email and password
         User currentUser = User.getUser(userEmail, userPassword);
-
+        
         // Check if the user is not null
         if (currentUser != null) {
             
@@ -304,36 +304,36 @@ public class LoginPage extends javax.swing.JFrame {
                 
                 // If the user is an admin
                 case Admin admin -> {
+                                
+                    // Set the admin
+                    frontend.admin.MainPage.setAdmin(admin);
                     
                     // Create a new admin page
                     frontend.admin.MainPage adminPage = new frontend.admin.MainPage();
                     adminPage.setVisible(true);
                     adminPage.setLocationRelativeTo(this);
-                    
-                    // Set the admin
-                    frontend.admin.MainPage.setAdmin(admin);
                 }
                 
                 case Customer customer -> {
+                    
+                    // Set the customer
+                    frontend.customer.MainPage.setCustomer(customer);
                     
                     // Create a new customer page
                     frontend.customer.MainPage customerPage = new frontend.customer.MainPage();
                     customerPage.setVisible(true);
                     customerPage.setLocationRelativeTo(this);
-                    
-                    // Set the admin
-                    frontend.customer.MainPage.setCustomer(customer);
                 }
                 
                 case DeliveryRunner runner -> {
+                    
+                    // Set the runner to the new page
+                    frontend.runner.MainPage.setRunner(runner);
                     
                     // Create a new runner page
                     frontend.runner.MainPage runnerPage = new frontend.runner.MainPage();
                     runnerPage.setVisible(true);
                     runnerPage.setLocationRelativeTo(this);
-                    
-                    // Set the runner to the new page
-                    frontend.runner.MainPage.setRunner(runner);
                 }
                 
                 case Manager manager -> {
@@ -346,13 +346,13 @@ public class LoginPage extends javax.swing.JFrame {
                 
                 case Vendor vendor -> {
                     
+                    // Set the vendor to the new vendor page
+                    frontend.vendor.MainPage.setVendor(vendor);
+                    
                     // Create a new vendor page
                     frontend.vendor.MainPage vendorPage = new frontend.vendor.MainPage();
                     vendorPage.setVisible(true);
                     vendorPage.setLocationRelativeTo(this);
-                    
-                    // Set the vendor to the new vendor page
-                    frontend.vendor.MainPage.setVendor(vendor);
                 }
                 
                 default -> {

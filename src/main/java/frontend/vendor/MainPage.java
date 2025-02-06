@@ -41,8 +41,7 @@ public class MainPage extends javax.swing.JFrame {
         // Set the current frame
         currentFrame = this;
         
-        // A temporary variable for development purpose
-        currentVendor = new Vendor("V001", "vendor@mail.com", "Mno@3456", "Muhammad Abdul Ali bin Ahmad Ghazali", new Stall("S001", "Big Fish and Chips Western", new Stall.StallCategories[]{Stall.StallCategories.LOCAL, Stall.StallCategories.WESTERN, Stall.StallCategories.HALAL}));
+        // Render GUI components
         initComponents();
         
         // Add cards into the current frame

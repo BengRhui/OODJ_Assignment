@@ -35,8 +35,7 @@ public class MainPage extends javax.swing.JFrame {
         // Set the current frame
         currentFrame = this;
         
-        // A temporary variable for development purpose
-        currentRunner = new DeliveryRunner("R001", "abc@123.com", "Abcd@1234", "Jun Hong", "012-3456779");
+        // Render GUI components
         initComponents();
         
         // Get the order that is associated with the runner currently (only one)
