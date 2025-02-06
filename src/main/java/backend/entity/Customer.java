@@ -396,7 +396,7 @@ public class Customer extends User {
         // Create notification to inform customer about top up
         boolean createNotification = CustomerNotification.createNewNotification(
                 "E-Wallet Top Up",
-                "Thank you for paying using " + wayToPay + ". RM" + topUpAmount + " has been successfully topped up to your e-wallet.",
+                "Thank you for paying using " + wayToPay + ". RM" + String.format("%.2f", topUpAmount) + " has been successfully topped up to your e-wallet.",
                 this
         );
         if (!createNotification) return -2;
