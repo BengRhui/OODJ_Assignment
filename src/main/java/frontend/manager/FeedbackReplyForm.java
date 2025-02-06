@@ -7,6 +7,7 @@ package frontend.manager;
 import backend.entity.Feedback;
 import frontend.pop_up.SystemPopUp;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -147,6 +148,14 @@ public class FeedbackReplyForm extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 responseFieldFocusLost(evt);
+            }
+        });
+        responseField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                responseFieldKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                responseFieldKeyTyped(evt);
             }
         });
         responseScrollPane.setViewportView(responseField);
@@ -320,6 +329,26 @@ public class FeedbackReplyForm extends javax.swing.JFrame {
             responseField.setForeground(new Color(204, 204, 204));
         }
     }//GEN-LAST:event_responseFieldFocusLost
+
+    private void responseFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_responseFieldKeyPressed
+
+        // If enter key is pressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_responseFieldKeyPressed
+
+    private void responseFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_responseFieldKeyTyped
+
+        // If ';' is pressed
+        if (evt.getKeyChar() == ';') {
+        
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_responseFieldKeyTyped
 
     /**
      * @param args the command line arguments
