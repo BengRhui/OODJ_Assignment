@@ -48,6 +48,7 @@ public class FeedbackPanel extends javax.swing.JPanel {
             
             // Generate a label to panel
             JPanel emptyPanel = new JPanel(null);
+            emptyPanel.setBackground(new Color(255, 251, 233));
             
             // Add a label to indicate that no order is available for vendor
             JLabel emptyLabel = new JLabel("No stall available for the current category.");
