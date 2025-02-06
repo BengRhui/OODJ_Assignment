@@ -7,6 +7,7 @@ import backend.utility.Utility;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Class {@code FeedbackFileIO} contains the methods to read and write feedback file.
@@ -82,6 +83,9 @@ public class FeedbackFileIO extends FileIO {
 
         // Get a list of feedback objects
         ArrayList<Feedback> feedbackList = Feedback.getFeedbackList();
+
+        // Sort array based on ID
+        feedbackList.sort(Comparator.comparing(Feedback::getFeedbackID));
 
         // Create a list to store the information to be written to file
         ArrayList<String[]> informationToFile = new ArrayList<>();

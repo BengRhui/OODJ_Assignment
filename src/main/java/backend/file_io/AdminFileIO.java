@@ -1,8 +1,10 @@
 package backend.file_io;
 
 import backend.entity.Admin;
+import backend.entity.User;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Class {@code AdminFileIO} consists of methods to read and write files related to admin users.
@@ -70,6 +72,9 @@ public class AdminFileIO extends UserFileIO {
 
         // Retrieve the overall admin list
         ArrayList<Admin> adminList = Admin.getAdminList();
+
+        // Sort admin list
+        adminList.sort(Comparator.comparing(User::getUserID));
 
         // Create a local variable to store admin information after converted to string arrays
         ArrayList<String[]> informationArray = new ArrayList<>();

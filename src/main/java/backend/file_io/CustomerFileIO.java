@@ -2,8 +2,10 @@ package backend.file_io;
 
 import backend.entity.Address;
 import backend.entity.Customer;
+import backend.entity.User;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Class {@code CustomerFileIO} contains the methods used to read and write customer information file.
@@ -80,6 +82,9 @@ public class CustomerFileIO extends UserFileIO {
 
         // Get all customer objects
         ArrayList<Customer> customerList = Customer.getCustomerList();
+
+        // Sort customer list
+        customerList.sort(Comparator.comparing(User::getUserID));
 
         // Set a local variable to store all customer information after converted to string arrays
         ArrayList<String[]> allInformation = new ArrayList<>();

@@ -3,6 +3,7 @@ package backend.file_io;
 import backend.entity.Manager;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Class {@code ManagerFileIO} contains the methods to read and write to manager file.
@@ -68,6 +69,9 @@ public class ManagerFileIO extends UserFileIO {
 
         // Get the list of manager objects
         ArrayList<Manager> managerList = Manager.getManagerList();
+
+        // Sort list based on ID
+        managerList.sort(Comparator.comparing(Manager::getUserID));
 
         // Declare a local variable to store the strings to be written to text file
         ArrayList<String[]> information = new ArrayList<>();

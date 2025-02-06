@@ -4,6 +4,7 @@ import backend.entity.Stall;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * Class {@code StallFileIO} contains methods to read and write information regarding stall.
@@ -83,6 +84,9 @@ public class StallFileIO extends FileIO {
 
         // Get all stall objects
         ArrayList<Stall> stallList = Stall.getStallList();
+
+        // Sort stall based on ID
+        stallList.sort(Comparator.comparing(Stall::getStallID));
 
         // Create a local variable to store information to be written to text file
         ArrayList<String[]> informationToFile = new ArrayList<>();

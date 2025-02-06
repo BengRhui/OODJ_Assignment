@@ -4,6 +4,7 @@ import backend.entity.Item;
 import backend.entity.Stall;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -71,6 +72,9 @@ public class ItemFileIO extends FileIO {
 
         // Retrieve the list of all item objects
         ArrayList<Item> itemList = Item.getItemList();
+
+        // Sort the item based on ID
+        itemList.sort(Comparator.comparing(Item::getItemID));
 
         // Create a list to store the information to be written to text file
         ArrayList<String[]> informationToFile = new ArrayList<>();

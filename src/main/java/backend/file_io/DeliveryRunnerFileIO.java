@@ -1,8 +1,10 @@
 package backend.file_io;
 
 import backend.entity.DeliveryRunner;
+import backend.entity.User;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Class {@code DeliveryRunnerFileIO} contains the methods to read and write delivery runner files
@@ -72,6 +74,9 @@ public class DeliveryRunnerFileIO extends UserFileIO {
 
         // Get the list of delivery runners
         ArrayList<DeliveryRunner> runnerList = DeliveryRunner.getDeliveryRunnerList();
+
+        // Sort customer list
+        runnerList.sort(Comparator.comparing(User::getUserID));
 
         // Instantiate a local variable to store the data to be written to file
         ArrayList<String[]> information = new ArrayList<>();

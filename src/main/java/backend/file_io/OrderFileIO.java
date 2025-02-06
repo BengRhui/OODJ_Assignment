@@ -5,6 +5,7 @@ import backend.utility.Utility;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -88,6 +89,9 @@ public class OrderFileIO extends FileIO {
 
         // Retrieve the list of all item objects
         ArrayList<Order> orderList = Order.getOrderList();
+
+        // Sort order based on ID
+        orderList.sort(Comparator.comparing(Order::getOrderID));
 
         // Create a list to store the information to be written to text file
         ArrayList<String[]> informationToFile = new ArrayList<>();
