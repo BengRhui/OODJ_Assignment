@@ -11,6 +11,7 @@ import frontend.vendor.MainPage;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -153,6 +154,11 @@ public class HandleItemPopUp extends javax.swing.JFrame {
                 nameInputFocusLost(evt);
             }
         });
+        nameInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nameInputKeyTyped(evt);
+            }
+        });
         backgroundPanel.add(nameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 400, 50));
 
         priceInput.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -167,6 +173,11 @@ public class HandleItemPopUp extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 priceInputFocusLost(evt);
+            }
+        });
+        priceInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                priceInputKeyTyped(evt);
             }
         });
         backgroundPanel.add(priceInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, 150, 50));
@@ -233,6 +244,14 @@ public class HandleItemPopUp extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 descriptionInputFocusLost(evt);
+            }
+        });
+        descriptionInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                descriptionInputKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                descriptionInputKeyTyped(evt);
             }
         });
         descriptionScrollPane.setViewportView(descriptionInput);
@@ -602,6 +621,46 @@ public class HandleItemPopUp extends javax.swing.JFrame {
             numberError.setVisible(true);
         }
     }//GEN-LAST:event_confirmButtonActionPerformed
+
+    private void nameInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameInputKeyTyped
+
+        // If ';' is pressed
+        if (evt.getKeyChar() == ';') {
+        
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_nameInputKeyTyped
+
+    private void priceInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_priceInputKeyTyped
+
+        // If ';' is pressed
+        if (evt.getKeyChar() == ';') {
+        
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_priceInputKeyTyped
+
+    private void descriptionInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descriptionInputKeyPressed
+
+        // If enter key is pressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_descriptionInputKeyPressed
+
+    private void descriptionInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descriptionInputKeyTyped
+
+        // If ';' is pressed
+        if (evt.getKeyChar() == ';') {
+        
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_descriptionInputKeyTyped
 
     /**
      * @param args the command line arguments
