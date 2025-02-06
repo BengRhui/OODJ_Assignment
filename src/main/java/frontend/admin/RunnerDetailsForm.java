@@ -141,6 +141,11 @@ public class RunnerDetailsForm extends javax.swing.JFrame {
                 runnerNameFieldFocusLost(evt);
             }
         });
+        runnerNameField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                runnerNameFieldKeyTyped(evt);
+            }
+        });
         jPanel1.add(runnerNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, 450, 50));
 
         contactNumberLabel.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
@@ -159,6 +164,11 @@ public class RunnerDetailsForm extends javax.swing.JFrame {
                 contactNumberFieldFocusLost(evt);
             }
         });
+        contactNumberField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                contactNumberFieldKeyTyped(evt);
+            }
+        });
         jPanel1.add(contactNumberField, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 430, 450, 50));
 
         emailLabel.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
@@ -175,6 +185,11 @@ public class RunnerDetailsForm extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 emailFieldFocusLost(evt);
+            }
+        });
+        emailField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                emailFieldKeyTyped(evt);
             }
         });
         jPanel1.add(emailField, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 190, 580, 50));
@@ -196,6 +211,11 @@ public class RunnerDetailsForm extends javax.swing.JFrame {
                 passwordFieldFocusLost(evt);
             }
         });
+        passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                passwordFieldKeyTyped(evt);
+            }
+        });
         jPanel1.add(passwordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 310, 580, 50));
 
         confirmPasswordField.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -209,6 +229,11 @@ public class RunnerDetailsForm extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 confirmPasswordFieldFocusLost(evt);
+            }
+        });
+        confirmPasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                confirmPasswordFieldKeyTyped(evt);
             }
         });
         jPanel1.add(confirmPasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 430, 580, 50));
@@ -558,6 +583,56 @@ public class RunnerDetailsForm extends javax.swing.JFrame {
             confirmPasswordField.setEchoChar((char) 0);
         }
     }//GEN-LAST:event_confirmPasswordFieldFocusLost
+
+    private void runnerNameFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_runnerNameFieldKeyTyped
+
+        // If the key entered is ";"
+        if (evt.getKeyChar() == ';') {
+            
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_runnerNameFieldKeyTyped
+
+    private void contactNumberFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contactNumberFieldKeyTyped
+
+        // If the key entered is ";"
+        if (evt.getKeyChar() == ';') {
+            
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_contactNumberFieldKeyTyped
+
+    private void emailFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailFieldKeyTyped
+
+        // If the key entered is ";"
+        if (evt.getKeyChar() == ';') {
+            
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_emailFieldKeyTyped
+
+    private void passwordFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyTyped
+
+        // If the key entered is ";"
+        if (evt.getKeyChar() == ';') {
+            
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_passwordFieldKeyTyped
+
+    private void confirmPasswordFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_confirmPasswordFieldKeyTyped
+
+        // If the key entered is ";"
+        if (evt.getKeyChar() == ';') {
+            
+            // Remove it
+            evt.consume();
+        }
+    }//GEN-LAST:event_confirmPasswordFieldKeyTyped
 
     /**
      * @param args the command line arguments
