@@ -1,8 +1,57 @@
 NC001; C001 ; 04/02/2025 23:02:49 ; Unread    ; Order Accepted by Runner                          ; Your order ORD00001 is accepted by runner Muhammad Nabil Naim bin Zainal Abidin. Please give us a moment for vendors to accept this order.
 NC002; C001 ; 04/02/2025 23:05:24 ; Unread    ; E-Wallet Top Up                                   ; Thank you for paying using Cash. RM200.0 has been successfully topped up to your e-wallet.          
-NC003; C002 ; 06/02/2025 19:50:08 ; Unread    ; E-Wallet Top Up                                   ; Thank you for paying using QR Payment. RM945.30 has been successfully topped up to your e-wallet.   
+NC003; C002 ; 06/02/2025 19:50:08 ; Read      ; E-Wallet Top Up                                   ; Thank you for paying using QR Payment. RM945.30 has been successfully topped up to your e-wallet.   
 NC004; C003 ; 06/02/2025 19:50:27 ; Unread    ; E-Wallet Top Up                                   ; Thank you for paying using Debit / Credit Card. RM0.10 has been successfully topped up to your e-wallet.
 NC005; C003 ; 06/02/2025 19:50:37 ; Unread    ; E-Wallet Top Up                                   ; Thank you for paying using Cash. RM666.00 has been successfully topped up to your e-wallet.         
+NC006; C002 ; 06/02/2025 20:55:07 ; Read      ; Order Placed Successfully                         ; Your order ORD00002 has been created successfully. An amount of RM22.00 is deducted from your wallet. Please wait for the vendor and runner (if applicable) to accept your order.
+NC007; C002 ; 06/02/2025 20:56:14 ; Read      ; Order Cancellation Successful                     ; Your order ORD00002 has been cancelled successfully. The order records can be found in the Order History page.
+NC008; C002 ; 06/02/2025 20:56:50 ; Read      ; Order Placed Successfully                         ; Your order ORD00003 has been created successfully. An amount of RM22.00 is deducted from your wallet. Please wait for the vendor and runner (if applicable) to accept your order.
+NC009; C002 ; 06/02/2025 20:58:00 ; Read      ; Your Order ORD00003 is Preparing                  ; Your order ORD00003 is now being prepared by our vendor.                                            
+NC010; C002 ; 06/02/2025 21:08:36 ; Read      ; Your Order is Ready!                              ; Your order ORD00003 is ready. Runner Mohamed Abu Backer will pick-up your order shortly.            
+NC011; C002 ; 06/02/2025 21:08:41 ; Read      ; Order Status Updated to Preparing                 ; Your order ORD00003 has been reverted to 'Preparing' status by the vendor. We will notify you once it's ready.
+NC012; C002 ; 06/02/2025 21:08:45 ; Read      ; Your Order is Ready!                              ; Your order ORD00003 is ready. Runner Mohamed Abu Backer will pick-up your order shortly.            
+NC013; C002 ; 06/02/2025 21:09:05 ; Read      ; Order Status Updated to Preparing                 ; Your order ORD00003 has been reverted to 'Preparing' status by the vendor. We will notify you once it's ready.
+NC014; C002 ; 06/02/2025 21:09:12 ; Read      ; Your Order is Ready!                              ; Your order ORD00003 is ready. Runner Mohamed Abu Backer will pick-up your order shortly.            
+NC015; C002 ; 06/02/2025 21:11:02 ; Read      ; Your Order is On its Way!                         ; Runner R001 is on his/her way to deliver your order ORD00003. Get ready to collect your meals in a while!
+NC016; C002 ; 06/02/2025 21:11:08 ; Read      ; Order Delivered!                                  ; Your order ORD00003 has been delivered. Enjoy your meal!                                            
+NC017; C002 ; 06/02/2025 21:13:46 ; Read      ; Order Placed Successfully                         ; Your order ORD00004 has been created successfully. An amount of RM22.00 is deducted from your wallet. Please wait for the vendor and runner (if applicable) to accept your order.
+NC018; C002 ; 06/02/2025 21:15:04 ; Read      ; Order Rejected by Vendor                          ; We're sorry to inform that your order ORD00004 has been rejected by the vendor. Please consider placing a new order.
+ND001; R002 ; 06/02/2025 20:55:07 ; Unread    ; New Order Available                               ; A new order with ID ORD00002 is available. You may return to the main menu to check the details.    
+ND002; R002 ; 06/02/2025 20:56:14 ; Unread    ; Order Cancelled by Customer                       ; The customer has cancelled the order ORD00002.                                                      
+ND003; R001 ; 06/02/2025 20:56:50 ; Unread    ; New Order Available                               ; A new order with ID ORD00003 is available. You may return to the main menu to check the details.    
+ND004; R001 ; 06/02/2025 20:58:00 ; Unread    ; Order ORD00003 Preparing                          ; The order ORD00003 is now being prepared. Please be ready to pick up at stall S003.                 
+ND005; R001 ; 06/02/2025 21:08:36 ; Unread    ; Your Order is Ready!                              ; The order ORD00003 is ready at stall Stall ID: S003
+Stall Name: Chun Roll and Snacks
+Stall Categories: [Halal, Local, Chinese, Dessert]. Please proceed to the stall to collect it.
+ND006; R001 ; 06/02/2025 21:08:41 ; Unread    ; Order Status Updated to Preparing                 ; The status of order ORD00003 has been reverted to 'Preparing' by vendor.                            
+ND007; R001 ; 06/02/2025 21:08:45 ; Unread    ; Your Order is Ready!                              ; The order ORD00003 is ready at stall Stall ID: S003
+Stall Name: Chun Roll and Snacks
+Stall Categories: [Halal, Local, Chinese, Dessert]. Please proceed to the stall to collect it.
+ND008; R001 ; 06/02/2025 21:09:06 ; Unread    ; Order Status Updated to Preparing                 ; The status of order ORD00003 has been reverted to 'Preparing' by vendor.                            
+ND009; R001 ; 06/02/2025 21:09:12 ; Unread    ; Your Order is Ready!                              ; The order ORD00003 is ready at stall Stall ID: S003
+Stall Name: Chun Roll and Snacks
+Stall Categories: [Halal, Local, Chinese, Dessert]. Please proceed to the stall to collect it.
+ND010; R001 ; 06/02/2025 21:11:02 ; Unread    ; Delivery in Progress                              ; You have picked up order ORD00003. Please proceed to deliver it to customer in a safely manner.     
+ND011; R001 ; 06/02/2025 21:11:08 ; Unread    ; Order Completed                                   ; Runner R001 has successfully delivered the order ORD00003 to the customer.                          
 NV001; V001 ; 08/12/2024 01:10:03 ; Unread    ; Order Accepted                                    ; You have accepted order ORD001 (item: char kuey teow x 1)                                           
-NV002; V002 ; 06/02/2025 19:27:17 ; Unread    ; Personal Information Updated                      ; Your personal information has been updated.                                                         
+NV002; V002 ; 06/02/2025 19:27:17 ; Read      ; Personal Information Updated                      ; Your personal information has been updated.                                                         
 NV003; V003 ; 06/02/2025 19:29:03 ; Unread    ; Personal Information Updated                      ; Your personal information has been updated.                                                         
+NV004; V002 ; 06/02/2025 20:35:32 ; Read      ; Item updated successfully                         ; Details for item (I003) are updated successfully.                                                   
+NV005; V002 ; 06/02/2025 20:36:00 ; Read      ; Item updated successfully                         ; Details for item (I003) are updated successfully.                                                   
+NV006; V002 ; 06/02/2025 20:44:37 ; Read      ; Item updated successfully                         ; Details for item (I004) are updated successfully.                                                   
+NV007; V002 ; 06/02/2025 20:46:40 ; Read      ; Item updated successfully                         ; Details for item (I005) are updated successfully.                                                   
+NV008; V002 ; 06/02/2025 20:47:35 ; Read      ; Item updated successfully                         ; Details for item (I003) are updated successfully.                                                   
+NV009; V002 ; 06/02/2025 20:47:48 ; Read      ; Item updated successfully                         ; Details for item (I004) are updated successfully.                                                   
+NV010; V002 ; 06/02/2025 20:55:07 ; Unread    ; New Order Available                               ; A new order with ID ORD00002 is available. You may return to the main menu to check the details.    
+NV011; V002 ; 06/02/2025 20:56:14 ; Unread    ; Order Cancelled by Customer                       ; Order ORD00002 has been cancelled by the customer.                                                  
+NV012; V002 ; 06/02/2025 20:56:50 ; Unread    ; New Order Available                               ; A new order with ID ORD00003 is available. You may return to the main menu to check the details.    
+NV013; V002 ; 06/02/2025 20:58:00 ; Unread    ; Order ORD00003 is Preparing                       ; Order ORD00003 has been updated to preparing.                                                       
+NV014; V002 ; 06/02/2025 21:08:36 ; Unread    ; Order Marked as Ready                             ; You have marked the order ORD00003 as 'Ready for Pickup'.                                           
+NV015; V002 ; 06/02/2025 21:08:41 ; Unread    ; Order Status Updated to Preparing                 ; You have reverted the status of order ORD00003 to 'Preparing'. Please update the status again once the preparation is complete.
+NV016; V002 ; 06/02/2025 21:08:45 ; Unread    ; Order Marked as Ready                             ; You have marked the order ORD00003 as 'Ready for Pickup'.                                           
+NV017; V002 ; 06/02/2025 21:09:06 ; Unread    ; Order Status Updated to Preparing                 ; You have reverted the status of order ORD00003 to 'Preparing'. Please update the status again once the preparation is complete.
+NV018; V002 ; 06/02/2025 21:09:12 ; Unread    ; Order Marked as Ready                             ; You have marked the order ORD00003 as 'Ready for Pickup'.                                           
+NV019; V002 ; 06/02/2025 21:11:02 ; Unread    ; Order collected by Runner                         ; The order ORD00003 is picked up by runner R001.                                                     
+NV020; V002 ; 06/02/2025 21:11:08 ; Unread    ; Delivery Completed                                ; You have successfully delivered the order ORD00003.                                                 
+NV021; V002 ; 06/02/2025 21:13:46 ; Unread    ; New Order Available                               ; A new order with ID ORD00004 is available. You may return to the main menu to check the details.    
+NV022; V002 ; 06/02/2025 21:15:04 ; Unread    ; Order Rejected                                    ; You have rejected the order ORD00004.                                                               

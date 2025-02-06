@@ -1,2 +1,4 @@
 I001 ; Delivery Fees                 ; null ; 2.0       ; Fees charged for delivery services                                                                                                                    
 I002 ; Char Kuey Teow                ; S001 ; 100.0     ; A local delicacy that everyone should try! Yellow noodles that are fried using black sauce will definitely savor your taste buds.                     
+I003 ; Spring Roll                   ; S003 ; 5.0       ; Affordable Snacks, not like Char Keuw Tiao next door. (5 pcs)                                                                                         
+I005 ; Spring Roll Pro Max           ; S003 ; 10.0      ; Spring rolls with MEATTTTTTTT (5 pcs)                                                                                                                 
