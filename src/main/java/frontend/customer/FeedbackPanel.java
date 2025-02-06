@@ -51,8 +51,8 @@ public class FeedbackPanel extends javax.swing.JPanel {
             emptyPanel.setBackground(new Color(255, 251, 233));
             
             // Add a label to indicate that no order is available for vendor
-            JLabel emptyLabel = new JLabel("No stall available for the current category.");
-            emptyLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+            JLabel emptyLabel = new JLabel("No feedback has been submitted for now.");
+            emptyLabel.setFont(new Font("Arial", Font.PLAIN, 20));
             emptyLabel.setBounds(0, 0, 500, 30);
             
             // Add the components

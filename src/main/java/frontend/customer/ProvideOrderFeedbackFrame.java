@@ -784,6 +784,9 @@ public class ProvideOrderFeedbackFrame extends javax.swing.JFrame {
                 
                 // Update e-wallet panel
                 EWalletPanel.refreshPanel();
+                
+                // Also update feedback panel
+                FeedbackPanel.updateFeedbackPanel();
 
                 // Dispose the current frame
                 dispose();
