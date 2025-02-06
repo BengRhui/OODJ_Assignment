@@ -84,7 +84,7 @@ public class UserOverviewPopUp extends javax.swing.JFrame {
                 // Update total order, earnings and overall ratings
                 totalCountField.setText(String.valueOf(vendor.getOrderCount(filterApplied)));
                 totalEarningsLabel.setText(String.format("RM%.2f", vendor.getTotalEarnings(filterApplied)));
-                overallRatingsLabel.setText(vendor.getOverallRatings(filterApplied) == -1.0 ? "-" : String.valueOf(vendor.getOverallRatings(filterApplied)));
+                overallRatingsLabel.setText(vendor.getOverallRatings(filterApplied) == -1.0 ? "-" : String.format("%.1f", vendor.getOverallRatings(filterApplied)));
             }
             
             // If delivery runner is involved
@@ -109,7 +109,7 @@ public class UserOverviewPopUp extends javax.swing.JFrame {
                 // Update total order, earnings and overall ratings
                 totalCountField.setText(String.valueOf(runner.getDeliveryCount(filterApplied)));
                 totalEarningsLabel.setText(String.format("RM%.2f", runner.getTipsAmount(filterApplied)));
-                overallRatingsLabel.setText(runner.getRatings(filterApplied) == -1.0 ? "-" : String.valueOf(runner.getRatings(filterApplied)));
+                overallRatingsLabel.setText(runner.getRatings(filterApplied) == -1.0 ? "-" : String.format("%.1f", runner.getRatings(filterApplied)));
             }
             
             // For any other users (should not happen but just included in case)
@@ -229,7 +229,7 @@ public class UserOverviewPopUp extends javax.swing.JFrame {
 
         overallRatingsLabel.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         overallRatingsLabel.setText("4.9");
-        overallRatingsPanel.add(overallRatingsLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 90, 60));
+        overallRatingsPanel.add(overallRatingsLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 260, 60));
 
         containerPanel.add(overallRatingsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 490, 420, 160));
 
