@@ -6,6 +6,7 @@ package frontend.pop_up;
 
 import backend.entity.Order;
 import backend.entity.Stall;
+import frontend.customer.HomePanel;
 import frontend.customer.MainPage;
 import java.awt.Color;
 import java.awt.Component;
@@ -66,7 +67,7 @@ public class ReorderForm extends javax.swing.JDialog {
         confirmButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         backgroundPanel.setBackground(new java.awt.Color(255, 251, 233));
@@ -145,7 +146,6 @@ public class ReorderForm extends javax.swing.JDialog {
 
         additonalNotesScrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        additionalNotesField.setBackground(new java.awt.Color(255, 255, 255));
         additionalNotesField.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         additionalNotesField.setForeground(new java.awt.Color(204, 204, 204));
         additionalNotesField.setRows(3);
@@ -173,6 +173,7 @@ public class ReorderForm extends javax.swing.JDialog {
         confirmButton.setText("Confirm");
         confirmButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         confirmButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        confirmButton.setFocusPainted(false);
         confirmButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 confirmButtonMouseEntered(evt);
@@ -192,6 +193,7 @@ public class ReorderForm extends javax.swing.JDialog {
         cancelButton.setText("Cancel");
         cancelButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         cancelButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cancelButton.setFocusPainted(false);
         cancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 cancelButtonMouseEntered(evt);
@@ -378,12 +380,15 @@ public class ReorderForm extends javax.swing.JDialog {
                             new String[]{"OK"}
                     );
                     successMessage.setVisible(true);
+                    
+                    // Refresh the order panel
+                    HomePanel.updateOrderPanel();
                 }
                 
                 // Set the error message for any errors taking place
                 case 0 -> errorMessageText.setText("Error: Empty cart. Please inspect code.");
-                case -1 -> errorMessageText.setText("Error: Insufficient wallent balance. Please top up first before proceeding.");
-                case -2 -> errorMessageText.setText("Error: Runner not available. Please try another dining method.");
+                case -1 -> errorMessageText.setText("Error: Insufficient wallent balance.");
+                case -2 -> errorMessageText.setText("Runner unavailable. Choose another method.");
                 
                 // For other errors (unable to generate notification or transaction history)
                 default -> errorMessageText.setText("Error: Unexpected error occurred. Please inspect code.");
