@@ -568,11 +568,11 @@ public class DeliveryDetailsPanel extends javax.swing.JPanel {
         deliveryTitlePanel.add(deliverIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 70, 70));
 
         storeNameLabel.setFont(new java.awt.Font("Arial", 1, 30)); // NOI18N
-        storeNameLabel.setText("Big Fish");
+        storeNameLabel.setText(currentOrder.getOrderedStall().getStallName());
         deliveryTitlePanel.add(storeNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, -1, -1));
 
         storeIDLabel.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        storeIDLabel.setText("Store ID: S001");
+        storeIDLabel.setText(String.format("Stall ID: %s", currentOrder.getOrderedStall().getStallID()));
         deliveryTitlePanel.add(storeIDLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, -1, -1));
 
         actionPanel.setBackground(new Color(0, 0, 0, 0));
