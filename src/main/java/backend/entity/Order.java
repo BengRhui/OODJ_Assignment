@@ -1194,9 +1194,9 @@ public class Order {
                 );
                 if (!vendorNotification) return -2;
 
-                // Return the money to customer
+                // Return the delivery fees to customer
                 double initialWallet = this.orderingCustomer.getEWalletAmount();
-                this.orderingCustomer.setEWalletAmount(initialWallet + this.orderPrice);
+                this.orderingCustomer.setEWalletAmount(initialWallet + Item.deliveryFees.getPrice());
             }
         }
 
