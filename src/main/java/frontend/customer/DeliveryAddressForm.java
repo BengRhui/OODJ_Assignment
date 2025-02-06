@@ -460,7 +460,7 @@ public class DeliveryAddressForm extends javax.swing.JFrame {
             // Create a message to indicate empty values
             SystemPopUp successMessage = new SystemPopUp(
                     this,
-                    "Modification Successul",
+                    "Modification Successful",
                     "You have successfully modified the delivery address and notes.",
                     new String[]{"OK"}
             );
