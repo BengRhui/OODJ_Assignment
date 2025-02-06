@@ -605,7 +605,7 @@ public class Customer extends User {
                 notesToVendor,
                 Utility.getTotalAmountForCart(cart),
                 LocalDateTime.now(),
-                Order.OrderStatus.WAITING_VENDOR,
+                diningType == Order.DiningType.DELIVERY ? Order.OrderStatus.WAITING_VENDOR_AND_RUNNER : Order.OrderStatus.WAITING_VENDOR,
                 Utility.convertItemMap(cart)
         );
 
