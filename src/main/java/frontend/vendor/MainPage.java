@@ -150,6 +150,7 @@ public class MainPage extends javax.swing.JFrame {
         setTitle("Food Court System");
         setMinimumSize(new java.awt.Dimension(1400, 800));
         setName("vendorMainFrame"); // NOI18N
+        setResizable(false);
         setSize(new java.awt.Dimension(1400, 800));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {

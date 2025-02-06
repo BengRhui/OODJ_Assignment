@@ -149,6 +149,7 @@ public class UserOverviewPopUp extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Performance Overview");
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         containerPanel.setBackground(new java.awt.Color(255, 251, 233));
