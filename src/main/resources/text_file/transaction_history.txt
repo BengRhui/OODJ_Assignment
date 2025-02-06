@@ -1,2 +1,4 @@
 TRANS0001 ; C001 ; 07/02/2025 00:58:19 ; 250.0     ; Cash In   ; Cash                
 TRANS0002 ; C002 ; 07/02/2025 00:58:24 ; 130.0     ; Cash In   ; QR Payment          
+TRANS0003 ; C001 ; 07/02/2025 01:11:10 ; 50.0      ; Cash Out  ; E-Wallet            
+TRANS0004 ; C001 ; 07/02/2025 01:13:13 ; 65.0      ; Cash Out  ; E-Wallet            
