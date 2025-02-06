@@ -100,7 +100,7 @@ public class User {
         }
 
         // Check if password contains special characters
-        boolean containsSpecialCharacters = password.matches(".*[!@#$%^&*(),.?\":{}|<>].*");
+        boolean containsSpecialCharacters = password.matches(".*[~!@#$%^&*()_+`\\-={}|\\[\\]\\\\':\"<>?,./].*");
 
         // Return true if all values are met
         return correctPasswordLength && containsAlphabets && containsDigits && containsSpecialCharacters;
