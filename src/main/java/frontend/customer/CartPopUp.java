@@ -517,10 +517,10 @@ public class CartPopUp extends javax.swing.JFrame {
         String additionalNotes = (additionalNotesField.getText().equals("Enter Notes Here") || additionalNotesField.getText().isBlank()) ? 
                 "-" : 
                 additionalNotesField.getText().strip();
-        
+                
         // Place the order
         int placeStatus = currentCustomer.placeOrder(currentStall, currentCustomer.getCart(), diningType, additionalNotes, currentTableNumber);
-        
+
         // If order is placed successfully
         if (placeStatus == 1) {
         
@@ -557,6 +557,7 @@ public class CartPopUp extends javax.swing.JFrame {
                 case -2 -> errorString = "Sorry, there is no available delivery runners now. Please change your dining method or try again later.";
                 case -3 -> errorString = "Notification failed to be created. Please inspect code.";
                 case -4 -> errorString = "Transaction history failed to be created. Please inspect code.";
+                case -5 -> errorString = "Dining method not chosen. Please select a dining method.";
                 
                 // Throw exception if status is invalid
                 default -> throw new IllegalStateException("Invalid error status. Please inspect code.");

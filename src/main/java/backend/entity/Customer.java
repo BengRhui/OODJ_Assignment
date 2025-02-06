@@ -563,15 +563,19 @@ public class Customer extends User {
      * {@code -1} if the amount is less than the vendor's e-wallet<br>
      * {@code -2} if runner is not available for delivery<br>
      * {@code -3} if notifications fail to be created<br>
-     * {@code -4} if transaction history fails to be created
+     * {@code -4} if transaction history fails to be created<br>
+     * {@code -5} if dining type is not provided
      */
     public int placeOrder(Stall stall, Map<String, Integer> cart, Order.DiningType diningType, String notesToVendor, String tableNumber) {
 
         // If the cart is empty, reject placing order
         if (cart.isEmpty() || (cart.size() == 1 && cart.containsKey(Item.deliveryFees.getItemID()))) return 0;
 
-        // If the wallet balance is less than the order amount, return false
+        // If the wallet balance is less than the order amount, return fail code
         if (Utility.getTotalAmountForCart(cart) > this.eWalletAmount) return -1;
+
+        // If dining type is null, return fail code
+        if (diningType == null) return -5;
 
         // Declare a variable to store runner involved (for delivery)
         DeliveryRunner runnerGenerated = null;
