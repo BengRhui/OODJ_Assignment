@@ -4,6 +4,7 @@ import backend.entity.Stall;
 import backend.entity.Vendor;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Class {@code VendorFileIO} contains methods to help read and write vendor files.
@@ -73,6 +74,9 @@ public class VendorFileIO extends UserFileIO {
 
         // Get all vendor objects
         ArrayList<Vendor> vendorList = Vendor.getVendorList();
+
+        // Sort vendor based on ID
+        vendorList.sort(Comparator.comparing(Vendor::getUserID));
 
         // Declare local variable to store text to be written to text file
         ArrayList<String[]> information = new ArrayList<>();
