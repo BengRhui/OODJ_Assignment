@@ -433,6 +433,9 @@ public class VendorDetailsForm extends javax.swing.JFrame {
             );
         }
         
+        // Refresh the panes
+        UserListPanel.updatePanel();
+        
         // Create an empty string to store error message
         String errorMessage = null;
         

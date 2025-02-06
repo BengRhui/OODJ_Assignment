@@ -52,16 +52,18 @@ public class StallListPanel extends javax.swing.JPanel {
         // If there is no user, 
         if (stallList.isEmpty()) {
         
-            // Set the layout of the panel to null
-            stallPanel.setLayout(null);
+            // Create a new panel and set layout to nukk
+            JPanel emptyPanel = new JPanel(null);
+            emptyPanel.setBackground(new Color(255, 251, 233));
             
             // Generate a empty label to indicate that no user exists
             JLabel emptyLabel = new JLabel("No stall exists in the system.");
             emptyLabel.setFont(new Font("Arial", Font.PLAIN, 24));
-            emptyLabel.setBounds(2, 0, 350, 30);
+            emptyLabel.setBounds(0, 0, 350, 30);
             
             // Add the label to the container
-            stallPanel.add(emptyLabel);
+            emptyPanel.add(emptyLabel);
+            stallPanel.add(emptyPanel);
             
         } else if (stallList.size() < 4) {
         
