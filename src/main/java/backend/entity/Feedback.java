@@ -2,6 +2,7 @@ package backend.entity;
 
 import backend.file_io.CustomerFileIO;
 import backend.file_io.FeedbackFileIO;
+import backend.file_io.OrderFileIO;
 import backend.notification.CustomerNotification;
 import backend.utility.Utility;
 
@@ -317,7 +318,8 @@ public class Feedback {
      * {@code -1} if the category and order does not match<br>
      * {@code -2} if the tips is invalid<br>
      * {@code -3} if the e-wallet amount is insufficient to pay for the tips<br>
-     * {@code -4} if transaction history cannot be created
+     * {@code -4} if transaction history cannot be created<br>
+     * {@code -5} if the order does not exist but the delivery tip is somehow provided
      */
     public static int customerProvideFeedback(
             Category category,
@@ -377,6 +379,15 @@ public class Feedback {
             );
             if (!createTransaction) return -4;
 
+            // If the order is empty, return error
+            if (order == null) {
+                return -5;
+
+            } else {
+
+                // Set the tips for runner
+                order.setTipsForRunner(tips);
+            }
         }
 
         // Add to list
@@ -384,6 +395,7 @@ public class Feedback {
 
         // Write to file
         FeedbackFileIO.writeFile();
+        OrderFileIO.writeFile();
         CustomerFileIO customerIO = new CustomerFileIO();
         customerIO.writeFile();
 
