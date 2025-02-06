@@ -105,6 +105,9 @@ public class StallInformationForm extends javax.swing.JFrame {
 
         } else {
             
+            // Declare a list to calculate size
+            ArrayList<JLabel> jLabelList = new ArrayList<>();
+            
             // Start to iterate through the categories
             for (StallCategories category : categoryList) {
 
@@ -164,12 +167,79 @@ public class StallInformationForm extends javax.swing.JFrame {
 
                 // Add the label to the panel
                 categoryPane.add(categoryLabel);
+                
+                // Add labels to list for panel size calculation
+                jLabelList.add(categoryLabel);
             }
+            
+            // Calculate panel size 
+            int rowsInvolved = getSpanningRowNum(jLabelList);
+            int panelWidth = 420;
+            int panelHeight = (rowsInvolved + 1) * 5 + jLabelList.getFirst().getPreferredSize().height * rowsInvolved;
+
+            System.out.println(panelHeight);
+            // Based on the calculations, set the sizes for the components
+            categoryPane.setPreferredSize(new Dimension(panelWidth, panelHeight));
+            categoryPane.setBounds(0, 0, panelWidth, panelHeight);
+            // foodOrderedBaseContainer.setPreferredSize(new Dimension(panelWidth, panelHeight));
         }
 
         // Refresh the pane after everything
         categoryPane.revalidate();
         categoryPane.repaint();
+    }
+    
+    /**
+     * This method helps to calculate the number of rows that the flow layout will span.
+     * @return The number of rows spanned
+     */
+    private static int getSpanningRowNum(ArrayList<JLabel> jLabelList) {
+
+        // Initialize the variables
+        int panelWidth = 420;
+        int marginWidth = 5;
+        int rowCount = 1;
+        int currentWidth = 0;
+
+        // Loop through each label
+        for (JLabel label : jLabelList) {
+
+            // Obtain the width of the label
+            int labelWidth = label.getPreferredSize().width;
+
+            // Check if the current label can fit into the current row
+            if (currentWidth + labelWidth > panelWidth) {
+
+                // If nope, increase the row count and reset the row width
+                currentWidth = labelWidth + 40;
+                rowCount++;
+
+                // Continue the loop (margin has been added: 20 + 20)
+                continue;
+
+            } else {
+
+                // If yes, add the width to current width
+                currentWidth += labelWidth;
+            }
+
+            // Now check if the margin can fit into the current row
+            if (currentWidth + marginWidth > panelWidth) {
+
+                // If nope, reset the row width and go to the next row
+                currentWidth = 20;
+                rowCount++;
+
+                // Continue the loop for the next label
+                continue;
+            }
+
+            // If yes, the margin is added to the row
+            currentWidth += marginWidth;
+        }
+
+        // Return the final number of rows
+        return rowCount;
     }
 
     /**
@@ -257,6 +327,8 @@ public class StallInformationForm extends javax.swing.JFrame {
 
         categoryScrollPane.setBackground(new java.awt.Color(255, 255, 255));
         categoryScrollPane.setBorder(null);
+        categoryScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        categoryScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         categoryPane.setBackground(new java.awt.Color(255, 251, 233));
         java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.LEFT);

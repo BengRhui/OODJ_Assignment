@@ -115,6 +115,7 @@ public class ResetPassword extends javax.swing.JFrame {
         resetPasswordButton.setForeground(new java.awt.Color(255, 255, 255));
         resetPasswordButton.setText(" Reset Password");
         resetPasswordButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        resetPasswordButton.setFocusPainted(false);
         resetPasswordButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 resetPasswordButtonMouseEntered(evt);
@@ -133,6 +134,7 @@ public class ResetPassword extends javax.swing.JFrame {
         closeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/cancel_icon.png"))); // NOI18N
         closeButton.setBorderPainted(false);
         closeButton.setContentAreaFilled(false);
+        closeButton.setFocusPainted(false);
         closeButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 closeButtonMouseEntered(evt);
