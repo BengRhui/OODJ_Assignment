@@ -1,3 +1,0 @@
-S001 ; Big Fish and Chips Western              ; Halal, Local, Western                             
-S002 ; Jackpot Hot Pot                         ; Non-Halal, Local, Chinese, Beverages              
-S003 ; Chun Roll and Snacks                    ; Halal, Local, Chinese, Dessert                    
