@@ -10,8 +10,11 @@ import frontend.pop_up.HandleItemPopUp;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -44,17 +47,39 @@ public class ItemListingPanel extends javax.swing.JPanel {
         // Retrieve the current list of items
         currentItemList = Item.getItemList(currentStall);
         
-        // Determine the size of the panel
-        int numOfRows = (int) Math.ceil(currentItemList.size() / 3.0);
-        int containerWidth = 3 * 400 + 2 * 25;
-        int containerHeight = (numOfRows - 1) * 10 + numOfRows * 400;
+        // If there is no items available
+        if (currentItemList.isEmpty()) {
         
-        // Set the size of the panel
-        itemDetailsContainer.setPreferredSize(new Dimension(containerWidth, containerHeight));
-        
-        for (Item item : currentItemList) {
-            ItemDetailsPanel itemPanel = new ItemDetailsPanel(item, true, true);
-            itemDetailsContainer.add(itemPanel);
+            // Create an empty panel to display text
+            JPanel emptyPanel = new JPanel(null);
+            emptyPanel.setBackground(new Color(255, 251, 233));
+            
+            // Create empty label containing the message
+            JLabel emptyLabel = new JLabel("No item available yet.");
+            emptyLabel.setBounds(0, 0, 500, 30);
+            emptyLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+            
+            // Add label to panel, and add panel to the container
+            emptyPanel.add(emptyLabel);
+            itemDetailsContainer.add(emptyPanel);
+            
+        } else {
+            
+            // Determine the size of the panel
+            int numOfRows = (int) Math.ceil(currentItemList.size() / 3.0);
+            int containerWidth = 3 * 400 + 2 * 25;
+            int containerHeight = (numOfRows - 1) * 10 + numOfRows * 400;
+
+            // Set the size of the panel
+            itemDetailsContainer.setPreferredSize(new Dimension(containerWidth, containerHeight));
+
+            // Loop through each item
+            for (Item item : currentItemList) {
+                
+                // Create the item panel for each item
+                ItemDetailsPanel itemPanel = new ItemDetailsPanel(item, true, true);
+                itemDetailsContainer.add(itemPanel);
+            }
         }
         
         itemDetailsContainer.revalidate();
