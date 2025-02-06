@@ -177,11 +177,9 @@ public class StallInformationForm extends javax.swing.JFrame {
             int panelWidth = 420;
             int panelHeight = (rowsInvolved + 1) * 5 + jLabelList.getFirst().getPreferredSize().height * rowsInvolved;
 
-            System.out.println(panelHeight);
             // Based on the calculations, set the sizes for the components
             categoryPane.setPreferredSize(new Dimension(panelWidth, panelHeight));
             categoryPane.setBounds(0, 0, panelWidth, panelHeight);
-            // foodOrderedBaseContainer.setPreferredSize(new Dimension(panelWidth, panelHeight));
         }
 
         // Refresh the pane after everything
