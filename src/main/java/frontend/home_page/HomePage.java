@@ -5,6 +5,8 @@
 package frontend.home_page;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.JFrame;
 
 /**
@@ -25,6 +27,26 @@ public class HomePage extends javax.swing.JFrame {
         
         // Render GUI components
         initComponents();
+        
+        // Get the japanese font
+        try {
+            
+            // Retrieve the font
+            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/asset/font/shippori_mincho.ttf"))
+                                  .deriveFont(80f); // Set font size
+            
+            // Load the font to the system
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(customFont);
+
+            // Set font
+            mainTitle.setFont(customFont);
+            
+        } catch (IOException | FontFormatException ex) {
+            
+            // Print out error message if the font file is not available
+            System.out.println("Font does not exist. Please check if the system has NotoSansJP.ttf file.");
+        }
     }
 
     /**
@@ -988,7 +1010,7 @@ public class HomePage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JButton loginButton;
-    private javax.swing.JLabel mainTitle;
+    private static javax.swing.JLabel mainTitle;
     private javax.swing.JLabel mamberOneName;
     private javax.swing.JLabel memberFourName;
     private javax.swing.JLabel memberFourTP;
