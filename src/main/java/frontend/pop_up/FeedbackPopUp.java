@@ -147,7 +147,7 @@ public class FeedbackPopUp extends javax.swing.JFrame {
         
         // Get the position for the elements
         int titleX = 30;
-        int titleY = 30;
+        int titleY = 25;
         int descriptionX = 30;
         int descriptionY = 70;
         int starPanelX = titleX + titleWidth;
@@ -193,7 +193,7 @@ public class FeedbackPopUp extends javax.swing.JFrame {
             
             // Get the new position of the description and tips label
             int tipsX = descriptionX;
-            int tipsY = descriptionY;
+            int tipsY = descriptionY - 5;
             int tipsWidth = descriptionWidth;
             int tipsHeight = 25;
             descriptionY += tipsHeight + 10;
