@@ -781,6 +781,9 @@ public class ProvideOrderFeedbackFrame extends javax.swing.JFrame {
 
                 // Enable the parent frame
                 PastOrderDetailsForm.currentFrame.setEnabled(true);
+                
+                // Update e-wallet panel
+                EWalletPanel.refreshPanel();
 
                 // Dispose the current frame
                 dispose();
