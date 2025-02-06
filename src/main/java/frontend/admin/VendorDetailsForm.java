@@ -23,7 +23,7 @@ import javax.swing.JList;
  */
 public class VendorDetailsForm extends javax.swing.JFrame {
 
-    private static Vendor currentVendor;
+    private Vendor currentVendor;
     
     /**
      * Creates new form VendorDetailsForm

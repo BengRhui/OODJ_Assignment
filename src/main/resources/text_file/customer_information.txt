@@ -1,0 +1,2 @@
+C001 ; Stephanie Cheong                                  ; 017-4816492    ; No. 1, Jalan Dua                        ; Taman Tiga                              ; 57000     ; Kuchai Lama         ; WP Kuala Lumpur; 250.00    ; -                                                 
+C002 ; Chandu Naidu Perumal                              ; 016-4827947    ; No. 4, Jalan Merah                      ; Taman Biru                              ; 31400     ; Ipoh                ; Perak          ; 130.00    ; -                                                 

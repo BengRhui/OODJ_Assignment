@@ -1,2 +1,2 @@
-S001 ; Big FIsh and Chips Western              ; Halal, Local, Healthy, Western                    
+S001 ; Big Fish and Chips Western              ; Halal, Local, Healthy, Western
 S002 ; Jackpot Hot Pot                         ; Non-Halal, Korean, Rice                           

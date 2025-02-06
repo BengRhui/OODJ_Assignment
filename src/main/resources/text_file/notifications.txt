@@ -1,0 +1,7 @@
+NC001; C001 ; 07/02/2025 00:58:01 ; Unread    ; Updated Personal Information                      ; Your personal information has been updated successfully.                                            
+NC002; C001 ; 07/02/2025 00:58:19 ; Unread    ; E-Wallet Top Up                                   ; Thank you for paying using Cash. RM250.00 has been successfully topped up to your e-wallet.         
+NC003; C002 ; 07/02/2025 00:58:24 ; Unread    ; E-Wallet Top Up                                   ; Thank you for paying using QR Payment. RM130.00 has been successfully topped up to your e-wallet.   
+ND001; R001 ; 07/02/2025 00:55:10 ; Unread    ; Personal Information Updated                      ; Your personal information has been updated.                                                         
+NV001; V001 ; 07/02/2025 00:51:29 ; Unread    ; Personal Information Updated                      ; Your personal information has been updated.                                                         
+NV002; V001 ; 07/02/2025 00:51:48 ; Unread    ; Personal Information Updated                      ; Your personal information has been updated.                                                         
+NV003; V002 ; 07/02/2025 00:52:13 ; Unread    ; Personal Information Updated                      ; Your personal information has been updated.                                                         

@@ -88,16 +88,18 @@ public class UserListPanel extends javax.swing.JPanel {
         // If there is no user, 
         if (userList.isEmpty()) {
         
-            // Set the layout of the panel to null
-            userDetailsContainer.setLayout(null);
+            // Create an empty panel
+            JPanel emptyPanel = new JPanel(null);
+            emptyPanel.setBackground(new Color(255, 251, 233));
             
             // Generate a empty label to indicate that no user exists
             JLabel emptyLabel = new JLabel("No user exists in the system.");
             emptyLabel.setFont(new Font("Arial", Font.PLAIN, 24));
-            emptyLabel.setBounds(2, 0, 350, 30);
+            emptyLabel.setBounds(0, 0, 350, 30);
             
             // Add the label to the container
-            userDetailsContainer.add(emptyLabel);
+            emptyPanel.add(emptyLabel);
+            userDetailsContainer.add(emptyPanel);
             
         } else if (userList.size() < 4) {
         
