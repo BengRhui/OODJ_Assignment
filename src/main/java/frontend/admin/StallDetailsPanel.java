@@ -66,9 +66,11 @@ public class StallDetailsPanel extends javax.swing.JPanel {
         stallNameField.setText(currentStall.getStallName());
         stallNameField.setBorder(null);
         stallNameField.setCaretColor(new Color(227, 202, 165));
+        stallNameField.setCaretPosition(0);
+        stallNameField.setSelectionColor(new java.awt.Color(227, 202, 165));
         stallNameScrollPane.setViewportView(stallNameField);
 
-        add(stallNameScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 320, 40));
+        add(stallNameScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 320, 40));
 
         categoryScrollPane.setBorder(null);
         categoryScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -81,6 +83,9 @@ public class StallDetailsPanel extends javax.swing.JPanel {
         categoryField.setRows(1);
         categoryField.setText("Category: " + currentStall.generateCategoryList());
         categoryField.setBorder(null);
+        categoryField.setCaretColor(new java.awt.Color(227, 202, 165));
+        categoryField.setCaretPosition(0);
+        categoryField.setSelectionColor(new java.awt.Color(227, 202, 165));
         categoryScrollPane.setViewportView(categoryField);
 
         add(categoryScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 320, 30));

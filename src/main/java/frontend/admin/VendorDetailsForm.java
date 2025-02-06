@@ -329,6 +329,7 @@ public class VendorDetailsForm extends javax.swing.JFrame {
         });
         jPanel1.add(confirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 580, -1, -1));
 
+        cancelButton.setBackground(Color.WHITE);
         cancelButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         cancelButton.setText("Cancel");
         cancelButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));

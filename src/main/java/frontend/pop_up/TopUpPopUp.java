@@ -146,6 +146,7 @@ public class TopUpPopUp extends javax.swing.JFrame {
         });
         jPanel1.add(confirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 350, 160, 50));
 
+        cancelButton.setBackground(Color.WHITE);
         cancelButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         cancelButton.setText("Cancel");
         cancelButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));

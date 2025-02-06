@@ -168,6 +168,7 @@ public class CustomerDetailsForm extends javax.swing.JFrame {
         customerNameField.setForeground(new java.awt.Color(204, 204, 204));
         customerNameField.setText("Enter Name Here");
         customerNameField.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true), javax.swing.BorderFactory.createEmptyBorder(2, 15, 2, 15)));
+        customerNameField.setCaretPosition(0);
         customerNameField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 customerNameFieldFocusGained(evt);
@@ -214,6 +215,7 @@ public class CustomerDetailsForm extends javax.swing.JFrame {
         addressLineOneField.setForeground(new java.awt.Color(204, 204, 204));
         addressLineOneField.setText("Address Line 1");
         addressLineOneField.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true), javax.swing.BorderFactory.createEmptyBorder(2, 15, 2, 15)));
+        addressLineOneField.setCaretPosition(0);
         addressLineOneField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 addressLineOneFieldFocusGained(evt);
@@ -233,6 +235,7 @@ public class CustomerDetailsForm extends javax.swing.JFrame {
         addressLineTwoField.setForeground(new java.awt.Color(204, 204, 204));
         addressLineTwoField.setText("Address Line 2");
         addressLineTwoField.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true), javax.swing.BorderFactory.createEmptyBorder(2, 15, 2, 15)));
+        addressLineTwoField.setCaretPosition(0);
         addressLineTwoField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 addressLineTwoFieldFocusGained(evt);
@@ -252,6 +255,7 @@ public class CustomerDetailsForm extends javax.swing.JFrame {
         cityField.setForeground(new java.awt.Color(204, 204, 204));
         cityField.setText("City");
         cityField.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true), javax.swing.BorderFactory.createEmptyBorder(2, 15, 2, 15)));
+        cityField.setCaretPosition(0);
         cityField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 cityFieldFocusGained(evt);
@@ -271,6 +275,7 @@ public class CustomerDetailsForm extends javax.swing.JFrame {
         postcodeField.setForeground(new java.awt.Color(204, 204, 204));
         postcodeField.setText("Postcode");
         postcodeField.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true), javax.swing.BorderFactory.createEmptyBorder(2, 15, 2, 15)));
+        postcodeField.setCaretPosition(0);
         postcodeField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 postcodeFieldFocusGained(evt);
@@ -433,6 +438,7 @@ public class CustomerDetailsForm extends javax.swing.JFrame {
         });
         jPanel1.add(confirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 590, -1, -1));
 
+        cancelButton.setBackground(Color.WHITE);
         cancelButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         cancelButton.setText("Cancel");
         cancelButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));

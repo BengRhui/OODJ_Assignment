@@ -190,6 +190,7 @@ public class CustomerCreditPanel extends javax.swing.JPanel {
 
         add(customerCreditScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 1220, 450));
 
+        backButton.setBackground(Color.WHITE);
         backButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         backButton.setText("Back");
         backButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));

@@ -164,6 +164,7 @@ public class UserListPanel extends javax.swing.JPanel {
 
         add(userDetailsScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 1220, 480));
 
+        backButton.setBackground(Color.WHITE);
         backButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         backButton.setText("Back");
         backButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));

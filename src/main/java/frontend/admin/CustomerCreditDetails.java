@@ -49,7 +49,7 @@ public class CustomerCreditDetails extends javax.swing.JPanel {
 
         customerIDLabel.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         customerIDLabel.setText(currentCustomer.getUserID());
-        add(customerIDLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, 50));
+        add(customerIDLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, 50));
 
         customerNameScrollPane.setBackground(new java.awt.Color(227, 202, 165));
         customerNameScrollPane.setBorder(null);
@@ -65,9 +65,10 @@ public class CustomerCreditDetails extends javax.swing.JPanel {
         customerNameLabel.setBorder(null);
         customerNameLabel.setCaretColor(new java.awt.Color(227, 202, 165));
         customerNameLabel.setCaretPosition(0);
+        customerNameLabel.setSelectionColor(new java.awt.Color(227, 202, 165));
         customerNameScrollPane.setViewportView(customerNameLabel);
 
-        add(customerNameScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 320, 30));
+        add(customerNameScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 320, 30));
 
         contactNumberLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         contactNumberLabel.setText("Contact Number: " + currentCustomer.getContactNumber());
@@ -85,7 +86,7 @@ public class CustomerCreditDetails extends javax.swing.JPanel {
                 walletIconMouseClicked(evt);
             }
         });
-        add(walletIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 30, 60, 60));
+        add(walletIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, 60, 60));
     }// </editor-fold>//GEN-END:initComponents
 
     private void walletIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_walletIconMouseClicked

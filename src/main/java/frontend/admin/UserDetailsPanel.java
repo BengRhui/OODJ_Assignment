@@ -91,6 +91,7 @@ public class UserDetailsPanel extends javax.swing.JPanel {
         userNameTextArea.setBorder(null);
         userNameTextArea.setCaretColor(new java.awt.Color(227, 202, 165));
         userNameTextArea.setCaretPosition(0);
+        userNameTextArea.setSelectionColor(new java.awt.Color(227, 202, 165));
         userNameScrollPane.setViewportView(userNameTextArea);
 
         add(userNameScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 330, 30));
@@ -108,6 +109,7 @@ public class UserDetailsPanel extends javax.swing.JPanel {
         userDescriptionTextArea.setBorder(null);
         userDescriptionTextArea.setCaretColor(new java.awt.Color(227, 202, 165));
         userDescriptionTextArea.setCaretPosition(0);
+        userDescriptionTextArea.setSelectionColor(new java.awt.Color(227, 202, 165));
         userDescriptionScrollPane.setViewportView(userDescriptionTextArea);
 
         add(userDescriptionScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 330, -1));
