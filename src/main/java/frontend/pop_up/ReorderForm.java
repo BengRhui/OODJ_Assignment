@@ -6,8 +6,10 @@ package frontend.pop_up;
 
 import backend.entity.Order;
 import backend.entity.Stall;
+import frontend.customer.EWalletPanel;
 import frontend.customer.HomePanel;
 import frontend.customer.MainPage;
+import frontend.customer.PastOrderDetailsForm;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -385,15 +387,19 @@ public class ReorderForm extends javax.swing.JDialog {
                     
                     // Display system message to indicate that order is placed successfully
                     SystemPopUp successMessage = new SystemPopUp(
-                            MainPage.currentFrame,
+                            PastOrderDetailsForm.currentFrame,
                             "Order Placed Successful",
                             "Your order has been placed. You may return to the home page to check its details.",
                             new String[]{"OK"}
                     );
                     successMessage.setVisible(true);
                     
+                    // Enable the parent frame
+                    PastOrderDetailsForm.currentFrame.setEnabled(true);
+                            
                     // Refresh the order panel
                     HomePanel.updateOrderPanel();
+                    EWalletPanel.refreshPanel();
                 }
                 
                 // Set the error message for any errors taking place
