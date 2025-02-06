@@ -58,6 +58,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextArea" name="feedbackTItleLabel">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="a5" green="ca" red="e3" type="rgb"/>
             </Property>
@@ -76,6 +77,9 @@
               <Color blue="a5" green="ca" red="e3" type="rgb"/>
             </Property>
             <Property name="caretPosition" type="int" value="0"/>
+            <Property name="selectionColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="a5" green="ca" red="e3" type="rgb"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>
@@ -101,6 +105,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextArea" name="feedbackDescriptionLabel">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="a5" green="ca" red="e3" type="rgb"/>
             </Property>
@@ -121,6 +126,9 @@
               <Color blue="a5" green="ca" red="e3" type="rgb"/>
             </Property>
             <Property name="caretPosition" type="int" value="0"/>
+            <Property name="selectionColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="a5" green="ca" red="e3" type="rgb"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>

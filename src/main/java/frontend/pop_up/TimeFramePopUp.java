@@ -123,6 +123,7 @@ public class TimeFramePopUp extends javax.swing.JDialog {
         yearlyButton.setFocusPainted(false);
         backgroundPanel.add(yearlyButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, -1, -1));
 
+        cancelButton.setBackground(Color.WHITE);
         cancelButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         cancelButton.setText("Cancel");
         cancelButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));

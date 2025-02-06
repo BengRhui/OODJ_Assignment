@@ -66,6 +66,7 @@ public class UserInformationPanel extends javax.swing.JPanel {
         userNameScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         userNameScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
+        userNameTextArea.setEditable(false);
         userNameTextArea.setBackground(new java.awt.Color(227, 202, 165));
         userNameTextArea.setColumns(20);
         userNameTextArea.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -74,6 +75,7 @@ public class UserInformationPanel extends javax.swing.JPanel {
         userNameTextArea.setBorder(null);
         userNameTextArea.setCaretColor(new java.awt.Color(227, 202, 165));
         userNameTextArea.setCaretPosition(0);
+        userNameTextArea.setSelectionColor(new java.awt.Color(227, 202, 165));
         userNameScrollPane.setViewportView(userNameTextArea);
 
         add(userNameScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 330, 40));
@@ -82,6 +84,7 @@ public class UserInformationPanel extends javax.swing.JPanel {
         stallNameScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         stallNameScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
+        stallNameTextArea.setEditable(false);
         stallNameTextArea.setBackground(new java.awt.Color(227, 202, 165));
         stallNameTextArea.setColumns(20);
         stallNameTextArea.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -90,6 +93,9 @@ public class UserInformationPanel extends javax.swing.JPanel {
             "Stall: " + ((Vendor) currentUser).getStall().getStallName() :
             "(" + ((DeliveryRunner) currentUser).getContactNumber() + ")");
         stallNameTextArea.setBorder(null);
+        stallNameTextArea.setCaretColor(new java.awt.Color(227, 202, 165));
+        stallNameTextArea.setCaretPosition(0);
+        stallNameTextArea.setSelectionColor(new java.awt.Color(227, 202, 165));
         stallNameScrollPane.setViewportView(stallNameTextArea);
 
         add(stallNameScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 330, 40));

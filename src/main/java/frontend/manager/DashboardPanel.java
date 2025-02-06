@@ -255,7 +255,7 @@ public class DashboardPanel extends javax.swing.JPanel {
             SystemPopUp successMessage = new SystemPopUp(
                     MainPage.currentFrame,
                     "Download Successful",
-                    "The Excel file containing feedback data is downloaded to your computer.",
+                    "<html>The Excel file containing feedback data is<br>downloaded to your computer.</html>",
                     new String[]{"OK"}
             );
             successMessage.setVisible(true);

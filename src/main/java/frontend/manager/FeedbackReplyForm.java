@@ -77,6 +77,8 @@ public class FeedbackReplyForm extends javax.swing.JFrame {
         categoryField.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         categoryField.setText(currentFeedback.getFeedbackCategory().toString());
         categoryField.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true), javax.swing.BorderFactory.createEmptyBorder(2, 15, 2, 15)));
+        categoryField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        categoryField.setEnabled(false);
         backgroundPanel.add(categoryField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 210, 50));
 
         ratingsIDTitle.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -88,6 +90,8 @@ public class FeedbackReplyForm extends javax.swing.JFrame {
         ratingsIDField.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         ratingsIDField.setText(String.valueOf(currentFeedback.getRatings()));
         ratingsIDField.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true), javax.swing.BorderFactory.createEmptyBorder(2, 15, 2, 15)));
+        ratingsIDField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        ratingsIDField.setEnabled(false);
         backgroundPanel.add(ratingsIDField, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 210, 50));
 
         feedbackTitleLabel.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -103,6 +107,8 @@ public class FeedbackReplyForm extends javax.swing.JFrame {
         feedbackTitleField.setRows(1);
         feedbackTitleField.setText(currentFeedback.getFeedbackTitle());
         feedbackTitleField.setBorder(javax.swing.BorderFactory.createEmptyBorder(12, 15, 12, 15));
+        feedbackTitleField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        feedbackTitleField.setEnabled(false);
         feedbackTitleScrollPane.setViewportView(feedbackTitleField);
 
         backgroundPanel.add(feedbackTitleScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 440, 50));
@@ -126,6 +132,8 @@ public class FeedbackReplyForm extends javax.swing.JFrame {
         descriptionField.setToolTipText("");
         descriptionField.setWrapStyleWord(true);
         descriptionField.setBorder(javax.swing.BorderFactory.createEmptyBorder(12, 15, 12, 15));
+        descriptionField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        descriptionField.setEnabled(false);
         descriptionScrollPane.setViewportView(descriptionField);
 
         backgroundPanel.add(descriptionScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 440, 120));
@@ -164,6 +172,7 @@ public class FeedbackReplyForm extends javax.swing.JFrame {
 
         backgroundPanel.add(responseScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 140, 440, 340));
 
+        cancelButton.setBackground(Color.WHITE);
         cancelButton.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         cancelButton.setText("Cancel");
         cancelButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));

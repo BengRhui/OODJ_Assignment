@@ -83,6 +83,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextArea" name="userNameTextArea">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="a5" green="ca" red="e3" type="rgb"/>
             </Property>
@@ -101,6 +102,9 @@
               <Color blue="a5" green="ca" red="e3" type="rgb"/>
             </Property>
             <Property name="caretPosition" type="int" value="0"/>
+            <Property name="selectionColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="a5" green="ca" red="e3" type="rgb"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>
@@ -126,6 +130,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextArea" name="stallNameTextArea">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="a5" green="ca" red="e3" type="rgb"/>
             </Property>
@@ -139,6 +144,13 @@
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
+            </Property>
+            <Property name="caretColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="a5" green="ca" red="e3" type="rgb"/>
+            </Property>
+            <Property name="caretPosition" type="int" value="0"/>
+            <Property name="selectionColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="a5" green="ca" red="e3" type="rgb"/>
             </Property>
           </Properties>
         </Component>

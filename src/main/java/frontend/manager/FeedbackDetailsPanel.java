@@ -52,6 +52,7 @@ public class FeedbackDetailsPanel extends javax.swing.JPanel {
         feedbackTitleScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         feedbackTitleScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
+        feedbackTItleLabel.setEditable(false);
         feedbackTItleLabel.setBackground(new java.awt.Color(227, 202, 165));
         feedbackTItleLabel.setColumns(20);
         feedbackTItleLabel.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -60,6 +61,7 @@ public class FeedbackDetailsPanel extends javax.swing.JPanel {
         feedbackTItleLabel.setBorder(null);
         feedbackTItleLabel.setCaretColor(new java.awt.Color(227, 202, 165));
         feedbackTItleLabel.setCaretPosition(0);
+        feedbackTItleLabel.setSelectionColor(new java.awt.Color(227, 202, 165));
         feedbackTitleScrollPane.setViewportView(feedbackTItleLabel);
 
         add(feedbackTitleScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 280, 30));
@@ -68,6 +70,7 @@ public class FeedbackDetailsPanel extends javax.swing.JPanel {
         feedbackDescriptionScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         feedbackDescriptionScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
+        feedbackDescriptionLabel.setEditable(false);
         feedbackDescriptionLabel.setBackground(new java.awt.Color(227, 202, 165));
         feedbackDescriptionLabel.setColumns(20);
         feedbackDescriptionLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -78,6 +81,7 @@ public class FeedbackDetailsPanel extends javax.swing.JPanel {
         feedbackDescriptionLabel.setBorder(null);
         feedbackDescriptionLabel.setCaretColor(new java.awt.Color(227, 202, 165));
         feedbackDescriptionLabel.setCaretPosition(0);
+        feedbackDescriptionLabel.setSelectionColor(new java.awt.Color(227, 202, 165));
         feedbackDescriptionScrollPane.setViewportView(feedbackDescriptionLabel);
 
         add(feedbackDescriptionScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 330, 50));
