@@ -34,7 +34,7 @@
           <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new ImageIcon(&#xa;    PictureIO.retrieveItemPicture(currentItem).getAbsolutePath()&#xa;)" type="code"/>
+          <Connection code="new ImageIcon(&#xa;    new ImageIcon(&#xa;        PictureIO.retrieveItemPicture(currentItem).getAbsolutePath()&#xa;    ).getImage()&#xa;    .getScaledInstance(-1, -1, Image.SCALE_DEFAULT)&#xa;)&#xa;&#xa;&#xa;" type="code"/>
         </Property>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>

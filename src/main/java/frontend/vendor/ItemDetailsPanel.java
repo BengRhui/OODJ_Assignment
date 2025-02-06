@@ -9,6 +9,7 @@ import backend.file_io.PictureIO;
 import frontend.pop_up.HandleItemPopUp;
 import frontend.pop_up.SystemPopUp;
 import java.awt.Cursor;
+import java.awt.Image;
 import javax.swing.ImageIcon;
 
 /**
@@ -65,54 +66,59 @@ public class ItemDetailsPanel extends javax.swing.JPanel {
 
         pictureLabel.setBackground(new java.awt.Color(204, 204, 204));
         pictureLabel.setIcon(new ImageIcon(
-            PictureIO.retrieveItemPicture(currentItem).getAbsolutePath()
-        ));
-        pictureLabel.setOpaque(true);
-        add(pictureLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 395, 170));
+            new ImageIcon(
+                PictureIO.retrieveItemPicture(currentItem).getAbsolutePath()
+            ).getImage()
+            .getScaledInstance(-1, -1, Image.SCALE_DEFAULT)
+        )
 
-        itemTitle.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        itemTitle.setText(currentItem.getItemName());
-        add(itemTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 340, -1));
+    );
+    pictureLabel.setOpaque(true);
+    add(pictureLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 2, 395, 170));
 
-        itemDescription.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        itemDescription.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        itemDescription.setText("RM" + String.format("%.2f", currentItem.getPrice()));
-        add(itemDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 220, 50));
+    itemTitle.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+    itemTitle.setText(currentItem.getItemName());
+    add(itemTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 340, -1));
 
-        editIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        editIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/edit_icon.png"))); // NOI18N
-        editIcon.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                editIconMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                editIconMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                editIconMouseExited(evt);
-            }
-        });
-        add(editIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, 40, 50));
+    itemDescription.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+    itemDescription.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+    itemDescription.setText("RM" + String.format("%.2f", currentItem.getPrice()));
+    add(itemDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 220, 50));
 
-        deleteIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        deleteIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/delete_icon.png"))); // NOI18N
-        deleteIcon.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                deleteIconMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                deleteIconMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                deleteIconMouseExited(evt);
-            }
-        });
-        add(deleteIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, 40, 50));
+    editIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    editIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/edit_icon.png"))); // NOI18N
+    editIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            editIconMouseClicked(evt);
+        }
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            editIconMouseEntered(evt);
+        }
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            editIconMouseExited(evt);
+        }
+    });
+    add(editIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, 40, 50));
 
-        itemDescription1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        itemDescription1.setText("<html><div style='text-align: justify;'>" + currentItem.getDescription() + "</div></html>");
-        itemDescription1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        add(itemDescription1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 340, 70));
+    deleteIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    deleteIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asset/system/delete_icon.png"))); // NOI18N
+    deleteIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            deleteIconMouseClicked(evt);
+        }
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            deleteIconMouseEntered(evt);
+        }
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            deleteIconMouseExited(evt);
+        }
+    });
+    add(deleteIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, 40, 50));
+
+    itemDescription1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+    itemDescription1.setText("<html><div style='text-align: justify;'>" + currentItem.getDescription() + "</div></html>");
+    itemDescription1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+    add(itemDescription1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 340, 70));
     }// </editor-fold>//GEN-END:initComponents
 
     private void editIconMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editIconMouseEntered
