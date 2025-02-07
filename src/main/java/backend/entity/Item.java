@@ -310,6 +310,11 @@ public class Item {
                 );
         if (itemInOrder) return 0;
 
+        // Remove the items from the completed and cancelled orders during deletion
+        Order.getOrderList().stream()
+                .filter(order -> order.getOrderItem().containsKey(this))
+                .forEach(order -> order.getOrderItem().remove(this));
+
         // Delete the picture of the item
         if (!PictureIO.deleteItemPicture(this)) return -1;
 
