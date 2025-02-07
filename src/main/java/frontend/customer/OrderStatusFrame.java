@@ -7,6 +7,8 @@ package frontend.customer;
 import backend.entity.Item;
 import backend.entity.Order;
 import backend.entity.Order.OrderStatus;
+import backend.file_io.CustomerFileIO;
+import backend.file_io.OrderFileIO;
 import backend.utility.Utility;
 import frontend.pop_up.ChangeDiningPopUp;
 import frontend.pop_up.SystemPopUp;
@@ -83,6 +85,27 @@ public class OrderStatusFrame extends javax.swing.JFrame {
             
             // Set the table number to order
             currentOrder.setTableNumber(tableNumberRetrieved);
+
+            // Remove delivery fees from the order amount
+            currentOrder.getOrderItem().remove(Item.deliveryFees);
+            
+            // Deduct delivery fees from the order amount
+             currentOrder.setOrderPrice(currentOrder.getOrderPrice() - Item.deliveryFees.getPrice());
+            
+            // Change the displayed price and save to file
+            OrderFileIO.writeFile();
+            
+        // If the dining type is takeaway    
+        } else if (selectedMethod == Order.DiningType.TAKEAWAY) {
+            
+            // Remove the delivery fees from the current order
+            currentOrder.getOrderItem().remove(Item.deliveryFees);
+            
+            // Minus delivery fees from the order amount
+            currentOrder.setOrderPrice(currentOrder.getOrderPrice() - Item.deliveryFees.getPrice());
+            
+            // Change the displayed price and save to file
+            OrderFileIO.writeFile();
         }
 
         // Update dining method
@@ -102,6 +125,7 @@ public class OrderStatusFrame extends javax.swing.JFrame {
             
             // Update panels
             HomePanel.updateOrderPanel();
+            EWalletPanel.refreshPanel();
             
         } else {
         

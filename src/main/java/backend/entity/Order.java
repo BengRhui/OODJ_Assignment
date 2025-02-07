@@ -1151,7 +1151,7 @@ public class Order {
      * @return {@code 1} if changes are applied successfully<br>
      * {@code 0} if the wrong order is applied<br>
      * {@code -1} if the order cannot be cancelled<br>
-     * {@code -2} if notifications cannot be generated
+     * {@code -2} if notifications or transaction history cannot be generated
      */
     public int customerChangeDiningStatus(DiningType type) {
 
@@ -1179,7 +1179,7 @@ public class Order {
                 // Change the status to waiting vendor
                 this.setOrderStatus(OrderStatus.WAITING_VENDOR);
 
-                // Create customer notification to indicate successful change
+                // Create notification to indicate successful change
                 boolean customerNotification = CustomerNotification.createNewNotification(
                         "Dining Method Changed Successful",
                         "You have changed the dining method for order " + this.getOrderID() + " to " + this.getOrderStatus() + ". Please wait for the vendor to accept your order.",
@@ -1193,6 +1193,15 @@ public class Order {
                         this.getOrderedStall()
                 );
                 if (!vendorNotification) return -2;
+
+                // Generate transaction history to indicate money has been returned
+                boolean transactionHistory = Transaction.createTransactionHistory(
+                        this.orderingCustomer,
+                        Item.deliveryFees.getPrice(),
+                        Transaction.TransactionType.CASH_IN,
+                        Transaction.PaymentMethod.E_WALLET
+                );
+                if (!transactionHistory) return -2;
 
                 // Return the delivery fees to customer
                 double initialWallet = this.orderingCustomer.getEWalletAmount();
