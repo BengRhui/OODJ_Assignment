@@ -1,0 +1,174 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ */
+package frontend.customer;
+
+import backend.entity.Stall;
+
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+/**
+ *
+ * @author Jun Hong (TP068580), Beng Rhui (TP068495)
+ */
+public class StallBasedOnCategoryPanel extends javax.swing.JPanel {
+
+    private static Stall.StallCategories currentCategory;
+
+    /**
+     * Creates new form ShopBasedOnCategoryPanel
+     */
+    public StallBasedOnCategoryPanel(Stall.StallCategories category) {
+
+        // Set current category
+        currentCategory = category;
+        
+        // Render GUI components
+        initComponents();
+        
+        // Initialize individual stall panels
+        initializeStallPanels();
+    }
+    
+    /**
+     * This method helps to initialize the stall panels.
+     */
+    private void initializeStallPanels() {
+    
+        // Remove all components
+        stallListPanel.removeAll();
+        
+        // Set the current order list to the list with incomplete orders
+        ArrayList<Stall> stallList = Stall.getStallList(currentCategory);
+        
+        // If the order list is empty
+        if (stallList.isEmpty()) {
+            
+            // Generate a label to panel
+            JPanel emptyPanel = new JPanel(null);
+            emptyPanel.setBackground(new Color(255, 251, 233));
+            
+            // Add a label to indicate that no order is available for vendor
+            JLabel emptyLabel = new JLabel("No stall available for the current category.");
+            emptyLabel.setFont(new Font("Arial", Font.PLAIN, 24));
+            emptyLabel.setBounds(0, 0, 500, 30);
+            
+            // Add the components
+            emptyPanel.add(emptyLabel);
+            stallListPanel.add(emptyPanel);
+            
+        } else {
+            
+            // Add order details into panel
+            for (Stall stall : stallList) {
+
+                // Create a details panel based on order details panel in another class
+                StallBriefPanel detailsPanel = new StallBriefPanel(stall);
+
+                // Add cursor to the panel
+                detailsPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                
+                // Add mouse listener to the panel
+                detailsPanel.addMouseListener(new MouseListener(){
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        StallDetailsPanel stallMainPage = new StallDetailsPanel(stall);
+                        MainPage.currentCardPanel.add(stallMainPage, "stallMainPage");
+
+                        // Display home page as default
+                        CardLayout cardLayout = (CardLayout) MainPage.currentCardPanel.getLayout();
+                        cardLayout.show(MainPage.currentCardPanel, "stallMainPage");
+                        MainPage.setCardString("stallMainPage");
+
+                        // Set the title of the frame
+                        MainPage.setFrameTitle("Items in Store");
+
+                        // Add to list as a record
+                        MainPage.addAdditionalPanels(stallMainPage);
+                        
+                        // Change the frame title
+                        MainPage.setFrameTitle("Items in Store");
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {}
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {}
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {}
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {}
+                });
+
+                // Add the details panel to the overall panel
+                stallListPanel.add(detailsPanel);
+
+            }
+            
+            // If the size of the list is smaller than 2
+            if (stallList.size() < 2) {
+                
+                // Add an empty panel to the container
+                JPanel emptyPanel = new JPanel();
+                emptyPanel.setBackground(new Color(255, 251, 233));
+                
+                stallListPanel.add(emptyPanel);
+            }
+        }
+        
+        // Refresh the overall panel after modifications
+        stallListPanel.revalidate();
+        stallListPanel.repaint();
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        titleText = new javax.swing.JLabel();
+        stallListScrollPane = new javax.swing.JScrollPane();
+        stallListPanel = new javax.swing.JPanel();
+
+        setBackground(new java.awt.Color(255, 251, 233));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        titleText.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        titleText.setText("Shops for " + currentCategory.toString());
+        add(titleText, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 650, 50));
+
+        stallListScrollPane.setBorder(null);
+        stallListScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        stallListScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        stallListPanel.setBackground(new java.awt.Color(255, 251, 233));
+        stallListPanel.setLayout(new java.awt.GridLayout(0, 1, 10, 10));
+        stallListScrollPane.setViewportView(stallListPanel);
+
+        add(stallListScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 1280, 410));
+    }// </editor-fold>//GEN-END:initComponents
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel stallListPanel;
+    private javax.swing.JScrollPane stallListScrollPane;
+    private javax.swing.JLabel titleText;
+    // End of variables declaration//GEN-END:variables
+}

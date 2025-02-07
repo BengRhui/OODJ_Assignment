@@ -1,1 +1,4 @@
-I001 ; Char Kuey Teow                ; S001 ; 100.00    ; A local delicacy that everyone should try! Yellow noodles that are fried using black sauce will definitely savor your taste buds.
+I001 ; Delivery Fees                 ; null ; 2.0       ; Fees charged for delivery services                                                                                                                    
+I002 ; Fish and Chips                ; S001 ; 25.0      ; A classical fish and chips for everyone to enjoy.                                                                                                     
+I003 ; Chicken Pot                   ; S002 ; 30.0      ; A classic chicken hotpot that all adults and children will enjoy.                                                                                     
+I004 ; Tomyam Pot                    ; S002 ; 35.0      ; A pot for spicy lovers with the fragrance of Thai recipes.                                                                                            
